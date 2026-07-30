@@ -195,7 +195,6 @@ body {
 }
 
 /* ---------- swiper tweaks ---------- */
-.swiper { padding-bottom: 2.25rem !important; }
 .swiper-pagination-bullet { background: #c7cddb; opacity: 1; }
 .swiper-pagination-bullet-active { background: var(--brand-blue); width: 18px; border-radius: 6px; }
 .deal-swiper { height: 100%; padding-bottom: 0 !important; }

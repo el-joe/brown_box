@@ -6,18 +6,16 @@ document.addEventListener('DOMContentLoaded', function () {
   var thumbsSwiper = null;
   if (window.Swiper && document.querySelector('.gallery-thumbs-swiper')) {
     thumbsSwiper = new Swiper('.gallery-thumbs-swiper', {
-      slidesPerView: 4,
-      spaceBetween: 12,
+      slidesPerView: 'auto',
+      spaceBetween: 6,
       freeMode: true,
       watchSlidesProgress: true,
-      breakpoints: {
-        480: { slidesPerView: 5 },
-      },
     });
   }
   if (window.Swiper && document.querySelector('.gallery-main-swiper')) {
     new Swiper('.gallery-main-swiper', {
       spaceBetween: 10,
+      autoHeight: true,
       navigation: {
         nextEl: '.gallery-main-swiper .swiper-button-next',
         prevEl: '.gallery-main-swiper .swiper-button-prev',
