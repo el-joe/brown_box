@@ -89,12 +89,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   initSwiper('.new-product-swiper', {
     slidesPerView: 2,
-    breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 2 } },
+    breakpoints: { 640: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
   });
 
   initSwiper('.featured-product-swiper', {
     slidesPerView: 2,
-    breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 2 } },
+    breakpoints: { 640: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } },
   });
 
   initSwiper('.brand-swiper', {
@@ -122,36 +122,43 @@ document.addEventListener('DOMContentLoaded', function () {
     slidesPerView: 2,
     spaceBetween: 16,
     breakpoints: {
-      640: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
+      640: { slidesPerView: 3 },
+      1024: { slidesPerView: 4 },
     },
   });
 
   initSwiper('.furniture-swiper', {
-    slidesPerView: 1.2,
+    slidesPerView: 2,
     spaceBetween: 16,
     breakpoints: {
-      640: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
+      640: { slidesPerView: 3 },
+      1024: { slidesPerView: 4 },
     },
   });
 
   initSwiper('.electronics-swiper', {
-    slidesPerView: 1.2,
+    slidesPerView: 2,
     spaceBetween: 16,
     breakpoints: {
-      640: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
+      640: { slidesPerView: 3 },
+      1024: { slidesPerView: 4 },
     },
   });
 
   initSwiper('.furniture2-swiper', {
-    slidesPerView: 1.2,
+    slidesPerView: 2,
     spaceBetween: 16,
     breakpoints: {
-      640: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
+      640: { slidesPerView: 3 },
+      1024: { slidesPerView: 4 },
     },
+  });
+
+  initSwiper('.deal-swiper', {
+    slidesPerView: 1,
+    spaceBetween: 0,
+    loop: true,
+    autoplay: { delay: 4000, disableOnInteraction: false },
   });
 
   initSwiper('.recommended-swiper', {
