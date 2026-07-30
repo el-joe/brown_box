@@ -159,7 +159,7 @@ body {
   color: var(--brand-dark);
   box-shadow: 0 2px 6px rgba(20,30,60,.1);
   transition: all .2s ease;
-  z-index: 2;
+  z-index: 20;
 }
 .icon-btn.icon-btn-cart {
   top: auto;
@@ -212,6 +212,22 @@ body {
 }
 .swiper-button-next:after, .swiper-button-prev:after { font-size: 13px !important; font-weight: 700; }
 .swiper-button-disabled { opacity: .35 !important; }
+
+/* Product-card swipers: keep the arrows centered on the image area
+   (fixed 190px image height + 12px card padding) so they never sit
+   on top of the wishlist/cart icon buttons in the image's corners. */
+.new-product-swiper .swiper-button-next,
+.new-product-swiper .swiper-button-prev,
+.featured-product-swiper .swiper-button-next,
+.featured-product-swiper .swiper-button-prev,
+.clothing-swiper .swiper-button-next,
+.clothing-swiper .swiper-button-prev,
+.furniture-swiper .swiper-button-next,
+.furniture-swiper .swiper-button-prev {
+  top: 107px !important;
+  margin-top: 0 !important;
+  transform: translateY(-50%);
+}
 
 /* ---------- promo banners ---------- */
 .promo-banner {

@@ -7,6 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
     new WOW({ boxClass: 'wow', offset: 60, mobile: true, live: true }).init();
   }
 
+  /* ---------------- Product card icon buttons (stop link navigation) ---------------- */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.icon-btn')) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
+
   /* ---------------- Mobile drawer menu ---------------- */
   const menuBtn = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
