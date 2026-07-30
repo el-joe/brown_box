@@ -1,0 +1,214 @@
+/* ellamart+ — login / register page styles (layered on top of style.css) */
+
+.auth-wrap {
+  min-height: calc(100vh - 460px);
+}
+
+/* ---------- brand side panel ---------- */
+.auth-panel {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  isolation: isolate;
+}
+.auth-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 15% 20%, rgba(255,255,255,.14), transparent 40%),
+                     radial-gradient(circle at 85% 80%, rgba(255,255,255,.10), transparent 45%);
+  z-index: 0;
+}
+.auth-panel > * { position: relative; z-index: 1; }
+
+.auth-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+.auth-feature-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 0.75rem;
+  background: rgba(255,255,255,.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+}
+
+/* ---------- form card ---------- */
+.auth-card {
+  background: #fff;
+  border: 1px solid #eef0f4;
+  border-radius: 1.25rem;
+  padding: 2.25rem;
+  box-shadow: 0 20px 45px rgba(20,30,60,.06);
+}
+@media (max-width: 640px) {
+  .auth-card { padding: 1.5rem; border-radius: 1rem; }
+}
+
+/* ---------- fields ---------- */
+.auth-field { margin-bottom: 1.15rem; }
+.auth-field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #454b57;
+  margin-bottom: 0.4rem;
+}
+.auth-field .input-wrap { position: relative; }
+.auth-field input {
+  width: 100%;
+  border: 1px solid #d7dbe3;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.auth-field input:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(43,110,224,.12);
+}
+.auth-field input.input-invalid { border-color: #dc2626; }
+.auth-field .input-icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: #9aa1ac;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+.auth-field input.has-icon { padding-left: 2.6rem; }
+.auth-field .toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  color: #9aa1ac;
+  font-size: 0.9rem;
+}
+.auth-field .toggle-password:hover { color: var(--brand-blue); }
+
+.field-error {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #dc2626;
+  font-size: 0.76rem;
+  font-weight: 500;
+  margin-top: 0.45rem;
+}
+
+/* ---------- password strength meter ---------- */
+.pw-strength { margin-top: 0.6rem; }
+.pw-strength-track {
+  height: 5px;
+  border-radius: 9999px;
+  background: #eef0f4;
+  overflow: hidden;
+}
+.pw-strength-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 9999px;
+  background: #dc2626;
+  transition: width .25s ease, background .25s ease;
+}
+.pw-strength-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #9aa1ac;
+  margin-top: 0.35rem;
+}
+
+/* ---------- checkbox / remember me ---------- */
+.auth-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.82rem;
+  color: #454b57;
+  cursor: pointer;
+}
+.auth-checkbox input { width: 16px; height: 16px; accent-color: var(--brand-blue); cursor: pointer; flex-shrink: 0; }
+
+/* ---------- buttons ---------- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  width: 100%;
+  height: 48px;
+  background: var(--brand-blue);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.92rem;
+  border-radius: 9999px;
+  transition: background .2s ease, transform .15s ease;
+}
+.btn-primary:hover { background: var(--brand-blue-dark); }
+.btn-primary:active { transform: scale(.98); }
+.btn-primary:disabled { opacity: .65; pointer-events: none; }
+
+/* ---------- divider ---------- */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 1.5rem 0;
+  color: #9aa1ac;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.auth-divider::before, .auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e6e9ef;
+}
+
+/* ---------- social buttons ---------- */
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  height: 46px;
+  border: 1px solid #e0e3ea;
+  border-radius: 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #23272f;
+  transition: all .2s ease;
+}
+.social-btn:hover { border-color: var(--brand-blue); background: var(--brand-light); }
+
+/* ---------- toast ---------- */
+.auth-toast {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-16px);
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #17203a;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.85rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 30px rgba(0,0,0,.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+}
+.auth-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.auth-toast i { color: #10b981; }

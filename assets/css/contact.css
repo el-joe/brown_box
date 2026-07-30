@@ -1,0 +1,162 @@
+/* ellamart+ — contact page */
+
+.contact-hero {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.quick-contact-card {
+  border: 1px solid #eef0f4;
+  border-radius: 1.1rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+.quick-contact-card:hover { box-shadow: 0 14px 30px rgba(20,30,60,.08); transform: translateY(-3px); }
+.quick-contact-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  background: var(--brand-light);
+  color: var(--brand-blue);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.contact-card {
+  background: #fff;
+  border: 1px solid #eef0f4;
+  border-radius: 1.1rem;
+  padding: 1.75rem;
+}
+
+.contact-field { margin-bottom: 1.15rem; }
+.contact-field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #454b57;
+  margin-bottom: 0.4rem;
+}
+.contact-field input, .contact-field select, .contact-field textarea {
+  width: 100%;
+  border: 1px solid #d7dbe3;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  font-family: inherit;
+}
+.contact-field textarea { resize: vertical; }
+.contact-field input:focus, .contact-field select:focus, .contact-field textarea:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(43,110,224,.12);
+}
+.contact-field input.input-invalid, .contact-field textarea.input-invalid { border-color: #dc2626; }
+
+.field-error {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #dc2626;
+  font-size: 0.76rem;
+  font-weight: 500;
+  margin-top: 0.45rem;
+}
+.field-success {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #10b981;
+  background: #ecfdf5;
+  border-radius: 0.75rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.info-row { display: flex; align-items: flex-start; gap: 0.9rem; }
+.info-row + .info-row { margin-top: 1.35rem; }
+.info-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.75rem;
+  background: var(--brand-light);
+  color: var(--brand-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+.info-row h4 { font-weight: 700; font-size: 0.9rem; color: #17203a; }
+.info-row p { font-size: 0.83rem; color: #9aa1ac; margin-top: 0.15rem; line-height: 1.5; }
+
+.map-preview {
+  width: 100%;
+  border-radius: 1.1rem;
+  border: 1px solid #eef0f4;
+  overflow: hidden;
+  position: relative;
+}
+.map-preview img { width: 100%; display: block; filter: grayscale(15%); }
+.map-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--brand-blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: bottom center;
+  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+}
+.map-pin i { transform: rotate(45deg); }
+.map-pin { transform: translate(-50%, -100%) rotate(-45deg); }
+
+.social-row { display: flex; gap: 0.65rem; }
+.social-row a {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1px solid #e0e3ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #454b57;
+  transition: all .2s ease;
+}
+.social-row a:hover { background: var(--brand-blue); border-color: var(--brand-blue); color: #fff; }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  height: 48px;
+  padding: 0 1.75rem;
+  background: var(--brand-blue);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 9999px;
+  transition: background .2s ease, transform .15s ease;
+}
+.btn-primary:hover { background: var(--brand-blue-dark); }
+.btn-primary:active { transform: scale(.98); }
+.btn-primary:disabled { opacity: .65; pointer-events: none; }
+
+@media (max-width: 640px) {
+  .contact-card { padding: 1.2rem; }
+}

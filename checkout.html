@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout | ellamart+</title>
+<meta name="description" content="Complete your ellamart+ order — choose a delivery address, pay by bank transfer, Vodafone Cash or InstaPay, and upload your payment receipt." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<!-- animate.css (used by WOW.js) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui'] },
+        colors: {
+          brand: { DEFAULT: '#2b6ee0', dark: '#1d4fa3', light: '#eef4ff' },
+          accent: '#ff7a1a',
+          ink: '#17203a',
+        },
+        container: { center: true },
+      }
+    }
+  }
+</script>
+
+<!-- Custom styles -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/checkout.css">
+</head>
+
+<body class="bg-white text-ink antialiased">
+
+<!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+<div class="bg-ink text-white text-xs">
+  <div class="max-w-[1280px] mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
+    <i class="fa-solid fa-bolt text-accent"></i>
+    <span>Buy Now Pay Later Starting at 0% APR. <a href="#" class="underline font-semibold hover:text-accent">LEARN MORE</a></span>
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" class="sticky top-0 z-40 bg-white border-b border-gray-100 transition-shadow">
+  <div class="max-w-[1280px] mx-auto px-4">
+    <div class="flex items-center justify-between gap-4 py-4">
+      <!-- Mobile menu button -->
+      <button id="menu-toggle" class="lg:hidden text-xl text-ink" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 shrink-0">
+        <span class="text-2xl font-extrabold tracking-tight text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      </a>
+
+      <!-- Search (desktop) -->
+      <div class="hidden lg:flex flex-1 max-w-xl mx-6">
+        <div class="flex w-full rounded-full border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand/40">
+          <input type="text" placeholder="Search for products, brands and more..."
+                 class="w-full px-5 py-2.5 text-sm outline-none" />
+          <button class="bg-brand hover:bg-brand-dark text-white px-5 flex items-center justify-center transition-colors" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Icons -->
+      <div class="flex items-center gap-4 sm:gap-5">
+        <button id="search-toggle" class="lg:hidden text-lg" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <a href="login.html" class="hidden sm:flex flex-col items-center text-ink hover:text-brand text-lg leading-none" aria-label="Account">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <a href="#" class="hidden sm:flex relative text-ink hover:text-brand text-lg leading-none" aria-label="Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="absolute -top-2 -right-2 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        </a>
+        <a href="cart.html" class="relative text-ink hover:text-brand text-lg leading-none" aria-label="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-brand text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main nav (desktop) -->
+    <nav class="hidden lg:flex items-center gap-7 border-t border-gray-100 py-3 text-sm font-medium">
+      <div class="relative group">
+        <button class="flex items-center gap-2 bg-brand text-white px-4 py-2 rounded-md">
+          <i class="fa-solid fa-bars"></i> Shop By Categories
+        </button>
+        <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-30 py-2">
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-mobile-screen w-4"></i> Mobile Phones</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-laptop w-4"></i> Laptops &amp; Tablets</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-tv w-4"></i> Televisions</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-computer w-4"></i> PCs &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-headphones-simple w-4"></i> Audio &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-gamepad w-4"></i> Gaming &amp; Accessories</a>
+        </div>
+      </div>
+      <a href="index.html" class="hover:text-brand">Home</a>
+      <a href="category.html" class="hover:text-brand">Electronics</a>
+      <a href="#" class="hover:text-brand">Fashion</a>
+      <a href="#" class="hover:text-brand">Furniture</a>
+      <a href="blog.html" class="hover:text-brand">Blog</a>
+      <a href="#" class="hover:text-brand">Contact</a>
+      <span class="ml-auto flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</span>
+    </nav>
+  </div>
+</header>
+
+<!-- Search overlay (mobile) -->
+<div id="search-overlay" class="hidden fixed inset-0 z-50 bg-black/50">
+  <div class="bg-white p-4 flex items-center gap-3">
+    <input id="search-input" type="text" placeholder="Search products..." class="flex-1 border border-gray-200 rounded-full px-4 py-2.5 text-sm outline-none">
+    <button id="search-close" class="text-xl text-ink" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+</div>
+
+<!-- Mobile drawer menu -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+<aside id="mobile-menu" class="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white z-50 lg:hidden overflow-y-auto">
+  <div class="flex items-center justify-between p-4 border-b border-gray-100">
+    <span class="text-xl font-extrabold text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+    <button id="menu-close" class="text-xl" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <nav class="p-4 text-sm font-medium">
+    <button class="mobile-acc-btn w-full flex items-center justify-between py-3 border-b border-gray-100">
+      Shop By Categories <i class="fa-solid fa-chevron-down acc-icon transition-transform"></i>
+    </button>
+    <div class="hidden pl-3 pb-2">
+      <a href="category.html" class="block py-2 text-gray-600">Mobile Phones</a>
+      <a href="category.html" class="block py-2 text-gray-600">Laptops &amp; Tablets</a>
+      <a href="category.html" class="block py-2 text-gray-600">Televisions</a>
+      <a href="category.html" class="block py-2 text-gray-600">PCs &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Audio &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Gaming &amp; Accessories</a>
+    </div>
+    <a href="index.html" class="block py-3 border-b border-gray-100">Home</a>
+    <a href="category.html" class="block py-3 border-b border-gray-100">Electronics</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Fashion</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Furniture</a>
+    <a href="blog.html" class="block py-3 border-b border-gray-100">Blog</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Contact</a>
+    <div class="mt-4 flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</div>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ================= BREADCRUMB + STEPS ================= -->
+<div class="max-w-[1280px] mx-auto px-4 pt-5">
+  <nav class="flex items-center gap-2 text-xs text-gray-500">
+    <a href="index.html" class="hover:text-brand">Home</a>
+    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+    <a href="cart.html" class="hover:text-brand">Cart</a>
+    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+    <span class="text-ink font-medium">Checkout</span>
+  </nav>
+  <h1 class="text-2xl sm:text-3xl font-extrabold text-ink mt-2">Checkout</h1>
+
+  <div class="checkout-steps">
+    <div class="step done">
+      <span class="step-circle"><i class="fa-solid fa-check"></i></span>
+      <span class="step-label">Cart</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step active">
+      <span class="step-circle">2</span>
+      <span class="step-label">Checkout</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <span class="step-circle">3</span>
+      <span class="step-label">Confirmation</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CHECKOUT ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-2 pb-16">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- ============ LEFT: ADDRESS + PAYMENT ============ -->
+    <div class="lg:col-span-8">
+
+      <!-- ---------- Delivery Address ---------- -->
+      <div class="checkout-block wow animate__fadeInUp">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-bold text-lg"><i class="fa-solid fa-location-dot text-brand mr-2"></i>Delivery Address</h2>
+        </div>
+
+        <div id="address-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <label class="select-card address-card checked"
+                 data-id="addr-1" data-default="true"
+                 data-name="Ahmed Hassan" data-phone="+20 100 123 4567"
+                 data-street="12 Tahrir Street, Apt. 5" data-city="Cairo" data-area="Downtown" data-postal="11511">
+            <input type="radio" name="delivery-address" value="addr-1" checked>
+            <span class="select-check"><i class="fa-solid fa-check"></i></span>
+            <span class="address-badge">Default</span>
+            <p class="address-name">Ahmed Hassan</p>
+            <p class="address-phone">+20 100 123 4567</p>
+            <p class="address-text">12 Tahrir Street, Apt. 5, Downtown, Cairo, 11511, Egypt</p>
+            <button type="button" class="address-edit-btn"><i class="fa-solid fa-pen"></i> Edit</button>
+          </label>
+
+          <label class="select-card address-card"
+                 data-id="addr-2" data-default="false"
+                 data-name="Ahmed Hassan (Work)" data-phone="+20 122 987 6543"
+                 data-street="Building 4, Smart Village, Office 210" data-city="Giza" data-area="6th of October" data-postal="12577">
+            <input type="radio" name="delivery-address" value="addr-2">
+            <span class="select-check"><i class="fa-solid fa-check"></i></span>
+            <p class="address-name">Ahmed Hassan (Work)</p>
+            <p class="address-phone">+20 122 987 6543</p>
+            <p class="address-text">Building 4, Smart Village, Office 210, 6th of October, Giza, 12577, Egypt</p>
+            <button type="button" class="address-edit-btn"><i class="fa-solid fa-pen"></i> Edit</button>
+          </label>
+
+          <button type="button" id="add-address-btn" class="add-address-card">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add New Address</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ---------- Payment Method ---------- -->
+      <div class="checkout-block wow animate__fadeInUp" data-wow-delay=".05s">
+        <h2 class="font-bold text-lg mb-4"><i class="fa-solid fa-credit-card text-brand mr-2"></i>Payment Method</h2>
+
+        <div id="payment-methods" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <label class="select-card payment-card" data-method="bank">
+            <input type="radio" name="payment-method" value="bank">
+            <span class="select-check"><i class="fa-solid fa-check"></i></span>
+            <i class="fa-solid fa-building-columns payment-icon"></i>
+            <p class="payment-name">Bank Transfer</p>
+            <p class="payment-desc">Transfer to our bank account</p>
+          </label>
+          <label class="select-card payment-card" data-method="vodafone">
+            <input type="radio" name="payment-method" value="vodafone">
+            <span class="select-check"><i class="fa-solid fa-check"></i></span>
+            <i class="fa-solid fa-mobile-screen-button payment-icon"></i>
+            <p class="payment-name">Vodafone Cash</p>
+            <p class="payment-desc">Pay via mobile wallet</p>
+          </label>
+          <label class="select-card payment-card" data-method="instapay">
+            <input type="radio" name="payment-method" value="instapay">
+            <span class="select-check"><i class="fa-solid fa-check"></i></span>
+            <i class="fa-solid fa-money-bill-transfer payment-icon"></i>
+            <p class="payment-name">InstaPay</p>
+            <p class="payment-desc">Instant bank-to-bank transfer</p>
+          </label>
+        </div>
+        <p id="payment-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please select a payment method.</p>
+
+        <!-- Dynamic instructions per method -->
+        <div id="payment-details" class="payment-details hidden">
+          <div id="pm-details-bank" class="pm-instructions hidden">
+            <p class="pm-instructions-title">Bank Transfer Details</p>
+            <div class="pm-row"><span>Bank Name</span><b>National Bank of Egypt</b></div>
+            <div class="pm-row"><span>Account Name</span><b>Ellamart Trading LLC</b></div>
+            <div class="pm-row"><span>Account Number</span><b>1234 5678 9012 3456</b><button type="button" class="copy-btn" data-copy="1234567890123456"><i class="fa-regular fa-copy"></i></button></div>
+            <div class="pm-row"><span>IBAN</span><b>EG38 0002 0100 0000 1234 5678 9012 3</b><button type="button" class="copy-btn" data-copy="EG380002010000001234567890123"><i class="fa-regular fa-copy"></i></button></div>
+            <p class="pm-note">Transfer the exact order total to the account above, then upload your bank receipt below.</p>
+          </div>
+          <div id="pm-details-vodafone" class="pm-instructions hidden">
+            <p class="pm-instructions-title">Vodafone Cash Details</p>
+            <div class="pm-row"><span>Wallet Number</span><b>010 1234 5678</b><button type="button" class="copy-btn" data-copy="0101234567"><i class="fa-regular fa-copy"></i></button></div>
+            <p class="pm-note">Send the exact order total to the wallet number above via *9# or the Vodafone Cash app, then upload your transaction screenshot below.</p>
+          </div>
+          <div id="pm-details-instapay" class="pm-instructions hidden">
+            <p class="pm-instructions-title">InstaPay Details</p>
+            <div class="pm-row"><span>InstaPay Handle</span><b>ellamart@instapay</b><button type="button" class="copy-btn" data-copy="ellamart@instapay"><i class="fa-regular fa-copy"></i></button></div>
+            <p class="pm-note">Send the exact order total using InstaPay to the handle above, then upload your transaction receipt below.</p>
+          </div>
+
+          <!-- Invoice upload (shared across methods) -->
+          <div class="mt-5">
+            <label class="text-sm font-semibold">Upload Payment Invoice <span class="text-red-500">*</span></label>
+            <p class="text-xs text-gray-400 mt-0.5 mb-2.5">Accepted formats: PDF, JPG, PNG &middot; Max size 10MB</p>
+
+            <div id="file-dropzone" class="file-dropzone">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <p class="text-sm font-medium mt-2">Click to upload or drag and drop</p>
+              <p class="text-xs text-gray-400 mt-1">PDF, JPG or PNG</p>
+              <input type="file" id="invoice-input" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/*" class="hidden">
+            </div>
+
+            <div id="file-preview" class="file-preview hidden">
+              <i class="fa-solid fa-file-lines text-brand text-xl"></i>
+              <div class="min-w-0">
+                <p id="file-preview-name" class="text-sm font-medium truncate"></p>
+                <p id="file-preview-size" class="text-xs text-gray-400"></p>
+              </div>
+              <button type="button" id="file-remove-btn" class="remove-file" aria-label="Remove file"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p id="invoice-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please upload your payment invoice or receipt.</p>
+          </div>
+
+          <!-- Notes (optional) -->
+          <div class="mt-5">
+            <label for="payment-notes" class="text-sm font-semibold">Additional Notes <span class="text-gray-400 font-normal">(optional)</span></label>
+            <textarea id="payment-notes" rows="3" placeholder="Any additional information about your payment..." class="checkout-textarea mt-2"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ RIGHT: SUMMARY ============ -->
+    <div class="lg:col-span-4">
+      <div class="cart-summary wow animate__fadeInUp" data-wow-delay=".1s">
+        <h2 class="font-bold text-lg mb-4">Order Summary</h2>
+
+        <div id="summary-items" class="summary-mini-list">
+          <div class="summary-mini-item">
+            <img src="https://picsum.photos/seed/novalinkphone1/120/120" alt="NovaLink 4G Smartphone" class="summary-mini-img">
+            <div class="min-w-0">
+              <p class="summary-mini-title">NovaLink 4G Smartphone</p>
+              <p class="summary-mini-meta">Black &middot; 128GB &middot; Qty 1</p>
+            </div>
+            <span class="summary-mini-price">$349.00</span>
+          </div>
+          <div class="summary-mini-item">
+            <img src="https://placehold.co/120x120/f5f7fb/1a1a1a?text=Speaker" alt="PureSound 2-Piece Bluetooth Speaker System" class="summary-mini-img">
+            <div class="min-w-0">
+              <p class="summary-mini-title">PureSound Speaker System</p>
+              <p class="summary-mini-meta">Qty 2</p>
+            </div>
+            <span class="summary-mini-price">$258.00</span>
+          </div>
+          <div class="summary-mini-item">
+            <img src="https://placehold.co/120x120/f5f7fb/1a1a1a?text=Earbuds" alt="AstroTune True Wireless Earbuds" class="summary-mini-img">
+            <div class="min-w-0">
+              <p class="summary-mini-title">AstroTune Wireless Earbuds</p>
+              <p class="summary-mini-meta">White &middot; Qty 1</p>
+            </div>
+            <span class="summary-mini-price">$89.00</span>
+          </div>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-row"><span>Subtotal</span><span>$696.00</span></div>
+        <div class="summary-row"><span>Shipping</span><span>Free</span></div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-row summary-total"><span>Total</span><span>$696.00</span></div>
+
+        <button id="place-order-btn" type="button" class="btn-primary w-full mt-6">
+          <i class="fa-solid fa-lock"></i> <span>Place Order</span>
+        </button>
+
+        <div class="flex items-center justify-center gap-2 text-xs text-gray-400 mt-4">
+          <i class="fa-solid fa-shield-halved"></i> Your order details are kept private &amp; secure
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= RECOMMENDED FOR YOU ================= -->
+  <div class="mt-16 wow animate__fadeInUp">
+    <div class="section-head">
+      <h2 class="text-xl">Recommended For You</h2>
+      <a href="category.html" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+    </div>
+    <div class="swiper recommended-checkout-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Kettle" class="w-full aspect-square object-contain" alt="BrewMate Stainless Electric Kettle"></div>
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate Stainless Electric Kettle</h3>
+            <p class="text-brand font-semibold text-sm mt-1">From $49.00 USD</p>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Coffee+Maker" class="w-full aspect-square object-contain" alt="BrewMate Automatic Coffee Maker">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate Automatic Coffee Maker</h3>
+            <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $179.00 USD</span> <span class="text-gray-400 line-through text-xs">$209.00</span></p>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Blender" class="w-full aspect-square object-contain" alt="BerryBlend Personal Smoothie Blender">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">BerryBlend Personal Smoothie Blender</h3>
+            <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $99.00 USD</span></p>
+            <div class="flex gap-1 mt-2"><span class="swatch bg-red-500"></span><span class="swatch bg-emerald-500"></span></div>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Fridge" class="w-full aspect-square object-contain" alt="BrewMate French Door Electric Fridge">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate French Door Electric Fridge</h3>
+            <p class="text-brand font-semibold text-sm mt-1">From $1,099.00 USD</p>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Rice+Cooker" class="w-full aspect-square object-contain" alt="AstraTec Electric Rice Cooker">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">AstraTec Electric Rice Cooker</h3>
+            <p class="text-sm mt-1 font-semibold">From $99.00 USD</p>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smoothie+Maker" class="w-full aspect-square object-contain" alt="NutriBlend Smoothie Maker">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">NutriBlend Smoothie Maker</h3>
+            <p class="text-sm mt-1 font-semibold">From $79.00 USD</p>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+
+  <!-- ================= BEST SELLERS ================= -->
+  <div class="mt-12 wow animate__fadeInUp">
+    <div class="section-head">
+      <h2 class="text-xl">Best Sellers</h2>
+      <a href="category.html" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+    </div>
+    <div class="swiper bestsellers-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Vacuum" class="w-full aspect-square object-contain" alt="ClearPro Upright Vacuum Cleaner">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">ClearPro Upright Vacuum Cleaner</h3>
+            <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $249.00 USD</span> <span class="text-gray-400 line-through text-xs">$330.00</span></p>
+            <div class="flex gap-1 mt-2"><span class="swatch bg-black"></span><span class="swatch bg-gray-300"></span></div>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Earbuds" class="w-full aspect-square object-contain" alt="AstraTune True Wireless Earbuds">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">AstraTune True Wireless Earbuds</h3>
+            <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $89.00 USD</span></p>
+            <div class="flex gap-1 mt-2"><span class="swatch bg-white"></span><span class="swatch bg-black"></span></div>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smartphone" class="w-full aspect-square object-contain" alt="AstraTue Non-Slip Smartphone">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">AstraTue Non-Slip Smartphone</h3>
+            <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $399.00 USD</span></p>
+            <div class="flex gap-1 mt-2"><span class="swatch bg-blue-500"></span><span class="swatch bg-gray-800"></span></div>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="VisionGlow OLED 4K Smart TV">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">VisionGlow OLED 4K Smart TV</h3>
+            <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $1,589.00 USD</span></p>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Blender" class="w-full aspect-square object-contain" alt="BerryBlend Personal Smoothie Blender">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">BerryBlend Personal Smoothie Blender</h3>
+            <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $99.00 USD</span></p>
+            <div class="flex gap-1 mt-2"><span class="swatch bg-red-500"></span><span class="swatch bg-emerald-500"></span></div>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="product-card p-3">
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Robot+Vacuum" class="w-full aspect-square object-contain" alt="SmartSweep Robot Vacuum Cleaner">
+            <h3 class="text-sm mt-2 font-medium line-clamp-2">SmartSweep Robot Vacuum Cleaner</h3>
+            <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $399.00 USD</span></p>
+            <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink text-gray-300">
+  <div class="max-w-[1280px] mx-auto px-4 py-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-8">
+    <div class="col-span-2 sm:col-span-4 lg:col-span-1">
+      <span class="text-2xl font-extrabold text-white">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      <p class="text-sm mt-4 leading-relaxed">403 Market Street<br>San Francisco, CA 89104, US</p>
+      <p class="text-sm mt-2"><i class="fa-solid fa-phone mr-2"></i>Tel: (321) 645-4321</p>
+      <p class="text-sm mt-1"><i class="fa-solid fa-envelope mr-2"></i>support@ellamart.com</p>
+      <div class="flex gap-3 mt-4 text-lg">
+        <a href="#" class="hover:text-white" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Shop</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Men's</a></li>
+        <li><a href="#" class="hover:text-white">Women's</a></li>
+        <li><a href="category.html" class="hover:text-white">Electronics</a></li>
+        <li><a href="#" class="hover:text-white">Furniture</a></li>
+        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Top Brands</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Our Story</a></li>
+        <li><a href="#" class="hover:text-white">Careers</a></li>
+        <li><a href="#" class="hover:text-white">Sustainability</a></li>
+        <li><a href="#" class="hover:text-white">Affiliate Program</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">About</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        <li><a href="#" class="hover:text-white">Shipping Policy</a></li>
+        <li><a href="#" class="hover:text-white">Returns &amp; Refunds</a></li>
+        <li><a href="track-order.html" class="hover:text-white">Track Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Info</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+        <li><a href="#" class="hover:text-white">FAQ</a></li>
+        <li><a href="#" class="hover:text-white">Store Locator</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-[1280px] mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <p>&copy; <span id="current-year">2026</span> ella+ | Powered by Halothemes. All Rights Reserved.</p>
+      <div class="flex gap-3 text-xl text-gray-300">
+        <i class="fa-brands fa-cc-visa"></i>
+        <i class="fa-brands fa-cc-mastercard"></i>
+        <i class="fa-brands fa-cc-paypal"></i>
+        <i class="fa-brands fa-cc-amex"></i>
+        <i class="fa-brands fa-cc-discover"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" class="opacity-0 pointer-events-none translate-y-4 fixed bottom-6 right-6 z-30 w-11 h-11 rounded-full bg-brand text-white shadow-lg flex items-center justify-center hover:bg-brand-dark" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- ================= ADDRESS MODAL ================= -->
+<div id="address-modal-overlay" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="address-modal-title" class="font-bold text-lg">Add New Address</h3>
+      <button id="address-modal-close" class="modal-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="checkout-field">
+        <label for="af-name">Full Name</label>
+        <input id="af-name" type="text" placeholder="e.g. Ahmed Hassan">
+      </div>
+      <div class="checkout-field">
+        <label for="af-phone">Phone Number</label>
+        <input id="af-phone" type="tel" placeholder="e.g. +20 100 123 4567">
+      </div>
+      <div class="checkout-field">
+        <label for="af-street">Street Address</label>
+        <input id="af-street" type="text" placeholder="Street name, building, apartment">
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="checkout-field">
+          <label for="af-city">City</label>
+          <input id="af-city" type="text" placeholder="e.g. Cairo">
+        </div>
+        <div class="checkout-field">
+          <label for="af-area">Area</label>
+          <input id="af-area" type="text" placeholder="e.g. Downtown">
+        </div>
+      </div>
+      <div class="checkout-field">
+        <label for="af-postal">Postal Code <span class="text-gray-400 font-normal">(optional)</span></label>
+        <input id="af-postal" type="text" placeholder="e.g. 11511">
+      </div>
+      <label class="checkout-checkbox">
+        <input id="af-default" type="checkbox">
+        <span>Set as default delivery address</span>
+      </label>
+      <p id="address-form-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please fill in your name, phone, street and city.</p>
+    </div>
+    <div class="modal-footer">
+      <button id="address-modal-cancel" class="btn-outline">Cancel</button>
+      <button id="address-modal-save" class="btn-primary">Save Address</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ORDER SUCCESS MODAL ================= -->
+<div id="success-modal-overlay" class="modal-overlay">
+  <div class="modal-box modal-box-center">
+    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+    <h3 class="font-extrabold text-xl mt-4">Order Placed Successfully!</h3>
+    <p class="text-sm text-gray-500 mt-2">Thank you for your order. We'll verify your payment and start processing right away.</p>
+    <p class="text-sm font-semibold mt-4">Order Number: <span id="success-order-number" class="text-brand">#ELM-000000</span></p>
+    <div class="flex flex-col sm:flex-row gap-3 mt-6">
+      <a href="index.html" class="btn-outline flex-1 text-center">Continue Shopping</a>
+      <a href="track-order.html" id="success-track-link" class="btn-primary flex-1 justify-center">Track Order</a>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/checkout.js"></script>
+</body>
+</html>

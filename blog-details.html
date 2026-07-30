@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Why Everyone Is Switching to Smart Home Devices This Year | ellamart+ Blog</title>
+<meta name="description" content="From voice-controlled lighting to AI-powered thermostats, smart home tech has quietly become the new standard. Here's what's driving the shift." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<!-- animate.css (used by WOW.js) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui'] },
+        colors: {
+          brand: { DEFAULT: '#2b6ee0', dark: '#1d4fa3', light: '#eef4ff' },
+          accent: '#ff7a1a',
+          ink: '#17203a',
+        },
+        container: { center: true },
+      }
+    }
+  }
+</script>
+
+<!-- Custom styles -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/blog.css">
+</head>
+
+<body class="bg-white text-ink antialiased">
+
+<!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+<div class="bg-ink text-white text-xs">
+  <div class="max-w-[1280px] mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
+    <i class="fa-solid fa-bolt text-accent"></i>
+    <span>Buy Now Pay Later Starting at 0% APR. <a href="#" class="underline font-semibold hover:text-accent">LEARN MORE</a></span>
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" class="sticky top-0 z-40 bg-white border-b border-gray-100 transition-shadow">
+  <div class="max-w-[1280px] mx-auto px-4">
+    <div class="flex items-center justify-between gap-4 py-4">
+      <!-- Mobile menu button -->
+      <button id="menu-toggle" class="lg:hidden text-xl text-ink" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 shrink-0">
+        <span class="text-2xl font-extrabold tracking-tight text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      </a>
+
+      <!-- Search (desktop) -->
+      <div class="hidden lg:flex flex-1 max-w-xl mx-6">
+        <div class="flex w-full rounded-full border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand/40">
+          <input type="text" placeholder="Search for products, brands and more..."
+                 class="w-full px-5 py-2.5 text-sm outline-none" />
+          <button class="bg-brand hover:bg-brand-dark text-white px-5 flex items-center justify-center transition-colors" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Icons -->
+      <div class="flex items-center gap-4 sm:gap-5">
+        <button id="search-toggle" class="lg:hidden text-lg" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <a href="login.html" class="hidden sm:flex flex-col items-center text-ink hover:text-brand text-lg leading-none" aria-label="Account">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <a href="account-wishlist.html" class="hidden sm:flex relative text-ink hover:text-brand text-lg leading-none" aria-label="Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="absolute -top-2 -right-2 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        </a>
+        <a href="cart.html" class="relative text-ink hover:text-brand text-lg leading-none" aria-label="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-brand text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main nav (desktop) -->
+    <nav class="hidden lg:flex items-center gap-7 border-t border-gray-100 py-3 text-sm font-medium">
+      <div class="relative group">
+        <button class="flex items-center gap-2 bg-brand text-white px-4 py-2 rounded-md">
+          <i class="fa-solid fa-bars"></i> Shop By Categories
+        </button>
+        <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-30 py-2">
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-mobile-screen w-4"></i> Mobile Phones</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-laptop w-4"></i> Laptops &amp; Tablets</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-tv w-4"></i> Televisions</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-computer w-4"></i> PCs &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-headphones-simple w-4"></i> Audio &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-gamepad w-4"></i> Gaming &amp; Accessories</a>
+        </div>
+      </div>
+      <a href="index.html" class="hover:text-brand">Home</a>
+      <a href="category.html" class="hover:text-brand">Electronics</a>
+      <a href="#" class="hover:text-brand">Fashion</a>
+      <a href="#" class="hover:text-brand">Furniture</a>
+      <a href="blog.html" class="text-brand">Blog</a>
+      <a href="#" class="hover:text-brand">Contact</a>
+      <span class="ml-auto flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</span>
+    </nav>
+  </div>
+</header>
+
+<!-- Search overlay (mobile) -->
+<div id="search-overlay" class="hidden fixed inset-0 z-50 bg-black/50">
+  <div class="bg-white p-4 flex items-center gap-3">
+    <input id="search-input" type="text" placeholder="Search products..." class="flex-1 border border-gray-200 rounded-full px-4 py-2.5 text-sm outline-none">
+    <button id="search-close" class="text-xl text-ink" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+</div>
+
+<!-- Mobile drawer menu -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+<aside id="mobile-menu" class="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white z-50 lg:hidden overflow-y-auto">
+  <div class="flex items-center justify-between p-4 border-b border-gray-100">
+    <span class="text-xl font-extrabold text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+    <button id="menu-close" class="text-xl" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <nav class="p-4 text-sm font-medium">
+    <button class="mobile-acc-btn w-full flex items-center justify-between py-3 border-b border-gray-100">
+      Shop By Categories <i class="fa-solid fa-chevron-down acc-icon transition-transform"></i>
+    </button>
+    <div class="hidden pl-3 pb-2">
+      <a href="category.html" class="block py-2 text-gray-600">Mobile Phones</a>
+      <a href="category.html" class="block py-2 text-gray-600">Laptops &amp; Tablets</a>
+      <a href="category.html" class="block py-2 text-gray-600">Televisions</a>
+      <a href="category.html" class="block py-2 text-gray-600">PCs &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Audio &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Gaming &amp; Accessories</a>
+    </div>
+    <a href="index.html" class="block py-3 border-b border-gray-100">Home</a>
+    <a href="category.html" class="block py-3 border-b border-gray-100">Electronics</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Fashion</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Furniture</a>
+    <a href="blog.html" class="block py-3 border-b border-gray-100 text-brand">Blog</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Contact</a>
+    <div class="mt-4 flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</div>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ================= BREADCRUMB ================= -->
+<div class="max-w-[1280px] mx-auto px-4 pt-5">
+  <nav class="flex items-center gap-2 text-xs text-gray-500">
+    <a href="index.html" class="hover:text-brand">Home</a>
+    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+    <a href="blog.html" class="hover:text-brand">Blog</a>
+    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+    <span class="text-ink font-medium">Smart Home Devices</span>
+  </nav>
+</div>
+
+<!-- ================= ARTICLE ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-4 pb-16">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- ============ ARTICLE MAIN ============ -->
+    <article class="lg:col-span-8 wow animate__fadeInUp">
+      <span class="blog-tag">Tech News</span>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-ink mt-3 leading-snug">Why Everyone Is Switching to Smart Home Devices This Year</h1>
+
+      <div class="article-meta mt-4">
+        <img class="article-avatar" src="https://i.pravatar.cc/100?img=47" alt="Sarah Mitchell">
+        <div>
+          <p class="font-semibold text-sm text-ink">Sarah Mitchell</p>
+          <p class="text-xs text-gray-400">July 25, 2026 &middot; 6 min read</p>
+        </div>
+        <div class="share-row ml-auto">
+          <a href="#" class="share-icon" aria-label="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="share-icon" aria-label="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="share-icon" aria-label="Share on Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+          <a href="#" class="share-icon" aria-label="Copy link"><i class="fa-solid fa-link"></i></a>
+        </div>
+      </div>
+
+      <img class="article-hero-img mt-6" src="https://picsum.photos/seed/blogfeatured/1000/600" alt="Smart home devices on a shelf">
+
+      <div class="article-content mt-6">
+        <p>Five years ago, a smart home meant a single voice assistant answering trivia questions in the living room. Today it means lighting that adjusts to the sunset, thermostats that learn your schedule, and door locks you can check from the grocery store. The shift hasn't been sudden &mdash; it's been steady, and 2026 is the year it finally reached the mainstream.</p>
+
+        <p>Part of the change is price. Devices that cost triple digits a few years ago now start under $30, and most work together out of the box thanks to shared standards like Matter. But the bigger driver is simpler: people have realized that the right smart devices don't just add novelty, they remove small daily frictions.</p>
+
+        <h2>What's Actually Worth Buying</h2>
+        <p>Not every smart gadget earns a place on your counter. After testing dozens of devices across categories, a few clear winners kept coming up in every recommendation list &mdash; the ones that solve a real problem rather than just checking a "smart" box.</p>
+
+        <ul>
+          <li><b>Smart plugs</b> &mdash; the cheapest entry point, perfect for scheduling lamps and small appliances.</li>
+          <li><b>Video doorbells</b> &mdash; consistently the highest-rated category for actual daily usefulness.</li>
+          <li><b>Robot vacuums</b> &mdash; mapping technology has improved enough that these are no longer a gimmick.</li>
+          <li><b>Smart thermostats</b> &mdash; often pay for themselves within a year through energy savings.</li>
+        </ul>
+
+        <blockquote>"The best smart home setup is the one you forget is 'smart' &mdash; it just quietly makes your day easier."</blockquote>
+
+        <h2>Start Small, Then Expand</h2>
+        <p>The biggest mistake new adopters make is trying to automate everything at once. Start with one room and one clear problem &mdash; forgetting to turn off lights, or not knowing who's at the door &mdash; and build outward from there. A single well-chosen hub device can save you from a drawer full of incompatible apps.</p>
+
+        <img src="https://picsum.photos/seed/blogsmartplug/900/500" alt="Smart plug and app on a phone">
+
+        <h3>Compatibility Still Matters</h3>
+        <p>Before buying, check that a device supports the ecosystem you already use, whether that's a particular voice assistant or a phone platform. The Matter standard has made cross-brand compatibility far more reliable, but it isn't universal yet, so a five-minute check before checkout can save a return trip.</p>
+
+        <p>Smart home tech in 2026 isn't about living in the future &mdash; it's about spending less time on small, repetitive tasks. Whether that's one smart plug or a fully connected house, the return on a modest investment has never been clearer.</p>
+      </div>
+
+      <div class="article-tags mt-8 pt-6" style="border-top:1px solid #eef0f4;">
+        <span class="text-sm font-bold text-ink mr-1">Tags:</span>
+        <a href="#" class="tag-pill">Smart Home</a>
+        <a href="#" class="tag-pill">Gadgets</a>
+        <a href="#" class="tag-pill">Electronics</a>
+        <a href="#" class="tag-pill">Tech News</a>
+      </div>
+
+      <!-- Author bio -->
+      <div class="author-card mt-8">
+        <img class="author-avatar" src="https://i.pravatar.cc/150?img=47" alt="Sarah Mitchell">
+        <div class="min-w-0">
+          <p class="font-bold text-ink">Sarah Mitchell</p>
+          <p class="text-xs text-gray-400 mt-0.5">Tech &amp; Gadgets Editor at ellamart+</p>
+          <p class="text-sm text-gray-500 mt-2">Sarah covers consumer electronics and smart home trends, testing gear so you don't have to guess what's worth buying.</p>
+        </div>
+      </div>
+
+      <!-- Comments -->
+      <div class="mt-10">
+        <h2 class="text-lg font-extrabold text-ink mb-2"><span id="comment-count">2</span> Comments</h2>
+
+        <div id="comment-list">
+          <div class="comment-item">
+            <img class="comment-avatar" src="https://i.pravatar.cc/100?img=32" alt="Karim Youssef">
+            <div class="min-w-0">
+              <span class="comment-name">Karim Youssef</span><span class="comment-date">2 days ago</span>
+              <p class="comment-text">Switched to a smart thermostat last winter and the energy bill drop was noticeable within the first month. Wish I'd done it sooner.</p>
+              <a href="#" class="comment-reply-btn">Reply</a>
+            </div>
+          </div>
+          <div class="comment-item">
+            <img class="comment-avatar" src="https://i.pravatar.cc/100?img=25" alt="Layla Ahmed">
+            <div class="min-w-0">
+              <span class="comment-name">Layla Ahmed</span><span class="comment-date">5 days ago</span>
+              <p class="comment-text">Great breakdown of where to actually start. The "one room at a time" advice saved me from an overwhelming shopping cart.</p>
+              <a href="#" class="comment-reply-btn">Reply</a>
+            </div>
+          </div>
+        </div>
+
+        <form id="comment-form" class="comment-form mt-8 border-t border-gray-100 pt-8" novalidate>
+          <h3 class="font-bold text-base mb-4">Leave a Comment</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label for="comment-name">Name</label>
+              <input id="comment-name" type="text" placeholder="Your name">
+            </div>
+            <div>
+              <label for="comment-email">Email</label>
+              <input id="comment-email" type="email" placeholder="Your email">
+            </div>
+          </div>
+          <div class="mb-2">
+            <label for="comment-message">Comment</label>
+            <textarea id="comment-message" rows="4" placeholder="Share your thoughts..."></textarea>
+          </div>
+          <p id="comment-form-error" class="hidden text-xs font-medium text-red-600 mb-3"><i class="fa-solid fa-circle-exclamation"></i> Please fill in your name, email and comment.</p>
+          <button type="submit" class="btn-primary mt-2"><i class="fa-solid fa-paper-plane"></i> <span>Post Comment</span></button>
+        </form>
+      </div>
+
+      <!-- Related posts -->
+      <div class="mt-12">
+        <h2 class="text-lg font-extrabold text-ink mb-5">Related Articles</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <article class="blog-card">
+            <a href="blog-details.html"><img class="blog-card-img" src="https://picsum.photos/seed/blogtech1/500/320" alt="10 Must-Have Gadgets for Your Smart Home in 2026"></a>
+            <div class="blog-card-body">
+              <a href="blog-details.html"><h3 class="blog-card-title text-sm">10 Must-Have Gadgets for Your Smart Home in 2026</h3></a>
+              <div class="blog-card-meta"><span>Jul 20, 2026</span></div>
+            </div>
+          </article>
+          <article class="blog-card">
+            <a href="blog-details.html"><img class="blog-card-img" src="https://picsum.photos/seed/blogtv1/500/320" alt="The Ultimate Buying Guide: Choosing Your First 4K TV"></a>
+            <div class="blog-card-body">
+              <a href="blog-details.html"><h3 class="blog-card-title text-sm">The Ultimate Buying Guide: Choosing Your First 4K TV</h3></a>
+              <div class="blog-card-meta"><span>Jul 5, 2026</span></div>
+            </div>
+          </article>
+          <article class="blog-card">
+            <a href="blog-details.html"><img class="blog-card-img" src="https://picsum.photos/seed/blogdeals1/500/320" alt="5 Tips to Score the Best Deals During Flash Sales"></a>
+            <div class="blog-card-body">
+              <a href="blog-details.html"><h3 class="blog-card-title text-sm">5 Tips to Score the Best Deals During Flash Sales</h3></a>
+              <div class="blog-card-meta"><span>Jul 10, 2026</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="lg:col-span-4">
+      <div class="blog-sidebar-card wow animate__fadeInUp">
+        <h3>Search</h3>
+        <form class="blog-search-box js-blog-search">
+          <input type="text" placeholder="Search articles...">
+          <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+
+      <div class="blog-sidebar-card wow animate__fadeInUp" data-wow-delay=".05s">
+        <h3>Categories</h3>
+        <a href="blog.html" class="blog-category-item">Tech News <span class="count">2</span></a>
+        <a href="blog.html" class="blog-category-item">Fashion <span class="count">2</span></a>
+        <a href="blog.html" class="blog-category-item">Home &amp; Living <span class="count">1</span></a>
+        <a href="blog.html" class="blog-category-item">Deals &amp; Tips <span class="count">1</span></a>
+        <a href="blog.html" class="blog-category-item">Buying Guides <span class="count">1</span></a>
+      </div>
+
+      <div class="blog-sidebar-card wow animate__fadeInUp" data-wow-delay=".1s">
+        <h3>Recent Posts</h3>
+        <a href="blog-details.html" class="recent-post-item">
+          <img class="recent-post-thumb" src="https://picsum.photos/seed/blogtech1/160/160" alt="10 Must-Have Gadgets for Your Smart Home in 2026">
+          <div class="min-w-0">
+            <p class="recent-post-title line-clamp-2">10 Must-Have Gadgets for Your Smart Home in 2026</p>
+            <p class="recent-post-date">Jul 20, 2026</p>
+          </div>
+        </a>
+        <a href="blog-details.html" class="recent-post-item">
+          <img class="recent-post-thumb" src="https://picsum.photos/seed/blogfashion1/160/160" alt="Summer Fashion Trends">
+          <div class="min-w-0">
+            <p class="recent-post-title line-clamp-2">Summer Fashion Trends: What's Hot This Season</p>
+            <p class="recent-post-date">Jul 18, 2026</p>
+          </div>
+        </a>
+        <a href="blog-details.html" class="recent-post-item">
+          <img class="recent-post-thumb" src="https://picsum.photos/seed/blogcapsule/160/160" alt="Building a Capsule Wardrobe">
+          <div class="min-w-0">
+            <p class="recent-post-title line-clamp-2">Building a Capsule Wardrobe That Works Year-Round</p>
+            <p class="recent-post-date">Jul 16, 2026</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="blog-sidebar-card wow animate__fadeInUp" data-wow-delay=".15s">
+        <h3>Popular Tags</h3>
+        <div class="tag-pill-list">
+          <a href="#" class="tag-pill">Smart Home</a>
+          <a href="#" class="tag-pill">Deals</a>
+          <a href="#" class="tag-pill">Fashion</a>
+          <a href="#" class="tag-pill">TVs</a>
+          <a href="#" class="tag-pill">Electronics</a>
+          <a href="#" class="tag-pill">Home Decor</a>
+          <a href="#" class="tag-pill">Shopping Tips</a>
+          <a href="#" class="tag-pill">Gadgets</a>
+        </div>
+      </div>
+
+      <div class="blog-sidebar-card wow animate__fadeInUp" data-wow-delay=".2s" style="padding:0; border:none; background:transparent;">
+        <div class="newsletter-mini-card">
+          <i class="fa-solid fa-envelope-open-text text-2xl"></i>
+          <h3 class="text-white mt-3 mb-0">Never Miss a Post</h3>
+          <p class="text-xs text-white/80 mt-1">Get new articles and exclusive deals in your inbox.</p>
+          <form class="js-newsletter-mini">
+            <input type="email" required placeholder="Your email address">
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink text-gray-300">
+  <div class="max-w-[1280px] mx-auto px-4 py-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-8">
+    <div class="col-span-2 sm:col-span-4 lg:col-span-1">
+      <span class="text-2xl font-extrabold text-white">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      <p class="text-sm mt-4 leading-relaxed">403 Market Street<br>San Francisco, CA 89104, US</p>
+      <p class="text-sm mt-2"><i class="fa-solid fa-phone mr-2"></i>Tel: (321) 645-4321</p>
+      <p class="text-sm mt-1"><i class="fa-solid fa-envelope mr-2"></i>support@ellamart.com</p>
+      <div class="flex gap-3 mt-4 text-lg">
+        <a href="#" class="hover:text-white" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Shop</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Men's</a></li>
+        <li><a href="#" class="hover:text-white">Women's</a></li>
+        <li><a href="category.html" class="hover:text-white">Electronics</a></li>
+        <li><a href="#" class="hover:text-white">Furniture</a></li>
+        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Top Brands</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Our Story</a></li>
+        <li><a href="#" class="hover:text-white">Careers</a></li>
+        <li><a href="#" class="hover:text-white">Sustainability</a></li>
+        <li><a href="#" class="hover:text-white">Affiliate Program</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">About</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        <li><a href="#" class="hover:text-white">Shipping Policy</a></li>
+        <li><a href="#" class="hover:text-white">Returns &amp; Refunds</a></li>
+        <li><a href="track-order.html" class="hover:text-white">Track Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Info</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+        <li><a href="#" class="hover:text-white">FAQ</a></li>
+        <li><a href="#" class="hover:text-white">Store Locator</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-[1280px] mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <p>&copy; <span class="current-year">2026</span> ella+ | Powered by Halothemes. All Rights Reserved.</p>
+      <div class="flex gap-3 text-xl text-gray-300">
+        <i class="fa-brands fa-cc-visa"></i>
+        <i class="fa-brands fa-cc-mastercard"></i>
+        <i class="fa-brands fa-cc-paypal"></i>
+        <i class="fa-brands fa-cc-amex"></i>
+        <i class="fa-brands fa-cc-discover"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" class="opacity-0 pointer-events-none translate-y-4 fixed bottom-6 right-6 z-30 w-11 h-11 rounded-full bg-brand text-white shadow-lg flex items-center justify-center hover:bg-brand-dark" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- Toast -->
+<div id="blog-toast" class="blog-toast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span>Success</span>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/blog.js"></script>
+</body>
+</html>

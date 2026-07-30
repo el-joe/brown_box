@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NovaLink 4G Smartphone | ellamart+</title>
+<meta name="description" content="NovaLink 4G Smartphone at ellamart+ — 6.5&quot; AMOLED display, 5000mAh battery, triple camera. Choose your color and storage, free shipping, 30-day returns." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<!-- animate.css (used by WOW.js) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui'] },
+        colors: {
+          brand: { DEFAULT: '#2b6ee0', dark: '#1d4fa3', light: '#eef4ff' },
+          accent: '#ff7a1a',
+          ink: '#17203a',
+        },
+        container: { center: true },
+      }
+    }
+  }
+</script>
+
+<!-- Custom styles -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/product.css">
+</head>
+
+<body class="bg-white text-ink antialiased">
+
+<!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+<div class="bg-ink text-white text-xs">
+  <div class="max-w-[1280px] mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
+    <i class="fa-solid fa-bolt text-accent"></i>
+    <span>Buy Now Pay Later Starting at 0% APR. <a href="#" class="underline font-semibold hover:text-accent">LEARN MORE</a></span>
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" class="sticky top-0 z-40 bg-white border-b border-gray-100 transition-shadow">
+  <div class="max-w-[1280px] mx-auto px-4">
+    <div class="flex items-center justify-between gap-4 py-4">
+      <!-- Mobile menu button -->
+      <button id="menu-toggle" class="lg:hidden text-xl text-ink" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 shrink-0">
+        <span class="text-2xl font-extrabold tracking-tight text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      </a>
+
+      <!-- Search (desktop) -->
+      <div class="hidden lg:flex flex-1 max-w-xl mx-6">
+        <div class="flex w-full rounded-full border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand/40">
+          <input type="text" placeholder="Search for products, brands and more..."
+                 class="w-full px-5 py-2.5 text-sm outline-none" />
+          <button class="bg-brand hover:bg-brand-dark text-white px-5 flex items-center justify-center transition-colors" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Icons -->
+      <div class="flex items-center gap-4 sm:gap-5">
+        <button id="search-toggle" class="lg:hidden text-lg" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <a href="login.html" class="hidden sm:flex flex-col items-center text-ink hover:text-brand text-lg leading-none" aria-label="Account">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <a href="#" class="hidden sm:flex relative text-ink hover:text-brand text-lg leading-none" aria-label="Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span id="wishlist-count" class="absolute -top-2 -right-2 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        </a>
+        <a href="cart.html" class="relative text-ink hover:text-brand text-lg leading-none" aria-label="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-brand text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main nav (desktop) -->
+    <nav class="hidden lg:flex items-center gap-7 border-t border-gray-100 py-3 text-sm font-medium">
+      <div class="relative group">
+        <button class="flex items-center gap-2 bg-brand text-white px-4 py-2 rounded-md">
+          <i class="fa-solid fa-bars"></i> Shop By Categories
+        </button>
+        <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-30 py-2">
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-mobile-screen w-4"></i> Mobile Phones</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-laptop w-4"></i> Laptops &amp; Tablets</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-tv w-4"></i> Televisions</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-computer w-4"></i> PCs &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-headphones-simple w-4"></i> Audio &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-gamepad w-4"></i> Gaming &amp; Accessories</a>
+        </div>
+      </div>
+      <a href="index.html" class="hover:text-brand">Home</a>
+      <a href="category.html" class="hover:text-brand">Electronics</a>
+      <a href="#" class="hover:text-brand">Fashion</a>
+      <a href="#" class="hover:text-brand">Furniture</a>
+      <a href="blog.html" class="hover:text-brand">Blog</a>
+      <a href="#" class="hover:text-brand">Contact</a>
+      <span class="ml-auto flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</span>
+    </nav>
+  </div>
+</header>
+
+<!-- Search overlay (mobile) -->
+<div id="search-overlay" class="hidden fixed inset-0 z-50 bg-black/50">
+  <div class="bg-white p-4 flex items-center gap-3">
+    <input id="search-input" type="text" placeholder="Search products..." class="flex-1 border border-gray-200 rounded-full px-4 py-2.5 text-sm outline-none">
+    <button id="search-close" class="text-xl text-ink" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+</div>
+
+<!-- Mobile drawer menu -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+<aside id="mobile-menu" class="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white z-50 lg:hidden overflow-y-auto">
+  <div class="flex items-center justify-between p-4 border-b border-gray-100">
+    <span class="text-xl font-extrabold text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+    <button id="menu-close" class="text-xl" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <nav class="p-4 text-sm font-medium">
+    <button class="mobile-acc-btn w-full flex items-center justify-between py-3 border-b border-gray-100">
+      Shop By Categories <i class="fa-solid fa-chevron-down acc-icon transition-transform"></i>
+    </button>
+    <div class="hidden pl-3 pb-2">
+      <a href="category.html" class="block py-2 text-gray-600">Mobile Phones</a>
+      <a href="category.html" class="block py-2 text-gray-600">Laptops &amp; Tablets</a>
+      <a href="category.html" class="block py-2 text-gray-600">Televisions</a>
+      <a href="category.html" class="block py-2 text-gray-600">PCs &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Audio &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Gaming &amp; Accessories</a>
+    </div>
+    <a href="index.html" class="block py-3 border-b border-gray-100">Home</a>
+    <a href="category.html" class="block py-3 border-b border-gray-100">Electronics</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Fashion</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Furniture</a>
+    <a href="blog.html" class="block py-3 border-b border-gray-100">Blog</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Contact</a>
+    <div class="mt-4 flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</div>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ================= BREADCRUMB ================= -->
+<div class="max-w-[1280px] mx-auto px-4 pt-5">
+  <nav class="flex items-center gap-2 text-xs text-gray-500 flex-wrap">
+    <a href="index.html" class="hover:text-brand">Home</a>
+    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+    <a href="category.html" class="hover:text-brand">Electronics</a>
+    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+    <span class="text-ink font-medium">NovaLink 4G Smartphone</span>
+  </nav>
+</div>
+
+<!-- ================= PRODUCT ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-5 pb-6">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+
+    <!-- ============ LEFT: GALLERY ============ -->
+    <div class="wow animate__fadeIn">
+      <div class="gallery-main-wrap relative">
+        <span class="deal-badge absolute top-3 left-3 z-10 w-12 h-12 bg-pink-500 text-xs">-30%</span>
+        <button id="gallery-zoom-hint" class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-sm text-ink" aria-label="Zoom">
+          <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </button>
+        <div class="swiper gallery-main-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="https://picsum.photos/seed/novalinkphone1/900/900" alt="NovaLink 4G Smartphone — front view" class="w-full aspect-square object-cover">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://picsum.photos/seed/novalinkphone2/900/900" alt="NovaLink 4G Smartphone — back view" class="w-full aspect-square object-cover">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://picsum.photos/seed/novalinkphone3/900/900" alt="NovaLink 4G Smartphone — side view" class="w-full aspect-square object-cover">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://picsum.photos/seed/novalinkphone4/900/900" alt="NovaLink 4G Smartphone — in hand" class="w-full aspect-square object-cover">
+            </div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+
+      <div class="swiper gallery-thumbs-swiper mt-3">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="https://picsum.photos/seed/novalinkphone1/200/200" alt="Thumbnail 1" class="gallery-thumb-img">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://picsum.photos/seed/novalinkphone2/200/200" alt="Thumbnail 2" class="gallery-thumb-img">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://picsum.photos/seed/novalinkphone3/200/200" alt="Thumbnail 3" class="gallery-thumb-img">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://picsum.photos/seed/novalinkphone4/200/200" alt="Thumbnail 4" class="gallery-thumb-img">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ RIGHT: DETAILS ============ -->
+    <div class="wow animate__fadeInUp" data-wow-delay=".1s">
+      <p class="text-xs font-semibold text-brand uppercase tracking-wide">NovaLink</p>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-ink mt-1">NovaLink 4G Smartphone</h1>
+
+      <div class="flex items-center gap-3 mt-2.5">
+        <span class="flex items-center gap-0.5 text-amber-400 text-sm">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+        </span>
+        <a href="#reviews" class="text-xs text-gray-500 hover:text-brand">4.5 (128 reviews)</a>
+        <span class="text-gray-300">|</span>
+        <span class="text-xs text-emerald-600 font-medium"><i class="fa-solid fa-circle-check mr-1"></i>In Stock</span>
+      </div>
+
+      <div class="flex items-end gap-3 mt-4">
+        <span id="product-price-current" class="text-3xl font-extrabold text-red-600">$299.00</span>
+        <span id="product-price-original" class="text-base text-gray-400 line-through mb-1">$429.00</span>
+        <span id="product-discount-pill" class="discount-pill mb-1">Save 30%</span>
+      </div>
+      <p class="text-xs text-gray-500 mt-1">Price includes VAT. <span class="text-ink font-medium">Free shipping</span> on orders over $50.</p>
+
+      <p class="text-sm text-gray-600 leading-relaxed mt-4">
+        Stay connected with the NovaLink 4G Smartphone — a 6.5&quot; AMOLED display, all-day 5000mAh battery
+        and a versatile triple-camera system, wrapped in a sleek aluminum frame.
+      </p>
+
+      <!-- Color variant -->
+      <div class="mt-6">
+        <p class="text-sm font-semibold">Color: <span id="selected-color" class="font-normal text-gray-500">Midnight Black</span></p>
+        <div class="flex flex-wrap gap-2.5 mt-2.5">
+          <button class="variant-color active" data-color="Midnight Black" style="background:#17203a" aria-label="Midnight Black"></button>
+          <button class="variant-color" data-color="Ocean Blue" style="background:#2b6ee0" aria-label="Ocean Blue"></button>
+          <button class="variant-color" data-color="Stone Gray" style="background:#9aa1ac" aria-label="Stone Gray"></button>
+          <button class="variant-color" data-color="Crimson Red" style="background:#dc2626" aria-label="Crimson Red"></button>
+        </div>
+      </div>
+
+      <!-- Storage variant -->
+      <div class="mt-5">
+        <p class="text-sm font-semibold">Storage: <span id="selected-storage" class="font-normal text-gray-500">64GB</span></p>
+        <div class="flex flex-wrap gap-2.5 mt-2.5">
+          <button class="variant-pill active" data-storage="64GB" data-current="299" data-original="429">64GB</button>
+          <button class="variant-pill" data-storage="128GB" data-current="349" data-original="479">128GB</button>
+          <button class="variant-pill" data-storage="256GB" data-current="399" data-original="549">256GB</button>
+          <button class="variant-pill" data-storage="512GB" data-current="459" data-original="629">512GB</button>
+        </div>
+      </div>
+
+      <!-- Quantity + Add to cart -->
+      <div class="flex flex-wrap items-center gap-3 mt-7">
+        <div class="qty-stepper">
+          <button id="qty-minus" type="button" aria-label="Decrease quantity"><i class="fa-solid fa-minus"></i></button>
+          <input id="qty-input" type="text" inputmode="numeric" value="1" aria-label="Quantity">
+          <button id="qty-plus" type="button" aria-label="Increase quantity"><i class="fa-solid fa-plus"></i></button>
+        </div>
+        <button id="add-to-cart-btn" class="btn-primary flex-1 min-w-[180px]">
+          <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+        </button>
+      </div>
+
+      <button id="buy-now-btn" class="btn-dark w-full mt-3">Buy It Now</button>
+
+      <!-- Share / Wishlist -->
+      <div class="flex items-center gap-3 mt-5">
+        <button id="wishlist-btn" class="icon-action-btn">
+          <i class="fa-regular fa-heart"></i> Add to Favorites
+        </button>
+        <div class="relative">
+          <button id="share-btn" class="icon-action-btn">
+            <i class="fa-solid fa-share-nodes"></i> Share
+          </button>
+          <div id="share-popover" class="share-popover hidden">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" rel="noopener" aria-label="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://twitter.com/intent/tweet?text=NovaLink%204G%20Smartphone" target="_blank" rel="noopener" aria-label="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://api.whatsapp.com/send?text=NovaLink%204G%20Smartphone" target="_blank" rel="noopener" aria-label="Share on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://pinterest.com/pin/create/button/" target="_blank" rel="noopener" aria-label="Share on Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+            <button id="copy-link-btn" type="button" aria-label="Copy link"><i class="fa-solid fa-link"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="grid grid-cols-3 gap-3 mt-7 pt-6 border-t border-gray-100">
+        <div class="flex flex-col items-center text-center gap-1.5">
+          <i class="fa-solid fa-truck-fast text-brand text-lg"></i>
+          <span class="text-[11px] text-gray-500 leading-tight">Free shipping over $50</span>
+        </div>
+        <div class="flex flex-col items-center text-center gap-1.5">
+          <i class="fa-solid fa-rotate-left text-brand text-lg"></i>
+          <span class="text-[11px] text-gray-500 leading-tight">30-day easy returns</span>
+        </div>
+        <div class="flex flex-col items-center text-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-brand text-lg"></i>
+          <span class="text-[11px] text-gray-500 leading-tight">Secure checkout</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ACCORDION: DESCRIPTION / SPECS / SHIPPING / REVIEWS ============ -->
+  <div id="reviews" class="mt-12 max-w-[860px]">
+    <div class="pdp-acc">
+      <button class="pdp-acc-btn">Description <i class="fa-solid fa-chevron-up acc-icon"></i></button>
+      <div class="pdp-acc-panel">
+        <p class="text-sm text-gray-600 leading-relaxed">
+          The NovaLink 4G Smartphone pairs a vivid 6.5&quot; AMOLED display with a long-lasting 5000mAh
+          battery, so you can stream, browse and shoot all day without reaching for a charger. A triple
+          rear camera system captures crisp, detailed photos in any light, while the aluminum unibody
+          frame keeps things light and durable.
+        </p>
+        <ul class="text-sm text-gray-600 mt-3 space-y-1.5">
+          <li><i class="fa-solid fa-check text-brand mr-2"></i>6.5" AMOLED FHD+ display</li>
+          <li><i class="fa-solid fa-check text-brand mr-2"></i>5000mAh battery with fast charging</li>
+          <li><i class="fa-solid fa-check text-brand mr-2"></i>48MP triple rear camera system</li>
+          <li><i class="fa-solid fa-check text-brand mr-2"></i>Dual SIM, 4G LTE connectivity</li>
+          <li><i class="fa-solid fa-check text-brand mr-2"></i>Fingerprint &amp; face unlock</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pdp-acc">
+      <button class="pdp-acc-btn">Specifications <i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="pdp-acc-panel hidden">
+        <table class="spec-table">
+          <tbody>
+            <tr><th>Display</th><td>6.5" AMOLED, 2400 x 1080</td></tr>
+            <tr><th>Battery</th><td>5000mAh, 33W fast charging</td></tr>
+            <tr><th>Camera</th><td>48MP + 8MP + 2MP rear / 16MP front</td></tr>
+            <tr><th>Processor</th><td>Octa-core 2.4GHz</td></tr>
+            <tr><th>Network</th><td>Dual SIM, 4G LTE</td></tr>
+            <tr><th>Weight</th><td>189g</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="pdp-acc">
+      <button class="pdp-acc-btn">Shipping &amp; Returns <i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="pdp-acc-panel hidden">
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Orders ship within 1-2 business days from our verified warehouses, with delivery in 3-7 business
+          days depending on your location. Free standard shipping applies to orders over $50. Not fully
+          satisfied? Return unused items within 30 days of delivery for a full refund.
+        </p>
+      </div>
+    </div>
+    <div class="pdp-acc border-b-0">
+      <button class="pdp-acc-btn">Reviews (128) <i class="fa-solid fa-chevron-up acc-icon"></i></button>
+      <div class="pdp-acc-panel">
+        <div class="flex items-center gap-4 mb-5">
+          <span class="text-4xl font-extrabold">4.5</span>
+          <div>
+            <span class="flex items-center gap-0.5 text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            </span>
+            <p class="text-xs text-gray-500 mt-1">Based on 128 reviews</p>
+          </div>
+          <button class="btn-choose ml-auto">Write a Review</button>
+        </div>
+        <div class="space-y-5">
+          <div class="border-t border-gray-100 pt-4">
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-semibold">Daniel R.</p>
+              <span class="text-amber-400 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
+            </div>
+            <p class="text-xs text-gray-400 mt-0.5">Verified Buyer · June 12, 2026</p>
+            <p class="text-sm text-gray-600 mt-2">Battery easily lasts a full day of heavy use, and the camera is great for the price. Very happy with this purchase.</p>
+          </div>
+          <div class="border-t border-gray-100 pt-4">
+            <div class="flex items-center justify-between">
+              <p class="text-sm font-semibold">Priya K.</p>
+              <span class="text-amber-400 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></span>
+            </div>
+            <p class="text-xs text-gray-400 mt-0.5">Verified Buyer · May 28, 2026</p>
+            <p class="text-sm text-gray-600 mt-2">Screen quality is excellent and it feels premium. Shipping took a couple extra days but support was responsive.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RELATED PRODUCTS ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-4 wow animate__fadeInUp">
+  <div class="section-head">
+    <h2 class="text-xl">Related Products</h2>
+    <a href="category.html" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+  </div>
+  <div class="swiper related-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <div class="relative">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-teal-500 text-xs z-10">40%</span>
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="VisionCase QUHD 4K Smart TV">
+          </div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">VisionCase QUHD 4K Smart TV</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $499.00 USD</span> <span class="text-gray-400 line-through text-xs">$829.00</span></p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Earbuds" class="w-full aspect-square object-contain" alt="AstroTune True Wireless Earbuds">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">AstroTune True Wireless Earbuds</h3>
+          <p class="text-sm mt-1 font-semibold">From $89.00 USD</p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-white"></span><span class="swatch bg-black"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <div class="relative">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-blue-500 text-xs z-10">30%</span>
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Robot+Vacuum" class="w-full aspect-square object-contain" alt="SmartSweep Robot Vacuum Cleaner">
+          </div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">SmartSweep Robot Vacuum Cleaner</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $399.00 USD</span> <span class="text-gray-400 line-through text-xs">$570.00</span></p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Charger" class="w-full aspect-square object-contain" alt="PowerMax Slim Portable Charger">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">PowerMax Slim Portable Charger</h3>
+          <p class="text-sm mt-1 font-semibold">$49.00 USD</p>
+          <a href="product.html" class="btn-choose block mt-2">Add to cart</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Camera" class="w-full aspect-square object-contain" alt="Professional Digital Camera">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">Professional Digital Camera</h3>
+          <p class="text-sm mt-1 font-semibold">From $899.00 USD</p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-black"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="AstroCast 50 inch Ultra HD Smart TV">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">AstroCast 50" Ultra HD Smart TV</h3>
+          <p class="text-sm mt-1 font-semibold">From $499.00 USD</p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+
+<!-- ================= RECOMMENDED FOR YOU ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12 pb-4 wow animate__fadeInUp">
+  <div class="section-head">
+    <h2 class="text-xl">Recommended For You</h2>
+    <a href="category.html" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+  </div>
+  <div class="swiper recommended-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Speaker+System" class="w-full aspect-square object-contain" alt="PureSound 2-Piece Bluetooth Speaker System"></div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">PureSound 2-Piece Bluetooth Speaker System</h3>
+          <p class="text-brand font-semibold text-sm mt-1">From $129.00 USD</p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Laptop" class="w-full aspect-square object-contain" alt="VeraBlend Ultra Performance Laptop"></div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">VeraBlend Ultra Performance Laptop</h3>
+          <p class="text-brand font-semibold text-sm mt-1">From $499.00 USD</p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Kettle" class="w-full aspect-square object-contain" alt="BrewMate Stainless Electric Kettle"></div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate Stainless Electric Kettle</h3>
+          <p class="text-brand font-semibold text-sm mt-1">From $49.00 USD</p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Vacuum" class="w-full aspect-square object-contain" alt="ClearPro Upright Vacuum Cleaner">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">ClearPro Upright Vacuum Cleaner</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $249.00 USD</span> <span class="text-gray-400 line-through text-xs">$330.00</span></p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-black"></span><span class="swatch bg-gray-300"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Blender" class="w-full aspect-square object-contain" alt="BerryBlend Personal Smoothie Blender">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">BerryBlend Personal Smoothie Blender</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $99.00 USD</span></p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-red-500"></span><span class="swatch bg-emerald-500"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Earbuds" class="w-full aspect-square object-contain" alt="AstraTune True Wireless Earbuds">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">AstraTune True Wireless Earbuds</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $89.00 USD</span></p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-white"></span><span class="swatch bg-black"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink text-gray-300">
+  <div class="max-w-[1280px] mx-auto px-4 py-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-8">
+    <div class="col-span-2 sm:col-span-4 lg:col-span-1">
+      <span class="text-2xl font-extrabold text-white">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      <p class="text-sm mt-4 leading-relaxed">403 Market Street<br>San Francisco, CA 89104, US</p>
+      <p class="text-sm mt-2"><i class="fa-solid fa-phone mr-2"></i>Tel: (321) 645-4321</p>
+      <p class="text-sm mt-1"><i class="fa-solid fa-envelope mr-2"></i>support@ellamart.com</p>
+      <div class="flex gap-3 mt-4 text-lg">
+        <a href="#" class="hover:text-white" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Shop</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Men's</a></li>
+        <li><a href="#" class="hover:text-white">Women's</a></li>
+        <li><a href="category.html" class="hover:text-white">Electronics</a></li>
+        <li><a href="#" class="hover:text-white">Furniture</a></li>
+        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Top Brands</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Our Story</a></li>
+        <li><a href="#" class="hover:text-white">Careers</a></li>
+        <li><a href="#" class="hover:text-white">Sustainability</a></li>
+        <li><a href="#" class="hover:text-white">Affiliate Program</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">About</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        <li><a href="#" class="hover:text-white">Shipping Policy</a></li>
+        <li><a href="#" class="hover:text-white">Returns &amp; Refunds</a></li>
+        <li><a href="track-order.html" class="hover:text-white">Track Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Info</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+        <li><a href="#" class="hover:text-white">FAQ</a></li>
+        <li><a href="#" class="hover:text-white">Store Locator</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-[1280px] mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <p>&copy; <span id="current-year">2026</span> ella+ | Powered by Halothemes. All Rights Reserved.</p>
+      <div class="flex gap-3 text-xl text-gray-300">
+        <i class="fa-brands fa-cc-visa"></i>
+        <i class="fa-brands fa-cc-mastercard"></i>
+        <i class="fa-brands fa-cc-paypal"></i>
+        <i class="fa-brands fa-cc-amex"></i>
+        <i class="fa-brands fa-cc-discover"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" class="opacity-0 pointer-events-none translate-y-4 fixed bottom-6 right-6 z-30 w-11 h-11 rounded-full bg-brand text-white shadow-lg flex items-center justify-center hover:bg-brand-dark" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- Cart toast -->
+<div id="cart-toast" class="cart-toast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span id="cart-toast-msg">Added to cart!</span>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/product.js"></script>
+</body>
+</html>

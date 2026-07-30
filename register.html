@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Create Account | ellamart+</title>
+<meta name="description" content="Create your free ellamart+ account to save addresses, track orders and get member-only deals." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<!-- animate.css (used by WOW.js) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui'] },
+        colors: {
+          brand: { DEFAULT: '#2b6ee0', dark: '#1d4fa3', light: '#eef4ff' },
+          accent: '#ff7a1a',
+          ink: '#17203a',
+        },
+        container: { center: true },
+      }
+    }
+  }
+</script>
+
+<!-- Custom styles -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+</head>
+
+<body class="bg-white text-ink antialiased">
+
+<!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+<div class="bg-ink text-white text-xs">
+  <div class="max-w-[1280px] mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
+    <i class="fa-solid fa-bolt text-accent"></i>
+    <span>Buy Now Pay Later Starting at 0% APR. <a href="#" class="underline font-semibold hover:text-accent">LEARN MORE</a></span>
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" class="sticky top-0 z-40 bg-white border-b border-gray-100 transition-shadow">
+  <div class="max-w-[1280px] mx-auto px-4">
+    <div class="flex items-center justify-between gap-4 py-4">
+      <!-- Mobile menu button -->
+      <button id="menu-toggle" class="lg:hidden text-xl text-ink" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 shrink-0">
+        <span class="text-2xl font-extrabold tracking-tight text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      </a>
+
+      <!-- Search (desktop) -->
+      <div class="hidden lg:flex flex-1 max-w-xl mx-6">
+        <div class="flex w-full rounded-full border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand/40">
+          <input type="text" placeholder="Search for products, brands and more..."
+                 class="w-full px-5 py-2.5 text-sm outline-none" />
+          <button class="bg-brand hover:bg-brand-dark text-white px-5 flex items-center justify-center transition-colors" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Icons -->
+      <div class="flex items-center gap-4 sm:gap-5">
+        <button id="search-toggle" class="lg:hidden text-lg" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <a href="login.html" class="hidden sm:flex flex-col items-center text-brand text-lg leading-none" aria-label="Account">
+          <i class="fa-solid fa-user"></i>
+        </a>
+        <a href="#" class="hidden sm:flex relative text-ink hover:text-brand text-lg leading-none" aria-label="Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="absolute -top-2 -right-2 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        </a>
+        <a href="cart.html" class="relative text-ink hover:text-brand text-lg leading-none" aria-label="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-brand text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main nav (desktop) -->
+    <nav class="hidden lg:flex items-center gap-7 border-t border-gray-100 py-3 text-sm font-medium">
+      <div class="relative group">
+        <button class="flex items-center gap-2 bg-brand text-white px-4 py-2 rounded-md">
+          <i class="fa-solid fa-bars"></i> Shop By Categories
+        </button>
+        <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-30 py-2">
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-mobile-screen w-4"></i> Mobile Phones</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-laptop w-4"></i> Laptops &amp; Tablets</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-tv w-4"></i> Televisions</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-computer w-4"></i> PCs &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-headphones-simple w-4"></i> Audio &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-gamepad w-4"></i> Gaming &amp; Accessories</a>
+        </div>
+      </div>
+      <a href="index.html" class="hover:text-brand">Home</a>
+      <a href="category.html" class="hover:text-brand">Electronics</a>
+      <a href="#" class="hover:text-brand">Fashion</a>
+      <a href="#" class="hover:text-brand">Furniture</a>
+      <a href="blog.html" class="hover:text-brand">Blog</a>
+      <a href="#" class="hover:text-brand">Contact</a>
+      <span class="ml-auto flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</span>
+    </nav>
+  </div>
+</header>
+
+<!-- Search overlay (mobile) -->
+<div id="search-overlay" class="hidden fixed inset-0 z-50 bg-black/50">
+  <div class="bg-white p-4 flex items-center gap-3">
+    <input id="search-input" type="text" placeholder="Search products..." class="flex-1 border border-gray-200 rounded-full px-4 py-2.5 text-sm outline-none">
+    <button id="search-close" class="text-xl text-ink" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+</div>
+
+<!-- Mobile drawer menu -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+<aside id="mobile-menu" class="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white z-50 lg:hidden overflow-y-auto">
+  <div class="flex items-center justify-between p-4 border-b border-gray-100">
+    <span class="text-xl font-extrabold text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+    <button id="menu-close" class="text-xl" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <nav class="p-4 text-sm font-medium">
+    <button class="mobile-acc-btn w-full flex items-center justify-between py-3 border-b border-gray-100">
+      Shop By Categories <i class="fa-solid fa-chevron-down acc-icon transition-transform"></i>
+    </button>
+    <div class="hidden pl-3 pb-2">
+      <a href="category.html" class="block py-2 text-gray-600">Mobile Phones</a>
+      <a href="category.html" class="block py-2 text-gray-600">Laptops &amp; Tablets</a>
+      <a href="category.html" class="block py-2 text-gray-600">Televisions</a>
+      <a href="category.html" class="block py-2 text-gray-600">PCs &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Audio &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Gaming &amp; Accessories</a>
+    </div>
+    <a href="index.html" class="block py-3 border-b border-gray-100">Home</a>
+    <a href="category.html" class="block py-3 border-b border-gray-100">Electronics</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Fashion</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Furniture</a>
+    <a href="blog.html" class="block py-3 border-b border-gray-100">Blog</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Contact</a>
+    <div class="mt-4 flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</div>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ================= BREADCRUMB ================= -->
+<div class="max-w-[1280px] mx-auto px-4 pt-5">
+  <nav class="flex items-center gap-2 text-xs text-gray-500">
+    <a href="index.html" class="hover:text-brand">Home</a>
+    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+    <span class="text-ink font-medium">Create Account</span>
+  </nav>
+</div>
+
+<!-- ================= REGISTER ================= -->
+<section class="auth-wrap max-w-[1280px] mx-auto px-4 py-8 sm:py-12 flex items-center">
+  <div class="w-full grid grid-cols-1 lg:grid-cols-2 rounded-3xl overflow-hidden shadow-xl border border-gray-100">
+
+    <!-- ---------- Brand panel ---------- -->
+    <div class="auth-panel hidden lg:flex flex-col justify-between bg-gradient-to-br from-ink via-slate-800 to-indigo-950 p-10 wow animate__fadeIn">
+      <div>
+        <span class="text-2xl font-extrabold">ella<span class="text-accent">mart+</span></span>
+        <h2 class="text-3xl font-extrabold leading-tight mt-10">Join thousands of<br>happy shoppers.</h2>
+        <p class="text-sm text-white/75 mt-3 max-w-sm">Create your free account in seconds and unlock a faster, more personal shopping experience.</p>
+      </div>
+
+      <div class="space-y-5 mt-10">
+        <div class="auth-feature">
+          <span class="auth-feature-icon"><i class="fa-solid fa-percent"></i></span>
+          <div>
+            <p class="font-semibold text-sm">30% Off Your First Order</p>
+            <p class="text-xs text-white/70 mt-0.5">New members get an instant welcome discount at checkout.</p>
+          </div>
+        </div>
+        <div class="auth-feature">
+          <span class="auth-feature-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
+          <div>
+            <p class="font-semibold text-sm">One-Click Reordering</p>
+            <p class="text-xs text-white/70 mt-0.5">Save your details for a faster checkout every time you shop.</p>
+          </div>
+        </div>
+        <div class="auth-feature">
+          <span class="auth-feature-icon"><i class="fa-solid fa-heart"></i></span>
+          <div>
+            <p class="font-semibold text-sm">Wishlist &amp; Order History</p>
+            <p class="text-xs text-white/70 mt-0.5">Keep track of favorites and revisit past purchases anytime.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-white/60 mt-10">&copy; <span class="current-year">2026</span> ellamart+. All rights reserved.</p>
+    </div>
+
+    <!-- ---------- Form panel ---------- -->
+    <div class="flex items-center justify-center bg-white p-6 sm:p-10 wow animate__fadeInUp">
+      <div class="w-full max-w-sm">
+        <h1 class="text-2xl font-extrabold text-ink">Create Account</h1>
+        <p class="text-sm text-gray-500 mt-1.5">Already have an account? <a href="login.html" class="text-brand font-semibold hover:underline">Sign in</a></p>
+
+        <form id="register-form" class="mt-7" novalidate>
+          <div class="auth-field">
+            <label for="register-name">Full Name</label>
+            <div class="input-wrap">
+              <i class="fa-regular fa-user input-icon"></i>
+              <input id="register-name" type="text" class="has-icon" placeholder="Jane Doe" autocomplete="name">
+            </div>
+            <p id="register-name-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please enter your full name.</p>
+          </div>
+
+          <div class="auth-field">
+            <label for="register-email">Email Address</label>
+            <div class="input-wrap">
+              <i class="fa-regular fa-envelope input-icon"></i>
+              <input id="register-email" type="email" class="has-icon" placeholder="you@example.com" autocomplete="email">
+            </div>
+            <p id="register-email-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please enter a valid email address.</p>
+          </div>
+
+          <div class="auth-field">
+            <label for="register-password">Password</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input id="register-password" type="password" class="has-icon" placeholder="Create a password" autocomplete="new-password">
+              <button type="button" class="toggle-password" data-target="register-password" aria-label="Show password"><i class="fa-solid fa-eye"></i></button>
+            </div>
+            <div class="pw-strength">
+              <div class="pw-strength-track"><div id="pw-strength-bar" class="pw-strength-bar"></div></div>
+              <p id="pw-strength-label" class="pw-strength-label"></p>
+            </div>
+            <p id="register-password-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Password must be at least 8 characters.</p>
+          </div>
+
+          <div class="auth-field">
+            <label for="register-confirm">Confirm Password</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input id="register-confirm" type="password" class="has-icon" placeholder="Re-enter your password" autocomplete="new-password">
+              <button type="button" class="toggle-password" data-target="register-confirm" aria-label="Show password"><i class="fa-solid fa-eye"></i></button>
+            </div>
+            <p id="register-confirm-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Passwords do not match.</p>
+          </div>
+
+          <label class="auth-checkbox mb-2">
+            <input type="checkbox" id="register-terms">
+            <span>I agree to the <a href="#" class="text-brand font-semibold hover:underline">Terms of Service</a> and <a href="#" class="text-brand font-semibold hover:underline">Privacy Policy</a></span>
+          </label>
+          <p id="register-terms-error" class="field-error hidden mb-4"><i class="fa-solid fa-circle-exclamation"></i> Please accept the terms to continue.</p>
+
+          <button id="register-submit-btn" type="submit" class="btn-primary mt-2">
+            <i class="fa-solid fa-user-plus"></i> <span>Create Account</span>
+          </button>
+        </form>
+
+        <div class="auth-divider">OR SIGN UP WITH</div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <button type="button" class="social-btn" aria-label="Continue with Google"><i class="fa-brands fa-google text-red-500"></i></button>
+          <button type="button" class="social-btn" aria-label="Continue with Facebook"><i class="fa-brands fa-facebook text-blue-600"></i></button>
+          <button type="button" class="social-btn" aria-label="Continue with Apple"><i class="fa-brands fa-apple"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink text-gray-300">
+  <div class="max-w-[1280px] mx-auto px-4 py-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-8">
+    <div class="col-span-2 sm:col-span-4 lg:col-span-1">
+      <span class="text-2xl font-extrabold text-white">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      <p class="text-sm mt-4 leading-relaxed">403 Market Street<br>San Francisco, CA 89104, US</p>
+      <p class="text-sm mt-2"><i class="fa-solid fa-phone mr-2"></i>Tel: (321) 645-4321</p>
+      <p class="text-sm mt-1"><i class="fa-solid fa-envelope mr-2"></i>support@ellamart.com</p>
+      <div class="flex gap-3 mt-4 text-lg">
+        <a href="#" class="hover:text-white" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Shop</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Men's</a></li>
+        <li><a href="#" class="hover:text-white">Women's</a></li>
+        <li><a href="category.html" class="hover:text-white">Electronics</a></li>
+        <li><a href="#" class="hover:text-white">Furniture</a></li>
+        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Top Brands</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Our Story</a></li>
+        <li><a href="#" class="hover:text-white">Careers</a></li>
+        <li><a href="#" class="hover:text-white">Sustainability</a></li>
+        <li><a href="#" class="hover:text-white">Affiliate Program</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">About</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        <li><a href="#" class="hover:text-white">Shipping Policy</a></li>
+        <li><a href="#" class="hover:text-white">Returns &amp; Refunds</a></li>
+        <li><a href="track-order.html" class="hover:text-white">Track Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Info</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+        <li><a href="#" class="hover:text-white">FAQ</a></li>
+        <li><a href="#" class="hover:text-white">Store Locator</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-[1280px] mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <p>&copy; <span class="current-year">2026</span> ella+ | Powered by Halothemes. All Rights Reserved.</p>
+      <div class="flex gap-3 text-xl text-gray-300">
+        <i class="fa-brands fa-cc-visa"></i>
+        <i class="fa-brands fa-cc-mastercard"></i>
+        <i class="fa-brands fa-cc-paypal"></i>
+        <i class="fa-brands fa-cc-amex"></i>
+        <i class="fa-brands fa-cc-discover"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" class="opacity-0 pointer-events-none translate-y-4 fixed bottom-6 right-6 z-30 w-11 h-11 rounded-full bg-brand text-white shadow-lg flex items-center justify-center hover:bg-brand-dark" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- Toast -->
+<div id="auth-toast" class="auth-toast">
+  <i class="fa-solid fa-circle-check"></i>
+  <span>Success</span>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ellamart+ | Best Multipurpose Online Store</title>
+<meta name="description" content="ellamart+ — electronics, fashion, furniture and more. Great deals every day." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<!-- animate.css (used by WOW.js) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui'] },
+        colors: {
+          brand: { DEFAULT: '#2b6ee0', dark: '#1d4fa3', light: '#eef4ff' },
+          accent: '#ff7a1a',
+          ink: '#17203a',
+        },
+        container: { center: true },
+      }
+    }
+  }
+</script>
+
+<!-- Custom styles -->
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-white text-ink antialiased">
+
+<!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+<div class="bg-ink text-white text-xs">
+  <div class="max-w-[1280px] mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
+    <i class="fa-solid fa-bolt text-accent"></i>
+    <span>Buy Now Pay Later Starting at 0% APR. <a href="#" class="underline font-semibold hover:text-accent">LEARN MORE</a></span>
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" class="sticky top-0 z-40 bg-white border-b border-gray-100 transition-shadow">
+  <div class="max-w-[1280px] mx-auto px-4">
+    <div class="flex items-center justify-between gap-4 py-4">
+      <!-- Mobile menu button -->
+      <button id="menu-toggle" class="lg:hidden text-xl text-ink" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 shrink-0">
+        <span class="text-2xl font-extrabold tracking-tight text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      </a>
+
+      <!-- Search (desktop) -->
+      <div class="hidden lg:flex flex-1 max-w-xl mx-6">
+        <div class="flex w-full rounded-full border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand/40">
+          <input type="text" placeholder="Search for products, brands and more..."
+                 class="w-full px-5 py-2.5 text-sm outline-none" />
+          <button class="bg-brand hover:bg-brand-dark text-white px-5 flex items-center justify-center transition-colors" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Icons -->
+      <div class="flex items-center gap-4 sm:gap-5">
+        <button id="search-toggle" class="lg:hidden text-lg" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <a href="login.html" class="hidden sm:flex flex-col items-center text-ink hover:text-brand text-lg leading-none" aria-label="Account">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <a href="#" class="hidden sm:flex relative text-ink hover:text-brand text-lg leading-none" aria-label="Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="absolute -top-2 -right-2 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        </a>
+        <a href="cart.html" class="relative text-ink hover:text-brand text-lg leading-none" aria-label="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-brand text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main nav (desktop) -->
+    <nav class="hidden lg:flex items-center gap-7 border-t border-gray-100 py-3 text-sm font-medium">
+      <div class="relative group">
+        <button class="flex items-center gap-2 bg-brand text-white px-4 py-2 rounded-md">
+          <i class="fa-solid fa-bars"></i> Shop By Categories
+        </button>
+        <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-30 py-2">
+          <a href="#categories" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-mobile-screen w-4"></i> Mobile Phones</a>
+          <a href="#categories" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-laptop w-4"></i> Laptops &amp; Tablets</a>
+          <a href="#categories" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-tv w-4"></i> Televisions</a>
+          <a href="#categories" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-computer w-4"></i> PCs &amp; Video</a>
+          <a href="#categories" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-headphones-simple w-4"></i> Audio &amp; Video</a>
+          <a href="#categories" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-gamepad w-4"></i> Gaming &amp; Accessories</a>
+        </div>
+      </div>
+      <a href="#" class="hover:text-brand">Home</a>
+      <a href="#" class="hover:text-brand">Electronics</a>
+      <a href="#" class="hover:text-brand">Fashion</a>
+      <a href="#" class="hover:text-brand">Furniture</a>
+      <a href="blog.html" class="hover:text-brand">Blog</a>
+      <a href="#" class="hover:text-brand">Contact</a>
+      <span class="ml-auto flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</span>
+    </nav>
+  </div>
+</header>
+
+<!-- Search overlay (mobile) -->
+<div id="search-overlay" class="hidden fixed inset-0 z-50 bg-black/50">
+  <div class="bg-white p-4 flex items-center gap-3">
+    <input id="search-input" type="text" placeholder="Search products..." class="flex-1 border border-gray-200 rounded-full px-4 py-2.5 text-sm outline-none">
+    <button id="search-close" class="text-xl text-ink" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+</div>
+
+<!-- Mobile drawer menu -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+<aside id="mobile-menu" class="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white z-50 lg:hidden overflow-y-auto">
+  <div class="flex items-center justify-between p-4 border-b border-gray-100">
+    <span class="text-xl font-extrabold text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+    <button id="menu-close" class="text-xl" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <nav class="p-4 text-sm font-medium">
+    <button class="mobile-acc-btn w-full flex items-center justify-between py-3 border-b border-gray-100">
+      Shop By Categories <i class="fa-solid fa-chevron-down acc-icon transition-transform"></i>
+    </button>
+    <div class="hidden pl-3 pb-2">
+      <a href="#categories" class="block py-2 text-gray-600">Mobile Phones</a>
+      <a href="#categories" class="block py-2 text-gray-600">Laptops &amp; Tablets</a>
+      <a href="#categories" class="block py-2 text-gray-600">Televisions</a>
+      <a href="#categories" class="block py-2 text-gray-600">PCs &amp; Video</a>
+      <a href="#categories" class="block py-2 text-gray-600">Audio &amp; Video</a>
+      <a href="#categories" class="block py-2 text-gray-600">Gaming &amp; Accessories</a>
+    </div>
+    <a href="#" class="block py-3 border-b border-gray-100">Home</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Electronics</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Fashion</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Furniture</a>
+    <a href="blog.html" class="block py-3 border-b border-gray-100">Blog</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Contact</a>
+    <div class="mt-4 flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</div>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="max-w-[1280px] mx-auto px-4 pt-6">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <!-- Only Today -->
+    <div class="lg:col-span-2 rounded-2xl bg-gray-50 border border-gray-100 p-5 sm:p-7 wow animate__fadeIn">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-accent">ONLY TODAY</h2>
+          <p class="text-xs text-gray-500 mt-1">Ends in <span id="deal-countdown" class="font-semibold text-ink">23:59:59</span></p>
+        </div>
+        <a href="#" class="hidden sm:inline-flex items-center gap-2 bg-ink text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-brand transition-colors">
+          Shop the sale <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="text-center wow animate__fadeInUp" data-wow-delay=".05s">
+          <div class="relative rounded-xl bg-white p-3">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-pink-500 text-xs">75%</span>
+            <img src="https://placehold.co/240x240/ffffff/1a1a1a?text=Speaker" alt="PureSound Bluetooth Speaker" class="mx-auto h-24 object-contain">
+          </div>
+          <p class="text-xs mt-2 text-gray-600">Discount up to</p>
+        </div>
+        <div class="text-center wow animate__fadeInUp" data-wow-delay=".1s">
+          <div class="relative rounded-xl bg-white p-3">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-teal-500 text-xs">60%</span>
+            <img src="https://placehold.co/240x240/ffffff/1a1a1a?text=Laptop" alt="Ultra Performance Laptop" class="mx-auto h-24 object-contain">
+          </div>
+          <p class="text-xs mt-2 text-gray-600">Discount up to</p>
+        </div>
+        <div class="text-center wow animate__fadeInUp" data-wow-delay=".15s">
+          <div class="relative rounded-xl bg-white p-3">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-fuchsia-500 text-xs">45%</span>
+            <img src="https://placehold.co/240x240/ffffff/1a1a1a?text=Kettle" alt="Electric Kettle" class="mx-auto h-24 object-contain">
+          </div>
+          <p class="text-xs mt-2 text-gray-600">Discount up to</p>
+        </div>
+        <div class="text-center wow animate__fadeInUp" data-wow-delay=".2s">
+          <div class="relative rounded-xl bg-white p-3">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-blue-500 text-xs">30%</span>
+            <img src="https://placehold.co/240x240/ffffff/1a1a1a?text=Fridge" alt="French Door Fridge" class="mx-auto h-24 object-contain">
+          </div>
+          <p class="text-xs mt-2 text-gray-600">Discount up to</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side banners -->
+    <div class="grid grid-rows-2 gap-4">
+      <a href="#" class="promo-banner group wow animate__fadeInRight bg-gradient-to-br from-indigo-600 to-purple-700 p-5 flex flex-col justify-between min-h-[140px]">
+        <img src="https://picsum.photos/seed/mobilex/500/300" alt="Mobile X" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-500">
+        <span class="text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1 rounded-full w-fit">Mobile X</span>
+        <div>
+          <p class="text-2xl font-extrabold">30% <span class="text-sm font-medium">Off</span></p>
+          <span class="inline-flex items-center gap-1 text-xs font-semibold mt-1">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a href="#" class="promo-banner group wow animate__fadeInRight bg-gradient-to-br from-slate-700 to-ink p-5 flex flex-col justify-between min-h-[140px]" data-wow-delay=".1s">
+        <img src="https://picsum.photos/seed/ultralaptop/500/300" alt="Ultra R6 Laptop Gen 3" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-500">
+        <span class="text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1 rounded-full w-fit">Laptop Gen 3</span>
+        <div>
+          <p class="text-xl font-extrabold leading-tight">Ultra R6</p>
+          <span class="inline-flex items-center gap-1 text-xs font-semibold mt-1">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 30% off pill banner -->
+  <a href="#" class="wow animate__fadeInUp mt-4 flex items-center justify-between gap-4 rounded-full bg-gradient-to-r from-brand to-indigo-600 text-white px-6 sm:px-10 py-4 overflow-hidden">
+    <i class="fa-solid fa-gift text-2xl hidden sm:block"></i>
+    <div class="text-center flex-1">
+      <p class="font-bold text-base sm:text-lg">30% off for new customers</p>
+      <p class="text-xs text-white/80">Free Shipping &amp; Flat Return on all orders. Start your order now</p>
+    </div>
+    <i class="fa-solid fa-arrow-right"></i>
+  </a>
+</section>
+
+<!-- ================= SHOP BY CATEGORIES ================= -->
+<section id="categories" class="max-w-[1280px] mx-auto px-4 mt-12">
+  <div class="section-head wow animate__fadeInUp">
+    <h2 class="text-xl">Shop By Categories</h2>
+    <a href="#" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+  </div>
+  <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6">
+    <a href="#" class="category-card flex flex-col items-center gap-3 text-center wow animate__zoomIn" data-wow-delay=".05s">
+      <span class="category-icon"><i class="fa-solid fa-mobile-screen"></i></span>
+      <span class="text-xs sm:text-sm font-medium">Mobile Phones</span>
+    </a>
+    <a href="#" class="category-card flex flex-col items-center gap-3 text-center wow animate__zoomIn" data-wow-delay=".1s">
+      <span class="category-icon"><i class="fa-solid fa-laptop"></i></span>
+      <span class="text-xs sm:text-sm font-medium">Laptops &amp; Tablets</span>
+    </a>
+    <a href="#" class="category-card flex flex-col items-center gap-3 text-center wow animate__zoomIn" data-wow-delay=".15s">
+      <span class="category-icon"><i class="fa-solid fa-tv"></i></span>
+      <span class="text-xs sm:text-sm font-medium">Televisions</span>
+    </a>
+    <a href="#" class="category-card flex flex-col items-center gap-3 text-center wow animate__zoomIn" data-wow-delay=".2s">
+      <span class="category-icon"><i class="fa-solid fa-computer"></i></span>
+      <span class="text-xs sm:text-sm font-medium">PCs &amp; Video</span>
+    </a>
+    <a href="#" class="category-card flex flex-col items-center gap-3 text-center wow animate__zoomIn" data-wow-delay=".25s">
+      <span class="category-icon"><i class="fa-solid fa-headphones-simple"></i></span>
+      <span class="text-xs sm:text-sm font-medium">Audio &amp; Video</span>
+    </a>
+    <a href="#" class="category-card flex flex-col items-center gap-3 text-center wow animate__zoomIn" data-wow-delay=".3s">
+      <span class="category-icon"><i class="fa-solid fa-gamepad"></i></span>
+      <span class="text-xs sm:text-sm font-medium">Gaming &amp; Accessories</span>
+    </a>
+  </div>
+</section>
+
+<!-- ================= NEW PRODUCT / FEATURED PRODUCTS ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- New Product -->
+    <div class="wow animate__fadeInUp">
+      <div class="section-head">
+        <h2 class="text-xl">New Product</h2>
+        <a href="#" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+      </div>
+      <div class="swiper new-product-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="product-card p-3">
+              <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Speaker+System" class="w-full aspect-square object-contain" alt="PureSound 2-Piece Bluetooth Speaker System"></div>
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">PureSound 2-Piece Bluetooth Speaker System</h3>
+              <p class="text-brand font-semibold text-sm mt-1">From $129.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3">
+              <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Laptop" class="w-full aspect-square object-contain" alt="VeraBlend Ultra Performance Laptop"></div>
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">VeraBlend Ultra Performance Laptop</h3>
+              <p class="text-brand font-semibold text-sm mt-1">From $499.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3">
+              <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Coffee+Maker" class="w-full aspect-square object-contain" alt="BrewMate Automatic Coffee Maker"></div>
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate Automatic Coffee Maker</h3>
+              <p class="text-brand font-semibold text-sm mt-1">From $179.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3">
+              <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Fridge" class="w-full aspect-square object-contain" alt="BrewMate French Door Electric Fridge"></div>
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate French Door Electric Fridge</h3>
+              <p class="text-brand font-semibold text-sm mt-1">From $1,099.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination mt-3"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+
+    <!-- Featured Products -->
+    <div class="wow animate__fadeInUp" data-wow-delay=".1s">
+      <div class="section-head">
+        <h2 class="text-xl">Featured Products</h2>
+        <a href="#" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+      </div>
+      <div class="swiper featured-product-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="product-card p-3">
+              <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Kettle" class="w-full aspect-square object-contain" alt="BrewMate Stainless Electric Kettle"></div>
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate Stainless Electric Kettle</h3>
+              <p class="text-brand font-semibold text-sm mt-1">From $49.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3">
+              <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="VisionCase QUHD 4K Smart TV"></div>
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">VisionCase QUHD 4K Smart TV</h3>
+              <p class="text-brand font-semibold text-sm mt-1">From $499.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3">
+              <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Vacuum" class="w-full aspect-square object-contain" alt="ClearPro Upright Vacuum Cleaner"></div>
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">ClearPro Upright Vacuum Cleaner</h3>
+              <p class="text-brand font-semibold text-sm mt-1">From $249.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3">
+              <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Earbuds" class="w-full aspect-square object-contain" alt="AstroTune True Wireless Earbuds"></div>
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">AstroTune True Wireless Earbuds</h3>
+              <p class="text-brand font-semibold text-sm mt-1">From $89.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination mt-3"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TOP BRAND ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12 wow animate__fadeIn">
+  <div class="section-head">
+    <h2 class="text-xl">Top Brand</h2>
+    <a href="#" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+  </div>
+  <div class="swiper brand-swiper">
+    <div class="swiper-wrapper items-center">
+      <div class="swiper-slide"><img src="https://placehold.co/160x60/ffffff/9aa1ac?text=allodemo" class="mx-auto opacity-70 hover:opacity-100 transition-opacity" alt="Brand logo"></div>
+      <div class="swiper-slide"><img src="https://placehold.co/160x60/ffffff/9aa1ac?text=allodemo" class="mx-auto opacity-70 hover:opacity-100 transition-opacity" alt="Brand logo"></div>
+      <div class="swiper-slide"><img src="https://placehold.co/160x60/ffffff/9aa1ac?text=allodemo" class="mx-auto opacity-70 hover:opacity-100 transition-opacity" alt="Brand logo"></div>
+      <div class="swiper-slide"><img src="https://placehold.co/160x60/ffffff/9aa1ac?text=allodemo" class="mx-auto opacity-70 hover:opacity-100 transition-opacity" alt="Brand logo"></div>
+      <div class="swiper-slide"><img src="https://placehold.co/160x60/ffffff/9aa1ac?text=allodemo" class="mx-auto opacity-70 hover:opacity-100 transition-opacity" alt="Brand logo"></div>
+      <div class="swiper-slide"><img src="https://placehold.co/160x60/ffffff/9aa1ac?text=allodemo" class="mx-auto opacity-70 hover:opacity-100 transition-opacity" alt="Brand logo"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CURRENT TOP SELLERS ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12 wow animate__fadeInUp">
+  <div class="section-head">
+    <h2 class="text-xl">Current Top Sellers</h2>
+    <a href="#" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+  </div>
+  <div class="swiper top-sellers-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Vacuum" class="w-full aspect-square object-contain" alt="ClearPro Upright Vacuum Cleaner">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">ClearPro Upright Vacuum Cleaner</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $249.00 USD</span> <span class="text-gray-400 line-through text-xs">$330.00</span></p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-black"></span><span class="swatch bg-gray-300"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Earbuds" class="w-full aspect-square object-contain" alt="AstraTune True Wireless Earbuds">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">AstraTune True Wireless Earbuds</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $89.00 USD</span></p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-white"></span><span class="swatch bg-black"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smartphone" class="w-full aspect-square object-contain" alt="AstraTue Non-Slip Smartphone">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">AstraTue Non-Slip Smartphone</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $399.00 USD</span></p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-blue-500"></span><span class="swatch bg-gray-800"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="VisionGlow OLED 4K Smart TV">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">VisionGlow OLED 4K Smart TV</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $1,589.00 USD</span></p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Blender" class="w-full aspect-square object-contain" alt="BerryBlend Personal Smoothie Blender">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">BerryBlend Personal Smoothie Blender</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $99.00 USD</span></p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-red-500"></span><span class="swatch bg-emerald-500"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Robot+Vacuum" class="w-full aspect-square object-contain" alt="SmartSweep Robot Vacuum Cleaner">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">SmartSweep Robot Vacuum Cleaner</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $399.00 USD</span></p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination mt-3"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+
+<!-- ================= WORLD'S FIRST UHD TV / REWARDS ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <a href="#" class="promo-banner group wow animate__fadeInLeft bg-gradient-to-br from-slate-900 to-indigo-950 min-h-[160px] p-6 flex flex-col justify-center">
+      <img src="https://picsum.photos/seed/uhdtv/700/300" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-500" alt="World's First UHD TV">
+      <h3 class="text-xl sm:text-2xl font-extrabold">World's First UHD TV</h3>
+      <span class="inline-flex items-center gap-2 text-sm font-semibold mt-2">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+    </a>
+    <a href="#" class="promo-banner group wow animate__fadeInRight bg-gradient-to-br from-fuchsia-600 to-pink-500 min-h-[160px] p-6 flex flex-col justify-center">
+      <img src="https://picsum.photos/seed/rewards/700/300" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-500" alt="Rewards Program">
+      <h3 class="text-xl sm:text-2xl font-extrabold">Rewards Program</h3>
+      <span class="inline-flex items-center gap-2 text-sm font-semibold mt-2">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+    </a>
+  </div>
+</section>
+
+<!-- ================= CLOTHING, SHOES & ACCESSORIES ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12 wow animate__fadeInUp">
+  <h2 class="text-xl font-semibold pl-3 border-l-4 border-brand mb-5">Clothing, Shoes &amp; Accessories</h2>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+    <!-- Sale banner -->
+    <a href="#" class="promo-banner lg:col-span-3 bg-gradient-to-br from-red-600 to-orange-500 min-h-[280px] p-6 flex flex-col justify-between">
+      <img src="https://picsum.photos/seed/clothingsale/500/700" class="absolute inset-0 w-full h-full object-cover opacity-40" alt="Clothing Sale">
+      <span class="text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1 rounded-full w-fit">Fashion Week</span>
+      <div>
+        <p class="text-3xl font-extrabold leading-none">SALE UP TO<br><span class="text-4xl">60%</span></p>
+        <p class="text-xs mt-2 opacity-90">off all women's clothing</p>
+        <span class="inline-flex items-center gap-2 text-sm font-semibold mt-3">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <!-- Product carousel -->
+    <div class="lg:col-span-6">
+      <div class="swiper clothing-swiper h-full">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x500/f5f7fb/1a1a1a?text=Blouse" class="w-full aspect-[4/5] object-contain" alt="Gostiec Length Off Shoulder Blouse">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">Gostiec Length Off Shoulder Blouse</h3>
+              <p class="text-sm mt-1"><span class="font-semibold">From $129.00 USD</span></p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x500/f5f7fb/1a1a1a?text=Knitted+Vest" class="w-full aspect-[4/5] object-contain" alt="Erlgo Ridge Knitted Vest">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">Erlgo Ridge Knitted Vest</h3>
+              <p class="text-sm mt-1"><span class="font-semibold">From $129.00 USD</span></p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x500/f5f7fb/1a1a1a?text=Trouser" class="w-full aspect-[4/5] object-contain" alt="Northio Ripped Linen Wide Trouser">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">Northio Ripped Linen Wide Trouser</h3>
+              <p class="text-sm mt-1"><span class="font-semibold">From $149.00 USD</span></p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination mt-3"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+
+    <!-- For men/women/kid -->
+    <div class="lg:col-span-3 grid grid-cols-3 lg:grid-cols-1 gap-4">
+      <a href="#" class="promo-banner bg-gradient-to-br from-blue-600 to-cyan-500 min-h-[85px] flex items-center justify-center text-center p-3">
+        <img src="https://picsum.photos/seed/formen/400/300" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="For Men">
+        <span class="text-xs sm:text-sm font-bold">FOR MEN</span>
+      </a>
+      <a href="#" class="promo-banner bg-gradient-to-br from-pink-500 to-rose-400 min-h-[85px] flex items-center justify-center text-center p-3">
+        <img src="https://picsum.photos/seed/forwomen/400/300" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="For Women">
+        <span class="text-xs sm:text-sm font-bold">FOR WOMEN</span>
+      </a>
+      <a href="#" class="promo-banner bg-gradient-to-br from-amber-500 to-yellow-400 min-h-[85px] flex items-center justify-center text-center p-3">
+        <img src="https://picsum.photos/seed/forkid/400/300" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="For Kid">
+        <span class="text-xs sm:text-sm font-bold">FOR KID</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAN / WOMEN / BABIES COLLECTIONS ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-sky-700 to-blue-600 min-h-[170px] p-5 flex flex-col justify-end">
+      <img src="https://picsum.photos/seed/mancollection/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="Man Collections">
+      <h3 class="font-bold text-lg">Man Collections</h3>
+      <a href="#" class="mt-2 inline-block w-fit bg-white text-ink text-xs font-semibold px-4 py-2 rounded-full">Shop Now</a>
+    </a>
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-fuchsia-700 to-pink-600 min-h-[170px] p-5 flex flex-col justify-end" data-wow-delay=".1s">
+      <img src="https://picsum.photos/seed/womencollection/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="Women Collections">
+      <h3 class="font-bold text-lg">Women Collections</h3>
+      <a href="#" class="mt-2 inline-block w-fit bg-white text-ink text-xs font-semibold px-4 py-2 rounded-full">Shop Now</a>
+    </a>
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-cyan-500 to-teal-400 min-h-[170px] p-5 flex flex-col justify-end" data-wow-delay=".2s">
+      <img src="https://picsum.photos/seed/babiescollection/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="All For Babies">
+      <h3 class="font-bold text-lg">All For Babies</h3>
+      <a href="#" class="mt-2 inline-block w-fit bg-white text-ink text-xs font-semibold px-4 py-2 rounded-full">Shop Now</a>
+    </a>
+  </div>
+</section>
+
+<!-- ================= HOME, FURNITURES & DECOR (30%) ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12 wow animate__fadeInUp">
+  <h2 class="text-xl font-semibold pl-3 border-l-4 border-brand mb-5">Home, Furnitures &amp; Decor</h2>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+    <a href="#" class="promo-banner lg:col-span-3 bg-gradient-to-br from-amber-500 to-orange-500 min-h-[280px] p-6 flex flex-col justify-between">
+      <img src="https://picsum.photos/seed/furnituresale/500/700" class="absolute inset-0 w-full h-full object-cover opacity-40" alt="Furniture Sale">
+      <span class="text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1 rounded-full w-fit">Home Refresh</span>
+      <div>
+        <p class="text-3xl font-extrabold leading-none">SALE UP TO<br><span class="text-4xl">30%</span></p>
+        <span class="inline-flex items-center gap-2 text-sm font-semibold mt-3">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <div class="lg:col-span-6">
+      <div class="swiper furniture-swiper h-full">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Bedside+Table" class="w-full aspect-square object-contain" alt="WoodNest Scandinavian White Bedside Table">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">WoodNest Scandinavian White Bedside Table</h3>
+              <p class="text-sm mt-1 font-semibold">From $309.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Dining+Chair" class="w-full aspect-square object-contain" alt="Olive Haven Dining Chair">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">Olive Haven Dining Chair</h3>
+              <p class="text-sm mt-1 font-semibold">From $179.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Sofa" class="w-full aspect-square object-contain" alt="Modern Urban 2-Seater Fabric Sofa">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">Modern Urban 2-Seater Fabric Sofa</h3>
+              <p class="text-sm mt-1 font-semibold">From $429.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination mt-3"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-3 bg-gray-50 border border-gray-100 rounded-2xl p-5 flex flex-col justify-between">
+      <div>
+        <a href="#" class="flex items-center justify-between py-2.5 border-b border-gray-200 text-sm font-medium hover:text-brand">Living Room <i class="fa-solid fa-chevron-right text-xs"></i></a>
+        <a href="#" class="flex items-center justify-between py-2.5 border-b border-gray-200 text-sm font-medium hover:text-brand">Bed Room <i class="fa-solid fa-chevron-right text-xs"></i></a>
+        <a href="#" class="flex items-center justify-between py-2.5 text-sm font-medium hover:text-brand">Decor <i class="fa-solid fa-chevron-right text-xs"></i></a>
+      </div>
+      <a href="#" class="view-all mt-4">View All Categories <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RETRO FURNITURE / DINING CHAIR / WINE RACK ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-stone-700 to-stone-900 min-h-[150px] p-5 flex items-end">
+      <img src="https://picsum.photos/seed/retrofurniture/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="Retro Furniture">
+      <h3 class="font-bold">Retro Furniture</h3>
+    </a>
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-neutral-700 to-neutral-900 min-h-[150px] p-5 flex items-end" data-wow-delay=".1s">
+      <img src="https://picsum.photos/seed/diningchair/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="Dining Chair Combo">
+      <h3 class="font-bold">Dining Chair Combo</h3>
+    </a>
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-zinc-700 to-zinc-900 min-h-[150px] p-5 flex items-end" data-wow-delay=".2s">
+      <img src="https://picsum.photos/seed/winerack/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="Wine Rack Bottle">
+      <h3 class="font-bold">Wine Rack Bottle</h3>
+    </a>
+  </div>
+</section>
+
+<!-- ================= ELECTRONICS & OFFICES (50%) ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12 wow animate__fadeInUp">
+  <h2 class="text-xl font-semibold pl-3 border-l-4 border-brand mb-5">Electronics &amp; Offices</h2>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+    <a href="#" class="promo-banner lg:col-span-3 bg-gradient-to-br from-blue-700 to-indigo-600 min-h-[280px] p-6 flex flex-col justify-between">
+      <img src="https://picsum.photos/seed/electronicssale/500/700" class="absolute inset-0 w-full h-full object-cover opacity-40" alt="Electronics Sale">
+      <span class="text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1 rounded-full w-fit">Tech Deals</span>
+      <div>
+        <p class="text-3xl font-extrabold leading-none">SALE UP TO<br><span class="text-4xl">50%</span></p>
+        <span class="inline-flex items-center gap-2 text-sm font-semibold mt-3">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <div class="lg:col-span-6">
+      <div class="swiper electronics-swiper h-full">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smartphone" class="w-full aspect-square object-contain" alt="NovaLink 4G Smartphone">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">NovaLink 4G Smartphone</h3>
+              <p class="text-sm mt-1 font-semibold">From $299.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="AstraCase QUHD 4K Smart TV">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">AstraCase QUHD 4K Smart TV</h3>
+              <p class="text-sm mt-1 font-semibold">From $899.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="VisionCase QUHD 4K Smart TV">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">VisionCase QUHD 4K Smart TV</h3>
+              <p class="text-sm mt-1 font-semibold">From $499.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination mt-3"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-3 bg-gray-50 border border-gray-100 rounded-2xl p-5 flex flex-col justify-between">
+      <div>
+        <a href="#" class="flex items-center justify-between py-2.5 border-b border-gray-200 text-sm font-medium hover:text-brand">Smartphones <i class="fa-solid fa-chevron-right text-xs"></i></a>
+        <a href="#" class="flex items-center justify-between py-2.5 border-b border-gray-200 text-sm font-medium hover:text-brand">Laptops <i class="fa-solid fa-chevron-right text-xs"></i></a>
+        <a href="#" class="flex items-center justify-between py-2.5 text-sm font-medium hover:text-brand">Televisions <i class="fa-solid fa-chevron-right text-xs"></i></a>
+      </div>
+      <a href="#" class="view-all mt-4">View All Categories <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KEEP IT WARM / TOYS / HEATED VEST (teal) ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-emerald-600 to-teal-500 min-h-[150px] p-5 flex items-end">
+      <img src="https://picsum.photos/seed/keepwarm1/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="Keep It Warm">
+      <h3 class="font-bold">Keep It Warm!</h3>
+    </a>
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-cyan-600 to-emerald-500 min-h-[150px] p-5 flex items-end" data-wow-delay=".1s">
+      <img src="https://picsum.photos/seed/toys1/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="Toys Set For Kids">
+      <h3 class="font-bold">Toys Set For Kids</h3>
+    </a>
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-teal-600 to-lime-500 min-h-[150px] p-5 flex items-end" data-wow-delay=".2s">
+      <img src="https://picsum.photos/seed/heatedvest1/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="ABL Heated Vest">
+      <h3 class="font-bold">ABL. Heated Vest</h3>
+    </a>
+  </div>
+</section>
+
+<!-- ================= HOME, FURNITURES & DECOR (40%) ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12 wow animate__fadeInUp">
+  <h2 class="text-xl font-semibold pl-3 border-l-4 border-brand mb-5">Home, Furnitures &amp; Decor</h2>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+    <a href="#" class="promo-banner lg:col-span-3 bg-gradient-to-br from-pink-600 to-purple-600 min-h-[280px] p-6 flex flex-col justify-between">
+      <img src="https://picsum.photos/seed/kitchensale/500/700" class="absolute inset-0 w-full h-full object-cover opacity-40" alt="Kitchen Sale">
+      <span class="text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1 rounded-full w-fit">Kitchen Essentials</span>
+      <div>
+        <p class="text-3xl font-extrabold leading-none">SALE UP TO<br><span class="text-4xl">40%</span></p>
+        <span class="inline-flex items-center gap-2 text-sm font-semibold mt-3">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <div class="lg:col-span-6">
+      <div class="swiper furniture2-swiper h-full">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smoothie+Maker" class="w-full aspect-square object-contain" alt="NutriBlend Smoothie Maker">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">NutriBlend Smoothie Maker</h3>
+              <p class="text-sm mt-1 font-semibold">From $79.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Rice+Cooker" class="w-full aspect-square object-contain" alt="AstraTec Electric Rice Cooker">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">AstraTec Electric Rice Cooker</h3>
+              <p class="text-sm mt-1 font-semibold">From $99.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-card p-3 h-full">
+              <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Coffee+Grinder" class="w-full aspect-square object-contain" alt="BrewMate Automatic Coffee Grinder">
+              <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate Automatic Coffee Grinder</h3>
+              <p class="text-sm mt-1 font-semibold">From $59.00 USD</p>
+              <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination mt-3"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-3 bg-gray-50 border border-gray-100 rounded-2xl p-5 flex flex-col justify-between">
+      <div>
+        <a href="#" class="flex items-center justify-between py-2.5 border-b border-gray-200 text-sm font-medium hover:text-brand">Kitchen <i class="fa-solid fa-chevron-right text-xs"></i></a>
+        <a href="#" class="flex items-center justify-between py-2.5 border-b border-gray-200 text-sm font-medium hover:text-brand">Toys <i class="fa-solid fa-chevron-right text-xs"></i></a>
+        <a href="#" class="flex items-center justify-between py-2.5 text-sm font-medium hover:text-brand">Household <i class="fa-solid fa-chevron-right text-xs"></i></a>
+      </div>
+      <a href="#" class="view-all mt-4">View All Categories <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KEEP IT WARM / TOYS / HEATED VEST (orange) ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-orange-600 to-red-500 min-h-[150px] p-5 flex items-end">
+      <img src="https://picsum.photos/seed/keepwarm2/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="Keep It Warm">
+      <h3 class="font-bold">Keep It Warm!</h3>
+    </a>
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-amber-600 to-orange-500 min-h-[150px] p-5 flex items-end" data-wow-delay=".1s">
+      <img src="https://picsum.photos/seed/toys2/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="Toys Set For Kids">
+      <h3 class="font-bold">Toys Set For Kids</h3>
+    </a>
+    <a href="#" class="promo-banner group wow animate__fadeInUp bg-gradient-to-br from-rose-600 to-orange-400 min-h-[150px] p-5 flex items-end" data-wow-delay=".2s">
+      <img src="https://picsum.photos/seed/heatedvest2/500/400" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-transform duration-500" alt="ABL Heated Vest">
+      <h3 class="font-bold">ABL. Heated Vest</h3>
+    </a>
+  </div>
+</section>
+
+<!-- ================= RECOMMENDED FOR YOU ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12 wow animate__fadeInUp">
+  <div class="section-head">
+    <h2 class="text-xl">Recommended For You</h2>
+  </div>
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="product-card p-3">
+      <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smartphone" class="w-full aspect-square object-contain" alt="Certified Refurbished Smartphone">
+      <h3 class="text-sm mt-2 font-medium line-clamp-2">Certified Refurbished Smartphone</h3>
+      <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $199.00 USD</span> <span class="text-gray-400 line-through text-xs">$299.00</span></p>
+      <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+    </div>
+    <div class="product-card p-3">
+      <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Charger" class="w-full aspect-square object-contain" alt="PowerMax Slim Portable Charger">
+      <h3 class="text-sm mt-2 font-medium line-clamp-2">PowerMax Slim Portable Charger</h3>
+      <p class="text-sm mt-1 font-semibold">$49.00 USD</p>
+      <a href="product.html" class="btn-choose block mt-2">Add to cart</a>
+    </div>
+    <div class="product-card p-3">
+      <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Handbag" class="w-full aspect-square object-contain" alt="Structured Leather Handbag">
+      <h3 class="text-sm mt-2 font-medium line-clamp-2">Structured Leather Handbag</h3>
+      <p class="text-sm mt-1 font-semibold">From $189.00 USD</p>
+      <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+    </div>
+    <div class="product-card p-3">
+      <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Camera" class="w-full aspect-square object-contain" alt="Professional Digital Camera">
+      <h3 class="text-sm mt-2 font-medium line-clamp-2">Professional Digital Camera</h3>
+      <p class="text-sm mt-1 font-semibold">From $899.00 USD</p>
+      <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+    </div>
+    <div class="product-card p-3">
+      <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Potted+Plant" class="w-full aspect-square object-contain" alt="Decorative Indoor Potted Plant Collection">
+      <h3 class="text-sm mt-2 font-medium line-clamp-2">Decorative Indoor Potted Plant Collection</h3>
+      <p class="text-sm mt-1 font-semibold">From $39.00 USD</p>
+      <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+    </div>
+    <div class="product-card p-3">
+      <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smartphone" class="w-full aspect-square object-contain" alt="Nova X Smartphone">
+      <h3 class="text-sm mt-2 font-medium line-clamp-2">Nova X Smartphone</h3>
+      <p class="text-sm mt-1 font-semibold">From $649.00 USD</p>
+      <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+    </div>
+    <div class="product-card p-3">
+      <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="AstroCast 50 inch Ultra HD Smart TV">
+      <h3 class="text-sm mt-2 font-medium line-clamp-2">AstroCast 50" Ultra HD Smart TV</h3>
+      <p class="text-sm mt-1 font-semibold">From $499.00 USD</p>
+      <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+    </div>
+    <div class="product-card p-3">
+      <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Robot+Vacuum" class="w-full aspect-square object-contain" alt="SmartSweep Robot Vacuum Cleaner">
+      <h3 class="text-sm mt-2 font-medium line-clamp-2">SmartSweep Robot Vacuum Cleaner</h3>
+      <p class="text-sm mt-1 font-semibold">From $399.00 USD</p>
+      <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+    </div>
+  </div>
+  <div class="text-center mt-8">
+    <button class="border border-gray-300 rounded-full px-8 py-2.5 text-sm font-medium hover:bg-ink hover:text-white hover:border-ink transition-colors">See more</button>
+  </div>
+</section>
+
+<!-- ================= SEO TEXT BLOCK ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-12">
+  <div class="text-xs text-gray-500 leading-relaxed relative max-h-24 overflow-hidden" id="seo-text">
+    <p>In today's digital marketplace, standing out means offering more than just a wide catalog of products — it means delivering a shopping experience that customers can trust. At ellamart+, we bring together electronics, fashion, home &amp; furniture, and lifestyle essentials under one roof, curated with careful attention to quality and value. Our team works directly with manufacturers and trusted suppliers worldwide to negotiate the best prices, so the savings get passed straight to you. Whether you're upgrading your home entertainment setup, refreshing your wardrobe for the season, or searching for the perfect gift, our daily deals and flash sales make it easy to find something special without stretching your budget.</p>
+    <p class="mt-2">We know that fast, reliable shipping and transparent policies matter just as much as the products themselves. That's why every order ships from verified warehouses with real-time tracking, flexible returns, and secure checkout. Our customer support team is available around the clock to help with sizing questions, order updates, or anything else you need along the way. Thank you for shopping with ellamart+ — we're constantly adding new arrivals and expanding our categories so there's always something new to discover.</p>
+  </div>
+  <button id="seo-toggle" class="text-brand text-xs font-semibold mt-2 hover:underline">Read more</button>
+</section>
+
+<!-- ================= WHY SHOP WITH US ================= -->
+<section class="mt-12 bg-gradient-to-r from-brand to-indigo-600 text-white wow animate__fadeIn">
+  <div class="max-w-[1280px] mx-auto px-4 py-10">
+    <h2 class="text-center text-xl sm:text-2xl font-bold mb-8">Why Shop With Us?</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+      <div class="flex flex-col items-center gap-3">
+        <i class="fa-solid fa-award text-3xl"></i>
+        <p class="text-sm font-semibold">Quality and Safety</p>
+        <p class="text-xs text-white/75">Comprehensive quality and affordable prices</p>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <i class="fa-solid fa-earth-americas text-3xl"></i>
+        <p class="text-sm font-semibold">Global Warehouse</p>
+        <p class="text-xs text-white/75">31 overseas warehouses</p>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <i class="fa-solid fa-truck-fast text-3xl"></i>
+        <p class="text-sm font-semibold">Fast Shipping</p>
+        <p class="text-xs text-white/75">Fast and convenient door to door delivery</p>
+      </div>
+      <div class="flex flex-col items-center gap-3">
+        <i class="fa-solid fa-lock text-3xl"></i>
+        <p class="text-sm font-semibold">Payment Security</p>
+        <p class="text-xs text-white/75">More than 10 different payment methods</p>
+      </div>
+      <div class="flex flex-col items-center gap-3 col-span-2 sm:col-span-1">
+        <i class="fa-solid fa-headset text-3xl"></i>
+        <p class="text-sm font-semibold">Have Question</p>
+        <p class="text-xs text-white/75">24/7 customer service - here and happy to help</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="bg-gray-50 border-y border-gray-100 wow animate__fadeInUp">
+  <div class="max-w-[1280px] mx-auto px-4 py-10 text-center">
+    <h2 class="text-lg sm:text-xl font-bold">SUBSCRIBE TO OUR NEWSLETTER</h2>
+    <p class="text-sm text-gray-500 mt-1">Get the latest updates on new products and upcoming sales</p>
+    <form id="newsletter-form" class="mt-5 max-w-md mx-auto flex rounded-full border border-gray-200 bg-white overflow-hidden">
+      <input type="email" required placeholder="Your email address" class="flex-1 px-5 py-3 text-sm outline-none">
+      <button type="submit" class="bg-accent hover:bg-orange-600 transition-colors text-white text-sm font-semibold px-6">Subscribe</button>
+    </form>
+    <p id="newsletter-msg" class="hidden text-sm text-emerald-600 font-medium mt-3"></p>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink text-gray-300">
+  <div class="max-w-[1280px] mx-auto px-4 py-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-8">
+    <div class="col-span-2 sm:col-span-4 lg:col-span-1">
+      <span class="text-2xl font-extrabold text-white">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      <p class="text-sm mt-4 leading-relaxed">403 Market Street<br>San Francisco, CA 89104, US</p>
+      <p class="text-sm mt-2"><i class="fa-solid fa-phone mr-2"></i>Tel: (321) 645-4321</p>
+      <p class="text-sm mt-1"><i class="fa-solid fa-envelope mr-2"></i>support@ellamart.com</p>
+      <div class="flex gap-3 mt-4 text-lg">
+        <a href="#" class="hover:text-white" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Shop</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Men's</a></li>
+        <li><a href="#" class="hover:text-white">Women's</a></li>
+        <li><a href="#" class="hover:text-white">Electronics</a></li>
+        <li><a href="#" class="hover:text-white">Furniture</a></li>
+        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Top Brands</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Our Story</a></li>
+        <li><a href="#" class="hover:text-white">Careers</a></li>
+        <li><a href="#" class="hover:text-white">Sustainability</a></li>
+        <li><a href="#" class="hover:text-white">Affiliate Program</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">About</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        <li><a href="#" class="hover:text-white">Shipping Policy</a></li>
+        <li><a href="#" class="hover:text-white">Returns &amp; Refunds</a></li>
+        <li><a href="track-order.html" class="hover:text-white">Track Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Info</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+        <li><a href="#" class="hover:text-white">FAQ</a></li>
+        <li><a href="#" class="hover:text-white">Store Locator</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-[1280px] mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <p>&copy; <span id="current-year">2026</span> ella+ | Powered by Halothemes. All Rights Reserved.</p>
+      <div class="flex gap-3 text-xl text-gray-300">
+        <i class="fa-brands fa-cc-visa"></i>
+        <i class="fa-brands fa-cc-mastercard"></i>
+        <i class="fa-brands fa-cc-paypal"></i>
+        <i class="fa-brands fa-cc-amex"></i>
+        <i class="fa-brands fa-cc-discover"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" class="opacity-0 pointer-events-none translate-y-4 fixed bottom-6 right-6 z-30 w-11 h-11 rounded-full bg-brand text-white shadow-lg flex items-center justify-center hover:bg-brand-dark" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script>
+  document.getElementById('seo-toggle').addEventListener('click', function () {
+    const text = document.getElementById('seo-text');
+    const expanded = text.classList.toggle('max-h-none');
+    text.classList.toggle('max-h-24');
+    this.textContent = expanded ? 'Read less' : 'Read more';
+  });
+</script>
+</body>
+</html>

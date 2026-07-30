@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Electronics | ellamart+ — Shop by Category</title>
+<meta name="description" content="Browse Electronics at ellamart+ — filter by brand, price, color and more. Great deals every day." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<!-- animate.css (used by WOW.js) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui'] },
+        colors: {
+          brand: { DEFAULT: '#2b6ee0', dark: '#1d4fa3', light: '#eef4ff' },
+          accent: '#ff7a1a',
+          ink: '#17203a',
+        },
+        container: { center: true },
+      }
+    }
+  }
+</script>
+
+<!-- Custom styles -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/category.css">
+</head>
+
+<body class="bg-white text-ink antialiased">
+
+<!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+<div class="bg-ink text-white text-xs">
+  <div class="max-w-[1280px] mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
+    <i class="fa-solid fa-bolt text-accent"></i>
+    <span>Buy Now Pay Later Starting at 0% APR. <a href="#" class="underline font-semibold hover:text-accent">LEARN MORE</a></span>
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" class="sticky top-0 z-40 bg-white border-b border-gray-100 transition-shadow">
+  <div class="max-w-[1280px] mx-auto px-4">
+    <div class="flex items-center justify-between gap-4 py-4">
+      <!-- Mobile menu button -->
+      <button id="menu-toggle" class="lg:hidden text-xl text-ink" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 shrink-0">
+        <span class="text-2xl font-extrabold tracking-tight text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      </a>
+
+      <!-- Search (desktop) -->
+      <div class="hidden lg:flex flex-1 max-w-xl mx-6">
+        <div class="flex w-full rounded-full border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand/40">
+          <input type="text" placeholder="Search for products, brands and more..."
+                 class="w-full px-5 py-2.5 text-sm outline-none" />
+          <button class="bg-brand hover:bg-brand-dark text-white px-5 flex items-center justify-center transition-colors" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Icons -->
+      <div class="flex items-center gap-4 sm:gap-5">
+        <button id="search-toggle" class="lg:hidden text-lg" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <a href="login.html" class="hidden sm:flex flex-col items-center text-ink hover:text-brand text-lg leading-none" aria-label="Account">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <a href="#" class="hidden sm:flex relative text-ink hover:text-brand text-lg leading-none" aria-label="Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="absolute -top-2 -right-2 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        </a>
+        <a href="cart.html" class="relative text-ink hover:text-brand text-lg leading-none" aria-label="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-brand text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main nav (desktop) -->
+    <nav class="hidden lg:flex items-center gap-7 border-t border-gray-100 py-3 text-sm font-medium">
+      <div class="relative group">
+        <button class="flex items-center gap-2 bg-brand text-white px-4 py-2 rounded-md">
+          <i class="fa-solid fa-bars"></i> Shop By Categories
+        </button>
+        <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-30 py-2">
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-mobile-screen w-4"></i> Mobile Phones</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-laptop w-4"></i> Laptops &amp; Tablets</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-tv w-4"></i> Televisions</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-computer w-4"></i> PCs &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-headphones-simple w-4"></i> Audio &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-gamepad w-4"></i> Gaming &amp; Accessories</a>
+        </div>
+      </div>
+      <a href="index.html" class="hover:text-brand">Home</a>
+      <a href="category.html" class="text-brand">Electronics</a>
+      <a href="#" class="hover:text-brand">Fashion</a>
+      <a href="#" class="hover:text-brand">Furniture</a>
+      <a href="blog.html" class="hover:text-brand">Blog</a>
+      <a href="#" class="hover:text-brand">Contact</a>
+      <span class="ml-auto flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</span>
+    </nav>
+  </div>
+</header>
+
+<!-- Search overlay (mobile) -->
+<div id="search-overlay" class="hidden fixed inset-0 z-50 bg-black/50">
+  <div class="bg-white p-4 flex items-center gap-3">
+    <input id="search-input" type="text" placeholder="Search products..." class="flex-1 border border-gray-200 rounded-full px-4 py-2.5 text-sm outline-none">
+    <button id="search-close" class="text-xl text-ink" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+</div>
+
+<!-- Mobile drawer menu -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+<aside id="mobile-menu" class="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white z-50 lg:hidden overflow-y-auto">
+  <div class="flex items-center justify-between p-4 border-b border-gray-100">
+    <span class="text-xl font-extrabold text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+    <button id="menu-close" class="text-xl" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <nav class="p-4 text-sm font-medium">
+    <button class="mobile-acc-btn w-full flex items-center justify-between py-3 border-b border-gray-100">
+      Shop By Categories <i class="fa-solid fa-chevron-down acc-icon transition-transform"></i>
+    </button>
+    <div class="hidden pl-3 pb-2">
+      <a href="category.html" class="block py-2 text-gray-600">Mobile Phones</a>
+      <a href="category.html" class="block py-2 text-gray-600">Laptops &amp; Tablets</a>
+      <a href="category.html" class="block py-2 text-gray-600">Televisions</a>
+      <a href="category.html" class="block py-2 text-gray-600">PCs &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Audio &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Gaming &amp; Accessories</a>
+    </div>
+    <a href="index.html" class="block py-3 border-b border-gray-100">Home</a>
+    <a href="category.html" class="block py-3 border-b border-gray-100 text-brand">Electronics</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Fashion</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Furniture</a>
+    <a href="blog.html" class="block py-3 border-b border-gray-100">Blog</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Contact</a>
+    <div class="mt-4 flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</div>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ================= BREADCRUMB ================= -->
+<div class="max-w-[1280px] mx-auto px-4 pt-5">
+  <nav class="flex items-center gap-2 text-xs text-gray-500">
+    <a href="index.html" class="hover:text-brand">Home</a>
+    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+    <span class="text-ink font-medium">Electronics</span>
+  </nav>
+  <h1 class="text-2xl sm:text-3xl font-extrabold text-ink mt-2">Electronics</h1>
+  <p class="text-sm text-gray-500 mt-1">Phones, laptops, TVs, audio and more — curated deals updated daily.</p>
+</div>
+
+<!-- ================= FILTERS + PRODUCTS ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-6 pb-16">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- ============ LEFT: FILTERS SIDEBAR ============ -->
+    <aside class="lg:col-span-3">
+      <!-- Mobile filter trigger -->
+      <button id="filters-open" class="lg:hidden w-full flex items-center justify-center gap-2 border border-gray-300 rounded-full py-2.5 text-sm font-semibold mb-4">
+        <i class="fa-solid fa-sliders"></i> Filters &amp; Sort
+      </button>
+
+      <div id="filters-overlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+
+      <div id="filters-panel" class="filters-panel fixed lg:sticky top-0 lg:top-24 left-0 h-full lg:h-auto w-80 max-w-[85vw] lg:w-auto bg-white z-50 lg:z-auto overflow-y-auto lg:overflow-visible">
+
+        <!-- Mobile panel header -->
+        <div class="flex items-center justify-between p-4 border-b border-gray-100 lg:hidden">
+          <span class="font-bold text-lg">Filters</span>
+          <button id="filters-close" class="text-xl" aria-label="Close filters"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="p-4 lg:p-0 border border-gray-100 lg:border-0 rounded-2xl lg:rounded-none">
+
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-bold text-base">Filter By</h2>
+            <button id="clear-filters" class="text-xs font-semibold text-brand hover:underline">Clear All</button>
+          </div>
+
+          <!-- Active filter chips -->
+          <div id="active-chips" class="hidden flex flex-wrap gap-2 mb-5"></div>
+
+          <!-- Categories -->
+          <div class="filter-group">
+            <button class="filter-acc-btn">Categories <i class="fa-solid fa-chevron-up acc-icon"></i></button>
+            <div class="filter-acc-panel">
+              <label class="filter-check"><input type="checkbox" data-filter-label="Mobile Phones"><span>Mobile Phones</span><em>(24)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="Laptops & Tablets"><span>Laptops &amp; Tablets</span><em>(18)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="Televisions"><span>Televisions</span><em>(12)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="Audio & Video"><span>Audio &amp; Video</span><em>(30)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="Gaming & Accessories"><span>Gaming &amp; Accessories</span><em>(15)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="Smart Home"><span>Smart Home</span><em>(9)</em></label>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="filter-group">
+            <button class="filter-acc-btn">Price <i class="fa-solid fa-chevron-up acc-icon"></i></button>
+            <div class="filter-acc-panel">
+              <div class="flex items-center justify-between text-xs text-gray-500 mb-2">
+                <span>$0</span>
+                <span id="price-output" class="font-semibold text-ink">Up to $2000</span>
+              </div>
+              <input id="price-range" type="range" min="0" max="2000" step="10" value="2000" class="price-slider w-full">
+            </div>
+          </div>
+
+          <!-- Brand -->
+          <div class="filter-group">
+            <button class="filter-acc-btn">Brand <i class="fa-solid fa-chevron-down acc-icon"></i></button>
+            <div class="filter-acc-panel hidden">
+              <label class="filter-check"><input type="checkbox" data-filter-label="Astra"><span>Astra</span><em>(11)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="Nova"><span>Nova</span><em>(8)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="VeraBlend"><span>VeraBlend</span><em>(6)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="BrewMate"><span>BrewMate</span><em>(14)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="VisionCase"><span>VisionCase</span><em>(10)</em></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="PureSound"><span>PureSound</span><em>(7)</em></label>
+            </div>
+          </div>
+
+          <!-- Color -->
+          <div class="filter-group">
+            <button class="filter-acc-btn">Color <i class="fa-solid fa-chevron-up acc-icon"></i></button>
+            <div class="filter-acc-panel">
+              <div class="flex flex-wrap gap-2.5 pt-1">
+                <button class="color-swatch bg-black" data-filter-label="Black" aria-label="Black"></button>
+                <button class="color-swatch bg-white" data-filter-label="White" aria-label="White"></button>
+                <button class="color-swatch bg-blue-600" data-filter-label="Blue" aria-label="Blue"></button>
+                <button class="color-swatch bg-red-600" data-filter-label="Red" aria-label="Red"></button>
+                <button class="color-swatch bg-gray-400" data-filter-label="Gray" aria-label="Gray"></button>
+                <button class="color-swatch bg-emerald-500" data-filter-label="Green" aria-label="Green"></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rating -->
+          <div class="filter-group">
+            <button class="filter-acc-btn">Rating <i class="fa-solid fa-chevron-down acc-icon"></i></button>
+            <div class="filter-acc-panel hidden">
+              <label class="filter-check" data-filter-label="4 Stars & Up">
+                <input type="checkbox">
+                <span class="flex items-center gap-1 text-amber-400">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                  <span class="text-ink ml-1">&amp; Up</span>
+                </span>
+              </label>
+              <label class="filter-check" data-filter-label="3 Stars & Up">
+                <input type="checkbox">
+                <span class="flex items-center gap-1 text-amber-400">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                  <span class="text-ink ml-1">&amp; Up</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Availability -->
+          <div class="filter-group border-b-0">
+            <button class="filter-acc-btn">Availability <i class="fa-solid fa-chevron-up acc-icon"></i></button>
+            <div class="filter-acc-panel">
+              <label class="filter-check"><input type="checkbox" data-filter-label="In Stock"><span>In Stock Only</span></label>
+              <label class="filter-check"><input type="checkbox" data-filter-label="On Sale"><span>On Sale</span></label>
+            </div>
+          </div>
+
+          <button id="filters-apply" class="lg:hidden w-full mt-5 bg-brand hover:bg-brand-dark text-white font-semibold rounded-full py-3 text-sm">Show Results</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============ RIGHT: CATEGORIES SWIPER + PRODUCTS ============ -->
+    <div class="lg:col-span-9">
+
+      <!-- ROW 1: Shop By Categories swiper -->
+      <div class="section-head">
+        <h2 class="text-xl">Shop By Categories</h2>
+        <a href="#" class="view-all">View All <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+      </div>
+      <div class="swiper category-swiper mb-10">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catmobile/200/200" alt="Mobile Phones" class="category-round-img">
+              <span>Mobile Phones</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catlaptop/200/200" alt="Laptops & Tablets" class="category-round-img">
+              <span>Laptops &amp; Tablets</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/cattv/200/200" alt="Televisions" class="category-round-img">
+              <span>Televisions</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catpc/200/200" alt="PCs & Video" class="category-round-img">
+              <span>PCs &amp; Video</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/cataudio/200/200" alt="Audio & Video" class="category-round-img">
+              <span>Audio &amp; Video</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catgaming/200/200" alt="Gaming & Accessories" class="category-round-img">
+              <span>Gaming &amp; Accessories</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catfashion/200/200" alt="Fashion" class="category-round-img">
+              <span>Fashion</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catfurniture/200/200" alt="Furniture" class="category-round-img">
+              <span>Furniture</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catdecor/200/200" alt="Home Decor" class="category-round-img">
+              <span>Home Decor</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catkitchen/200/200" alt="Kitchen Appliances" class="category-round-img">
+              <span>Kitchen Appliances</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catbeauty/200/200" alt="Beauty & Personal Care" class="category-round-img">
+              <span>Beauty &amp; Care</span>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="category.html" class="category-round-card">
+              <img src="https://picsum.photos/seed/catsports/200/200" alt="Sports & Outdoor" class="category-round-img">
+              <span>Sports &amp; Outdoor</span>
+            </a>
+          </div>
+        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+
+      <!-- ROW 2: Products toolbar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <p class="text-sm text-gray-500"><span id="results-count" class="font-semibold text-ink">12</span> products found</p>
+        <div class="flex items-center gap-2">
+          <label for="sort-select" class="text-xs text-gray-500 hidden sm:inline">Sort by</label>
+          <select id="sort-select" class="text-sm border border-gray-200 rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-brand/40">
+            <option>Featured</option>
+            <option>Best Selling</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Newest</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ROW 2: Products grid -->
+      <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+        <div class="product-card p-3">
+          <div class="relative">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-pink-500 text-xs z-10">25%</span>
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Speaker+System" class="w-full aspect-square object-contain" alt="PureSound 2-Piece Bluetooth Speaker System">
+          </div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">PureSound 2-Piece Bluetooth Speaker System</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $129.00 USD</span> <span class="text-gray-400 line-through text-xs">$172.00</span></p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-black"></span><span class="swatch bg-gray-300"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <div class="relative"><img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Laptop" class="w-full aspect-square object-contain" alt="VeraBlend Ultra Performance Laptop"></div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">VeraBlend Ultra Performance Laptop</h3>
+          <p class="text-brand font-semibold text-sm mt-1">From $499.00 USD</p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <div class="relative">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-teal-500 text-xs z-10">40%</span>
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="VisionCase QUHD 4K Smart TV">
+          </div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">VisionCase QUHD 4K Smart TV</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $499.00 USD</span> <span class="text-gray-400 line-through text-xs">$829.00</span></p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Earbuds" class="w-full aspect-square object-contain" alt="AstroTune True Wireless Earbuds">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">AstroTune True Wireless Earbuds</h3>
+          <p class="text-sm mt-1 font-semibold">From $89.00 USD</p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-white"></span><span class="swatch bg-black"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smartphone" class="w-full aspect-square object-contain" alt="NovaLink 4G Smartphone">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">NovaLink 4G Smartphone</h3>
+          <p class="text-sm mt-1 font-semibold">From $299.00 USD</p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-blue-500"></span><span class="swatch bg-gray-800"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <div class="relative">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-fuchsia-500 text-xs z-10">15%</span>
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Coffee+Maker" class="w-full aspect-square object-contain" alt="BrewMate Automatic Coffee Maker">
+          </div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate Automatic Coffee Maker</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $179.00 USD</span> <span class="text-gray-400 line-through text-xs">$209.00</span></p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Vacuum" class="w-full aspect-square object-contain" alt="ClearPro Upright Vacuum Cleaner">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">ClearPro Upright Vacuum Cleaner</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $249.00 USD</span> <span class="text-gray-400 line-through text-xs">$330.00</span></p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-black"></span><span class="swatch bg-gray-300"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Kettle" class="w-full aspect-square object-contain" alt="BrewMate Stainless Electric Kettle">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">BrewMate Stainless Electric Kettle</h3>
+          <p class="text-brand font-semibold text-sm mt-1">From $49.00 USD</p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <div class="relative">
+            <span class="deal-badge absolute -top-2 -left-2 w-11 h-11 bg-blue-500 text-xs z-10">30%</span>
+            <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Robot+Vacuum" class="w-full aspect-square object-contain" alt="SmartSweep Robot Vacuum Cleaner">
+          </div>
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">SmartSweep Robot Vacuum Cleaner</h3>
+          <p class="text-sm mt-1"><span class="text-red-600 font-semibold">From $399.00 USD</span> <span class="text-gray-400 line-through text-xs">$570.00</span></p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Charger" class="w-full aspect-square object-contain" alt="PowerMax Slim Portable Charger">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">PowerMax Slim Portable Charger</h3>
+          <p class="text-sm mt-1 font-semibold">$49.00 USD</p>
+          <a href="product.html" class="btn-choose block mt-2">Add to cart</a>
+        </div>
+
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Camera" class="w-full aspect-square object-contain" alt="Professional Digital Camera">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">Professional Digital Camera</h3>
+          <p class="text-sm mt-1 font-semibold">From $899.00 USD</p>
+          <div class="flex gap-1 mt-2"><span class="swatch bg-black"></span></div>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+
+        <div class="product-card p-3">
+          <img src="https://placehold.co/400x400/f5f7fb/1a1a1a?text=Smart+TV" class="w-full aspect-square object-contain" alt="AstroCast 50 inch Ultra HD Smart TV">
+          <h3 class="text-sm mt-2 font-medium line-clamp-2">AstroCast 50" Ultra HD Smart TV</h3>
+          <p class="text-sm mt-1 font-semibold">From $499.00 USD</p>
+          <a href="product.html" class="btn-choose block mt-2">Choose options</a>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex items-center justify-center gap-2 mt-10">
+        <button class="page-btn" aria-label="Previous page"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+        <button class="page-btn page-btn-active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn" aria-label="Next page"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink text-gray-300">
+  <div class="max-w-[1280px] mx-auto px-4 py-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-8">
+    <div class="col-span-2 sm:col-span-4 lg:col-span-1">
+      <span class="text-2xl font-extrabold text-white">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      <p class="text-sm mt-4 leading-relaxed">403 Market Street<br>San Francisco, CA 89104, US</p>
+      <p class="text-sm mt-2"><i class="fa-solid fa-phone mr-2"></i>Tel: (321) 645-4321</p>
+      <p class="text-sm mt-1"><i class="fa-solid fa-envelope mr-2"></i>support@ellamart.com</p>
+      <div class="flex gap-3 mt-4 text-lg">
+        <a href="#" class="hover:text-white" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Shop</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Men's</a></li>
+        <li><a href="#" class="hover:text-white">Women's</a></li>
+        <li><a href="category.html" class="hover:text-white">Electronics</a></li>
+        <li><a href="#" class="hover:text-white">Furniture</a></li>
+        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Top Brands</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Our Story</a></li>
+        <li><a href="#" class="hover:text-white">Careers</a></li>
+        <li><a href="#" class="hover:text-white">Sustainability</a></li>
+        <li><a href="#" class="hover:text-white">Affiliate Program</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">About</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        <li><a href="#" class="hover:text-white">Shipping Policy</a></li>
+        <li><a href="#" class="hover:text-white">Returns &amp; Refunds</a></li>
+        <li><a href="track-order.html" class="hover:text-white">Track Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Info</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+        <li><a href="#" class="hover:text-white">FAQ</a></li>
+        <li><a href="#" class="hover:text-white">Store Locator</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-[1280px] mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <p>&copy; <span id="current-year">2026</span> ella+ | Powered by Halothemes. All Rights Reserved.</p>
+      <div class="flex gap-3 text-xl text-gray-300">
+        <i class="fa-brands fa-cc-visa"></i>
+        <i class="fa-brands fa-cc-mastercard"></i>
+        <i class="fa-brands fa-cc-paypal"></i>
+        <i class="fa-brands fa-cc-amex"></i>
+        <i class="fa-brands fa-cc-discover"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" class="opacity-0 pointer-events-none translate-y-4 fixed bottom-6 right-6 z-30 w-11 h-11 rounded-full bg-brand text-white shadow-lg flex items-center justify-center hover:bg-brand-dark" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/category.js"></script>
+</body>
+</html>

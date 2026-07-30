@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact Us | ellamart+</title>
+<meta name="description" content="Get in touch with the ellamart+ team — customer support, order help, or general questions." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<!-- animate.css (used by WOW.js) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui'] },
+        colors: {
+          brand: { DEFAULT: '#2b6ee0', dark: '#1d4fa3', light: '#eef4ff' },
+          accent: '#ff7a1a',
+          ink: '#17203a',
+        },
+        container: { center: true },
+      }
+    }
+  }
+</script>
+
+<!-- Custom styles -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/contact.css">
+</head>
+
+<body class="bg-white text-ink antialiased">
+
+<!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+<div class="bg-ink text-white text-xs">
+  <div class="max-w-[1280px] mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
+    <i class="fa-solid fa-bolt text-accent"></i>
+    <span>Buy Now Pay Later Starting at 0% APR. <a href="#" class="underline font-semibold hover:text-accent">LEARN MORE</a></span>
+  </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<header id="site-header" class="sticky top-0 z-40 bg-white border-b border-gray-100 transition-shadow">
+  <div class="max-w-[1280px] mx-auto px-4">
+    <div class="flex items-center justify-between gap-4 py-4">
+      <!-- Mobile menu button -->
+      <button id="menu-toggle" class="lg:hidden text-xl text-ink" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 shrink-0">
+        <span class="text-2xl font-extrabold tracking-tight text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      </a>
+
+      <!-- Search (desktop) -->
+      <div class="hidden lg:flex flex-1 max-w-xl mx-6">
+        <div class="flex w-full rounded-full border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand/40">
+          <input type="text" placeholder="Search for products, brands and more..."
+                 class="w-full px-5 py-2.5 text-sm outline-none" />
+          <button class="bg-brand hover:bg-brand-dark text-white px-5 flex items-center justify-center transition-colors" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Icons -->
+      <div class="flex items-center gap-4 sm:gap-5">
+        <button id="search-toggle" class="lg:hidden text-lg" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <a href="login.html" class="hidden sm:flex flex-col items-center text-ink hover:text-brand text-lg leading-none" aria-label="Account">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <a href="account-wishlist.html" class="hidden sm:flex relative text-ink hover:text-brand text-lg leading-none" aria-label="Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="absolute -top-2 -right-2 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        </a>
+        <a href="cart.html" class="relative text-ink hover:text-brand text-lg leading-none" aria-label="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-brand text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main nav (desktop) -->
+    <nav class="hidden lg:flex items-center gap-7 border-t border-gray-100 py-3 text-sm font-medium">
+      <div class="relative group">
+        <button class="flex items-center gap-2 bg-brand text-white px-4 py-2 rounded-md">
+          <i class="fa-solid fa-bars"></i> Shop By Categories
+        </button>
+        <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-30 py-2">
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-mobile-screen w-4"></i> Mobile Phones</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-laptop w-4"></i> Laptops &amp; Tablets</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-tv w-4"></i> Televisions</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-computer w-4"></i> PCs &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-headphones-simple w-4"></i> Audio &amp; Video</a>
+          <a href="category.html" class="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-light hover:text-brand"><i class="fa-solid fa-gamepad w-4"></i> Gaming &amp; Accessories</a>
+        </div>
+      </div>
+      <a href="index.html" class="hover:text-brand">Home</a>
+      <a href="category.html" class="hover:text-brand">Electronics</a>
+      <a href="#" class="hover:text-brand">Fashion</a>
+      <a href="#" class="hover:text-brand">Furniture</a>
+      <a href="blog.html" class="hover:text-brand">Blog</a>
+      <a href="contact.html" class="text-brand">Contact</a>
+      <span class="ml-auto flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</span>
+    </nav>
+  </div>
+</header>
+
+<!-- Search overlay (mobile) -->
+<div id="search-overlay" class="hidden fixed inset-0 z-50 bg-black/50">
+  <div class="bg-white p-4 flex items-center gap-3">
+    <input id="search-input" type="text" placeholder="Search products..." class="flex-1 border border-gray-200 rounded-full px-4 py-2.5 text-sm outline-none">
+    <button id="search-close" class="text-xl text-ink" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+</div>
+
+<!-- Mobile drawer menu -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+<aside id="mobile-menu" class="fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white z-50 lg:hidden overflow-y-auto">
+  <div class="flex items-center justify-between p-4 border-b border-gray-100">
+    <span class="text-xl font-extrabold text-ink">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+    <button id="menu-close" class="text-xl" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <nav class="p-4 text-sm font-medium">
+    <button class="mobile-acc-btn w-full flex items-center justify-between py-3 border-b border-gray-100">
+      Shop By Categories <i class="fa-solid fa-chevron-down acc-icon transition-transform"></i>
+    </button>
+    <div class="hidden pl-3 pb-2">
+      <a href="category.html" class="block py-2 text-gray-600">Mobile Phones</a>
+      <a href="category.html" class="block py-2 text-gray-600">Laptops &amp; Tablets</a>
+      <a href="category.html" class="block py-2 text-gray-600">Televisions</a>
+      <a href="category.html" class="block py-2 text-gray-600">PCs &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Audio &amp; Video</a>
+      <a href="category.html" class="block py-2 text-gray-600">Gaming &amp; Accessories</a>
+    </div>
+    <a href="index.html" class="block py-3 border-b border-gray-100">Home</a>
+    <a href="category.html" class="block py-3 border-b border-gray-100">Electronics</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Fashion</a>
+    <a href="#" class="block py-3 border-b border-gray-100">Furniture</a>
+    <a href="blog.html" class="block py-3 border-b border-gray-100">Blog</a>
+    <a href="contact.html" class="block py-3 border-b border-gray-100 text-brand">Contact</a>
+    <div class="mt-4 flex items-center gap-2 text-brand font-semibold"><i class="fa-solid fa-phone"></i> +1 (321) 645-4321</div>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ================= BREADCRUMB ================= -->
+<div class="max-w-[1280px] mx-auto px-4 pt-5">
+  <nav class="flex items-center gap-2 text-xs text-gray-500">
+    <a href="index.html" class="hover:text-brand">Home</a>
+    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+    <span class="text-ink font-medium">Contact</span>
+  </nav>
+</div>
+
+<!-- ================= CONTACT ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-4 pb-16">
+
+  <div class="contact-hero wow animate__fadeIn">
+    <span class="blog-tag" style="color:var(--brand-blue); background:var(--brand-light); display:inline-flex; font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; padding:.3rem .65rem; border-radius:9999px;">We're Here to Help</span>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-ink mt-3">Get in Touch</h1>
+    <p class="text-sm text-gray-500 mt-3">Questions about an order, a product, or just want to say hi? Our team typically responds within 24 hours.</p>
+  </div>
+
+  <!-- Quick contact cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-10">
+    <div class="quick-contact-card wow animate__fadeInUp">
+      <div class="quick-contact-icon"><i class="fa-solid fa-phone"></i></div>
+      <h3 class="font-bold text-sm">Call Us</h3>
+      <p class="text-sm text-gray-500 mt-1">+1 (321) 645-4321</p>
+      <p class="text-xs text-gray-400 mt-1">Mon&ndash;Fri, 9am&ndash;6pm EST</p>
+    </div>
+    <div class="quick-contact-card wow animate__fadeInUp" data-wow-delay=".05s">
+      <div class="quick-contact-icon"><i class="fa-solid fa-envelope"></i></div>
+      <h3 class="font-bold text-sm">Email Us</h3>
+      <p class="text-sm text-gray-500 mt-1">support@ellamart.com</p>
+      <p class="text-xs text-gray-400 mt-1">We reply within 24 hours</p>
+    </div>
+    <div class="quick-contact-card wow animate__fadeInUp" data-wow-delay=".1s">
+      <div class="quick-contact-icon"><i class="fa-solid fa-comments"></i></div>
+      <h3 class="font-bold text-sm">Live Chat</h3>
+      <p class="text-sm text-gray-500 mt-1">Available 24/7</p>
+      <p class="text-xs text-gray-400 mt-1">Fastest way to get help</p>
+    </div>
+  </div>
+
+  <!-- Form + info -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
+    <div class="lg:col-span-7 wow animate__fadeInUp">
+      <div class="contact-card">
+        <h2 class="font-extrabold text-lg mb-1">Send Us a Message</h2>
+        <p class="text-sm text-gray-500 mb-6">Fill out the form and our support team will get back to you shortly.</p>
+
+        <form id="contact-form" novalidate>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-5">
+            <div class="contact-field">
+              <label for="contact-name">Full Name</label>
+              <input id="contact-name" type="text" placeholder="Your name">
+              <p id="contact-name-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please enter your name.</p>
+            </div>
+            <div class="contact-field">
+              <label for="contact-email">Email Address</label>
+              <input id="contact-email" type="email" placeholder="you@example.com">
+              <p id="contact-email-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please enter a valid email address.</p>
+            </div>
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-subject">Subject</label>
+            <select id="contact-subject">
+              <option value="">Select a subject</option>
+              <option value="order">Order Support</option>
+              <option value="returns">Returns &amp; Refunds</option>
+              <option value="product">Product Question</option>
+              <option value="partnership">Partnership Inquiry</option>
+              <option value="other">Other</option>
+            </select>
+            <p id="contact-subject-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please choose a subject.</p>
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" rows="5" placeholder="How can we help?"></textarea>
+            <p id="contact-message-error" class="field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please enter a message of at least 10 characters.</p>
+          </div>
+
+          <button id="contact-submit-btn" type="submit" class="btn-primary mt-2">
+            <i class="fa-solid fa-paper-plane"></i> <span>Send Message</span>
+          </button>
+
+          <div id="contact-success" class="field-success hidden">
+            <i class="fa-solid fa-circle-check"></i> Thanks for reaching out! We'll get back to you within 24 hours.
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 wow animate__fadeInUp" data-wow-delay=".05s">
+      <div class="contact-card">
+        <h2 class="font-extrabold text-lg mb-5">Contact Information</h2>
+
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <h4>Our Address</h4>
+            <p>403 Market Street, San Francisco, CA 89104, US</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+          <div>
+            <h4>Phone Number</h4>
+            <p>+1 (321) 645-4321</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div>
+            <h4>Email Address</h4>
+            <p>support@ellamart.com</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+          <div>
+            <h4>Business Hours</h4>
+            <p>Monday &ndash; Friday: 9am &ndash; 6pm EST<br>Saturday: 10am &ndash; 4pm EST</p>
+          </div>
+        </div>
+
+        <div class="map-preview mt-6">
+          <img src="https://placehold.co/700x320/eef4ff/2b6ee0?text=Map+Preview" alt="Map showing our San Francisco location">
+          <span class="map-pin"><i class="fa-solid fa-store"></i></span>
+        </div>
+
+        <div class="mt-6">
+          <p class="text-sm font-semibold mb-3">Follow Us</p>
+          <div class="social-row">
+            <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ teaser -->
+  <div class="text-center mt-14 wow animate__fadeInUp">
+    <p class="text-sm text-gray-500">Have a quick question? Check our <a href="faqs.html" class="text-brand font-semibold hover:underline">Frequently Asked Questions</a> &mdash; you might find your answer right away.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-ink text-gray-300">
+  <div class="max-w-[1280px] mx-auto px-4 py-12 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-8">
+    <div class="col-span-2 sm:col-span-4 lg:col-span-1">
+      <span class="text-2xl font-extrabold text-white">ella<span class="text-brand">mart</span><span class="text-accent">+</span></span>
+      <p class="text-sm mt-4 leading-relaxed">403 Market Street<br>San Francisco, CA 89104, US</p>
+      <p class="text-sm mt-2"><i class="fa-solid fa-phone mr-2"></i>Tel: (321) 645-4321</p>
+      <p class="text-sm mt-1"><i class="fa-solid fa-envelope mr-2"></i>support@ellamart.com</p>
+      <div class="flex gap-3 mt-4 text-lg">
+        <a href="#" class="hover:text-white" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-white" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Shop</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Men's</a></li>
+        <li><a href="#" class="hover:text-white">Women's</a></li>
+        <li><a href="category.html" class="hover:text-white">Electronics</a></li>
+        <li><a href="#" class="hover:text-white">Furniture</a></li>
+        <li><a href="#" class="hover:text-white">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Top Brands</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white">Our Story</a></li>
+        <li><a href="#" class="hover:text-white">Careers</a></li>
+        <li><a href="#" class="hover:text-white">Sustainability</a></li>
+        <li><a href="#" class="hover:text-white">Affiliate Program</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">About</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="contact.html" class="hover:text-white">Contact Us</a></li>
+        <li><a href="shipping-policy.html" class="hover:text-white">Shipping Policy</a></li>
+        <li><a href="refund-policy.html" class="hover:text-white">Returns &amp; Refunds</a></li>
+        <li><a href="track-order.html" class="hover:text-white">Track Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-4">Info</h4>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="privacy-policy.html" class="hover:text-white">Privacy Policy</a></li>
+        <li><a href="terms-conditions.html" class="hover:text-white">Terms &amp; Conditions</a></li>
+        <li><a href="faqs.html" class="hover:text-white">FAQ</a></li>
+        <li><a href="#" class="hover:text-white">Store Locator</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-[1280px] mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <p>&copy; <span class="current-year">2026</span> ella+ | Powered by Halothemes. All Rights Reserved.</p>
+      <div class="flex gap-3 text-xl text-gray-300">
+        <i class="fa-brands fa-cc-visa"></i>
+        <i class="fa-brands fa-cc-mastercard"></i>
+        <i class="fa-brands fa-cc-paypal"></i>
+        <i class="fa-brands fa-cc-amex"></i>
+        <i class="fa-brands fa-cc-discover"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top" class="opacity-0 pointer-events-none translate-y-4 fixed bottom-6 right-6 z-30 w-11 h-11 rounded-full bg-brand text-white shadow-lg flex items-center justify-center hover:bg-brand-dark" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/contact.js"></script>
+</body>
+</html>
