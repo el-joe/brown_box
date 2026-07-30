@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Track Your Order | ellamart+</title>
-<meta name="description" content="Track the status of your ellamart+ order in real time using your order number and email." />
+<title>Returns &amp; Refunds Policy | ellamart+</title>
+<meta name="description" content="Learn how to return an item, our refund process and timelines, and which items are non-returnable at ellamart+." />
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +36,7 @@
 
 <!-- Custom styles -->
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/order.css">
+<link rel="stylesheet" href="assets/css/policy.css">
 </head>
 
 <body class="bg-white text-ink antialiased">
@@ -163,96 +163,99 @@
   <nav class="flex items-center gap-2 text-xs text-gray-500">
     <a href="index.html" class="hover:text-brand">Home</a>
     <i class="fa-solid fa-chevron-right text-[9px]"></i>
-    <span class="text-ink font-medium">Track Order</span>
+    <span class="text-ink font-medium">Returns &amp; Refunds</span>
   </nav>
 </div>
 
-<!-- ================= TRACK ORDER ================= -->
-<section class="max-w-[1280px] mx-auto px-4 mt-6 pb-16">
+<!-- ================= REFUND POLICY ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-4 pb-16">
 
-  <div class="max-w-3xl mx-auto">
-    <div class="track-hero wow animate__fadeIn">
-      <i class="fa-solid fa-truck-fast text-3xl"></i>
-      <h1 class="text-2xl sm:text-3xl font-extrabold mt-4">Track Your Order</h1>
-      <p class="text-sm text-white/80 mt-2">Enter your order number and the email you used at checkout to see the latest status.</p>
-
-      <form id="track-form" class="track-form" novalidate>
-        <input id="track-order-number" type="text" placeholder="Order number (e.g. ELM-108903)" autocomplete="off">
-        <input id="track-email" type="email" placeholder="Email address" autocomplete="email">
-        <button type="submit" aria-label="Track order"><i class="fa-solid fa-magnifying-glass"></i></button>
-      </form>
-      <p id="track-error" class="track-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please enter both your order number and email.</p>
-    </div>
+  <div class="policy-hero wow animate__fadeIn">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-ink">Returns &amp; Refunds Policy</h1>
+    <p class="text-sm text-gray-500 mt-3">Changed your mind or received something that isn't quite right? Here's how returns, exchanges and refunds work.</p>
+    <span class="policy-updated"><i class="fa-regular fa-clock"></i> Last updated: July 1, 2026</span>
   </div>
 
-  <!-- ================= RESULT ================= -->
-  <div id="track-result" class="max-w-3xl mx-auto mt-8 hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
 
-    <div class="order-page-card">
-      <div class="flex items-center justify-between flex-wrap gap-3 mb-2">
-        <div>
-          <p class="text-xs text-gray-400 font-semibold">ORDER NUMBER</p>
-          <p id="result-order-number" class="text-xl font-extrabold text-ink">#ELM-108903</p>
-        </div>
-        <span class="order-status shipped"><i class="fa-solid fa-truck-fast"></i> Shipped</span>
+    <!-- ============ TOC ============ -->
+    <aside class="lg:col-span-3 wow animate__fadeInUp">
+      <div class="policy-toc">
+        <h3>On This Page</h3>
+        <a href="#eligibility">1. Return Eligibility</a>
+        <a href="#return-window">2. Return Window</a>
+        <a href="#how-to-return">3. How to Start a Return</a>
+        <a href="#refund-process">4. Refund Process &amp; Timeline</a>
+        <a href="#non-returnable">5. Non-Returnable Items</a>
+        <a href="#exchanges">6. Exchanges</a>
+        <a href="#damaged">7. Damaged or Defective Items</a>
+        <a href="#contact-us">8. Contact Us</a>
       </div>
-      <p class="text-sm text-gray-500">Estimated delivery: <b class="text-ink">August 2, 2026</b></p>
+    </aside>
 
-      <div class="order-timeline mt-6">
-        <div class="timeline-step done">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-check"></i></span>
-          <div><p class="timeline-label">Order Placed</p><p class="timeline-date">Jul 28</p></div>
-        </div>
-        <div class="timeline-step done">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-boxes-packing"></i></span>
-          <div><p class="timeline-label">Processing</p><p class="timeline-date">Jul 28</p></div>
-        </div>
-        <div class="timeline-step active">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-truck-fast"></i></span>
-          <div><p class="timeline-label">Shipped</p><p class="timeline-date">Jul 29</p></div>
-        </div>
-        <div class="timeline-step">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-route"></i></span>
-          <div><p class="timeline-label">Out for Delivery</p><p class="timeline-date">Pending</p></div>
-        </div>
-        <div class="timeline-step">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-house"></i></span>
-          <div><p class="timeline-label">Delivered</p><p class="timeline-date">Pending</p></div>
-        </div>
-      </div>
+    <!-- ============ CONTENT ============ -->
+    <div class="lg:col-span-9 wow animate__fadeInUp policy-content" data-wow-delay=".05s">
 
-      <div class="info-card mt-2">
-        <p class="info-card-label"><i class="fa-solid fa-truck"></i> Courier Update</p>
-        <p>Your package left the regional distribution center in Cairo and is on its way to your delivery address. Tracking number: <b>EG9384710203</b></p>
-      </div>
-    </div>
+      <section id="eligibility">
+        <h2><span class="policy-num">1</span> Return Eligibility</h2>
+        <p>We want you to love what you ordered. If something isn't right, most items can be returned as long as they are unused, in their original packaging, and in the same condition you received them, with all tags and accessories included.</p>
+      </section>
 
-    <div class="order-page-card">
-      <h2 class="font-bold text-lg mb-3">Package Contents</h2>
-      <div class="track-summary-item">
-        <img class="track-summary-img" src="https://placehold.co/120x120/f5f7fb/1a1a1a?text=Smart+TV" alt="VisionCase QUHD 4K Smart TV">
-        <div class="min-w-0">
-          <p class="text-sm font-semibold">VisionCase QUHD 4K Smart TV</p>
-          <p class="text-xs text-gray-400">Qty 1</p>
-        </div>
-      </div>
-      <div class="track-summary-item">
-        <img class="track-summary-img" src="https://placehold.co/120x120/f5f7fb/1a1a1a?text=Vacuum" alt="ClearPro Upright Vacuum Cleaner">
-        <div class="min-w-0">
-          <p class="text-sm font-semibold">ClearPro Upright Vacuum Cleaner</p>
-          <p class="text-xs text-gray-400">Qty 1</p>
-        </div>
-      </div>
+      <section id="return-window">
+        <h2><span class="policy-num">2</span> Return Window</h2>
+        <p>You have <strong>30 days</strong> from the delivery date to start a return for most items. Items marked as final sale, or purchased during clearance events, are not eligible for return unless defective.</p>
+      </section>
 
-      <div class="flex flex-col sm:flex-row gap-3 mt-5">
-        <a href="account-order-details.html" class="btn-outline flex-1 justify-center">View Full Order Details</a>
-        <a href="index.html" class="btn-primary flex-1 justify-center">Continue Shopping</a>
-      </div>
+      <section id="how-to-return">
+        <h2><span class="policy-num">3</span> How to Start a Return</h2>
+        <ol>
+          <li>Go to <a href="account-orders.html" class="inline-link">My Orders</a> and select the order containing the item you'd like to return</li>
+          <li>Choose "Request Return" and select a reason for the return</li>
+          <li>Print the prepaid return label we email you, and pack the item securely</li>
+          <li>Drop the package off at any authorized carrier location</li>
+        </ol>
+        <p>Don't have an account, or need help? Our <a href="contact.html" class="inline-link">support team</a> can start the return for you.</p>
+      </section>
+
+      <section id="refund-process">
+        <h2><span class="policy-num">4</span> Refund Process &amp; Timeline</h2>
+        <p>Once we receive and inspect your returned item, we'll notify you by email and process your refund to the original payment method. Refunds typically take <strong>3&ndash;5 business days</strong> to appear, depending on your bank or card provider.</p>
+        <div class="policy-callout">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Orders paid by bank transfer, Vodafone Cash or InstaPay are refunded to the same account or wallet used at checkout.</span>
+        </div>
+      </section>
+
+      <section id="non-returnable">
+        <h2><span class="policy-num">5</span> Non-Returnable Items</h2>
+        <p>For hygiene and safety reasons, the following items cannot be returned unless they arrive damaged or defective:</p>
+        <ul>
+          <li>Personal care and grooming products that have been opened</li>
+          <li>Underwear, swimwear, and earrings</li>
+          <li>Gift cards and digital products</li>
+          <li>Items marked "Final Sale" at checkout</li>
+        </ul>
+      </section>
+
+      <section id="exchanges">
+        <h2><span class="policy-num">6</span> Exchanges</h2>
+        <p>Need a different size or color instead? The fastest way is to return your original item for a refund and place a new order &mdash; this guarantees the replacement is in stock and ships right away.</p>
+      </section>
+
+      <section id="damaged">
+        <h2><span class="policy-num">7</span> Damaged or Defective Items</h2>
+        <p>If your item arrives damaged or defective, please contact us within 7 days of delivery with a photo of the issue. We'll arrange a free replacement or full refund, including any return shipping costs.</p>
+      </section>
+
+      <section id="contact-us">
+        <h2><span class="policy-num">8</span> Contact Us</h2>
+        <p>Questions about a return or refund in progress? We're here to help.</p>
+        <ul>
+          <li>Email: support@ellamart.com</li>
+          <li>Phone: +1 (321) 645-4321</li>
+          <li>Or visit our <a href="contact.html" class="inline-link">Contact page</a></li>
+        </ul>
+      </section>
     </div>
   </div>
 </section>
@@ -334,6 +337,5 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 <script src="assets/js/script.js"></script>
-<script src="assets/js/track-order.js"></script>
 </body>
 </html>

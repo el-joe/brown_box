@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Track Your Order | ellamart+</title>
-<meta name="description" content="Track the status of your ellamart+ order in real time using your order number and email." />
+<title>Terms &amp; Conditions | ellamart+</title>
+<meta name="description" content="The terms and conditions governing your use of the ellamart+ website and your purchases." />
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +36,7 @@
 
 <!-- Custom styles -->
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/order.css">
+<link rel="stylesheet" href="assets/css/policy.css">
 </head>
 
 <body class="bg-white text-ink antialiased">
@@ -163,96 +163,99 @@
   <nav class="flex items-center gap-2 text-xs text-gray-500">
     <a href="index.html" class="hover:text-brand">Home</a>
     <i class="fa-solid fa-chevron-right text-[9px]"></i>
-    <span class="text-ink font-medium">Track Order</span>
+    <span class="text-ink font-medium">Terms &amp; Conditions</span>
   </nav>
 </div>
 
-<!-- ================= TRACK ORDER ================= -->
-<section class="max-w-[1280px] mx-auto px-4 mt-6 pb-16">
+<!-- ================= TERMS & CONDITIONS ================= -->
+<section class="max-w-[1280px] mx-auto px-4 mt-4 pb-16">
 
-  <div class="max-w-3xl mx-auto">
-    <div class="track-hero wow animate__fadeIn">
-      <i class="fa-solid fa-truck-fast text-3xl"></i>
-      <h1 class="text-2xl sm:text-3xl font-extrabold mt-4">Track Your Order</h1>
-      <p class="text-sm text-white/80 mt-2">Enter your order number and the email you used at checkout to see the latest status.</p>
-
-      <form id="track-form" class="track-form" novalidate>
-        <input id="track-order-number" type="text" placeholder="Order number (e.g. ELM-108903)" autocomplete="off">
-        <input id="track-email" type="email" placeholder="Email address" autocomplete="email">
-        <button type="submit" aria-label="Track order"><i class="fa-solid fa-magnifying-glass"></i></button>
-      </form>
-      <p id="track-error" class="track-error hidden"><i class="fa-solid fa-circle-exclamation"></i> Please enter both your order number and email.</p>
-    </div>
+  <div class="policy-hero wow animate__fadeIn">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-ink">Terms &amp; Conditions</h1>
+    <p class="text-sm text-gray-500 mt-3">Please read these terms carefully before using ellamart+. By accessing our site or placing an order, you agree to be bound by them.</p>
+    <span class="policy-updated"><i class="fa-regular fa-clock"></i> Last updated: July 1, 2026</span>
   </div>
 
-  <!-- ================= RESULT ================= -->
-  <div id="track-result" class="max-w-3xl mx-auto mt-8 hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
 
-    <div class="order-page-card">
-      <div class="flex items-center justify-between flex-wrap gap-3 mb-2">
-        <div>
-          <p class="text-xs text-gray-400 font-semibold">ORDER NUMBER</p>
-          <p id="result-order-number" class="text-xl font-extrabold text-ink">#ELM-108903</p>
-        </div>
-        <span class="order-status shipped"><i class="fa-solid fa-truck-fast"></i> Shipped</span>
+    <!-- ============ TOC ============ -->
+    <aside class="lg:col-span-3 wow animate__fadeInUp">
+      <div class="policy-toc">
+        <h3>On This Page</h3>
+        <a href="#acceptance">1. Acceptance of Terms</a>
+        <a href="#use-of-website">2. Use of Our Website</a>
+        <a href="#account">3. Account Registration</a>
+        <a href="#orders-payment">4. Orders &amp; Payment</a>
+        <a href="#pricing">5. Pricing &amp; Product Information</a>
+        <a href="#ip">6. Intellectual Property</a>
+        <a href="#liability">7. Limitation of Liability</a>
+        <a href="#governing-law">8. Governing Law</a>
+        <a href="#changes">9. Changes to These Terms</a>
+        <a href="#contact-us">10. Contact Us</a>
       </div>
-      <p class="text-sm text-gray-500">Estimated delivery: <b class="text-ink">August 2, 2026</b></p>
+    </aside>
 
-      <div class="order-timeline mt-6">
-        <div class="timeline-step done">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-check"></i></span>
-          <div><p class="timeline-label">Order Placed</p><p class="timeline-date">Jul 28</p></div>
-        </div>
-        <div class="timeline-step done">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-boxes-packing"></i></span>
-          <div><p class="timeline-label">Processing</p><p class="timeline-date">Jul 28</p></div>
-        </div>
-        <div class="timeline-step active">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-truck-fast"></i></span>
-          <div><p class="timeline-label">Shipped</p><p class="timeline-date">Jul 29</p></div>
-        </div>
-        <div class="timeline-step">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-route"></i></span>
-          <div><p class="timeline-label">Out for Delivery</p><p class="timeline-date">Pending</p></div>
-        </div>
-        <div class="timeline-step">
-          <div class="timeline-connector"></div>
-          <span class="timeline-icon"><i class="fa-solid fa-house"></i></span>
-          <div><p class="timeline-label">Delivered</p><p class="timeline-date">Pending</p></div>
-        </div>
-      </div>
+    <!-- ============ CONTENT ============ -->
+    <div class="lg:col-span-9 wow animate__fadeInUp policy-content" data-wow-delay=".05s">
 
-      <div class="info-card mt-2">
-        <p class="info-card-label"><i class="fa-solid fa-truck"></i> Courier Update</p>
-        <p>Your package left the regional distribution center in Cairo and is on its way to your delivery address. Tracking number: <b>EG9384710203</b></p>
-      </div>
-    </div>
+      <section id="acceptance">
+        <h2><span class="policy-num">1</span> Acceptance of Terms</h2>
+        <p>These Terms &amp; Conditions ("Terms") govern your access to and use of the ellamart+ website and services. By browsing our store, creating an account, or placing an order, you agree to these Terms in full. If you do not agree, please do not use our website.</p>
+      </section>
 
-    <div class="order-page-card">
-      <h2 class="font-bold text-lg mb-3">Package Contents</h2>
-      <div class="track-summary-item">
-        <img class="track-summary-img" src="https://placehold.co/120x120/f5f7fb/1a1a1a?text=Smart+TV" alt="VisionCase QUHD 4K Smart TV">
-        <div class="min-w-0">
-          <p class="text-sm font-semibold">VisionCase QUHD 4K Smart TV</p>
-          <p class="text-xs text-gray-400">Qty 1</p>
-        </div>
-      </div>
-      <div class="track-summary-item">
-        <img class="track-summary-img" src="https://placehold.co/120x120/f5f7fb/1a1a1a?text=Vacuum" alt="ClearPro Upright Vacuum Cleaner">
-        <div class="min-w-0">
-          <p class="text-sm font-semibold">ClearPro Upright Vacuum Cleaner</p>
-          <p class="text-xs text-gray-400">Qty 1</p>
-        </div>
-      </div>
+      <section id="use-of-website">
+        <h2><span class="policy-num">2</span> Use of Our Website</h2>
+        <p>You agree to use our website only for lawful purposes and in a way that doesn't infringe the rights of, or restrict or inhibit the use of, this site by anyone else. Prohibited behavior includes attempting to gain unauthorized access to our systems, scraping content without permission, or using the site to distribute harmful software.</p>
+      </section>
 
-      <div class="flex flex-col sm:flex-row gap-3 mt-5">
-        <a href="account-order-details.html" class="btn-outline flex-1 justify-center">View Full Order Details</a>
-        <a href="index.html" class="btn-primary flex-1 justify-center">Continue Shopping</a>
-      </div>
+      <section id="account">
+        <h2><span class="policy-num">3</span> Account Registration</h2>
+        <p>To place orders and access certain features, you may need to create an account. You're responsible for maintaining the confidentiality of your login details and for all activity that occurs under your account. Please notify us immediately of any unauthorized use.</p>
+      </section>
+
+      <section id="orders-payment">
+        <h2><span class="policy-num">4</span> Orders &amp; Payment</h2>
+        <p>When you place an order, you're making an offer to purchase the selected products, which we may accept or decline at our discretion &mdash; for example, in cases of pricing errors or stock unavailability. Payment must be received in full before an order is processed, using one of our accepted payment methods.</p>
+        <div class="policy-callout">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>An order confirmation email does not guarantee acceptance of your order; it confirms that we've received it.</span>
+        </div>
+      </section>
+
+      <section id="pricing">
+        <h2><span class="policy-num">5</span> Pricing &amp; Product Information</h2>
+        <p>We work hard to ensure prices, descriptions and images are accurate, but occasional errors may occur. If we discover a pricing or listing error after you've placed an order, we'll contact you before processing, and you may choose to proceed at the correct price or cancel your order for a full refund.</p>
+      </section>
+
+      <section id="ip">
+        <h2><span class="policy-num">6</span> Intellectual Property</h2>
+        <p>All content on this website &mdash; including text, graphics, logos, product images and software &mdash; is the property of ellamart+ or its licensors and is protected by copyright and trademark law. You may not reproduce, distribute, or create derivative works from our content without written permission.</p>
+      </section>
+
+      <section id="liability">
+        <h2><span class="policy-num">7</span> Limitation of Liability</h2>
+        <p>To the fullest extent permitted by law, ellamart+ is not liable for any indirect, incidental, or consequential damages arising from your use of our website or products. Our total liability for any claim relating to your order will not exceed the amount you paid for that order.</p>
+      </section>
+
+      <section id="governing-law">
+        <h2><span class="policy-num">8</span> Governing Law</h2>
+        <p>These Terms are governed by the laws of the State of California, without regard to conflict of law principles. Any disputes arising from these Terms will be resolved in the courts located in San Francisco, California.</p>
+      </section>
+
+      <section id="changes">
+        <h2><span class="policy-num">9</span> Changes to These Terms</h2>
+        <p>We may revise these Terms from time to time. Changes take effect as soon as they're posted on this page, and your continued use of our website after changes are posted constitutes acceptance of the updated Terms.</p>
+      </section>
+
+      <section id="contact-us">
+        <h2><span class="policy-num">10</span> Contact Us</h2>
+        <p>If you have questions about these Terms &amp; Conditions, reach out to us anytime.</p>
+        <ul>
+          <li>Email: support@ellamart.com</li>
+          <li>Phone: +1 (321) 645-4321</li>
+          <li>Or visit our <a href="contact.html" class="inline-link">Contact page</a></li>
+        </ul>
+      </section>
     </div>
   </div>
 </section>
@@ -334,6 +337,5 @@
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 <script src="assets/js/script.js"></script>
-<script src="assets/js/track-order.js"></script>
 </body>
 </html>
