@@ -269,19 +269,20 @@
         </div>
       </div>
 
-      <!-- Quantity + Add to cart -->
+      <!-- Quantity + Add to cart / Buy now split button -->
       <div class="flex flex-wrap items-center gap-3 mt-7">
         <div class="qty-stepper">
           <button id="qty-minus" type="button" aria-label="Decrease quantity"><i class="fa-solid fa-minus"></i></button>
           <input id="qty-input" type="text" inputmode="numeric" value="1" aria-label="Quantity">
           <button id="qty-plus" type="button" aria-label="Increase quantity"><i class="fa-solid fa-plus"></i></button>
         </div>
-        <button id="add-to-cart-btn" class="btn-primary flex-1 min-w-[180px]">
-          <i class="fa-solid fa-bag-shopping"></i> Add to Cart
-        </button>
+        <div class="split-btn flex-1 min-w-[220px]">
+          <button id="add-to-cart-btn" class="split-btn-half split-btn-primary">
+            <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+          </button>
+          <button id="buy-now-btn" class="split-btn-half split-btn-dark">Buy It Now</button>
+        </div>
       </div>
-
-      <button id="buy-now-btn" class="btn-dark w-full mt-3">Buy It Now</button>
 
       <!-- Share / Wishlist -->
       <div class="flex items-center gap-3 mt-5">

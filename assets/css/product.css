@@ -127,6 +127,35 @@
 .btn-dark:hover { background: #0d1425; }
 .btn-dark:active { transform: scale(.98); }
 
+/* ---------- add to cart / buy now split button ---------- */
+.split-btn {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.split-btn-half {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  flex: 1;
+  height: 100%;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #fff;
+  transition: background .2s ease, flex-grow .2s ease;
+}
+.split-btn-primary {
+  background: var(--brand-blue);
+  border-right: 1px solid rgba(255, 255, 255, .25);
+}
+.split-btn-primary:hover { background: var(--brand-blue-dark); flex-grow: 1.15; }
+.split-btn-dark { background: var(--brand-dark); }
+.split-btn-dark:hover { background: #0d1425; flex-grow: 1.15; }
+.split-btn-half:active { transform: scale(.98); }
+
 /* ---------- icon action buttons (wishlist / share) ---------- */
 .icon-action-btn {
   display: inline-flex;
