@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\AccountingEntry;
+use App\Models\Order;
 use App\Repositories\Contracts\AccountingEntryRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +11,32 @@ class AccountingService
 {
     public function __construct(private readonly AccountingEntryRepositoryInterface $entries)
     {
+    }
+
+    /**
+     * Record a sales income entry for a verified-payment order. Order
+     * creation already records income for the order total, so this is a
+     * no-op if a sales entry for the order already exists.
+     */
+    public function recordSale(Order $order): ?Model
+    {
+        $exists = AccountingEntry::query()
+            ->where('reference_type', 'order')
+            ->where('reference_id', $order->id)
+            ->where('category', 'sales')
+            ->exists();
+
+        if ($exists) {
+            return null;
+        }
+
+        return $this->recordIncome(
+            category: 'sales',
+            amount: (float) $order->total_amount,
+            description: "Order #{$order->order_number}",
+            referenceType: 'order',
+            referenceId: $order->id,
+        );
     }
 
     public function createEntry(array $data): Model

@@ -4,7 +4,9 @@ use App\Http\Middleware\AdminAuthenticated;
 use App\Http\Middleware\AdminAuthorize;
 use App\Http\Middleware\AffiliateAuthenticated;
 use App\Http\Middleware\CustomerAuthenticated;
+use App\Http\Middleware\InjectSeoMeta;
 use App\Http\Middleware\SetLocale;
+use App\Http\Middleware\TrackAffiliate;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -29,6 +31,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'affiliate.auth' => AffiliateAuthenticated::class,
             'customer.auth' => CustomerAuthenticated::class,
             'web.locale' => SetLocale::class,
+            'web.seo' => InjectSeoMeta::class,
+            'web.affiliate' => TrackAffiliate::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

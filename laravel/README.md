@@ -1,58 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Brown Box
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Brown Box is a bilingual (Arabic/English) e-commerce platform built on Laravel, covering three
+front-ends from a single codebase:
 
-## About Laravel
+- **Website** — the public storefront (`routes/website.php`), locale-prefixed (`/en/...`, `/ar/...`).
+- **Admin panel** — order, catalog, accounting and affiliate management (`routes/admin.php`).
+- **Affiliate panel** — referral dashboard, commissions and payouts (`routes/affiliate.php`).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Architecture decisions
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Repository + Service layers.** Controllers depend on service classes (`app/Services`), which
+  depend on repository interfaces (`app/Repositories/Contracts`) bound in
+  `AppServiceProvider`/`RepositoryServiceProvider`. Controllers never touch Eloquent directly for
+  write operations, keeping business rules (stock deduction, commission calculation, accounting
+  entries) in one place and unit-testable in isolation from HTTP.
+- **Guards per panel.** Three separate auth guards (`admin`, `affiliate`, customer/web) back three
+  independent login flows, enforced by `AdminAuthenticated`, `AffiliateAuthenticated` and
+  `CustomerAuthenticated` middleware.
+- **Locale-first routing.** All storefront routes are nested under a `{lang}` segment validated by
+  `SetLocale` middleware; `current_lang()` and `is_rtl()` helpers drive both Blade templates and
+  the compiled RTL/LTR CSS bundles (see below).
+- **Domain events + jobs.** Order lifecycle and affiliate actions dispatch events
+  (`OrderCreated`, `OrderStatusChanged`, ...) consumed by queued jobs/listeners for email
+  notifications, invoice generation, and commission processing, keeping request/response cycles
+  fast.
+- **Money and identifiers.** All monetary amounts are stored/rounded consistently through
+  `money_format()`; order/invoice numbers are generated via `generate_order_number()` /
+  `generate_invoice_number()` in `app/Helpers/helpers.php` (format `ORD-YYYYMMDD-NNNNN`).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Requirements
 
-## Learning Laravel
+- PHP 8.3+
+- Composer 2.x
+- Node.js 18+ and npm
+- MySQL/MariaDB (SQLite is also supported for local/dev use)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Setup
 
 ```bash
-composer require laravel/boost --dev
+# 1. Install PHP dependencies
+composer install
 
-php artisan boost:install
+# 2. Install JS dependencies
+npm install
+
+# 3. Environment
+cp .env.example .env
+php artisan key:generate
+
+# Edit .env: DB_*, MAIL_*, APP_URL, QUEUE_CONNECTION=database
+
+# 4. Database
+php artisan migrate
+php artisan db:seed
+
+# 5. Storage symlink (for product images, payment proofs, invoices, etc.)
+php artisan storage:link
+
+# 6. Build front-end assets
+npm run build      # production
+npm run dev         # local development (Vite dev server)
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+The seeder set includes an admin user, roles/permissions (`spatie/laravel-permission`) and default
+static pages — check `database/seeders/DatabaseSeeder.php` for the full list and adjust
+credentials before deploying.
 
-## Contributing
+## Queue worker
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Background jobs (order emails, invoice PDFs, commission approval, stock digests, coupon/flash-sale
+cleanup) run on the `database` queue connection by default. Start a worker locally with:
 
-## Code of Conduct
+```bash
+php artisan queue:work --tries=3
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+In production, run the worker under a process supervisor (Supervisor, systemd, or Laravel Horizon
+if you switch to Redis) so it restarts automatically. After deploying code changes, restart workers
+with:
 
-## Security Vulnerabilities
+```bash
+php artisan queue:restart
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Scheduled tasks (stock alerts, commission approval, coupon/flash-sale cleanup, sitemap generation —
+see `routes/console.php`) require the scheduler cron entry:
 
-## License
+```
+* * * * * cd /path-to-project && php artisan schedule:run >> /dev/null 2>&1
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Caching
+
+Settings, the active category tree, active flash sales and homepage product lists are cached via
+`Cache::remember()` (see `app/Http/Controllers/Website/HomeController.php` and
+`app/Helpers/helpers.php`). Catalog writes (`Product`, `Category`, `FlashSale`) automatically flush
+the relevant keys through `App\Observers\CatalogCacheObserver`. If you switch `CACHE_STORE` to a
+tag-capable driver (Redis/Memcached), this is also where you'd introduce `Cache::tags()`.
+
+## RTL / LTR assets
+
+Each panel compiles two CSS entry points — `app.ltr.css` and `app.rtl.css` (see
+`resources/css/{admin,website}/`) — built from the same Tailwind source with a small set of
+direction-specific overrides for third-party UI (Select2, DataTables, flatpickr). Layouts pick the
+correct bundle at render time via `is_rtl()`.
+
+## Tests
+
+```bash
+php artisan test
+# or
+./vendor/bin/phpunit
+```
+
+## Useful artisan commands
+
+| Command | Purpose |
+|---|---|
+| `php artisan queue:work` | Process queued jobs |
+| `php artisan schedule:run` | Run due scheduled tasks (invoke via cron) |
+| `php artisan stock:alert` | Manually trigger low-stock digest |
+| `php artisan affiliates:approve-commissions` | Manually approve ready commissions |
+| `php artisan seo:sitemap` | Regenerate the sitemap |
+| `php artisan storage:link` | Link `public/storage` to `storage/app/public` |

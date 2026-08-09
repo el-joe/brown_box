@@ -14,6 +14,10 @@ class ApproveReadyCommissions implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public int $tries = 3;
+
+    public array $backoff = [60, 300, 600];
+
     public function handle(AffiliateService $affiliates): void
     {
         AffiliateCommission::query()

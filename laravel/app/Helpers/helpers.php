@@ -60,20 +60,43 @@ if (! function_exists('asset_url')) {
 
 if (! function_exists('generate_invoice_number')) {
     /**
-     * Generate a unique invoice number, e.g. INV-20260808-XXXXX.
+     * Generate a unique invoice number, e.g. INV-20260808-00042.
      */
     function generate_invoice_number(): string
     {
-        return 'INV-'.now()->format('Ymd').'-'.strtoupper(Str::random(6));
+        return 'INV-'.now()->format('Ymd').'-'.str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT);
     }
 }
 
 if (! function_exists('generate_order_number')) {
     /**
-     * Generate a unique order number, e.g. ORD-20260808-XXXXX.
+     * Generate a unique order number, e.g. ORD-20260808-00042.
      */
     function generate_order_number(): string
     {
-        return 'ORD-'.now()->format('Ymd').'-'.strtoupper(Str::random(6));
+        return 'ORD-'.now()->format('Ymd').'-'.str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT);
+    }
+}
+
+if (! function_exists('is_rtl')) {
+    /**
+     * Whether the current locale reads right-to-left.
+     */
+    function is_rtl(): bool
+    {
+        return App::getLocale() === 'ar';
+    }
+}
+
+if (! function_exists('affiliate_code')) {
+    /**
+     * Return the "?ref=CODE" query string for the affiliate stored in
+     * session, or an empty string when there is none.
+     */
+    function affiliate_code(): string
+    {
+        $code = session('affiliate_ref_code');
+
+        return $code ? '?ref='.$code : '';
     }
 }

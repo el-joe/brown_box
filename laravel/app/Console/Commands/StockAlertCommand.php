@@ -2,39 +2,20 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Admin;
-use App\Notifications\LowStockNotification;
-use App\Services\StockService;
+use App\Jobs\StockAlertCheck;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Notification;
 
 class StockAlertCommand extends Command
 {
     protected $signature = 'stock:alert';
 
-    protected $description = 'Notify admins about products that are low on stock or out of stock';
+    protected $description = 'Check for low/out of stock products and notify admins';
 
-    public function handle(StockService $stocks): int
+    public function handle(): int
     {
-        $lowStocks = $stocks->lowStock()->load(['product', 'variant', 'warehouse']);
+        StockAlertCheck::dispatch();
 
-        if ($lowStocks->isEmpty()) {
-            $this->info('No low stock items found.');
-
-            return self::SUCCESS;
-        }
-
-        $admins = Admin::query()->active()->get();
-
-        if ($admins->isEmpty()) {
-            $this->warn('No active admins to notify.');
-
-            return self::SUCCESS;
-        }
-
-        Notification::send($admins, new LowStockNotification($lowStocks));
-
-        $this->info("Notified {$admins->count()} admin(s) about {$lowStocks->count()} low stock item(s).");
+        $this->info('Stock alert check dispatched.');
 
         return self::SUCCESS;
     }

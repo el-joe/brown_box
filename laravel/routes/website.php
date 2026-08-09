@@ -18,7 +18,7 @@ use App\Http\Controllers\Website\TrackOrderController;
 use App\Http\Controllers\Website\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('{lang}')->where(['lang' => 'ar|en'])->middleware('web.locale')->name('web.')->group(function (): void {
+Route::prefix('{lang}')->where(['lang' => 'ar|en'])->middleware(['web.locale', 'web.affiliate', 'web.seo'])->name('web.')->group(function (): void {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('products', [ProductListController::class, 'index'])->name('products.index');

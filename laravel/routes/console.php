@@ -1,6 +1,7 @@
 <?php
 
-use App\Jobs\ApproveReadyCommissions;
+use App\Jobs\CleanExpiredCoupons;
+use App\Jobs\CleanOldFlashSales;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -9,5 +10,8 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::command('stock:alert')->daily();
-Schedule::job(new ApproveReadyCommissions())->daily();
+Schedule::command('stock:alert')->dailyAt('08:00');
+Schedule::command('affiliates:approve-commissions')->dailyAt('02:00');
+Schedule::job(new CleanExpiredCoupons())->daily();
+Schedule::job(new CleanOldFlashSales())->hourly();
+Schedule::command('seo:sitemap')->weekly();

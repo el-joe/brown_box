@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ __('Affiliate Login') }} — Brown Box</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    @vite(['resources/css/admin/app.css', 'resources/js/admin/app.js'])
+    @vite([is_rtl() ? 'resources/css/admin/app.rtl.css' : 'resources/css/admin/app.ltr.css', 'resources/js/admin/app.js'])
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex items-center justify-center">
     <div class="w-full max-w-md">

@@ -1,0 +1,12 @@
+@import './app.css';
+
+/* RTL-specific overrides — logical (start/end) utilities above already
+   flip automatically; only add rules here for properties Tailwind can't
+   flip on its own (e.g. background-position, transforms, third-party CSS). */
+[dir='rtl'] .fa-chevron-right::before {
+    content: '\f053';
+}
+
+[dir='rtl'] .fa-chevron-left::before {
+    content: '\f054';
+}

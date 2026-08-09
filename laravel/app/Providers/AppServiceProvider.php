@@ -3,8 +3,12 @@
 namespace App\Providers;
 
 use App\Models\AffiliateCommission;
+use App\Models\Category;
+use App\Models\FlashSale;
 use App\Models\Order;
+use App\Models\Product;
 use App\Observers\AffiliateCommissionObserver;
+use App\Observers\CatalogCacheObserver;
 use App\Observers\OrderObserver;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -27,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Order::observe(OrderObserver::class);
         AffiliateCommission::observe(AffiliateCommissionObserver::class);
+        Category::observe(CatalogCacheObserver::class);
+        FlashSale::observe(CatalogCacheObserver::class);
+        Product::observe(CatalogCacheObserver::class);
 
         View::composer('affiliate.layouts.app', function ($view): void {
             $customer = Auth::guard('affiliate')->user();

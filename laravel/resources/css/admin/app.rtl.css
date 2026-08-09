@@ -1,0 +1,17 @@
+@import './app.css';
+
+/* RTL-specific overrides for admin/affiliate panels — select2, DataTables,
+   and flatpickr ship LTR-only positioning that Tailwind can't flip. */
+[dir='rtl'] .select2-container--default .select2-selection--single .select2-selection__arrow {
+    left: 1px;
+    right: auto;
+}
+
+[dir='rtl'] .dataTables_wrapper .dataTables_filter,
+[dir='rtl'] .dataTables_wrapper .dataTables_length {
+    text-align: right;
+}
+
+[dir='rtl'] .flatpickr-calendar {
+    direction: ltr;
+}

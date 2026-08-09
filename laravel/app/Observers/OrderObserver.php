@@ -2,21 +2,19 @@
 
 namespace App\Observers;
 
-use App\Enums\OrderStatus;
 use App\Events\OrderCreated;
+use App\Events\OrderPlaced;
 use App\Events\OrderStatusChanged;
 use App\Models\AccountingEntry;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
-use App\Services\AffiliateService;
 
 class OrderObserver
 {
-    public function __construct(private readonly AffiliateService $affiliates) {}
-
     public function created(Order $order): void
     {
         event(new OrderCreated($order));
+        event(new OrderPlaced($order));
 
         AccountingEntry::create([
             'type' => 'order',
@@ -43,13 +41,6 @@ class OrderObserver
                 'notes' => "Status changed from {$oldStatus} to {$newStatus}",
                 'created_at' => now(),
             ]);
-
-            if ($newStatus === OrderStatus::Delivered->value
-                && $order->affiliate_id
-                && ! $order->affiliateCommissions()->exists()
-            ) {
-                $this->affiliates->recordCommissionForOrder($order->affiliate, $order);
-            }
         }
     }
 }

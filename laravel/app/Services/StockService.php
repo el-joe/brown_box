@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use App\Enums\StockMovementType;
+use App\Models\Order;
+use App\Models\StockMovement;
+use App\Models\Warehouse;
 use App\Repositories\Contracts\StockRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +21,41 @@ class StockService
     public function lowStock(): Collection
     {
         return $this->stocks->lowStock();
+    }
+
+    /**
+     * Deduct stock for every item on an order against the default warehouse.
+     * Order creation already deducts stock per item against the selected
+     * warehouse, so this is a no-op if a movement for the order already exists.
+     */
+    public function deductForOrder(Order $order): void
+    {
+        $alreadyDeducted = StockMovement::query()
+            ->where('reference_type', 'order')
+            ->where('reference_id', $order->id)
+            ->exists();
+
+        if ($alreadyDeducted) {
+            return;
+        }
+
+        $warehouse = Warehouse::query()->where('is_default', true)->first();
+
+        if (! $warehouse) {
+            return;
+        }
+
+        foreach ($order->items as $item) {
+            $this->deduct(
+                productId: $item->product_id,
+                warehouseId: $warehouse->id,
+                qty: $item->qty,
+                variantId: $item->variant_id,
+                referenceType: 'order',
+                referenceId: $order->id,
+                note: "Order #{$order->order_number}",
+            );
+        }
     }
 
     /**

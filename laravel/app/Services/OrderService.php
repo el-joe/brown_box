@@ -5,14 +5,10 @@ namespace App\Services;
 use App\Events\OrderCreated;
 use App\Events\OrderStatusChanged;
 use App\Jobs\GenerateInvoice;
-use App\Jobs\SendAdminNotification;
 use App\Jobs\SendCustomerNotification;
 use App\Jobs\SendOrderStatusEmail;
-use App\Models\Admin;
-use App\Notifications\NewOrderPlaced;
 use App\Notifications\OrderConfirmed;
 use App\Notifications\OrderDelivered;
-use App\Notifications\OrderPlaced;
 use App\Notifications\OrderRejected;
 use App\Notifications\OrderShipped;
 use App\Notifications\OrderStatusChanged as OrderStatusChangedNotification;
@@ -20,7 +16,6 @@ use App\Repositories\Contracts\OrderRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use RuntimeException;
 
 class OrderService
@@ -87,9 +82,11 @@ class OrderService
             $taxAmount = $data['tax_amount'] ?? 0;
             $totalAmount = $subtotal - $discountAmount + $shippingAmount + $taxAmount;
 
+            $affiliateCode = $data['affiliate_code'] ?? session('affiliate_ref_code');
+
             $affiliate = null;
-            if (! empty($data['affiliate_code'])) {
-                $affiliate = $this->affiliateService->findByCode($data['affiliate_code']);
+            if (! empty($affiliateCode)) {
+                $affiliate = $this->affiliateService->findByCode($affiliateCode);
             }
 
             $order = $this->orders->create([
@@ -156,19 +153,7 @@ class OrderService
 
             event(new OrderCreated($order));
 
-            $order = $order->fresh(['items', 'customer']);
-
-            if ($order->customer) {
-                SendCustomerNotification::dispatch($order->customer, new OrderPlaced($order));
-            }
-
-            $admins = Admin::query()->active()->get()->filter(fn (Admin $admin) => $admin->can('orders.view'));
-
-            if ($admins->isNotEmpty()) {
-                SendAdminNotification::dispatch($admins, new NewOrderPlaced($order));
-            }
-
-            return $order;
+            return $order->fresh(['items', 'customer']);
         });
     }
 
@@ -354,6 +339,6 @@ class OrderService
 
     private function generateOrderNumber(): string
     {
-        return 'ORD-'.now()->format('Ymd').'-'.strtoupper(Str::random(6));
+        return generate_order_number();
     }
 }
