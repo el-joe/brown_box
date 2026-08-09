@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "select2/dist/css/select2.min.css";
+@import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+
+[x-cloak] {
+    display: none !important;
+}
+
+.admin-nav-link {
+    @apply flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition-colors;
+}
+
+.admin-nav-link.active {
+    @apply bg-amber-600/20 text-amber-400;
+}
+
+.select2-container .select2-selection--single,
+.select2-container .select2-selection--multiple {
+    @apply !border-slate-300 !rounded-lg !min-h-[42px] !py-1;
+}

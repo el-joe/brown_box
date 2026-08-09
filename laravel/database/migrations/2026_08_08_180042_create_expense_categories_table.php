@@ -1,0 +1,24 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('expense_categories', function (Blueprint $table) {
+            $table->id();
+            $table->json('name');
+            $table->foreignId('parent_id')->nullable()->constrained('expense_categories')->nullOnDelete();
+            $table->enum('type', ['debit', 'credit']);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('expense_categories');
+    }
+};

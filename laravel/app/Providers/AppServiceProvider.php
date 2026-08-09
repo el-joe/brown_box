@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\AffiliateCommission;
+use App\Models\Order;
+use App\Observers\AffiliateCommissionObserver;
+use App\Observers\OrderObserver;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +25,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Order::observe(OrderObserver::class);
+        AffiliateCommission::observe(AffiliateCommissionObserver::class);
+
+        View::composer('affiliate.layouts.app', function ($view): void {
+            $customer = Auth::guard('affiliate')->user();
+            $affiliate = $customer?->affiliate;
+
+            $view->with('affiliateStats', $affiliate ? [
+                'available_balance' => (float) $affiliate->balance,
+                'total_earned' => (float) $affiliate->total_earned,
+                'pending_commissions' => (float) $affiliate->commissions()->where('status', 'pending')->sum('amount'),
+                'total_orders' => $affiliate->orders()->count(),
+            ] : null);
+        });
     }
 }
