@@ -5,7 +5,17 @@ namespace App\Services;
 use App\Events\OrderCreated;
 use App\Events\OrderStatusChanged;
 use App\Jobs\GenerateInvoice;
+use App\Jobs\SendAdminNotification;
+use App\Jobs\SendCustomerNotification;
 use App\Jobs\SendOrderStatusEmail;
+use App\Models\Admin;
+use App\Notifications\NewOrderPlaced;
+use App\Notifications\OrderConfirmed;
+use App\Notifications\OrderDelivered;
+use App\Notifications\OrderPlaced;
+use App\Notifications\OrderRejected;
+use App\Notifications\OrderShipped;
+use App\Notifications\OrderStatusChanged as OrderStatusChangedNotification;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
@@ -146,7 +156,19 @@ class OrderService
 
             event(new OrderCreated($order));
 
-            return $order->fresh(['items']);
+            $order = $order->fresh(['items', 'customer']);
+
+            if ($order->customer) {
+                SendCustomerNotification::dispatch($order->customer, new OrderPlaced($order));
+            }
+
+            $admins = Admin::query()->active()->get()->filter(fn (Admin $admin) => $admin->can('orders.view'));
+
+            if ($admins->isNotEmpty()) {
+                SendAdminNotification::dispatch($admins, new NewOrderPlaced($order));
+            }
+
+            return $order;
         });
     }
 
@@ -168,17 +190,30 @@ class OrderService
 
             event(new OrderStatusChanged($order, $previousStatus, $status));
 
-            SendOrderStatusEmail::dispatch(
-                $order->fresh(),
-                __('Order Status Updated'),
-                __('Your order status has changed to :status.', ['status' => $status]),
-            );
+            $order = $order->fresh(['customer']);
 
-            if ($status === 'confirmed') {
-                GenerateInvoice::dispatch($order->fresh());
+            $notification = match ($status) {
+                'confirmed' => new OrderConfirmed($order),
+                'shipped' => new OrderShipped($order),
+                'delivered' => new OrderDelivered($order),
+                default => new OrderStatusChangedNotification($order, $status),
+            };
+
+            if ($order->customer) {
+                SendCustomerNotification::dispatch($order->customer, $notification);
+            } else {
+                SendOrderStatusEmail::dispatch(
+                    $order,
+                    __('Order Status Updated'),
+                    __('Your order status has changed to :status.', ['status' => $status]),
+                );
             }
 
-            return $order->fresh();
+            if ($status === 'confirmed') {
+                GenerateInvoice::dispatch($order);
+            }
+
+            return $order;
         });
     }
 
@@ -204,11 +239,17 @@ class OrderService
         return DB::transaction(function () use ($orderId, $adminId, $notes) {
             $order = $this->paymentService->verifyManually($orderId, $adminId, false, $notes ?? 'Payment rejected by admin.');
 
-            SendOrderStatusEmail::dispatch(
-                $order,
-                __('Payment Rejected'),
-                $notes ?? __('We were unable to verify your payment for this order. Please contact support.'),
-            );
+            $order->loadMissing('customer');
+
+            if ($order->customer) {
+                SendCustomerNotification::dispatch($order->customer, new OrderRejected($order));
+            } else {
+                SendOrderStatusEmail::dispatch(
+                    $order,
+                    __('Payment Rejected'),
+                    $notes ?? __('We were unable to verify your payment for this order. Please contact support.'),
+                );
+            }
 
             return $order;
         });

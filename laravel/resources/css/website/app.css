@@ -1,0 +1,1163 @@
+@import "tailwindcss";
+
+[x-cloak] {
+    display: none !important;
+}
+
+.web-header {
+    @apply transition-shadow duration-200;
+}
+
+.web-header.is-sticky {
+    @apply shadow-md;
+}
+
+.web-nav-link {
+    @apply text-sm font-medium text-slate-600 hover:text-amber-600 transition-colors;
+}
+
+.web-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700 transition-colors;
+}
+
+.web-btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-amber-600 hover:text-amber-600 transition-colors;
+}
+
+.web-icon-btn {
+    @apply relative flex items-center justify-center w-10 h-10 rounded-full text-slate-600 hover:bg-slate-100 transition-colors;
+}
+
+.web-badge-count {
+    @apply absolute -top-1 -end-1 bg-amber-600 text-white text-[10px] leading-none rounded-full px-1.5 py-1;
+}
+
+.web-btn-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 transition-colors;
+}
+
+/* ---------- Shared section header (home / category / product) ---------- */
+.web-section-head {
+    @apply flex items-center justify-between mb-5;
+}
+
+.web-view-all {
+    @apply text-xs font-semibold text-amber-600 hover:underline flex items-center gap-1;
+}
+
+/* ---------- Home page ---------- */
+.web-home .web-promo-banner {
+    isolation: isolate;
+}
+
+.web-category-card {
+    @apply p-4 rounded-lg border border-slate-100 hover:border-amber-500 transition-colors;
+}
+
+.web-category-icon {
+    @apply w-14 h-14 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-xl overflow-hidden;
+}
+
+.web-countdown-box {
+    @apply inline-block min-w-[1.75rem] text-center bg-slate-900 text-white rounded px-1.5 py-0.5;
+}
+
+/* ---------- Category / product listing page ---------- */
+.web-category .web-filter-group {
+    @apply border-b border-slate-100 py-4;
+}
+
+.web-category .web-filter-group:first-of-type {
+    @apply pt-0;
+}
+
+.web-filter-title {
+    @apply text-sm font-semibold text-slate-800;
+}
+
+.web-filter-check {
+    @apply flex items-center gap-2 text-sm text-slate-600 cursor-pointer;
+}
+
+.web-filters-panel {
+    box-shadow: none;
+}
+
+@media (max-width: 1023px) {
+    .web-filters-panel {
+        @apply shadow-2xl;
+    }
+}
+
+/* ---------- Product show page ---------- */
+.web-deal-badge {
+    @apply inline-flex items-center justify-center rounded-full bg-red-500 text-white text-xs font-semibold px-2.5 py-1;
+}
+
+.web-discount-pill {
+    @apply inline-flex items-center rounded-full bg-red-50 text-red-600 text-xs font-semibold px-2 py-0.5;
+}
+
+.web-gallery-thumb {
+    @apply transition-colors;
+}
+
+.web-gallery-thumb.is-active {
+    @apply border-amber-500;
+}
+
+.web-variant-pill {
+    @apply inline-flex items-center justify-center rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:border-amber-500 transition-colors;
+}
+
+.web-variant-pill.is-active {
+    @apply border-amber-600 bg-amber-50 text-amber-700 font-semibold;
+}
+
+.web-qty-stepper {
+    @apply flex items-center rounded-lg border border-slate-200 overflow-hidden;
+}
+
+.web-qty-stepper button {
+    @apply w-10 h-10 flex items-center justify-center text-slate-600 hover:bg-slate-50;
+}
+
+.web-qty-stepper input {
+    @apply w-12 h-10 text-center border-s border-e border-slate-200 outline-none;
+}
+
+.web-icon-action-btn {
+    @apply inline-flex items-center gap-2 text-sm text-slate-600 hover:text-amber-600 transition-colors;
+}
+
+.web-tab-btn {
+    @apply px-4 py-3 text-sm font-medium text-slate-500 border-b-2 border-transparent hover:text-slate-800;
+}
+
+.web-tab-btn.is-active {
+    @apply text-amber-600 border-amber-600;
+}
+
+/* ---------- Cart page ---------- */
+.web-cart .web-cart-item {
+    @apply grid grid-cols-[80px_1fr] sm:grid-cols-[96px_1fr_auto_auto] items-center gap-4 bg-white border border-slate-100 rounded-2xl p-4 transition-shadow;
+    grid-template-areas: 'img info' 'qty price';
+}
+
+@media (min-width: 640px) {
+    .web-cart .web-cart-item {
+        grid-template-areas: 'img info qty price';
+    }
+}
+
+.web-cart .web-cart-item:hover {
+    @apply shadow-lg shadow-slate-900/5;
+}
+
+.web-cart .web-cart-item-img {
+    grid-area: img;
+    @apply block w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-slate-50;
+}
+
+.web-cart .web-cart-item-img img {
+    @apply w-full h-full object-cover;
+}
+
+.web-cart .web-cart-item-info {
+    grid-area: info;
+    @apply min-w-0;
+}
+
+.web-cart .web-cart-item-title {
+    @apply block text-sm font-semibold text-slate-900 leading-snug hover:text-amber-600;
+}
+
+.web-cart .web-cart-item-variant {
+    @apply text-xs text-slate-400 mt-1;
+}
+
+.web-cart .web-cart-item-remove {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-red-600 mt-2 transition-colors;
+}
+
+.web-cart .web-cart-item-qty {
+    grid-area: qty;
+}
+
+.web-cart .web-cart-item-price {
+    grid-area: price;
+    @apply text-end;
+}
+
+.web-cart .web-cart-line-total {
+    @apply block text-base font-bold text-slate-900;
+}
+
+.web-cart .web-cart-unit-price {
+    @apply block text-xs text-slate-400 mt-0.5;
+}
+
+.web-empty-state {
+    @apply text-center py-16 px-4 border border-dashed border-slate-200 rounded-2xl text-slate-400;
+}
+
+.web-empty-state i {
+    @apply text-5xl text-slate-200;
+}
+
+.web-summary-card {
+    @apply sticky top-24 bg-slate-50 border border-slate-100 rounded-2xl p-6;
+}
+
+.web-summary-row {
+    @apply flex items-center justify-between text-sm text-slate-600 py-2;
+}
+
+.web-summary-row span:last-child {
+    @apply font-semibold text-slate-900;
+}
+
+.web-summary-divider {
+    @apply h-px bg-slate-200 my-2;
+}
+
+.web-summary-total {
+    @apply text-base;
+}
+
+.web-summary-total span:last-child {
+    @apply text-amber-600 font-extrabold text-xl;
+}
+
+.web-coupon-form {
+    @apply flex border border-slate-200 rounded-full overflow-hidden bg-white;
+}
+
+.web-coupon-form input {
+    @apply flex-1 min-w-0 px-4 py-2.5 text-sm outline-none;
+}
+
+.web-coupon-form button {
+    @apply px-4 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold whitespace-nowrap transition-colors;
+}
+
+.web-coupon-message {
+    @apply flex items-center gap-1.5 text-xs font-medium mt-2.5 px-3 py-2 rounded-lg;
+}
+
+.web-coupon-message.is-success {
+    @apply bg-emerald-50 text-emerald-600;
+}
+
+.web-coupon-message.is-error {
+    @apply bg-red-50 text-red-600;
+}
+
+/* ---------- Checkout page ---------- */
+.web-checkout .web-checkout-block {
+    @apply border border-slate-100 rounded-2xl p-6 mb-6;
+}
+
+.web-checkout-steps {
+    @apply flex items-center justify-center gap-3 my-6;
+}
+
+.web-checkout-step {
+    @apply flex flex-col items-center gap-1.5;
+}
+
+.web-checkout-step-circle {
+    @apply w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs font-bold;
+}
+
+.web-checkout-step.is-active .web-checkout-step-circle {
+    @apply bg-amber-600 text-white;
+}
+
+.web-checkout-step.is-done .web-checkout-step-circle {
+    @apply bg-emerald-500 text-white;
+}
+
+.web-checkout-step-label {
+    @apply text-xs text-slate-400 font-semibold;
+}
+
+.web-checkout-step.is-active .web-checkout-step-label,
+.web-checkout-step.is-done .web-checkout-step-label {
+    @apply text-slate-900;
+}
+
+.web-checkout-step-line {
+    @apply w-14 h-0.5 bg-slate-200 mb-5;
+}
+
+.web-select-card {
+    @apply relative block border-2 border-slate-200 rounded-xl p-4 pe-10 cursor-pointer transition-colors;
+}
+
+.web-select-card input[type='radio'] {
+    @apply absolute opacity-0 pointer-events-none;
+}
+
+.web-select-check {
+    @apply absolute top-4 end-4 w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors;
+}
+
+.web-select-check i {
+    @apply text-[0.6rem] text-white opacity-0 transition-opacity;
+}
+
+.web-select-card.is-checked {
+    @apply border-amber-600 bg-amber-50;
+}
+
+.web-select-card.is-checked .web-select-check {
+    @apply bg-amber-600 border-amber-600;
+}
+
+.web-select-card.is-checked .web-select-check i {
+    @apply opacity-100;
+}
+
+.web-address-badge {
+    @apply inline-block bg-amber-600 text-white text-[0.65rem] font-bold px-2.5 py-0.5 rounded-full mb-2;
+}
+
+.web-add-address-card {
+    @apply flex flex-col items-center justify-center gap-2 border-2 border-dashed border-slate-200 rounded-xl p-4 min-h-[132px] text-slate-400 text-sm font-semibold transition-colors hover:border-amber-600 hover:text-amber-600 hover:bg-amber-50;
+}
+
+.web-payment-card {
+    @apply text-center py-6 px-4;
+}
+
+.web-payment-icon {
+    @apply text-2xl text-amber-600;
+}
+
+.web-payment-name {
+    @apply font-bold text-sm mt-2.5;
+}
+
+.web-payment-desc {
+    @apply text-xs text-slate-400 mt-0.5;
+}
+
+.web-payment-details {
+    @apply mt-5 pt-5 border-t border-slate-100;
+}
+
+.web-pm-row {
+    @apply flex items-center gap-2.5 text-sm text-slate-600 py-1.5 flex-wrap;
+}
+
+.web-pm-row span:first-child {
+    @apply min-w-[130px] text-slate-400;
+}
+
+.web-pm-row b {
+    @apply text-slate-900;
+}
+
+.web-copy-btn {
+    @apply w-6.5 h-6.5 w-7 h-7 rounded-md bg-slate-100 text-slate-600 flex items-center justify-center text-xs transition-colors hover:bg-amber-600 hover:text-white;
+}
+
+.web-copy-btn.is-copied {
+    @apply bg-emerald-500 text-white;
+}
+
+.web-file-dropzone {
+    @apply border-2 border-dashed border-slate-200 rounded-xl py-8 px-4 text-center cursor-pointer transition-colors;
+}
+
+.web-file-dropzone:hover,
+.web-file-dropzone.is-dragover {
+    @apply border-amber-600 bg-amber-50;
+}
+
+.web-file-dropzone i {
+    @apply text-3xl text-slate-300;
+}
+
+.web-file-preview {
+    @apply flex items-center gap-3 border border-slate-200 rounded-xl px-4 py-3;
+}
+
+.web-field-error {
+    @apply flex items-center gap-1.5 text-red-600 text-xs font-medium mt-2.5;
+}
+
+.web-checkout-textarea {
+    @apply w-full border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-amber-500 resize-y;
+}
+
+.web-summary-mini-item {
+    @apply flex items-center gap-3 py-2.5 border-b border-slate-100 last:border-0;
+}
+
+.web-summary-mini-img {
+    @apply w-13 h-13 w-12 h-12 rounded-lg object-cover bg-slate-100 shrink-0;
+}
+
+.web-summary-mini-title {
+    @apply text-sm font-semibold text-slate-900 leading-snug;
+}
+
+.web-summary-mini-meta {
+    @apply text-xs text-slate-400 mt-0.5;
+}
+
+.web-summary-mini-price {
+    @apply ms-auto text-sm font-bold text-slate-900 shrink-0;
+}
+
+/* modals */
+.web-modal-overlay {
+    @apply fixed inset-0 z-[70] bg-slate-900/55 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity;
+}
+
+.web-modal-overlay.is-open {
+    @apply opacity-100 pointer-events-auto;
+}
+
+.web-modal-box {
+    @apply bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto translate-y-3 transition-transform;
+}
+
+.web-modal-overlay.is-open .web-modal-box {
+    @apply translate-y-0;
+}
+
+.web-modal-header {
+    @apply flex items-center justify-between px-6 py-5 border-b border-slate-100;
+}
+
+.web-modal-close {
+    @apply text-slate-400 hover:text-slate-900;
+}
+
+.web-modal-body {
+    @apply p-6 flex flex-col gap-4;
+}
+
+.web-modal-footer {
+    @apply flex gap-3 px-6 py-5 border-t border-slate-100;
+}
+
+.web-modal-footer > * {
+    @apply flex-1;
+}
+
+.web-checkout-field label {
+    @apply block text-xs font-semibold text-slate-600 mb-1.5;
+}
+
+.web-checkout-field input,
+.web-checkout-field select {
+    @apply w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:border-amber-500;
+}
+
+.web-checkout-checkbox {
+    @apply flex items-center gap-2.5 text-sm text-slate-600 cursor-pointer;
+}
+
+.web-checkout-checkbox input {
+    @apply w-4 h-4 accent-amber-600 cursor-pointer;
+}
+
+.web-success-icon {
+    @apply w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 text-3xl flex items-center justify-center mx-auto;
+}
+
+/* ---------- Auth pages (login / register) ---------- */
+.web-auth-wrap {
+    min-height: calc(100vh - 420px);
+}
+
+.web-auth-panel {
+    @apply relative hidden lg:flex flex-col justify-between overflow-hidden text-white p-10;
+    background-image: radial-gradient(circle at 15% 20%, rgba(255, 255, 255, .14), transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(255, 255, 255, .10), transparent 45%),
+        linear-gradient(135deg, #d97706, #92400e);
+}
+
+.web-auth-feature {
+    @apply flex items-start gap-3;
+}
+
+.web-auth-feature-icon {
+    @apply w-10 h-10 shrink-0 rounded-xl bg-white/15 flex items-center justify-center text-base;
+}
+
+.web-auth-field {
+    @apply mb-4;
+}
+
+.web-auth-field label {
+    @apply block text-sm font-semibold text-slate-600 mb-1.5;
+}
+
+.web-input-wrap {
+    @apply relative;
+}
+
+.web-auth-field input {
+    @apply w-full border border-slate-300 rounded-xl px-4 py-3 text-sm outline-none transition-colors focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20;
+}
+
+.web-auth-field input.has-icon {
+    @apply ps-11;
+}
+
+.web-auth-field input.is-invalid,
+.web-checkout-field input.is-invalid {
+    @apply border-red-500;
+}
+
+.web-input-icon {
+    @apply absolute top-1/2 -translate-y-1/2 start-4 text-slate-400 text-sm pointer-events-none;
+}
+
+.web-toggle-password {
+    @apply absolute top-1/2 -translate-y-1/2 end-4 text-slate-400 text-sm hover:text-amber-600;
+}
+
+.web-checkout-field input.has-toggle {
+    @apply pe-11;
+}
+
+.web-auth-checkbox {
+    @apply flex items-center gap-2 text-sm text-slate-600 cursor-pointer;
+}
+
+.web-auth-checkbox input {
+    @apply w-4 h-4 accent-amber-600 cursor-pointer;
+}
+
+.web-auth-divider {
+    @apply flex items-center gap-3 my-6 text-xs font-semibold text-slate-400;
+}
+
+.web-auth-divider::before,
+.web-auth-divider::after {
+    content: '';
+    @apply flex-1 h-px bg-slate-200;
+}
+
+.web-pw-strength-track {
+    @apply h-1.5 rounded-full bg-slate-100 overflow-hidden mt-2;
+}
+
+.web-pw-strength-bar {
+    @apply h-full w-0 rounded-full transition-all;
+}
+
+.web-pw-strength-label {
+    @apply text-xs font-semibold text-slate-400 mt-1;
+}
+
+/* ---------- Account pages (sidebar + cards) ---------- */
+.web-account-layout {
+    @apply grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6;
+}
+
+.web-account-sidebar {
+    @apply bg-white border border-slate-100 rounded-2xl p-4 h-fit lg:sticky lg:top-20;
+}
+
+.web-account-user {
+    @apply flex items-center gap-3 pb-4 mb-2 border-b border-slate-100;
+}
+
+.web-account-avatar {
+    @apply w-11 h-11 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0;
+}
+
+.web-account-nav {
+    @apply flex flex-col gap-1 mt-2;
+}
+
+.web-account-nav a,
+.web-account-nav button {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-amber-50 hover:text-amber-700 transition-colors;
+}
+
+.web-account-nav a.is-active {
+    @apply bg-amber-50 text-amber-700;
+}
+
+.web-account-nav .web-account-logout {
+    @apply text-red-500 hover:bg-red-50 hover:text-red-600 w-full text-start mt-2 border-t border-slate-100 pt-3;
+}
+
+.web-account-card {
+    @apply bg-white border border-slate-100 rounded-2xl p-5 sm:p-6 mb-6;
+}
+
+.web-account-card-head {
+    @apply flex items-start justify-between gap-4 mb-5;
+}
+
+.web-account-card-sub {
+    @apply text-sm text-slate-500 mt-1;
+}
+
+.web-account-empty {
+    @apply flex flex-col items-center justify-center text-center text-slate-400 py-14;
+}
+
+.web-account-empty i {
+    @apply text-4xl mb-3;
+}
+
+/* ---------- Orders list ---------- */
+.web-order-card {
+    @apply border border-slate-100 rounded-xl p-4 mb-4 last:mb-0;
+}
+
+.web-order-card-top {
+    @apply flex flex-wrap items-start justify-between gap-2 pb-3 mb-3 border-b border-slate-100;
+}
+
+.web-order-number {
+    @apply font-bold text-slate-900 text-sm;
+}
+
+.web-order-date {
+    @apply text-xs text-slate-500 mt-0.5;
+}
+
+.web-order-status {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.web-order-status.pending { @apply bg-amber-50 text-amber-700; }
+.web-order-status.processing { @apply bg-blue-50 text-blue-700; }
+.web-order-status.shipped { @apply bg-indigo-50 text-indigo-700; }
+.web-order-status.delivered { @apply bg-emerald-50 text-emerald-700; }
+.web-order-status.cancelled { @apply bg-red-50 text-red-700; }
+.web-order-status.refunded { @apply bg-slate-100 text-slate-600; }
+
+.web-order-card-bottom {
+    @apply flex flex-wrap items-center justify-between gap-4;
+}
+
+.web-order-total {
+    @apply text-sm text-slate-500;
+}
+
+.web-order-total b {
+    @apply text-slate-900 font-bold ms-1;
+}
+
+/* ---------- Order status timeline ---------- */
+.web-order-timeline {
+    @apply flex flex-col;
+}
+
+.web-order-timeline-item {
+    @apply relative ps-8 pb-6 last:pb-0;
+}
+
+.web-order-timeline-item::before {
+    content: '';
+    @apply absolute start-[7px] top-5 bottom-0 w-px bg-slate-200;
+}
+
+.web-order-timeline-item:last-child::before {
+    @apply hidden;
+}
+
+.web-order-timeline-dot {
+    @apply absolute start-0 top-1 w-4 h-4 rounded-full bg-amber-500 border-4 border-amber-100;
+}
+
+.web-order-timeline-status {
+    @apply font-semibold text-sm text-slate-900 capitalize;
+}
+
+.web-order-timeline-date {
+    @apply text-xs text-slate-400 mt-0.5;
+}
+
+/* ---------- Address cards ---------- */
+.web-address-card {
+    @apply relative border border-slate-200 rounded-xl p-4;
+}
+
+.web-address-card.is-default {
+    @apply border-amber-500 bg-amber-50/40;
+}
+
+.web-add-account-address-card {
+    @apply flex flex-col items-center justify-center gap-2 border-2 border-dashed border-slate-200 rounded-xl p-6 text-slate-400 hover:border-amber-500 hover:text-amber-600 transition-colors;
+}
+
+/* ---------- Toast ---------- */
+.web-toast {
+    position: fixed;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(-16px);
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #0f172a;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.85rem 1.25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+.web-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.web-toast.is-error i {
+    color: #ef4444;
+}
+
+.web-toast i {
+    color: #10b981;
+}
+
+/* ---------- Blog ---------- */
+.web-blog-tag {
+    @apply inline-flex items-center text-[11px] font-bold uppercase tracking-wide text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full;
+}
+
+.web-blog-card {
+    @apply block bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow;
+}
+
+.web-blog-card-img {
+    @apply w-full h-44 object-cover;
+}
+
+.web-blog-card-body {
+    @apply p-4 flex flex-col gap-2;
+}
+
+.web-blog-card-title {
+    @apply font-bold text-slate-900 leading-snug hover:text-amber-600 transition-colors;
+}
+
+.web-blog-card-excerpt {
+    @apply text-sm text-slate-500;
+}
+
+.web-blog-card-meta {
+    @apply flex items-center gap-1.5 text-xs text-slate-400 mt-1;
+}
+
+.web-blog-empty {
+    @apply text-center py-16 text-slate-400 border border-dashed border-slate-200 rounded-2xl;
+}
+
+.web-blog-empty i {
+    @apply text-4xl mb-3;
+}
+
+.web-blog-sidebar-card {
+    @apply bg-white border border-slate-100 rounded-2xl p-5 mb-6;
+}
+
+.web-blog-sidebar-card h3 {
+    @apply font-bold text-slate-900 mb-4;
+}
+
+.web-blog-search-box {
+    @apply flex items-center border border-slate-200 rounded-full overflow-hidden;
+}
+
+.web-blog-search-box input {
+    @apply flex-1 px-4 py-2 text-sm outline-none;
+}
+
+.web-blog-search-box button {
+    @apply bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 transition-colors;
+}
+
+.web-blog-category-item {
+    @apply flex items-center justify-between py-2.5 text-sm text-slate-600 border-b border-slate-100 last:border-0 hover:text-amber-600 transition-colors;
+}
+
+.web-blog-category-item .count {
+    @apply text-xs text-slate-400 bg-slate-100 rounded-full px-2 py-0.5;
+}
+
+.web-newsletter-mini-card {
+    @apply bg-slate-900 text-white rounded-2xl p-6 text-center;
+}
+
+.web-newsletter-mini-card form {
+    @apply flex flex-col gap-2 mt-4;
+}
+
+.web-newsletter-mini-card input {
+    @apply w-full rounded-lg px-3 py-2 text-sm text-slate-900 outline-none;
+}
+
+.web-newsletter-mini-card button {
+    @apply w-full rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold py-2 transition-colors;
+}
+
+.web-blog-article-meta {
+    @apply flex items-center gap-3;
+}
+
+.web-blog-article-avatar {
+    @apply w-11 h-11 rounded-full object-cover;
+}
+
+.web-blog-article-hero-img {
+    @apply w-full rounded-2xl object-cover max-h-[420px];
+}
+
+.web-blog-article-content {
+    @apply prose prose-slate max-w-none prose-headings:font-extrabold prose-a:text-amber-600;
+}
+
+/* ---------- Track order ---------- */
+.web-track-hero {
+    @apply bg-slate-900 text-white rounded-2xl p-8 sm:p-10 text-center;
+}
+
+.web-track-form {
+    @apply flex flex-col sm:flex-row gap-2 mt-6 max-w-lg mx-auto;
+}
+
+.web-track-form input {
+    @apply flex-1 rounded-lg px-4 py-2.5 text-sm text-slate-900 outline-none;
+}
+
+.web-track-form button {
+    @apply bg-amber-600 hover:bg-amber-700 text-white px-5 rounded-lg flex items-center justify-center transition-colors;
+}
+
+.web-track-error {
+    @apply flex items-center justify-center gap-1.5 text-red-300 text-xs font-medium mt-3;
+}
+
+.web-order-page-card {
+    @apply bg-white border border-slate-100 rounded-2xl p-6 mb-6;
+}
+
+.web-order-status {
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-100 text-slate-600;
+}
+
+.web-order-status-shipped {
+    @apply bg-blue-50 text-blue-700;
+}
+
+.web-order-status-delivered {
+    @apply bg-emerald-50 text-emerald-700;
+}
+
+.web-order-status-processing,
+.web-order-status-pending {
+    @apply bg-amber-50 text-amber-700;
+}
+
+.web-order-status-cancelled,
+.web-order-status-refunded {
+    @apply bg-red-50 text-red-700;
+}
+
+.web-order-timeline {
+    @apply flex flex-col;
+}
+
+.web-timeline-step {
+    @apply relative flex items-start gap-3 pb-6 last:pb-0;
+}
+
+.web-timeline-connector {
+    @apply absolute left-4 top-8 bottom-0 w-px bg-slate-200;
+}
+
+.web-timeline-step:last-child .web-timeline-connector {
+    @apply hidden;
+}
+
+.web-timeline-icon {
+    @apply relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-400 text-xs shrink-0;
+}
+
+.web-timeline-step.done .web-timeline-icon {
+    @apply bg-emerald-500 text-white;
+}
+
+.web-timeline-step.active .web-timeline-icon {
+    @apply bg-amber-500 text-white;
+}
+
+.web-timeline-label {
+    @apply text-sm font-semibold text-slate-900;
+}
+
+.web-timeline-date {
+    @apply text-xs text-slate-400;
+}
+
+.web-info-card {
+    @apply bg-slate-50 rounded-xl p-4 text-sm text-slate-600 mt-4;
+}
+
+.web-info-card-label {
+    @apply text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1;
+}
+
+.web-track-summary-item {
+    @apply flex items-center gap-3 py-3 border-b border-slate-100 last:border-0;
+}
+
+.web-track-summary-img {
+    @apply w-14 h-14 rounded-lg object-cover bg-slate-100 shrink-0;
+}
+
+/* ---------- Contact ---------- */
+.web-contact-hero {
+    @apply text-center max-w-2xl mx-auto;
+}
+
+.web-quick-contact-card {
+    @apply bg-white border border-slate-100 rounded-2xl p-5 text-center hover:shadow-md transition-shadow;
+}
+
+.web-quick-contact-icon {
+    @apply w-11 h-11 mx-auto rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-lg mb-3;
+}
+
+.web-contact-card {
+    @apply bg-white border border-slate-100 rounded-2xl p-6;
+}
+
+.web-contact-field {
+    @apply mb-4;
+}
+
+.web-contact-field label {
+    @apply block text-sm font-semibold text-slate-700 mb-1.5;
+}
+
+.web-contact-field input,
+.web-contact-field select,
+.web-contact-field textarea {
+    @apply w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-amber-500;
+}
+
+.web-contact-field input.is-invalid,
+.web-contact-field select.is-invalid,
+.web-contact-field textarea.is-invalid {
+    @apply border-red-400;
+}
+
+.web-field-success {
+    @apply flex items-center gap-1.5 text-emerald-600 text-xs font-medium mt-3;
+}
+
+.web-info-row {
+    @apply flex items-start gap-3 mb-5 last:mb-0;
+}
+
+.web-info-icon {
+    @apply w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center shrink-0;
+}
+
+.web-info-row h4 {
+    @apply text-sm font-bold text-slate-900;
+}
+
+.web-info-row p {
+    @apply text-sm text-slate-500 mt-0.5;
+}
+
+.web-map-preview {
+    @apply relative rounded-xl overflow-hidden;
+}
+
+.web-map-preview img {
+    @apply w-full object-cover;
+}
+
+.web-map-pin {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center shadow-lg;
+}
+
+/* ---------- FAQ ---------- */
+.web-faq-hero {
+    @apply text-center max-w-2xl mx-auto;
+}
+
+.web-faq-search-box {
+    @apply flex items-center border border-slate-200 rounded-full overflow-hidden mt-6 max-w-md mx-auto;
+}
+
+.web-faq-search-box input {
+    @apply flex-1 px-4 py-2.5 text-sm outline-none;
+}
+
+.web-faq-search-box button {
+    @apply bg-amber-600 hover:bg-amber-700 text-white px-4 transition-colors;
+}
+
+.web-faq-tabs {
+    @apply flex flex-wrap justify-center gap-2;
+}
+
+.web-faq-tab {
+    @apply text-xs font-semibold px-4 py-2 rounded-full border border-slate-200 text-slate-600 hover:border-amber-500 hover:text-amber-600 transition-colors;
+}
+
+.web-faq-tab.active {
+    @apply bg-amber-600 border-amber-600 text-white;
+}
+
+.web-faq-group {
+    @apply mb-8;
+}
+
+.web-faq-group-title {
+    @apply flex items-center gap-2 text-base font-bold text-slate-900 mb-3;
+}
+
+.web-faq-item {
+    @apply border border-slate-100 rounded-xl mb-2.5 overflow-hidden;
+}
+
+.web-faq-question {
+    @apply w-full flex items-center justify-between gap-3 text-left px-4 py-3.5 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition-colors;
+}
+
+.web-faq-icon {
+    @apply transition-transform;
+}
+
+.web-faq-item.open .web-faq-icon {
+    @apply rotate-180;
+}
+
+.web-faq-answer {
+    @apply px-4 pb-4 text-sm text-slate-500 leading-relaxed;
+}
+
+.web-faq-answer a {
+    @apply text-amber-600 font-semibold;
+}
+
+.web-faq-empty {
+    @apply text-center py-16 text-slate-400;
+}
+
+.web-faq-empty i {
+    @apply text-3xl mb-3;
+}
+
+.web-faq-cta {
+    @apply bg-slate-900 text-white rounded-2xl p-8 text-center;
+}
+
+.web-faq-cta i {
+    @apply text-amber-400;
+}
+
+/* ---------- Policy pages (terms / privacy / refund / shipping) ---------- */
+.web-policy-hero {
+    @apply text-center max-w-2xl mx-auto;
+}
+
+.web-policy-updated {
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 bg-slate-50 px-3.5 py-1.5 rounded-full mt-3;
+}
+
+.web-policy-toc {
+    @apply border border-slate-100 rounded-2xl p-6 lg:sticky lg:top-24;
+}
+
+.web-policy-toc h3 {
+    @apply text-xs font-extrabold text-slate-900 uppercase tracking-wide mb-3.5;
+}
+
+.web-policy-toc a {
+    @apply block text-sm font-medium text-slate-600 py-2 border-b border-slate-100 last:border-b-0 hover:text-amber-600 transition-colors;
+}
+
+.web-policy-content {
+    @apply text-[0.94rem] leading-[1.85] text-slate-700;
+}
+
+.web-policy-content section {
+    @apply mb-9 last:mb-0 scroll-mt-24;
+}
+
+.web-policy-content h2 {
+    @apply flex items-center gap-2.5 text-lg font-extrabold text-slate-900 mb-4;
+}
+
+.web-policy-content .web-policy-num {
+    @apply w-8 h-8 shrink-0 rounded-lg bg-amber-50 text-amber-600 text-sm font-extrabold flex items-center justify-center;
+}
+
+.web-policy-content p {
+    @apply mb-4;
+}
+
+.web-policy-content ul,
+.web-policy-content ol {
+    @apply my-0 mb-4 ms-6;
+}
+
+.web-policy-content ul {
+    @apply list-disc;
+}
+
+.web-policy-content ol {
+    @apply list-decimal;
+}
+
+.web-policy-content li {
+    @apply mb-2;
+}
+
+.web-policy-content strong {
+    @apply text-slate-900;
+}
+
+.web-policy-content a.web-inline-link {
+    @apply text-amber-600 font-semibold hover:underline;
+}
+
+.web-policy-callout {
+    @apply flex gap-3 bg-amber-50 border-s-4 border-amber-500 rounded-e-xl p-4 text-sm text-slate-900 my-5;
+}
+
+.web-policy-callout i {
+    @apply text-amber-600 mt-0.5;
+}
+
+.web-policy-table {
+    @apply w-full border-collapse text-sm my-4 mb-6;
+}
+
+.web-policy-table th,
+.web-policy-table td {
+    @apply border border-slate-100 px-3.5 py-2.5 text-start;
+}
+
+.web-policy-table th {
+    @apply bg-slate-50 font-bold text-slate-900;
+}
+
+.web-policy-table td {
+    @apply text-slate-600;
+}

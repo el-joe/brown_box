@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendAdminNotification;
+use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Governorate;
@@ -11,6 +13,7 @@ use App\Models\Product;
 use App\Models\RefundRequest;
 use App\Models\ShippingCompany;
 use App\Models\Warehouse;
+use App\Notifications\NewRefundRequest;
 use App\Services\InvoiceService;
 use App\Services\NotificationService;
 use App\Services\OrderService;
@@ -210,7 +213,7 @@ class OrderController extends Controller
 
         $order = Order::query()->findOrFail($id);
 
-        RefundRequest::query()->create([
+        $refund = RefundRequest::query()->create([
             'order_id' => $order->id,
             'customer_id' => $order->customer_id,
             'reason' => $data['reason'],
@@ -218,6 +221,12 @@ class OrderController extends Controller
             'status' => 'pending',
             'refund_amount' => $data['refund_amount'],
         ]);
+
+        $admins = Admin::query()->active()->get()->filter(fn (Admin $admin) => $admin->can('orders.view'));
+
+        if ($admins->isNotEmpty()) {
+            SendAdminNotification::dispatch($admins, new NewRefundRequest($refund));
+        }
 
         return back()->with('success', __('Refund request created.'));
     }

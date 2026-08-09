@@ -6,8 +6,11 @@ use App\Enums\PaymentGateway;
 use App\Enums\RefundStatus;
 use App\Enums\TransactionType;
 use App\Jobs\ProcessRefundNotification;
+use App\Jobs\SendCustomerNotification;
 use App\Models\RefundRequest;
 use App\Models\Transaction;
+use App\Notifications\RefundApproved;
+use App\Notifications\RefundRejected;
 use Illuminate\Support\Facades\DB;
 
 class RefundService
@@ -62,6 +65,10 @@ class RefundService
 
             ProcessRefundNotification::dispatch($refundRequest);
 
+            if ($refundRequest->customer) {
+                SendCustomerNotification::dispatch($refundRequest->customer, new RefundApproved($order, $amount));
+            }
+
             return $refundRequest;
         });
     }
@@ -78,6 +85,10 @@ class RefundService
             $refundRequest->refresh();
 
             ProcessRefundNotification::dispatch($refundRequest);
+
+            if ($refundRequest->customer && $refundRequest->order) {
+                SendCustomerNotification::dispatch($refundRequest->customer, new RefundRejected($refundRequest->order, $notes));
+            }
 
             return $refundRequest;
         });

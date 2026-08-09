@@ -159,6 +159,61 @@
                         <a href="{{ route('admin.lang', 'ar') }}" class="px-2 py-1 rounded {{ current_lang() === 'ar' ? 'bg-amber-100 text-amber-700 font-medium' : 'text-slate-500' }}">AR</a>
                     </div>
 
+                    {{-- Notification bell --}}
+                    <div class="relative"
+                        x-data="{
+                            open: false,
+                            count: 0,
+                            notifications: [],
+                            fetchNotifications() {
+                                fetch('{{ route('admin.notifications.index') }}', {
+                                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        this.count = data.count;
+                                        this.notifications = data.notifications;
+                                    });
+                            },
+                            markAllRead() {
+                                fetch('{{ route('admin.notifications.readAll') }}', {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-Requested-With': 'XMLHttpRequest',
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
+                                    },
+                                })
+                                    .then(() => {
+                                        this.count = 0;
+                                        this.notifications = [];
+                                    });
+                            },
+                        }"
+                        x-init="fetchNotifications(); setInterval(() => fetchNotifications(), 60000)">
+                        <button type="button" @click="open = !open" @click.outside="open = false" class="relative text-slate-500 hover:text-slate-800">
+                            <i class="fa-solid fa-bell text-lg"></i>
+                            <span x-show="count > 0" x-cloak x-text="count > 99 ? '99+' : count"
+                                class="absolute -top-1.5 -end-1.5 bg-red-600 text-white text-[10px] leading-none rounded-full px-1.5 py-1"></span>
+                        </button>
+                        <div x-show="open" x-cloak class="absolute end-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-slate-200 text-sm">
+                            <div class="flex items-center justify-between px-4 py-2 border-b border-slate-100">
+                                <span class="font-medium text-slate-700">{{ __('Notifications') }}</span>
+                                <button type="button" @click="markAllRead()" class="text-xs text-amber-600 hover:underline">{{ __('Mark all read') }}</button>
+                            </div>
+                            <div class="max-h-80 overflow-y-auto">
+                                <template x-if="notifications.length === 0">
+                                    <div class="px-4 py-6 text-center text-slate-400">{{ __('No new notifications') }}</div>
+                                </template>
+                                <template x-for="notification in notifications" :key="notification.id">
+                                    <div class="px-4 py-2.5 border-b border-slate-50 last:border-0">
+                                        <div class="font-medium text-slate-700" x-text="notification.data.title"></div>
+                                        <div class="text-xs text-slate-400" x-text="notification.created_at"></div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
                     {{-- Admin dropdown --}}
                     <div class="relative" x-data="{ open: false }">
                         <button type="button" @click="open = !open" @click.outside="open = false" class="flex items-center gap-2">

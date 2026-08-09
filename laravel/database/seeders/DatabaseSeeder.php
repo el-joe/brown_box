@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->seedGeography();
         $this->seedSettings();
         $this->call(PermissionSeeder::class);
+        $this->call(StaticPageSeeder::class);
         $this->seedAdmin();
     }
 

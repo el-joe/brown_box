@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ExpenseCategoryController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\FlashSaleController;
 use App\Http\Controllers\Admin\GatewayController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OpeningBalanceController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -340,6 +341,11 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::put('page/{pageKey}', [SeoPageController::class, 'updatePage'])->name('page.update');
             Route::get('{modelType}/{modelId}/edit', [SeoPageController::class, 'editModel'])->name('model.edit');
             Route::put('{modelType}/{modelId}', [SeoPageController::class, 'updateModel'])->name('model.update');
+        });
+
+        Route::prefix('notifications')->name('notifications.')->group(function (): void {
+            Route::get('/', [NotificationController::class, 'index'])->name('index');
+            Route::post('read-all', [NotificationController::class, 'readAll'])->name('readAll');
         });
 
         Route::get('lang/{locale}', function (string $locale) {

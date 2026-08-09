@@ -5,11 +5,14 @@ namespace App\Services;
 use App\Enums\CommissionTierType;
 use App\Enums\CommissionType;
 use App\Events\AffiliatePayoutApproved;
+use App\Jobs\SendCustomerNotification;
 use App\Models\Admin;
 use App\Models\Affiliate;
 use App\Models\AffiliateCategoryCommission;
 use App\Models\Order;
 use App\Models\Transaction;
+use App\Notifications\CommissionApproved;
+use App\Notifications\PayoutProcessed;
 use App\Notifications\PayoutRequestedNotification;
 use App\Repositories\Contracts\AffiliateCommissionRepositoryInterface;
 use App\Repositories\Contracts\AffiliateRepositoryInterface;
@@ -143,6 +146,10 @@ class AffiliateService
                 (float) $commission->amount,
                 __('Commission approved for order #:order', ['order' => $commission->order?->order_number ?? $commission->id]),
             );
+
+            if ($affiliate->customer) {
+                SendCustomerNotification::dispatch($affiliate->customer, new CommissionApproved($commission->fresh(['affiliate.customer', 'order'])));
+            }
         });
     }
 
@@ -245,6 +252,12 @@ class AffiliateService
                 'status' => 'paid',
                 'processed_at' => now(),
             ]);
+
+            $payout = $payout->fresh(['affiliate.customer']);
+
+            if ($payout->affiliate?->customer) {
+                SendCustomerNotification::dispatch($payout->affiliate->customer, new PayoutProcessed($payout));
+            }
 
             return $payout;
         });
