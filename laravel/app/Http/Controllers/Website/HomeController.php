@@ -7,34 +7,20 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\FlashSale;
 use App\Models\Product;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class HomeController extends Controller
 {
     public function index(): View
     {
+        // Do NOT wrap Eloquent collections in Cache::remember() with the
+        // database cache driver — unserialize() can't restore model objects
+        // before autoloading completes, causing "incomplete object" errors.
         return view('website.home.index', [
-            'categories' => Cache::remember(
-                'categories.active_tree',
-                now()->addHours(6),
-                fn () => Category::query()->active()->roots()->orderBy('sort_order')->get(),
-            ),
-            'featuredProducts' => Cache::remember(
-                'home.featured_products',
-                now()->addMinutes(15),
-                fn () => Product::query()->active()->featured()->with(['images', 'category'])->latest()->take(12)->get(),
-            ),
-            'flashSale' => Cache::remember(
-                'flash_sales.active',
-                now()->addMinutes(15),
-                fn () => FlashSale::query()->active()->with('items.product.images')->first(),
-            ),
-            'newArrivals' => Cache::remember(
-                'home.new_arrivals',
-                now()->addMinutes(15),
-                fn () => Product::query()->active()->with(['images', 'category'])->latest()->take(12)->get(),
-            ),
+            'categories' => Category::query()->active()->roots()->orderBy('sort_order')->get(),
+            'featuredProducts' => Product::query()->active()->featured()->with(['productImages', 'category'])->latest()->take(12)->get(),
+            'flashSale' => FlashSale::query()->active()->with('items.product.productImages')->first(),
+            'newArrivals' => Product::query()->active()->with(['productImages', 'category'])->latest()->take(12)->get(),
             'brands' => Brand::query()->active()->take(12)->get(),
         ]);
     }
