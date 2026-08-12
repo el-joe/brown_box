@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Services\SearchService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SearchController extends Controller
 {
+    public function __construct(private readonly SearchService $searchService)
+    {
+    }
+
     public function index(Request $request): View
     {
         $keyword = $request->string('q')->toString();
@@ -29,6 +34,8 @@ class SearchController extends Controller
     public function suggestions(Request $request): JsonResponse
     {
         $keyword = $request->string('q')->toString();
+
+        $this->searchService->log($keyword);
 
         $products = Product::query()->active()
             ->search($keyword)

@@ -87,7 +87,7 @@
                 <div class="grid grid-cols-2 gap-4 text-sm mb-4">
                     <div>
                         <div class="text-xs text-slate-500">{{ __('Gateway') }}</div>
-                        <div>{{ $order->payment_gateway ?? '—' }}</div>
+                        <div>{{ $order->payment_gateway?->value ?? '—' }}</div>
                     </div>
                     <div>
                         <div class="text-xs text-slate-500">{{ __('Reference') }}</div>
@@ -104,7 +104,7 @@
                     </div>
                 @endif
 
-                @if ($order->payment_status === 'pending_verification' || $order->payment_status === 'unpaid')
+                @if ($order->payment_status === \App\Enums\PaymentStatus::PendingVerification || $order->payment_status === \App\Enums\PaymentStatus::Unpaid)
                     <div class="flex items-center gap-2">
                         <form method="POST" action="{{ route('admin.orders.verify-payment', $order) }}">
                             @csrf
@@ -145,7 +145,7 @@
                         <x-admin.select name="shipping_status" :options="[
                             'pending' => __('Pending'), 'picked_up' => __('Picked Up'), 'in_transit' => __('In Transit'),
                             'delivered' => __('Delivered'), 'returned' => __('Returned'),
-                        ]" :selected="$order->shipping_status" />
+                        ]" :selected="$order->shipping_status?->value" />
                     </div>
                     <button type="submit" class="px-4 py-2 rounded-lg bg-slate-800 text-white text-sm font-medium hover:bg-slate-900">
                         {{ __('Update') }}
@@ -162,7 +162,7 @@
                         <x-admin.select name="status" :options="[
                             'pending' => __('Pending'), 'confirmed' => __('Confirmed'), 'processing' => __('Processing'),
                             'shipped' => __('Shipped'), 'delivered' => __('Delivered'), 'cancelled' => __('Cancelled'), 'refunded' => __('Refunded'),
-                        ]" :selected="$order->status" />
+                        ]" :selected="$order->status->value" />
                     </div>
                     <div class="admin-field md:col-span-2">
                         <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('Notes') }}</label>

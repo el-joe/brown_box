@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Enums\PaymentGateway;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Customer;
@@ -12,6 +13,7 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\ShippingRate;
+use App\Services\PaymentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +22,10 @@ use Illuminate\View\View;
 
 class CheckoutController extends Controller
 {
+    public function __construct(private readonly PaymentService $paymentService)
+    {
+    }
+
     public function index(): View
     {
         $cart = session('cart', []);
@@ -149,7 +155,7 @@ class CheckoutController extends Controller
                 'order_number' => generate_order_number(),
                 'customer_id' => $customer?->id,
                 'status' => 'pending',
-                'payment_status' => 'pending',
+                'payment_status' => 'unpaid',
                 'payment_gateway' => $data['payment_gateway'],
                 'coupon_id' => $coupon?->id,
                 'coupon_discount' => $discount,
@@ -184,9 +190,11 @@ class CheckoutController extends Controller
         session()->forget('cart');
         session(['last_order_number' => $order->order_number]);
 
-        // For the Paymob gateway, real integration would redirect to the Paymob iframe here
-        // using the order total and a token minted via Paymob's API (config in Gateway::config).
-        // Left as a redirect to the success page with the order pending payment verification.
+        if ($data['payment_gateway'] === PaymentGateway::Paymob->value) {
+            $iframeUrl = $this->paymentService->paymobInitiatePayment($order);
+
+            return redirect()->away($iframeUrl);
+        }
 
         return redirect()->route('web.checkout.success');
     }

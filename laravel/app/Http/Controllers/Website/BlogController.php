@@ -3,30 +3,59 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogCategory;
+use App\Models\BlogPost;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class BlogController extends Controller
 {
-    // TODO: No Post/Blog model or migration exists yet in this project.
-    // These actions return empty data so the views render their designed
-    // empty states until a blog module (model + migration + admin CRUD)
-    // is introduced. The views are otherwise fully built out to the
-    // mockup and only need real Eloquent data wired in here.
-
-    public function index(): View
+    public function index(Request $request): View
     {
+        $query = BlogPost::query()->published()->with(['author', 'category'])->latest('published_at');
+
+        if ($categorySlug = $request->string('category')->toString()) {
+            $query->whereHas('category', fn ($q) => $q->where('slug', $categorySlug));
+        }
+
+        $posts = $query->paginate(6)->withQueryString();
+
+        $categories = BlogCategory::query()
+            ->active()
+            ->withCount(['posts' => fn ($q) => $q->published()])
+            ->having('posts_count', '>', 0)
+            ->get()
+            ->map(fn (BlogCategory $category) => [
+                'slug' => $category->slug,
+                'name' => $category->name,
+                'count' => $category->posts_count,
+            ]);
+
         return view('website.blog.index', [
-            'posts' => collect(),
-            'categories' => [],
+            'posts' => $posts,
+            'categories' => $categories,
         ]);
     }
 
     public function show(string $slug): View
     {
+        $post = BlogPost::query()->published()->with(['author', 'category'])->where('slug', $slug)->first();
+
+        $relatedPosts = collect();
+
+        if ($post && $post->blog_category_id) {
+            $relatedPosts = BlogPost::query()->published()
+                ->where('blog_category_id', $post->blog_category_id)
+                ->where('id', '!=', $post->id)
+                ->latest('published_at')
+                ->limit(3)
+                ->get();
+        }
+
         return view('website.blog.show', [
-            'post' => null,
+            'post' => $post,
             'slug' => $slug,
-            'relatedPosts' => collect(),
+            'relatedPosts' => $relatedPosts,
         ]);
     }
 }

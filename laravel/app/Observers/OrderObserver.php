@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Events\OrderCreated;
 use App\Events\OrderPlaced;
 use App\Events\OrderStatusChanged;
+use App\Jobs\GenerateInvoice;
 use App\Models\AccountingEntry;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
@@ -17,7 +18,7 @@ class OrderObserver
         event(new OrderPlaced($order));
 
         AccountingEntry::create([
-            'type' => 'order',
+            'type' => 'credit',
             'category' => 'sales',
             'amount' => $order->total_amount,
             'description' => 'Order '.$order->order_number,
@@ -25,13 +26,15 @@ class OrderObserver
             'reference_id' => $order->id,
             'date' => now()->toDateString(),
         ]);
+
+        GenerateInvoice::dispatch($order)->delay(now()->addSeconds(5));
     }
 
     public function updated(Order $order): void
     {
         if ($order->isDirty('status')) {
-            $oldStatus = $order->getOriginal('status');
-            $newStatus = $order->status;
+            $oldStatus = $order->getOriginal('status')?->value;
+            $newStatus = $order->status->value;
 
             event(new OrderStatusChanged($order, $oldStatus, $newStatus));
 

@@ -34,6 +34,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'web.seo' => InjectSeoMeta::class,
             'web.affiliate' => TrackAffiliate::class,
         ]);
+
+        // Paymob posts webhook callbacks from their own servers, which have
+        // no access to our CSRF token.
+        $middleware->validateCsrfTokens(except: [
+            '*/payment/paymob/callback',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

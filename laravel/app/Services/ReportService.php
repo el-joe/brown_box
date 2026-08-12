@@ -69,4 +69,52 @@ class ReportService
             ->groupBy('status')
             ->pluck('total', 'status');
     }
+
+    public function todayOrdersCount(): int
+    {
+        return Order::query()->whereDate('created_at', today())->count();
+    }
+
+    public function todayRevenue(): float
+    {
+        return (float) Order::query()->whereDate('created_at', today())->sum('total_amount');
+    }
+
+    public function pendingPaymentsCount(): int
+    {
+        return Order::query()->where('payment_status', 'pending_verification')->count();
+    }
+
+    public function recentOrders(int $limit = 10): \Illuminate\Support\Collection
+    {
+        return Order::query()
+            ->with('customer')
+            ->withCount('items')
+            ->latest()
+            ->limit($limit)
+            ->get();
+    }
+
+    public function monthlyRevenue(int $months = 6): \Illuminate\Support\Collection
+    {
+        $from = now()->subMonths($months - 1)->startOfMonth();
+
+        $rows = Order::query()
+            ->where('payment_status', 'paid')
+            ->where('created_at', '>=', $from)
+            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as month")
+            ->selectRaw('SUM(total_amount) as total')
+            ->groupBy('month')
+            ->pluck('total', 'month');
+
+        $result = collect();
+
+        for ($i = $months - 1; $i >= 0; $i--) {
+            $date = now()->subMonths($i);
+            $key = $date->format('Y-m');
+            $result->put($key, (float) ($rows[$key] ?? 0));
+        }
+
+        return $result;
+    }
 }

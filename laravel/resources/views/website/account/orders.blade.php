@@ -35,7 +35,7 @@
                     </div>
 
                     @forelse ($orders as $order)
-                        @php $meta = $statusMeta[$order->status] ?? ['icon' => 'fa-circle', 'class' => 'pending']; @endphp
+                        @php $meta = $statusMeta[$order->status->value] ?? ['icon' => 'fa-circle', 'class' => 'pending']; @endphp
                         <div class="web-order-card">
                             <div class="web-order-card-top">
                                 <div>
@@ -47,7 +47,7 @@
                                     </p>
                                 </div>
                                 <span class="web-order-status {{ $meta['class'] }}">
-                                    <i class="fa-solid {{ $meta['icon'] }}"></i> {{ __('website.status_'.$order->status) }}
+                                    <i class="fa-solid {{ $meta['icon'] }}"></i> {{ __('website.status_'.$order->status->value) }}
                                 </span>
                             </div>
                             <div class="web-order-card-bottom">

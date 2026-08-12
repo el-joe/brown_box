@@ -318,6 +318,8 @@ return [
     'blog_post_not_found_title' => 'This article is not available',
     'blog_post_not_found_subtitle' => 'It may have been removed, or the blog is not published yet.',
     'blog_back_to_blog' => 'Back to Blog',
+    'blog_default_author' => 'Brown Box Team',
+    'blog_read_time' => '{1} :minutes min read|[2,*] :minutes min read',
 
     // Track order
     'track_order_title' => 'Track Your Order',

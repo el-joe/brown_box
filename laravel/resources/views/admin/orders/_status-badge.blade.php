@@ -19,6 +19,6 @@
     ];
 @endphp
 
-<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium {{ $colors[$order->status] ?? 'bg-slate-100 text-slate-700' }}">
-    {{ $labels[$order->status] ?? $order->status }}
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium {{ $colors[$order->status->value] ?? 'bg-slate-100 text-slate-700' }}">
+    {{ $labels[$order->status->value] ?? $order->status->value }}
 </span>

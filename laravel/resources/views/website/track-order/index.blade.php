@@ -42,8 +42,8 @@
                     'refunded' => ['icon' => 'fa-rotate-left', 'label' => __('website.status_refunded')],
                 ];
                 $steps = ['pending', 'processing', 'shipped', 'delivered'];
-                $currentIndex = array_search($order->status, $steps, true);
-                $meta = $statusMeta[$order->status] ?? ['icon' => 'fa-circle', 'label' => $order->status];
+                $currentIndex = array_search($order->status->value, $steps, true);
+                $meta = $statusMeta[$order->status->value] ?? ['icon' => 'fa-circle', 'label' => $order->status->value];
             @endphp
             <div class="mt-8">
                 <div class="web-order-page-card">
@@ -52,10 +52,10 @@
                             <p class="text-xs text-slate-400 font-semibold">{{ __('website.track_order_number_label') }}</p>
                             <p class="text-xl font-extrabold text-slate-900">#{{ $order->order_number }}</p>
                         </div>
-                        <span class="web-order-status web-order-status-{{ $order->status }}"><i class="fa-solid {{ $meta['icon'] }}"></i> {{ $meta['label'] }}</span>
+                        <span class="web-order-status web-order-status-{{ $order->status->value }}"><i class="fa-solid {{ $meta['icon'] }}"></i> {{ $meta['label'] }}</span>
                     </div>
 
-                    @if ($order->status !== 'cancelled')
+                    @if ($order->status !== \App\Enums\OrderStatus::Cancelled)
                         <div class="web-order-timeline mt-6">
                             @foreach ($steps as $index => $step)
                                 <div class="web-timeline-step {{ $currentIndex !== false && $index < $currentIndex ? 'done' : '' }} {{ $currentIndex !== false && $index === $currentIndex ? 'active' : '' }}">

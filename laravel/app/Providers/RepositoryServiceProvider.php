@@ -5,11 +5,15 @@ namespace App\Providers;
 use App\Repositories\AccountingEntryRepository;
 use App\Repositories\AffiliateCommissionRepository;
 use App\Repositories\AffiliateRepository;
+use App\Repositories\BlogCategoryRepository;
+use App\Repositories\BlogPostRepository;
 use App\Repositories\BrandRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\Contracts\AccountingEntryRepositoryInterface;
 use App\Repositories\Contracts\AffiliateCommissionRepositoryInterface;
 use App\Repositories\Contracts\AffiliateRepositoryInterface;
+use App\Repositories\Contracts\BlogCategoryRepositoryInterface;
+use App\Repositories\Contracts\BlogPostRepositoryInterface;
 use App\Repositories\Contracts\BrandRepositoryInterface;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\CouponRepositoryInterface;
@@ -79,6 +83,8 @@ class RepositoryServiceProvider extends ServiceProvider
         PurchaseRepositoryInterface::class => PurchaseRepository::class,
         StaticPageRepositoryInterface::class => StaticPageRepository::class,
         SeoPageRepositoryInterface::class => SeoPageRepository::class,
+        BlogCategoryRepositoryInterface::class => BlogCategoryRepository::class,
+        BlogPostRepositoryInterface::class => BlogPostRepository::class,
     ];
 
     public function register(): void

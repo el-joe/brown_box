@@ -100,7 +100,7 @@ class OrderController extends Controller
             ->addColumn('payment_gateway', fn (Order $order) => view('admin.orders._gateway-badge', ['order' => $order])->render())
             ->addColumn('payment_status', fn (Order $order) => view('admin.orders._payment-badge', ['order' => $order])->render())
             ->addColumn('status', fn (Order $order) => view('admin.orders._status-badge', ['order' => $order])->render())
-            ->addColumn('shipping_status', fn (Order $order) => e($order->shipping_status ?? '—'))
+            ->addColumn('shipping_status', fn (Order $order) => e($order->shipping_status?->value ?? '—'))
             ->addColumn('actions', fn (Order $order) => view('admin.orders._actions', ['order' => $order])->render())
             ->rawColumns(['payment_gateway', 'payment_status', 'status', 'actions'])
             ->toJson();

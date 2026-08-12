@@ -14,7 +14,7 @@
     ];
     $address = $order->customer_address ?? [];
     $hasRefundRequest = $order->refundRequests->isNotEmpty();
-    $refundEligible = in_array($order->status, ['delivered', 'shipped'], true) && ! $hasRefundRequest;
+    $refundEligible = in_array($order->status->value, ['delivered', 'shipped'], true) && ! $hasRefundRequest;
 @endphp
 
 @section('content')
@@ -39,8 +39,8 @@
                             <h1 class="text-xl font-bold text-slate-900 mt-1">{{ $order->order_number }}</h1>
                             <p class="web-account-card-sub mt-1">{{ __('website.order_placed_on', ['date' => $order->created_at->translatedFormat('F j, Y')]) }}</p>
                         </div>
-                        <span class="web-order-status {{ $order->status }}">
-                            <i class="fa-solid {{ $statusIcons[$order->status] ?? 'fa-circle' }}"></i> {{ __('website.status_'.$order->status) }}
+                        <span class="web-order-status {{ $order->status->value }}">
+                            <i class="fa-solid {{ $statusIcons[$order->status->value] ?? 'fa-circle' }}"></i> {{ __('website.status_'.$order->status->value) }}
                         </span>
                     </div>
                 </div>
@@ -111,8 +111,8 @@
 
                     <div class="web-account-card">
                         <h2 class="text-lg font-bold text-slate-900 mb-3">{{ __('website.payment_information') }}</h2>
-                        <p class="text-sm text-slate-500">{{ __('website.payment_gateway') }}: {{ $order->payment_gateway }}</p>
-                        <p class="text-sm text-slate-500 mt-1">{{ __('website.payment_status') }}: {{ $order->payment_status }}</p>
+                        <p class="text-sm text-slate-500">{{ __('website.payment_gateway') }}: {{ $order->payment_gateway?->value }}</p>
+                        <p class="text-sm text-slate-500 mt-1">{{ __('website.payment_status') }}: {{ $order->payment_status->value }}</p>
                     </div>
                 </div>
 

@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <td style="padding:6px 0; color:#64748b;">{{ __('Order Status') }}</td>
-                <td style="padding:6px 0; text-align:right;">{{ ucfirst($order->status) }}</td>
+                <td style="padding:6px 0; text-align:right;">{{ ucfirst($order->status->value) }}</td>
             </tr>
             <tr>
                 <td style="padding:6px 0; color:#64748b;">{{ __('Total') }}</td>

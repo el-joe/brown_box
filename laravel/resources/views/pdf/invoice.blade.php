@@ -109,8 +109,8 @@
         <tr>
             <td style="border:none;">
                 <strong>{{ __('Payment Info') }}</strong><br>
-                <span class="muted">{{ __('Gateway') }}:</span> {{ $order->payment_gateway }}<br>
-                <span class="muted">{{ __('Status') }}:</span> {{ ucfirst($order->payment_status) }}
+                <span class="muted">{{ __('Gateway') }}:</span> {{ $order->payment_gateway?->value }}<br>
+                <span class="muted">{{ __('Status') }}:</span> {{ ucfirst($order->payment_status->value) }}
             </td>
         </tr>
     </table>

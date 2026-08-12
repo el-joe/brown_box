@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
+use App\Enums\PaymentGateway;
+use App\Enums\PaymentStatus;
+use App\Enums\ShippingStatus;
 use App\Models\Concerns\HasAudit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +47,10 @@ class Order extends Model
     ];
 
     protected $casts = [
+        'status' => OrderStatus::class,
+        'payment_status' => PaymentStatus::class,
+        'payment_gateway' => PaymentGateway::class,
+        'shipping_status' => ShippingStatus::class,
         'coupon_discount' => 'decimal:2',
         'subtotal' => 'decimal:2',
         'shipping_amount' => 'decimal:2',

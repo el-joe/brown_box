@@ -40,7 +40,7 @@ class Category extends Model implements HasMedia
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom(fn (Category $model) => $model->getTranslation('name', 'en'))
             ->saveSlugsTo('slug');
     }
 

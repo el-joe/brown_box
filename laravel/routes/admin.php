@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AffiliateController;
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
@@ -65,6 +67,31 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::put('{brand}/validate', [BrandController::class, 'validateBrand'])->name('update.validate');
             Route::put('{brand}', [BrandController::class, 'update'])->name('update');
             Route::delete('{brand}', [BrandController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('blog-categories')->name('blog-categories.')->group(function (): void {
+            Route::get('/', [BlogCategoryController::class, 'index'])->name('index');
+            Route::get('create', [BlogCategoryController::class, 'create'])->name('create');
+            Route::post('validate', [BlogCategoryController::class, 'validateBlogCategory'])->name('validate');
+            Route::patch('{blog_category}/toggle-active', [BlogCategoryController::class, 'toggleActive'])->name('toggle-active');
+            Route::post('/', [BlogCategoryController::class, 'store'])->name('store');
+            Route::get('{blog_category}/edit', [BlogCategoryController::class, 'edit'])->name('edit');
+            Route::put('{blog_category}/validate', [BlogCategoryController::class, 'validateBlogCategory'])->name('update.validate');
+            Route::put('{blog_category}', [BlogCategoryController::class, 'update'])->name('update');
+            Route::delete('{blog_category}', [BlogCategoryController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('blog')->name('blog.')->group(function (): void {
+            Route::get('/', [BlogController::class, 'index'])->name('index');
+            Route::get('data', [BlogController::class, 'data'])->name('data');
+            Route::get('create', [BlogController::class, 'create'])->name('create');
+            Route::post('validate', [BlogController::class, 'validateBlogPost'])->name('validate');
+            Route::patch('{blog}/toggle-active', [BlogController::class, 'toggleActive'])->name('toggle-active');
+            Route::post('/', [BlogController::class, 'store'])->name('store');
+            Route::get('{blog}/edit', [BlogController::class, 'edit'])->name('edit');
+            Route::put('{blog}/validate', [BlogController::class, 'validateBlogPost'])->name('update.validate');
+            Route::put('{blog}', [BlogController::class, 'update'])->name('update');
+            Route::delete('{blog}', [BlogController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('products')->name('products.')->group(function (): void {

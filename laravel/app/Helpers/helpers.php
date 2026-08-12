@@ -74,7 +74,11 @@ if (! function_exists('generate_order_number')) {
      */
     function generate_order_number(): string
     {
-        return 'ORD-'.now()->format('Ymd').'-'.str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT);
+        do {
+            $number = 'ORD-'.now()->format('Ymd').'-'.str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT);
+        } while (\App\Models\Order::where('order_number', $number)->exists());
+
+        return $number;
     }
 }
 

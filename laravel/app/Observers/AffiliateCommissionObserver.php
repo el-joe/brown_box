@@ -34,7 +34,7 @@ class AffiliateCommissionObserver
             ]);
 
             Transaction::create([
-                'type' => 'affiliate_commission',
+                'type' => 'credit',
                 'model_type' => $affiliate::class,
                 'model_id' => $affiliate->id,
                 'amount' => $commission->amount,

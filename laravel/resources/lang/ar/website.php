@@ -318,6 +318,8 @@ return [
     'blog_post_not_found_title' => 'هذا المقال غير متاح',
     'blog_post_not_found_subtitle' => 'ربما تم حذفه، أو أن المدونة لم تُنشر بعد.',
     'blog_back_to_blog' => 'العودة إلى المدونة',
+    'blog_default_author' => 'فريق براون بوكس',
+    'blog_read_time' => '{1} :minutes دقيقة قراءة|[2,*] :minutes دقائق قراءة',
 
     // Track order
     'track_order_title' => 'تتبع طلبك',

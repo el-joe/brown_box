@@ -93,7 +93,7 @@ class OrderService
                 'order_number' => $data['order_number'] ?? $this->generateOrderNumber(),
                 'customer_id' => $data['customer_id'],
                 'status' => 'pending',
-                'payment_status' => $data['payment_status'] ?? 'pending',
+                'payment_status' => $data['payment_status'] ?? 'unpaid',
                 'payment_gateway' => $data['payment_gateway'] ?? null,
                 'coupon_id' => $coupon?->id,
                 'coupon_discount' => $discountAmount,
@@ -161,7 +161,7 @@ class OrderService
     {
         return DB::transaction(function () use ($orderId, $status, $notes, $adminId) {
             $order = $this->orders->findOrFail($orderId);
-            $previousStatus = $order->status;
+            $previousStatus = $order->status->value;
 
             $timestamps = match ($status) {
                 'shipped' => ['shipped_at' => now()],
@@ -206,7 +206,7 @@ class OrderService
      * Approve a pending manual payment: marks payment as paid, order as
      * confirmed, records history, and emails the customer.
      */
-    public function verifyPayment(int $orderId, int $adminId, ?string $notes = null): Model
+    public function verifyPayment(int $orderId, ?int $adminId, ?string $notes = null): Model
     {
         return DB::transaction(function () use ($orderId, $adminId, $notes) {
             $this->paymentService->verifyManually($orderId, $adminId, true, $notes ?? 'Payment verified by admin.');
@@ -219,7 +219,7 @@ class OrderService
      * Reject a pending manual payment and notify the customer, without
      * changing the order status.
      */
-    public function rejectPayment(int $orderId, int $adminId, ?string $notes = null): Model
+    public function rejectPayment(int $orderId, ?int $adminId, ?string $notes = null): Model
     {
         return DB::transaction(function () use ($orderId, $adminId, $notes) {
             $order = $this->paymentService->verifyManually($orderId, $adminId, false, $notes ?? 'Payment rejected by admin.');
@@ -253,7 +253,7 @@ class OrderService
                 'tracking_number' => $trackingNumber,
             ]);
 
-            $this->orders->addStatusHistory($orderId, $order->status, 'Shipping company/tracking updated.', $adminId);
+            $this->orders->addStatusHistory($orderId, $order->status->value, 'Shipping company/tracking updated.', $adminId);
 
             return $order->fresh();
         });
@@ -273,7 +273,7 @@ class OrderService
             };
 
             $order->update(array_merge(['shipping_status' => $shippingStatus], $timestamps));
-            $this->orders->addStatusHistory($orderId, $order->status, $notes ?? "Shipping status changed to {$shippingStatus}.", $adminId);
+            $this->orders->addStatusHistory($orderId, $order->status->value, $notes ?? "Shipping status changed to {$shippingStatus}.", $adminId);
 
             $order = $order->fresh();
 
@@ -314,8 +314,8 @@ class OrderService
         return DB::transaction(function () use ($orderId, $reason, $adminId, $warehouseId) {
             $order = $this->orders->findOrFail($orderId);
 
-            if (! in_array($order->status, self::CANCELLABLE_STATUSES, true)) {
-                throw new RuntimeException("Order in status '{$order->status}' cannot be cancelled.");
+            if (! in_array($order->status->value, self::CANCELLABLE_STATUSES, true)) {
+                throw new RuntimeException("Order in status '{$order->status->value}' cannot be cancelled.");
             }
 
             if ($warehouseId) {

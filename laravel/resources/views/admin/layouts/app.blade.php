@@ -29,7 +29,7 @@
                         'inventory' => ['icon' => 'fa-warehouse', 'label' => 'Inventory', 'items' => ['Warehouses' => 'fa-industry', 'Stock' => 'fa-boxes-stacked', 'Purchases' => 'fa-cart-shopping'],],
                         'sales' => ['icon' => 'fa-receipt', 'label' => 'Sales', 'items' => ['Orders' => 'fa-cart-flatbed', 'Refunds' => 'fa-rotate-left']],
                         'customers' => ['icon' => 'fa-users', 'label' => 'Customers', 'items' => []],
-                        'marketing' => ['icon' => 'fa-bullhorn', 'label' => 'Marketing', 'items' => ['Coupons' => 'fa-ticket', 'Flash Sales' => 'fa-bolt', 'Search Suggestions' => 'fa-magnifying-glass', 'SEO' => 'fa-magnifying-glass-chart']],
+                        'marketing' => ['icon' => 'fa-bullhorn', 'label' => 'Marketing', 'items' => ['Coupons' => 'fa-ticket', 'Flash Sales' => 'fa-bolt', 'Search Suggestions' => 'fa-magnifying-glass', 'SEO' => 'fa-magnifying-glass-chart', 'Blog' => 'fa-newspaper', 'Blog Categories' => 'fa-sitemap']],
                         'affiliates' => ['icon' => 'fa-handshake', 'label' => 'Affiliates', 'items' => ['Affiliates' => 'fa-user-tie', 'Payout Requests' => 'fa-money-check-dollar']],
                         'finance' => ['icon' => 'fa-sack-dollar', 'label' => 'Finance', 'items' => ['Expenses' => 'fa-money-bill-wave', 'Expense Categories' => 'fa-sitemap', 'Accounting' => 'fa-book', 'Opening Balances' => 'fa-scale-balanced', 'Transactions' => 'fa-right-left']],
                         'pos' => ['icon' => 'fa-cash-register', 'label' => 'POS', 'items' => []],
@@ -95,6 +95,8 @@
                                             'Static Pages' => route('admin.static-pages.index'),
                                             'SEO' => route('admin.seo.index'),
                                             'Search Suggestions' => route('admin.search-suggestions.index'),
+                                            'Blog' => route('admin.blog.index'),
+                                            'Blog Categories' => route('admin.blog-categories.index'),
                                             default => '#',
                                         };
                                         $navActive = match ($label) {
@@ -124,6 +126,8 @@
                                             'Static Pages' => request()->routeIs('admin.static-pages.*'),
                                             'SEO' => request()->routeIs('admin.seo.*'),
                                             'Search Suggestions' => request()->routeIs('admin.search-suggestions.*'),
+                                            'Blog' => request()->routeIs('admin.blog.*'),
+                                            'Blog Categories' => request()->routeIs('admin.blog-categories.*'),
                                             default => false,
                                         };
                                     @endphp
