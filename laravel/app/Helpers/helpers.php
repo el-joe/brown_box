@@ -64,7 +64,11 @@ if (! function_exists('generate_invoice_number')) {
      */
     function generate_invoice_number(): string
     {
-        return 'INV-'.now()->format('Ymd').'-'.str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT);
+        do {
+            $number = 'INV-'.now()->format('Ymd').'-'.str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT);
+        } while (\App\Models\Purchase::where('invoice_number', $number)->exists());
+
+        return $number;
     }
 }
 

@@ -19,15 +19,17 @@ class InjectSeoMeta
     {
         $pageKey = $request->route()?->getName();
 
-        if ($pageKey) {
-            $seoPage = Cache::remember(
-                "seo.page.{$pageKey}",
-                now()->addHours(6),
-                fn () => $this->seoPages->findByPageKey($pageKey),
-            );
-
-            View::share('seo', $seoPage);
+        if (! $pageKey || $request->expectsJson()) {
+            return $next($request);
         }
+
+        $seoPage = Cache::remember(
+            "seo.page.{$pageKey}",
+            now()->addHours(6),
+            fn () => $this->seoPages->findByPageKey($pageKey),
+        );
+
+        View::share('seo', $seoPage);
 
         return $next($request);
     }
