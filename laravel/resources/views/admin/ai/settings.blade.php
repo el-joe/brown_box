@@ -69,9 +69,13 @@
                         @endif
 
                         <div class="admin-field">
-                            <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('Available Models (comma separated)') }}</label>
-                            <textarea name="providers[{{ $provider->code }}][available_models]" rows="3"
-                                class="w-full rounded-lg border-slate-300 text-sm">{{ old('providers.'.$provider->code.'.available_models', implode(', ', $provider->available_models ?? [])) }}</textarea>
+                            <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('Available Models') }}</label>
+                            <select name="providers[{{ $provider->code }}][available_models][]" multiple
+                                class="admin-select2 w-full" data-placeholder="{{ __('Add models') }}" data-tags="true">
+                                @foreach (old('providers.'.$provider->code.'.available_models', $provider->available_models ?? []) as $model)
+                                    <option value="{{ $model }}" selected>{{ $model }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 

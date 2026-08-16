@@ -46,7 +46,8 @@ class AiController extends Controller
             'providers.*.config.default_model' => ['nullable', 'string'],
             'providers.*.config.site_url' => ['nullable', 'string'],
             'providers.*.config.site_name' => ['nullable', 'string'],
-            'providers.*.available_models' => ['nullable', 'string'],
+            'providers.*.available_models' => ['nullable', 'array'],
+            'providers.*.available_models.*' => ['string'],
         ]);
 
         foreach ($data['providers'] as $code => $payload) {
@@ -56,7 +57,7 @@ class AiController extends Controller
                 continue;
             }
 
-            $models = collect(explode(',', (string) ($payload['available_models'] ?? '')))
+            $models = collect($payload['available_models'] ?? [])
                 ->map(fn ($model) => trim($model))
                 ->filter()
                 ->values()

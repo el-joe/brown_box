@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
             width: '100%',
             placeholder: $(this).data('placeholder') || null,
             allowClear: true,
+            tags: $(this).data('tags') === true,
+            tokenSeparators: $(this).data('tags') === true ? [',', ' '] : undefined,
         });
     });
 
