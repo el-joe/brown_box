@@ -22,6 +22,16 @@ use Illuminate\View\View;
 
 class AiController extends Controller
 {
+    private const STORE_CONTEXT = <<<'CTX'
+Store context (always apply):
+- Store name: Brown Box
+- Country: Egypt
+- Market: Egyptian market
+- Currency: Egyptian Pound (EGP) — always show prices as "X EGP", never USD, EUR, or any other currency
+- Language audience: Egyptian Arabic speakers and Egyptian English speakers
+- Do NOT mention any other country, market, or currency in any output
+CTX;
+
     public function __construct(
         private readonly AiService $ai,
         private readonly AiProviderService $providers,
@@ -106,7 +116,12 @@ class AiController extends Controller
         $locale = $data['locale'];
 
         $prompt = <<<PROMPT
-You are an SEO expert writing metadata for an e-commerce store. Context:
+You are an SEO expert specializing in the Egyptian e-commerce market.
+You are writing for Brown Box, an online store that sells exclusively in Egypt.
+All content must target Egyptian buyers. Use EGP for any price references.
+Never reference any country other than Egypt or any currency other than EGP.
+
+Context:
 {$context}
 
 Write SEO metadata in {$locale} language. Respond ONLY with a JSON object (no markdown fences) with keys:
@@ -114,6 +129,7 @@ meta_title (max 60 chars), meta_description (max 160 chars), keywords (comma sep
 PROMPT;
 
         $result = $this->ai->chat($data['provider'], $data['model'], [
+            ['role' => 'system', 'content' => self::STORE_CONTEXT],
             ['role' => 'user', 'content' => $prompt],
         ]);
 
@@ -192,8 +208,14 @@ PROMPT;
             ->implode(', ');
 
         $prompt = <<<PROMPT
-You are a content writer for an e-commerce store named Brown Box. Write a blog post about: "{$data['topic']}".
-Tone: {$tone}. Target length: about {$wordCount} words. Language: {$locale}.
+You are a professional content writer for Brown Box, an Egyptian e-commerce store
+that sells exclusively in Egypt to Egyptian customers.
+All content must be relevant to Egyptian buyers, Egyptian culture, and local market trends.
+Reference EGP (Egyptian Pound) for any prices. Never mention other countries or currencies.
+
+Write a {$tone} blog post in {$locale} language about: "{$data['topic']}"
+The content must be relevant to the Egyptian market and Egyptian consumers specifically.
+Target length: about {$wordCount} words.
 Relevant store categories: {$categoryNames}
 Related products to mention naturally: {$productNames}
 
@@ -202,6 +224,7 @@ title, excerpt (1-2 sentences), content (HTML with headings/paragraphs), meta_ti
 PROMPT;
 
         $result = $this->ai->chat($data['provider'], $data['model'], [
+            ['role' => 'system', 'content' => self::STORE_CONTEXT],
             ['role' => 'user', 'content' => $prompt],
         ], ['max_tokens' => 3000]);
 
@@ -255,7 +278,6 @@ PROMPT;
             'provider' => ['required', 'string'],
             'model' => ['required', 'string'],
             'category_ids' => ['nullable', 'array'],
-            'market' => ['nullable', 'string'],
         ]);
 
         $categoryNames = Category::query()
@@ -264,17 +286,24 @@ PROMPT;
             ->map(fn (Category $category) => $category->getTranslation('name', 'en'))
             ->implode(', ');
 
-        $market = $data['market'] ?? 'Egypt';
-
         $prompt = <<<PROMPT
-You are an e-commerce market research analyst. Research trending opportunities for an online store in {$market}.
-Focus categories: {$categoryNames}
+You are a product trend analyst specializing in the Egyptian e-commerce market.
+
+Brown Box is an online store that sells exclusively in Egypt.
+The store's categories include: {$categoryNames}
+
+All analysis must be specific to Egypt:
+- Trends must be relevant to Egyptian consumers
+- Seasonal opportunities must match the Egyptian calendar (Ramadan, Eid, Back-to-school Egypt dates, Mother's Day Egypt, etc.)
+- Any price references must use EGP (Egyptian Pound)
+- Do NOT mention trends, markets, or opportunities from other countries
 
 Respond ONLY with a JSON object (no markdown fences) with keys:
 trending_products (array of strings), emerging_niches (array of strings), seasonal_opportunities (array of strings), content_ideas (array of strings).
 PROMPT;
 
         $result = $this->ai->chat($data['provider'], $data['model'], [
+            ['role' => 'system', 'content' => self::STORE_CONTEXT],
             ['role' => 'user', 'content' => $prompt],
         ]);
 
@@ -313,15 +342,25 @@ PROMPT;
         $tone = $data['tone'] ?? 'exciting';
 
         $prompt = <<<PROMPT
-You are a social media copywriter for an e-commerce store. Platform: {$platform}. Tone: {$tone}. Language: {$locale}.
+You are a social media expert for Brown Box, an Egyptian e-commerce store
+that sells exclusively in Egypt to Egyptian customers.
+
+Create a {$tone} {$platform} post in {$locale} language for:
 Context:
 {$context}
+
+Important rules:
+- This post targets Egyptian consumers only
+- Any prices must be shown in EGP (Egyptian Pound)
+- Use culturally relevant references for Egyptian audiences
+- Do NOT reference other countries, currencies, or non-Egyptian cultural events
 
 Respond ONLY with a JSON object (no markdown fences) with keys:
 caption, hashtags (array of strings without #), image_prompt (a descriptive prompt for an image generator), story_variant (a shorter version for stories).
 PROMPT;
 
         $result = $this->ai->chat($data['provider'], $data['model'], [
+            ['role' => 'system', 'content' => self::STORE_CONTEXT],
             ['role' => 'user', 'content' => $prompt],
         ]);
 
@@ -365,18 +404,25 @@ PROMPT;
         $brandName = $product->brand?->name;
 
         $prompt = <<<PROMPT
-You are an e-commerce copywriter. Write a product description in {$locale} language, {$tone} tone, for:
+You are an expert e-commerce copywriter for Brown Box, an Egyptian online store
+that sells exclusively in Egypt to Egyptian customers.
+All descriptions must be written for Egyptian buyers.
+Any price or value references must use EGP (Egyptian Pound).
+Do not reference other countries or currencies.
+
+Write a product description in {$locale} language, {$tone} tone, for:
 Name: {$name}
 Category: {$categoryName}
 Brand: {$brandName}
 SKU: {$product->sku}
-Price: {$product->price}
+Price: {$product->price} EGP
 
 Respond ONLY with a JSON object (no markdown fences) with keys:
 description (HTML with paragraphs/bullet points), short_description (1-2 sentences, plain text).
 PROMPT;
 
         $result = $this->ai->chat($data['provider'], $data['model'], [
+            ['role' => 'system', 'content' => self::STORE_CONTEXT],
             ['role' => 'user', 'content' => $prompt],
         ]);
 
@@ -424,7 +470,7 @@ PROMPT;
             }
 
             return sprintf(
-                "Product: %s\nCategory: %s\nPrice: %s\nSKU: %s",
+                "Product: %s\nCategory: %s\nPrice: %s EGP\nSKU: %s\nTarget market: Egypt\nCurrency: EGP",
                 $product->getTranslation('name', 'en'),
                 $product->category?->getTranslation('name', 'en'),
                 $product->price,
@@ -439,7 +485,7 @@ PROMPT;
                 return '';
             }
 
-            return sprintf('Category: %s', $category->getTranslation('name', 'en'));
+            return sprintf("Category: %s\nTarget market: Egypt\nCurrency: EGP", $category->getTranslation('name', 'en'));
         }
 
         return sprintf('Static page: %s', $this->seoPages->pageLabel((string) ($data['page_key'] ?? '')));
@@ -455,7 +501,7 @@ PROMPT;
             }
 
             return sprintf(
-                "Product: %s\nCategory: %s\nPrice: %s",
+                "Product: %s\nCategory: %s\nPrice: %s EGP",
                 $product->getTranslation('name', 'en'),
                 $product->category?->getTranslation('name', 'en'),
                 $product->price,

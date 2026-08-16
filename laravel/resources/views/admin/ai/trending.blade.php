@@ -13,7 +13,6 @@
         x-data="{
             ...aiProviderSelector('{{ array_key_first($activeProviders) ?? '' }}'),
             categoryIds: [],
-            market: 'Egypt',
             loading: false,
             result: null,
             error: null,
@@ -28,7 +27,7 @@
                         'X-Requested-With': 'XMLHttpRequest',
                         'Accept': 'application/json',
                     },
-                    body: JSON.stringify({ provider: this.provider, model: this.model, category_ids: this.categoryIds, market: this.market }),
+                    body: JSON.stringify({ provider: this.provider, model: this.model, category_ids: this.categoryIds }),
                 })
                     .then(r => r.json())
                     .then(d => { this.result = d.data; this.loading = false; })
@@ -48,11 +47,6 @@
                         </label>
                     @endforeach
                 </div>
-            </div>
-
-            <div class="admin-field mb-4">
-                <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('Market') }}</label>
-                <input type="text" x-model="market" class="w-full rounded-lg border-slate-300 text-sm">
             </div>
 
             <button type="button" @click="generate()" :disabled="loading" class="w-full px-4 py-2 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 disabled:opacity-50">
