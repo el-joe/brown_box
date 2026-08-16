@@ -15,9 +15,18 @@ class CartController extends Controller
     {
         ['items' => $items, 'subtotal' => $subtotal] = $this->resolveCart();
 
+        $cartProductIds = collect($items)->pluck('product.id')->all();
+
         return view('website.cart.index', [
             'items' => $items,
             'subtotal' => $subtotal,
+            'relatedProducts' => Product::query()
+                ->active()
+                ->whereNotIn('id', $cartProductIds)
+                ->with(['productImages', 'category'])
+                ->latest()
+                ->take(12)
+                ->get(),
         ]);
     }
 

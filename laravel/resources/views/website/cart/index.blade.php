@@ -133,6 +133,26 @@
                 </div>
             </div>
         </div>
+
+        @if ($relatedProducts->isNotEmpty())
+            <div class="mt-16">
+                <div class="web-section-head">
+                    <h2 class="text-xl">{{ __('website.related_products') }}</h2>
+                    <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}" class="web-view-all">{{ __('website.view_all') }} <i class="fa-solid fa-chevron-{{ current_lang() === 'ar' ? 'left' : 'right' }} text-[10px]"></i></a>
+                </div>
+                <div class="swiper web-product-swiper">
+                    <div class="swiper-wrapper">
+                        @foreach ($relatedProducts as $product)
+                            <div class="swiper-slide">
+                                <x-website.product-card :product="$product" class="h-full" />
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        @endif
     </div>
 @endsection
 

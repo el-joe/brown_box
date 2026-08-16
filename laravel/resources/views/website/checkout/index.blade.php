@@ -85,7 +85,7 @@
                                     @endif
                                     <p class="font-bold text-sm text-slate-900">{{ $address->name }}</p>
                                     <p class="text-sm text-slate-600 mt-0.5">{{ $address->phone }}</p>
-                                    <p class="text-sm text-slate-400 mt-1 leading-relaxed">{{ $address->address_line }}, {{ $address->city?->name_en }}, {{ $address->governorate?->name_en }}</p>
+                                    <p class="text-sm text-slate-400 mt-1 leading-relaxed">{{ $address->address_line }}, {{ current_lang() === 'ar' ? $address->city?->name_ar : $address->city?->name_en }}, {{ current_lang() === 'ar' ? $address->governorate?->name_ar : $address->governorate?->name_en }}</p>
                                 </label>
                             @endforeach
 
@@ -99,11 +99,11 @@
                         <div id="new-address-form" class="mt-5 hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="web-checkout-field sm:col-span-2">
                                 <label for="name">{{ __('website.full_name') }}</label>
-                                <input id="name" name="name" type="text">
+                                <input id="name" name="name" type="text" placeholder="e.g. Ahmed Hassan">
                             </div>
                             <div class="web-checkout-field">
                                 <label for="phone">{{ __('website.phone_number') }}</label>
-                                <input id="phone" name="phone" type="tel">
+                                <input id="phone" name="phone" type="tel" placeholder="e.g. +20 100 123 4567">
                             </div>
                             <div class="web-checkout-field">
                                 <label for="governorate_id">{{ __('website.governorate') }}</label>
@@ -122,7 +122,7 @@
                             </div>
                             <div class="web-checkout-field sm:col-span-2">
                                 <label for="address_line">{{ __('website.street_address') }}</label>
-                                <input id="address_line" name="address_line" type="text">
+                                <input id="address_line" name="address_line" type="text" placeholder="Street name, building, apartment">
                             </div>
                         </div>
                         <p id="address-error" class="web-field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> {{ __('website.select_address') }}</p>
@@ -208,7 +208,7 @@
                             {{-- Notes --}}
                             <div class="mt-5">
                                 <label for="notes" class="text-sm font-semibold">{{ __('website.additional_notes') }} <span class="text-slate-400 font-normal">({{ __('website.optional') }})</span></label>
-                                <textarea id="notes" name="notes" rows="3" class="web-checkout-textarea mt-2"></textarea>
+                                <textarea id="notes" name="notes" rows="3" placeholder="Any additional information about your payment..." class="web-checkout-textarea mt-2"></textarea>
                             </div>
                         </div>
 

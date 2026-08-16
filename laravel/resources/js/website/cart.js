@@ -1,4 +1,26 @@
+import Swiper from 'swiper';
+import { Navigation } from 'swiper/modules';
+
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.web-product-swiper').forEach((el) => {
+        new Swiper(el, {
+            modules: [Navigation],
+            spaceBetween: 16,
+            slidesPerView: 2,
+            navigation: {
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev'),
+            },
+            breakpoints: {
+                480: { slidesPerView: 2 },
+                640: { slidesPerView: 3 },
+                768: { slidesPerView: 4 },
+                1024: { slidesPerView: 5 },
+                1280: { slidesPerView: 6 },
+            },
+        });
+    });
+
     const itemsList = document.getElementById('cart-items-list');
     const emptyState = document.getElementById('empty-cart-state');
     const itemsCount = document.getElementById('items-count');
