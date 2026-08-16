@@ -1,7 +1,7 @@
 @php $depth = $depth ?? 0; @endphp
 
 @foreach ($nodes as $node)
-    <tr data-id="{{ $node->id }}" data-parent-id="{{ $node->parent_id }}" class="border-b border-slate-100 hover:bg-slate-50">
+    <tr data-id="{{ $node->id }}" data-parent-id="{{ $node->parent_id }}" data-depth="{{ $depth }}" class="border-b border-slate-100 hover:bg-slate-50">
         <td class="px-3 py-2 w-8 text-slate-300 cursor-move drag-handle"><i class="fa-solid fa-grip-vertical"></i></td>
         <td class="px-3 py-2 w-14">
             @if ($node->image)
@@ -20,7 +20,7 @@
         <td class="px-3 py-2">
             <div style="padding-inline-start: {{ $depth * 24 }}px" class="flex items-center gap-2">
                 @if ($node->childrenTree->isNotEmpty())
-                    <button type="button" class="toggle-children text-slate-400 hover:text-slate-700" data-target="children-{{ $node->id }}">
+                    <button type="button" class="toggle-children text-slate-400 hover:text-slate-700" data-id="{{ $node->id }}">
                         <i class="fa-solid fa-chevron-down text-xs"></i>
                     </button>
                 @else
@@ -54,8 +54,6 @@
     </tr>
 
     @if ($node->childrenTree->isNotEmpty())
-        <tbody id="children-{{ $node->id }}" class="children-group">
-            @include('admin.categories._row', ['nodes' => $node->childrenTree, 'depth' => $depth + 1])
-        </tbody>
+        @include('admin.categories._row', ['nodes' => $node->childrenTree, 'depth' => $depth + 1])
     @endif
 @endforeach

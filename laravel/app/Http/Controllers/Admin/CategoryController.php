@@ -44,7 +44,7 @@ class CategoryController extends Controller
 
     public function create(): View
     {
-        return view('admin.categories.form', [
+        return view('admin.categories.create', [
             'category' => new Category(),
             'parents' => $this->availableParents(),
         ]);
@@ -63,7 +63,7 @@ class CategoryController extends Controller
 
         abort_if(! $category, 404);
 
-        return view('admin.categories.form', [
+        return view('admin.categories.edit', [
             'category' => $category,
             'parents' => $this->availableParents($category),
         ]);

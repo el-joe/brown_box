@@ -42,6 +42,7 @@
 
     <div class="mt-6 bg-white rounded-xl border border-slate-200 shadow-sm overflow-x-auto"
         x-data="{
+            collapsed: new Set(),
             init() {
                 new Sortable(this.$refs.tbody, {
                     handle: '.drag-handle',
@@ -51,10 +52,35 @@
 
                 this.$refs.tbody.querySelectorAll('.toggle-children').forEach((btn) => {
                     btn.addEventListener('click', () => {
-                        const target = document.getElementById(btn.dataset.target);
-                        target.classList.toggle('hidden');
+                        const id = btn.dataset.id;
+                        if (this.collapsed.has(id)) {
+                            this.collapsed.delete(id);
+                        } else {
+                            this.collapsed.add(id);
+                        }
                         btn.querySelector('i').classList.toggle('rotate-180');
+                        this.applyVisibility();
                     });
+                });
+            },
+            applyVisibility() {
+                const rows = Array.from(this.$refs.tbody.querySelectorAll('tr[data-id]'));
+                const parentOf = {};
+                rows.forEach((row) => { parentOf[row.dataset.id] = row.dataset.parentId || null; });
+
+                const isHiddenByAncestor = (id) => {
+                    let pid = parentOf[id];
+                    while (pid) {
+                        if (this.collapsed.has(pid)) {
+                            return true;
+                        }
+                        pid = parentOf[pid];
+                    }
+                    return false;
+                };
+
+                rows.forEach((row) => {
+                    row.classList.toggle('hidden', isHiddenByAncestor(row.dataset.id));
                 });
             },
             persistOrder() {
