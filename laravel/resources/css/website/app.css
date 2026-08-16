@@ -8,7 +8,7 @@
     --color-brand: #2b6ee0;
     --color-brand-dark: #1d4fa3;
     --color-brand-light: #eef4ff;
-    --color-accent: #ff7a1a;
+    --color-accent: #1a8dff;
     --color-ink: #17203a;
 }
 
@@ -549,7 +549,7 @@
     @apply relative hidden lg:flex flex-col justify-between overflow-hidden text-white p-10;
     background-image: radial-gradient(circle at 15% 20%, rgba(255, 255, 255, .14), transparent 40%),
         radial-gradient(circle at 85% 80%, rgba(255, 255, 255, .10), transparent 45%),
-        linear-gradient(135deg, #d97706, #92400e);
+        linear-gradient(135deg, #2b6ee0, #17203a);
 }
 
 .web-auth-feature {

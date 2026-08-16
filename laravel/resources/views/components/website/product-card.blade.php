@@ -11,16 +11,18 @@
         <i class="fa-regular fa-heart"></i>
     </button>
 
-    <a href="{{ route('web.products.show', ['lang' => current_lang(), 'slug' => $product->slug]) }}" class="relative block">
-        <img src="{{ $product->main_image?->url ?? 'https://placehold.co/300x300' }}" alt="{{ $product->name }}"
-            class="w-full aspect-square object-cover">
+    <a href="{{ route('web.products.show', ['lang' => current_lang(), 'slug' => $product->slug]) }}" class="block">
+        <div class="relative">
+            <img src="{{ $product->main_image?->url ?? 'https://placehold.co/300x300' }}" alt="{{ $product->name }}"
+                class="w-full aspect-square object-cover">
 
-        <button type="button"
-            onclick="event.preventDefault(); WebsiteApi.addToCart({{ $product->id }})"
-            class="absolute bottom-3 start-3 z-10 w-9 h-9 rounded-full bg-amber-500 text-white flex items-center justify-center hover:bg-amber-600"
-            title="{{ __('website.add_to_cart') }}">
-            <i class="fa-solid fa-cart-plus"></i>
-        </button>
+            <button type="button"
+                onclick="event.preventDefault(); WebsiteApi.addToCart({{ $product->id }})"
+                class="absolute bottom-3 start-3 z-10 w-9 h-9 rounded-full bg-blue-500 text-white flex items-center justify-center hover:bg-blue-600"
+                title="{{ __('website.add_to_cart') }}">
+                <i class="fa-solid fa-cart-plus"></i>
+            </button>
+        </div>
 
         @if ($product->category)
             <p class="text-xs text-slate-400 px-3 mt-3">{{ $product->category->name }}</p>
@@ -29,7 +31,7 @@
     </a>
 
     <div class="px-3 mt-2 mb-3 flex items-center gap-2">
-        <span class="font-semibold text-amber-600">{{ money_format($product->effective_price) }}</span>
+        <span class="font-semibold text-blue-600">{{ money_format($product->effective_price) }}</span>
         @if ($product->is_on_sale)
             <span class="text-xs text-slate-400 line-through">{{ money_format($product->price) }}</span>
         @endif

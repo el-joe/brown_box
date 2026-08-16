@@ -164,7 +164,7 @@
 
         {{-- ================= PER-CATEGORY SECTIONS ================= --}}
         @php
-            $bannerGradients = ['from-red-600 to-orange-500', 'from-brand to-orange-500', 'from-blue-700 to-indigo-600'];
+            $bannerGradients = ['from-blue-600 to-sky-500', 'from-brand to-sky-500', 'from-blue-700 to-indigo-600'];
         @endphp
         @foreach ($categorySections as $index => $section)
             <section class="mt-12">
