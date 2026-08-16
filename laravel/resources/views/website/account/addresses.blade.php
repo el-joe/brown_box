@@ -114,15 +114,19 @@
     </div>
 @endsection
 
-@push('scripts')
-    <script>
-        window.accountData = {
-            citiesByGovernorate: @json($governorates->mapWithKeys(fn ($gov) => [
+@php
+$addresses = $governorates->mapWithKeys(fn ($gov) => [
                 $gov->id => $gov->cities->map(fn ($city) => [
                     'id' => $city->id,
                     'name' => current_lang() === 'ar' ? $city->name_ar : $city->name_en,
                 ]),
-            ])),
+            ])->toArray();
+@endphp
+
+@push('scripts')
+    <script>
+        window.accountData = {
+            citiesByGovernorate: @json($addresses),
         };
     </script>
     @vite(['resources/js/website/account.js'])

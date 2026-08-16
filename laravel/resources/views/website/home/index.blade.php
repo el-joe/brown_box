@@ -238,7 +238,7 @@
                             <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'brand_id' => $brand->id]) }}" class="swiper-slide block">
                                 <div class="relative h-28 rounded-xl overflow-hidden group shadow-sm">
                                     @if ($brand->logo)
-                                        <div class="absolute inset-0 w-full h-full blur-md transition-transform group-hover:scale-105"
+                                        <div class="absolute inset-0 w-full h-full transition-transform group-hover:scale-105"
                                             style="background-image: url('{{ asset_url($brand->logo) }}'); background-size: 100% 100%; background-position: center;"></div>
                                         <div class="absolute inset-0 flex items-center justify-center">
                                             <span class="text-sm font-semibold text-white bg-black/50 backdrop-blur-sm rounded-lg px-3 py-1.5 truncate max-w-[90%]">{{ $brand->name }}</span>
