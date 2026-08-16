@@ -10,9 +10,13 @@
         ]" />
 
         <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">{{ $category?->name ?? __('website.shop') }}</h1>
-        @if ($category)
-            <p class="text-sm text-slate-500 mt-1">{{ __('website.products_found') }}: {{ $products->total() }}</p>
-        @endif
+        <p class="text-sm text-slate-500 mt-1">
+            @if ($category?->description)
+                {{ $category->description }}
+            @else
+                {{ __('website.products_found') }}: {{ $products->total() }}
+            @endif
+        </p>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
 
@@ -40,6 +44,30 @@
                             <h2 class="font-bold text-base text-slate-900">{{ __('website.filter_by') }}</h2>
                             <a href="{{ url()->current() }}" class="text-xs font-semibold text-brand hover:underline">{{ __('website.clear_all') }}</a>
                         </div>
+
+                        {{-- Active filter chips --}}
+                        @if (request()->hasAny(['brand_id', 'min_price', 'max_price', 'q']))
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                @if (request()->filled('brand_id'))
+                                    @php($activeBrand = $brands->firstWhere('id', request()->integer('brand_id')))
+                                    @if ($activeBrand)
+                                        <span class="inline-flex items-center gap-1 rounded-full bg-brand-light text-brand text-xs font-medium px-3 py-1">
+                                            {{ $activeBrand->name }}
+                                        </span>
+                                    @endif
+                                @endif
+                                @if (request()->filled('min_price') || request()->filled('max_price'))
+                                    <span class="inline-flex items-center gap-1 rounded-full bg-brand-light text-brand text-xs font-medium px-3 py-1">
+                                        {{ request('min_price', 0) }} - {{ request('max_price', '&infin;') }}
+                                    </span>
+                                @endif
+                                @if (request()->filled('q'))
+                                    <span class="inline-flex items-center gap-1 rounded-full bg-brand-light text-brand text-xs font-medium px-3 py-1">
+                                        "{{ request('q') }}"
+                                    </span>
+                                @endif
+                            </div>
+                        @endif
 
                         {{-- Categories --}}
                         <div class="web-filter-group" x-data="{ open: true }">
@@ -83,6 +111,10 @@
                                     <i class="fa-solid fa-chevron-up text-[11px] text-slate-400 transition-transform" :class="{ 'rotate-180': !open }"></i>
                                 </button>
                                 <div x-show="open" x-collapse class="flex flex-col gap-2 mt-3">
+                                    <label class="web-filter-check">
+                                        <input type="radio" name="brand_id" value="" {{ request('brand_id') ? '' : 'checked' }}>
+                                        <span>{{ __('website.all_categories') }}</span>
+                                    </label>
                                     @foreach ($brands as $brand)
                                         <label class="web-filter-check">
                                             <input type="radio" name="brand_id" value="{{ $brand->id }}" {{ (string) request('brand_id') === (string) $brand->id ? 'checked' : '' }}>
@@ -94,14 +126,44 @@
                         @endif
 
                         <input type="hidden" name="sort" value="{{ request('sort') }}">
+                        <input type="hidden" name="q" value="{{ request('q') }}">
 
                         <button type="submit" class="web-btn-primary w-full mt-5">{{ __('website.apply_filters') }}</button>
                     </form>
                 </div>
             </aside>
 
-            {{-- ============ PRODUCTS ============ --}}
+            {{-- ============ RIGHT: CATEGORIES ROW + PRODUCTS ============ --}}
             <div class="lg:col-span-9">
+
+                {{-- ROW 1: Shop By Categories --}}
+                @if ($categories->isNotEmpty())
+                    <section class="mb-10">
+                        <div class="web-section-head">
+                            <h2 class="text-xl font-bold text-slate-900">{{ __('website.shop_by_categories') }}</h2>
+                            <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}" class="web-view-all">
+                                {{ __('website.view_all') }} <i class="fa-solid fa-chevron-{{ current_lang() === 'ar' ? 'left' : 'right' }} text-[10px]"></i>
+                            </a>
+                        </div>
+                        <div class="flex gap-4 overflow-x-auto pb-2 -mx-1 px-1">
+                            @foreach ($categories as $cat)
+                                <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'categorySlug' => $cat->slug]) }}"
+                                    class="web-category-card block text-center shrink-0 w-24 sm:w-28">
+                                    <span class="web-category-icon">
+                                        @if ($cat->image)
+                                            <img src="{{ asset_url($cat->image) }}" alt="{{ $cat->name }}" class="w-full h-full object-cover">
+                                        @else
+                                            <i class="fa-solid {{ $cat->icon ?: 'fa-tag' }}"></i>
+                                        @endif
+                                    </span>
+                                    <span class="web-category-name text-xs font-medium">{{ $cat->name }}</span>
+                                </a>
+                            @endforeach
+                        </div>
+                    </section>
+                @endif
+
+                {{-- ROW 2: Toolbar --}}
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
                     <p class="text-sm text-slate-500">
                         <span class="font-semibold text-slate-900">{{ $products->total() }}</span> {{ __('website.products_found') }}
@@ -121,6 +183,7 @@
                     </form>
                 </div>
 
+                {{-- ROW 2: Products grid --}}
                 @if ($products->isNotEmpty())
                     <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
                         @foreach ($products as $product)
@@ -130,9 +193,12 @@
 
                     <x-website.pagination :paginator="$products" class="mt-10 flex justify-center" />
                 @else
-                    <div class="text-center py-16 text-slate-500">
+                    <div class="web-empty-state text-center py-16 text-slate-500">
                         <i class="fa-solid fa-box-open text-3xl mb-3"></i>
                         <p>{{ __('website.no_products_found') }}</p>
+                        <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}" class="web-btn-primary inline-block mt-5">
+                            {{ __('website.clear_all') }}
+                        </a>
                     </div>
                 @endif
             </div>

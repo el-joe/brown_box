@@ -130,6 +130,16 @@
                         <img src="https://placehold.co/700x320/eef4ff/2b6ee0?text=Map+Preview" alt="{{ __('website.contact_map_alt') }}">
                         <span class="web-map-pin"><i class="fa-solid fa-store"></i></span>
                     </div>
+
+                    <div class="mt-6">
+                        <p class="text-sm font-semibold mb-3">{{ __('website.footer_follow_us') }}</p>
+                        <div class="flex items-center gap-2">
+                            <a href="#" aria-label="X" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-black hover:border-black transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-pink-600 hover:border-pink-600 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#" aria-label="Pinterest" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-red-600 hover:border-red-600 transition-colors"><i class="fa-brands fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

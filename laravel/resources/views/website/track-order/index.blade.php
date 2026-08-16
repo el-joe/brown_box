@@ -54,6 +54,7 @@
                         </div>
                         <span class="web-order-status web-order-status-{{ $order->status->value }}"><i class="fa-solid {{ $meta['icon'] }}"></i> {{ $meta['label'] }}</span>
                     </div>
+                    <p class="text-sm text-slate-500">{{ __('website.order_placed_on', ['date' => $order->created_at->format('M j, Y')]) }}</p>
 
                     @if ($order->status !== \App\Enums\OrderStatus::Cancelled)
                         <div class="web-order-timeline mt-6">

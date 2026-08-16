@@ -35,12 +35,34 @@
                             <p class="font-semibold text-sm text-slate-900">{{ $post->author_name }}</p>
                             <p class="text-xs text-slate-400">{{ $post->published_at?->format('F j, Y') }} &middot; {{ $post->read_time }}</p>
                         </div>
+                        <div class="flex items-center gap-2 ml-auto">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" rel="noopener" aria-label="Share on Facebook" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($post->title) }}" target="_blank" rel="noopener" aria-label="Share on X" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-black hover:border-black transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="https://pinterest.com/pin/create/button/?url={{ urlencode(url()->current()) }}&media={{ urlencode($post->image_url) }}&description={{ urlencode($post->title) }}" target="_blank" rel="noopener" aria-label="Share on Pinterest" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-red-600 hover:border-red-600 transition-colors"><i class="fa-brands fa-pinterest-p"></i></a>
+                            <button type="button" data-copy-link="{{ url()->current() }}" aria-label="Copy link" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-brand hover:border-brand transition-colors"><i class="fa-solid fa-link"></i></button>
+                        </div>
                     </div>
 
                     <img class="web-blog-article-hero-img mt-6" src="{{ $post->image_url }}" alt="{{ $post->title }}">
 
                     <div class="web-blog-article-content mt-6">
                         {!! $post->content !!}
+                    </div>
+
+                    @if ($post->category)
+                        <div class="mt-8 pt-6 border-t border-slate-100">
+                            <span class="text-sm font-bold text-slate-900 mr-1">{{ __('website.blog_categories') }}:</span>
+                            <span class="web-blog-tag">{{ $post->category }}</span>
+                        </div>
+                    @endif
+
+                    <!-- Author bio -->
+                    <div class="mt-8 flex items-start gap-4 bg-slate-50 border border-slate-100 rounded-2xl p-5">
+                        <img class="w-16 h-16 rounded-full object-cover shrink-0" src="{{ $post->author_avatar_url }}" alt="{{ $post->author_name }}">
+                        <div class="min-w-0">
+                            <p class="font-bold text-slate-900">{{ $post->author_name }}</p>
+                            <p class="text-sm text-slate-500 mt-2">{{ $post->excerpt }}</p>
+                        </div>
                     </div>
 
                     @if ($relatedPosts->isNotEmpty())
@@ -74,6 +96,21 @@
                         <button type="submit" aria-label="{{ __('website.blog_search') }}"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </form>
                 </div>
+
+                @if ($post && $relatedPosts->isNotEmpty())
+                    <div class="web-blog-sidebar-card">
+                        <h3>{{ __('website.blog_related_articles') }}</h3>
+                        @foreach ($relatedPosts as $recent)
+                            <a href="{{ route('web.blog.show', ['lang' => current_lang(), 'slug' => $recent->slug]) }}" class="flex items-center gap-3 py-3 border-b border-slate-100 last:border-0">
+                                <img class="w-16 h-16 rounded-lg object-cover shrink-0" src="{{ $recent->image_url }}" alt="{{ $recent->title }}">
+                                <div class="min-w-0">
+                                    <p class="text-sm font-semibold text-slate-800 line-clamp-2">{{ $recent->title }}</p>
+                                    <p class="text-xs text-slate-400 mt-1">{{ $recent->published_at?->format('M j, Y') }}</p>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
 
                 <div class="web-blog-sidebar-card" style="padding:0; border:none; background:transparent;">
                     <div class="web-newsletter-mini-card">

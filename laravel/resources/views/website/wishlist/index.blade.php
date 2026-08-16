@@ -20,6 +20,7 @@
                         <div class="web-account-card-head">
                             <div>
                                 <h1 class="text-xl font-bold text-slate-900">{{ __('website.wishlist') }}</h1>
+                                <p class="web-account-card-sub">{{ __('website.no_wishlist_items_subtitle') }}</p>
                             </div>
                         </div>
 
@@ -27,7 +28,20 @@
                             <div class="grid grid-cols-2 sm:grid-cols-3 gap-5">
                                 @foreach ($items as $item)
                                     @if ($item->product)
-                                        <x-website.product-card :product="$item->product" />
+                                        <div class="relative">
+                                            <form method="POST" action="{{ route('web.wishlist.toggle', ['lang' => current_lang()]) }}"
+                                                onsubmit="event.preventDefault(); WebsiteApi.toggleWishlist({{ $item->product->id }}).then(() => this.closest('.relative').remove());"
+                                                class="absolute top-3 end-3 z-20">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $item->product->id }}">
+                                                <button type="submit"
+                                                    class="w-8 h-8 rounded-full bg-white shadow flex items-center justify-center text-slate-500 hover:text-red-500"
+                                                    aria-label="{{ __('website.wishlist') }}">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </button>
+                                            </form>
+                                            <x-website.product-card :product="$item->product" />
+                                        </div>
                                     @endif
                                 @endforeach
                             </div>
@@ -51,7 +65,20 @@
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
                     @foreach ($items as $item)
                         @if ($item->product)
-                            <x-website.product-card :product="$item->product" />
+                            <div class="relative">
+                                <form method="POST" action="{{ route('web.wishlist.toggle', ['lang' => current_lang()]) }}"
+                                    onsubmit="event.preventDefault(); WebsiteApi.toggleWishlist({{ $item->product->id }}).then(() => this.closest('.relative').remove());"
+                                    class="absolute top-3 end-3 z-20">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $item->product->id }}">
+                                    <button type="submit"
+                                        class="w-8 h-8 rounded-full bg-white shadow flex items-center justify-center text-slate-500 hover:text-red-500"
+                                        aria-label="{{ __('website.wishlist') }}">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </form>
+                                <x-website.product-card :product="$item->product" />
+                            </div>
                         @endif
                     @endforeach
                 </div>

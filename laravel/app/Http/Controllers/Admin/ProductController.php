@@ -41,7 +41,10 @@ class ProductController extends Controller
     {
         $query = Product::query()->with(['category', 'brand', 'stocks', 'productImages'])->withCount('variants');
 
-        if ($search = $request->string('search')->toString()) {
+        $searchValue = $request->input('search.value');
+        $searchValue = is_array($searchValue) ? null : $searchValue;
+
+        if ($search = trim((string) $searchValue)) {
             $query->where(function ($q) use ($search) {
                 $q->where('sku', 'like', "%{$search}%")
                     ->orWhereRaw('LOWER(JSON_EXTRACT(name, "$.en")) LIKE ?', ['%'.mb_strtolower($search).'%'])
