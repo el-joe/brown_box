@@ -70,15 +70,15 @@
             <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6">
                 @foreach ($categories as $category)
                     <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'categorySlug' => $category->slug]) }}"
-                        class="web-category-card flex flex-col items-center gap-3 text-center">
+                        class="web-category-card block text-center">
                         <span class="web-category-icon">
                             @if ($category->image)
-                                <img src="{{ asset_url($category->image) }}" alt="{{ $category->name }}" class="w-full h-full object-cover rounded-full">
+                                <img src="{{ asset_url($category->image) }}" alt="{{ $category->name }}" class="w-full h-full object-cover">
                             @else
                                 <i class="fa-solid {{ $category->icon ?: 'fa-tag' }}"></i>
                             @endif
                         </span>
-                        <span class="text-xs sm:text-sm font-medium text-slate-700">{{ $category->name }}</span>
+                        <span class="web-category-name text-xs sm:text-sm font-medium">{{ $category->name }}</span>
                     </a>
                 @endforeach
             </div>
