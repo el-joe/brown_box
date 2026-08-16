@@ -71,6 +71,7 @@
                                         $navUrl = match ($label) {
                                             'Categories' => route('admin.categories.index'),
                                             'Brands' => route('admin.brands.index'),
+                                            'Attributes' => route('admin.attributes.index'),
                                             'Products' => route('admin.products.index'),
                                             'Warehouses' => route('admin.warehouses.index'),
                                             'Stock' => route('admin.stock.index'),
@@ -102,6 +103,7 @@
                                         $navActive = match ($label) {
                                             'Categories' => request()->routeIs('admin.categories.*'),
                                             'Brands' => request()->routeIs('admin.brands.*'),
+                                            'Attributes' => request()->routeIs('admin.attributes.*'),
                                             'Products' => request()->routeIs('admin.products.*'),
                                             'Warehouses' => request()->routeIs('admin.warehouses.*'),
                                             'Stock' => request()->routeIs('admin.stock.*'),

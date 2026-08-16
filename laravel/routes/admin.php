@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\GatewayController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OpeningBalanceController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductAttributeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\RefundRequestController;
@@ -107,6 +108,18 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::put('{product}/validate', [ProductController::class, 'validateProduct'])->name('update.validate');
             Route::put('{product}', [ProductController::class, 'update'])->name('update');
             Route::delete('{product}', [ProductController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('attributes')->name('attributes.')->group(function (): void {
+            Route::get('/', [ProductAttributeController::class, 'index'])->name('index');
+            Route::get('data', [ProductAttributeController::class, 'data'])->name('data');
+            Route::get('create', [ProductAttributeController::class, 'create'])->name('create');
+            Route::post('validate', [ProductAttributeController::class, 'validateAttribute'])->name('validate');
+            Route::post('/', [ProductAttributeController::class, 'store'])->name('store');
+            Route::get('{attribute}/edit', [ProductAttributeController::class, 'edit'])->name('edit');
+            Route::put('{attribute}/validate', [ProductAttributeController::class, 'validateAttribute'])->name('update.validate');
+            Route::put('{attribute}', [ProductAttributeController::class, 'update'])->name('update');
+            Route::delete('{attribute}', [ProductAttributeController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('coupons')->name('coupons.')->group(function (): void {

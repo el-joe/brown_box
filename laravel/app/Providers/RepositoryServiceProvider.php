@@ -22,6 +22,7 @@ use App\Repositories\Contracts\FlashSaleRepositoryInterface;
 use App\Repositories\Contracts\NotificationRepositoryInterface;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 use App\Repositories\Contracts\PayoutRequestRepositoryInterface;
+use App\Repositories\Contracts\ProductAttributeRepositoryInterface;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use App\Repositories\Contracts\PurchaseRepositoryInterface;
 use App\Repositories\Contracts\RefundRequestRepositoryInterface;
@@ -40,6 +41,7 @@ use App\Repositories\FlashSaleRepository;
 use App\Repositories\NotificationRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\PayoutRequestRepository;
+use App\Repositories\ProductAttributeRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\PurchaseRepository;
 use App\Repositories\RefundRequestRepository;
@@ -62,6 +64,7 @@ class RepositoryServiceProvider extends ServiceProvider
     private array $repositoryBindings = [
         CategoryRepositoryInterface::class => CategoryRepository::class,
         ProductRepositoryInterface::class => ProductRepository::class,
+        ProductAttributeRepositoryInterface::class => ProductAttributeRepository::class,
         OrderRepositoryInterface::class => OrderRepository::class,
         StockRepositoryInterface::class => StockRepository::class,
         AffiliateRepositoryInterface::class => AffiliateRepository::class,
