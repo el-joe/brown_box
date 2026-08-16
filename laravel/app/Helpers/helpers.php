@@ -23,7 +23,7 @@ if (! function_exists('setting')) {
     function setting(string $key, mixed $default = null): mixed
     {
         $settings = Cache::remember('settings.all', 3600, function () {
-            return \App\Models\Setting::query()->pluck('value', 'key');
+            return \App\Models\Setting::query()->pluck('value', 'key')->all();
         });
 
         return $settings[$key] ?? $default;

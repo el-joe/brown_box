@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'site_name' => 'براون بوكس',
+    'site_name' => 'ellamart+',
     'home' => 'الرئيسية',
     'shop' => 'المتجر',
     'categories' => 'الأقسام',
@@ -55,6 +55,11 @@ return [
     'flash_sale_ends_in' => 'ينتهي خلال',
     'top_brands' => 'أشهر الماركات',
     'no_products_found' => 'لا توجد منتجات.',
+    'announcement_text' => 'اشترِ الآن وادفع لاحقاً بدون فوائد.',
+    'learn_more' => 'اعرف المزيد',
+    'close_menu' => 'إغلاق القائمة',
+    'close_search' => 'إغلاق البحث',
+    'open_menu' => 'فتح القائمة',
     'days' => 'أيام',
     'hours' => 'ساعات',
     'minutes' => 'دقائق',
@@ -86,6 +91,7 @@ return [
     'out_of_stock' => 'غير متوفر',
     'free_shipping_note' => 'السعر شامل الضريبة. شحن مجاني للطلبات أكثر من :amount.',
     'quantity' => 'الكمية',
+    'zoom' => 'تكبير',
     'buy_now' => 'اشترِ الآن',
     'add_to_favorites' => 'أضف إلى المفضلة',
     'share' => 'مشاركة',
@@ -205,6 +211,19 @@ return [
     'passwords_not_match' => 'كلمتا المرور غير متطابقتين.',
     'terms_required' => 'يرجى الموافقة على الشروط للمتابعة.',
     'auth_footer_note' => 'بالمتابعة، أنت توافق على :terms و :privacy.',
+    'create_account_title' => 'انضم إلى آلاف المتسوقين السعداء.',
+    'create_account_subtitle' => 'أنشئ حسابك المجاني في ثوانٍ واستمتع بتجربة تسوق أسرع وأكثر تخصيصاً.',
+    'auth_feature_discount_title' => 'خصم 30% على طلبك الأول',
+    'auth_feature_discount_desc' => 'يحصل الأعضاء الجدد على خصم ترحيبي فوري عند الدفع.',
+    'auth_feature_reorder_title' => 'إعادة الطلب بنقرة واحدة',
+    'auth_feature_reorder_desc' => 'احفظ بياناتك للدفع بشكل أسرع في كل مرة تتسوق فيها.',
+    'auth_feature_wishlist_title' => 'المفضلة وسجل الطلبات',
+    'auth_feature_wishlist_desc' => 'تابع مفضلاتك وارجع لمشترياتك السابقة في أي وقت.',
+    'or_continue_with' => 'أو تابع باستخدام',
+    'or_sign_up_with' => 'أو سجّل باستخدام',
+    'continue_with_google' => 'المتابعة باستخدام Google',
+    'continue_with_facebook' => 'المتابعة باستخدام Facebook',
+    'continue_with_apple' => 'المتابعة باستخدام Apple',
 
     // Account
     'my_account' => 'حسابي',
@@ -304,6 +323,7 @@ return [
 
     // Blog
     'blog_our_blog' => 'مدونتنا',
+    'blog_tab_all' => 'كل المقالات',
     'blog_page_title' => 'قصص، اتجاهات ونصائح للتسوق',
     'blog_page_subtitle' => 'رؤى حول التقنية والموضة والمنزل والحصول على أفضل قيمة من كل عرض — من فريقنا مباشرة.',
     'blog_empty_title' => 'لا توجد مقالات بعد',

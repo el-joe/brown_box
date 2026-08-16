@@ -11,6 +11,17 @@
             'paymob' => ['icon' => 'fa-credit-card', 'name' => __('website.paymob'), 'desc' => __('website.paymob_desc')],
         ];
         $manualGatewayCodes = ['bank_transfer', 'vodafone_cash', 'instapay'];
+
+        $citiesByGovernorate = $governorates->mapWithKeys(function ($gov) {
+            return [
+                $gov->id => $gov->cities->map(function ($city) {
+                    return [
+                        'id' => $city->id,
+                        'name' => current_lang() === 'ar' ? $city->name_ar : $city->name_en,
+                    ];
+                }),
+            ];
+        });
     @endphp
 
     <div class="web-checkout max-w-7xl mx-auto px-4 py-8" data-subtotal="{{ $subtotal }}">
@@ -59,7 +70,7 @@
 
                     {{-- ---------- Step 1: Address ---------- --}}
                     <div class="web-checkout-block" data-step="1">
-                        <h2 class="font-bold text-lg mb-4"><i class="fa-solid fa-location-dot text-amber-600 me-2"></i>{{ __('website.delivery_address') }}</h2>
+                        <h2 class="font-bold text-lg mb-4"><i class="fa-solid fa-location-dot text-brand me-2"></i>{{ __('website.delivery_address') }}</h2>
 
                         <div id="address-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             @foreach ($addresses as $address)
@@ -123,7 +134,7 @@
 
                     {{-- ---------- Step 2: Shipping ---------- --}}
                     <div class="web-checkout-block hidden" data-step="2">
-                        <h2 class="font-bold text-lg mb-4"><i class="fa-solid fa-truck text-amber-600 me-2"></i>{{ __('website.shipping') }}</h2>
+                        <h2 class="font-bold text-lg mb-4"><i class="fa-solid fa-truck text-brand me-2"></i>{{ __('website.shipping') }}</h2>
 
                         <div id="shipping-companies" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <p class="text-sm text-slate-400">{{ __('website.select_address') }}</p>
@@ -137,7 +148,7 @@
 
                     {{-- ---------- Step 3: Payment ---------- --}}
                     <div class="web-checkout-block hidden" data-step="3">
-                        <h2 class="font-bold text-lg mb-4"><i class="fa-solid fa-credit-card text-amber-600 me-2"></i>{{ __('website.payment_method') }}</h2>
+                        <h2 class="font-bold text-lg mb-4"><i class="fa-solid fa-credit-card text-brand me-2"></i>{{ __('website.payment_method') }}</h2>
 
                         <div id="payment-methods" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             @foreach ($gateways as $gateway)
@@ -185,7 +196,7 @@
                                 </div>
 
                                 <div id="file-preview" class="web-file-preview hidden">
-                                    <i class="fa-solid fa-file-lines text-amber-600 text-xl"></i>
+                                    <i class="fa-solid fa-file-lines text-brand text-xl"></i>
                                     <div class="min-w-0">
                                         <p id="file-preview-name" class="text-sm font-medium truncate"></p>
                                         <p id="file-preview-size" class="text-xs text-slate-400"></p>
@@ -275,12 +286,7 @@
 @push('scripts')
     <script>
         window.checkoutData = {
-            citiesByGovernorate: @json($governorates->mapWithKeys(fn ($gov) => [
-                $gov->id => $gov->cities->map(fn ($city) => [
-                    'id' => $city->id,
-                    'name' => current_lang() === 'ar' ? $city->name_ar : $city->name_en,
-                ]),
-            ])),
+            citiesByGovernorate: @json($citiesByGovernorate),
         };
     </script>
     @vite(['resources/js/website/checkout.js'])

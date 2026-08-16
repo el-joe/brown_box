@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'site_name' => 'Brown Box',
+    'site_name' => 'ellamart+',
     'home' => 'Home',
     'shop' => 'Shop',
     'categories' => 'Categories',
@@ -55,6 +55,11 @@ return [
     'flash_sale_ends_in' => 'Ends in',
     'top_brands' => 'Top Brands',
     'no_products_found' => 'No products found.',
+    'announcement_text' => 'Buy Now Pay Later Starting at 0% APR.',
+    'learn_more' => 'Learn More',
+    'close_menu' => 'Close menu',
+    'close_search' => 'Close search',
+    'open_menu' => 'Open menu',
     'days' => 'Days',
     'hours' => 'Hours',
     'minutes' => 'Minutes',
@@ -86,6 +91,7 @@ return [
     'out_of_stock' => 'Out of Stock',
     'free_shipping_note' => 'Price includes VAT. Free shipping on orders over :amount.',
     'quantity' => 'Quantity',
+    'zoom' => 'Zoom',
     'buy_now' => 'Buy It Now',
     'add_to_favorites' => 'Add to Favorites',
     'share' => 'Share',
@@ -205,6 +211,19 @@ return [
     'passwords_not_match' => 'Passwords do not match.',
     'terms_required' => 'Please agree to the terms to continue.',
     'auth_footer_note' => 'By continuing, you agree to our :terms and :privacy.',
+    'create_account_title' => 'Join thousands of happy shoppers.',
+    'create_account_subtitle' => 'Create your free account in seconds and unlock a faster, more personal shopping experience.',
+    'auth_feature_discount_title' => '30% Off Your First Order',
+    'auth_feature_discount_desc' => 'New members get an instant welcome discount at checkout.',
+    'auth_feature_reorder_title' => 'One-Click Reordering',
+    'auth_feature_reorder_desc' => 'Save your details for a faster checkout every time you shop.',
+    'auth_feature_wishlist_title' => 'Wishlist & Order History',
+    'auth_feature_wishlist_desc' => 'Keep track of favorites and revisit past purchases anytime.',
+    'or_continue_with' => 'OR CONTINUE WITH',
+    'or_sign_up_with' => 'OR SIGN UP WITH',
+    'continue_with_google' => 'Continue with Google',
+    'continue_with_facebook' => 'Continue with Facebook',
+    'continue_with_apple' => 'Continue with Apple',
 
     // Account
     'my_account' => 'My Account',
@@ -304,6 +323,7 @@ return [
 
     // Blog
     'blog_our_blog' => 'Our Blog',
+    'blog_tab_all' => 'All Posts',
     'blog_page_title' => 'Stories, Trends & Shopping Tips',
     'blog_page_subtitle' => 'Insights on tech, fashion, home living and getting the most out of every deal — straight from our team.',
     'blog_empty_title' => 'No articles yet',

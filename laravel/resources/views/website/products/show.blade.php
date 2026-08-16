@@ -33,10 +33,15 @@
 
             {{-- ============ GALLERY ============ --}}
             <div>
-                <div class="relative rounded-xl overflow-hidden border border-slate-100">
+                <div class="relative rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
                     @if ($hasDiscount)
                         <span class="absolute top-3 start-3 z-10 web-deal-badge">-{{ $discountPercent }}%</span>
                     @endif
+                    <a href="{{ $mainImage }}" target="_blank" rel="noopener"
+                        class="absolute top-3 end-3 z-10 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-sm text-ink hover:text-brand"
+                        aria-label="{{ __('website.zoom') }}">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    </a>
                     <img id="product-main-image" src="{{ $mainImage }}" alt="{{ $product->name }}" class="w-full aspect-square object-cover">
                 </div>
 
@@ -44,7 +49,7 @@
                     <div class="flex gap-3 mt-3 overflow-x-auto pb-1">
                         @foreach ($gallery as $image)
                             <button type="button" data-thumb data-full="{{ $image->url }}"
-                                class="web-gallery-thumb {{ $loop->first ? 'is-active' : '' }} shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 {{ $loop->first ? 'border-amber-500' : 'border-transparent' }}">
+                                class="web-gallery-thumb {{ $loop->first ? 'is-active' : '' }} shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 {{ $loop->first ? 'border-brand' : 'border-transparent' }}">
                                 <img src="{{ $image->url }}" alt="{{ $product->name }} thumbnail" class="w-full h-full object-cover">
                             </button>
                         @endforeach
@@ -55,7 +60,7 @@
             {{-- ============ DETAILS ============ --}}
             <div>
                 @if ($product->brand)
-                    <p class="text-xs font-semibold text-amber-600 uppercase tracking-wide">{{ $product->brand->name }}</p>
+                    <p class="text-xs font-semibold text-brand uppercase tracking-wide">{{ $product->brand->name }}</p>
                 @endif
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">{{ $product->name }}</h1>
 
@@ -70,7 +75,7 @@
                 </div>
 
                 <div class="flex items-end gap-3 mt-4">
-                    <span id="product-price-current" class="text-3xl font-extrabold {{ $hasDiscount ? 'text-red-600' : 'text-amber-600' }}">
+                    <span id="product-price-current" class="text-3xl font-extrabold {{ $hasDiscount ? 'text-red-600' : 'text-brand' }}">
                         {{ money_format($product->effective_price) }}
                     </span>
                     @if ($hasDiscount)
@@ -145,15 +150,15 @@
 
                 <div class="grid grid-cols-3 gap-3 mt-7 pt-6 border-t border-slate-100">
                     <div class="flex flex-col items-center text-center gap-1.5">
-                        <i class="fa-solid fa-truck-fast text-amber-600 text-lg"></i>
+                        <i class="fa-solid fa-truck-fast text-brand text-lg"></i>
                         <span class="text-[11px] text-slate-500 leading-tight">{{ __('website.free_shipping') }}</span>
                     </div>
                     <div class="flex flex-col items-center text-center gap-1.5">
-                        <i class="fa-solid fa-rotate-left text-amber-600 text-lg"></i>
+                        <i class="fa-solid fa-rotate-left text-brand text-lg"></i>
                         <span class="text-[11px] text-slate-500 leading-tight">{{ __('website.easy_returns') }}</span>
                     </div>
                     <div class="flex flex-col items-center text-center gap-1.5">
-                        <i class="fa-solid fa-shield-halved text-amber-600 text-lg"></i>
+                        <i class="fa-solid fa-shield-halved text-brand text-lg"></i>
                         <span class="text-[11px] text-slate-500 leading-tight">{{ __('website.secure_checkout') }}</span>
                     </div>
                 </div>
@@ -212,11 +217,24 @@
         {{-- ============ RELATED PRODUCTS ============ --}}
         @if ($relatedProducts->isNotEmpty())
             <section class="mt-16">
-                <x-website.section-title :title="__('website.related_products')" />
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-                    @foreach ($relatedProducts as $related)
-                        <x-website.product-card :product="$related" />
-                    @endforeach
+                <div class="web-section-head">
+                    <h2 class="text-xl font-bold text-slate-900">{{ __('website.related_products') }}</h2>
+                    @if ($product->category)
+                        <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'categorySlug' => $product->category->slug]) }}" class="web-view-all">
+                            {{ __('website.view_all') }} <i class="fa-solid fa-chevron-{{ current_lang() === 'ar' ? 'left' : 'right' }} text-[10px]"></i>
+                        </a>
+                    @endif
+                </div>
+                <div class="swiper web-product-swiper">
+                    <div class="swiper-wrapper">
+                        @foreach ($relatedProducts as $related)
+                            <div class="swiper-slide">
+                                <x-website.product-card :product="$related" class="h-full" />
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
             </section>
         @endif

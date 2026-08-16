@@ -21,8 +21,14 @@ class DatabaseSeeder extends Seeder
         $this->seedCurrencies();
         $this->seedGeography();
         $this->seedSettings();
-        $this->call(PermissionSeeder::class);
-        $this->call(StaticPageSeeder::class);
+        $this->call([
+            PermissionSeeder::class,
+            StaticPageSeeder::class,
+            WarehouseSeeder::class,
+            CategorySeeder::class,
+            BrandSeeder::class,
+            ProductSeeder::class,
+        ]);
         $this->seedAdmin();
     }
 
@@ -119,8 +125,8 @@ class DatabaseSeeder extends Seeder
 
         $adminId = DB::table('admins')->insertGetId([
             'name' => 'Super Admin',
-            'email' => 'admin@brownbox.test',
-            'password' => Hash::make('password'),
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('123456'),
             'is_active' => true,
             'created_at' => now(),
             'updated_at' => now(),

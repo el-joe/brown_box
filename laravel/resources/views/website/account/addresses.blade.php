@@ -33,7 +33,7 @@
                                     <span class="web-address-badge">{{ __('website.default') }}</span>
                                 @endif
                                 @if ($address->label)
-                                    <p class="text-xs font-semibold text-amber-600 uppercase mb-1">{{ $address->label }}</p>
+                                    <p class="text-xs font-semibold text-brand uppercase mb-1">{{ $address->label }}</p>
                                 @endif
                                 <p class="font-bold text-sm text-slate-900">{{ $address->name }}</p>
                                 <p class="text-sm text-slate-600 mt-0.5">{{ $address->phone }}</p>

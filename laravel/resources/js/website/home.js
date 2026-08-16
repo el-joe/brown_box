@@ -1,4 +1,6 @@
-// Home page behaviour: flash sale countdown timer.
+// Home page behaviour: flash sale countdown timer + Swiper carousels.
+import Swiper from 'swiper';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 function startCountdown(container) {
     const endsAt = container.dataset.flashEnds;
@@ -41,10 +43,62 @@ function startCountdown(container) {
     const timer = setInterval(tick, 1000);
 }
 
+const productSwiperOptions = {
+    modules: [Navigation],
+    spaceBetween: 16,
+    slidesPerView: 2,
+    breakpoints: {
+        480: { slidesPerView: 2 },
+        640: { slidesPerView: 3 },
+        768: { slidesPerView: 4 },
+        1024: { slidesPerView: 5 },
+        1280: { slidesPerView: 6 },
+    },
+};
+
+function initSwiper(el, options) {
+    return new Swiper(el, {
+        navigation: {
+            nextEl: el.querySelector('.swiper-button-next'),
+            prevEl: el.querySelector('.swiper-button-prev'),
+        },
+        ...options,
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const flashSection = document.querySelector('[data-flash-ends]');
 
     if (flashSection) {
         startCountdown(flashSection);
+    }
+
+    const heroSwiperEl = document.querySelector('.hero-swiper');
+
+    if (heroSwiperEl) {
+        initSwiper(heroSwiperEl, {
+            modules: [Navigation, Pagination, Autoplay],
+            loop: heroSwiperEl.querySelectorAll('.swiper-slide').length > 1,
+            autoplay: { delay: 5000, disableOnInteraction: false },
+            pagination: { el: heroSwiperEl.querySelector('.swiper-pagination'), clickable: true },
+        });
+    }
+
+    document.querySelectorAll('.web-product-swiper').forEach((el) => {
+        initSwiper(el, productSwiperOptions);
+    });
+
+    const brandSwiperEl = document.querySelector('.brand-swiper');
+
+    if (brandSwiperEl) {
+        initSwiper(brandSwiperEl, {
+            spaceBetween: 24,
+            slidesPerView: 2,
+            breakpoints: {
+                480: { slidesPerView: 3 },
+                768: { slidesPerView: 4 },
+                1024: { slidesPerView: 6 },
+            },
+        });
     }
 });

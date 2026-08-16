@@ -15,31 +15,31 @@
             {{-- Brand panel --}}
             <div class="web-auth-panel">
                 <div>
-                    <span class="text-2xl font-extrabold">{{ __('website.site_name') }}</span>
-                    <h2 class="text-3xl font-extrabold leading-tight mt-10">{{ __('website.welcome_back_title') }}</h2>
-                    <p class="text-sm text-white/75 mt-3 max-w-sm">{{ __('website.welcome_back_subtitle') }}</p>
+                    <x-website.logo dark />
+                    <h2 class="text-3xl font-extrabold leading-tight mt-10">{{ __('website.create_account_title') }}</h2>
+                    <p class="text-sm text-white/75 mt-3 max-w-sm">{{ __('website.create_account_subtitle') }}</p>
                 </div>
 
                 <div class="space-y-5 mt-10">
                     <div class="web-auth-feature">
-                        <span class="web-auth-feature-icon"><i class="fa-solid fa-truck-fast"></i></span>
+                        <span class="web-auth-feature-icon"><i class="fa-solid fa-percent"></i></span>
                         <div>
-                            <p class="font-semibold text-sm">{{ __('website.auth_feature_tracking_title') }}</p>
-                            <p class="text-xs text-white/70 mt-0.5">{{ __('website.auth_feature_tracking_desc') }}</p>
+                            <p class="font-semibold text-sm">{{ __('website.auth_feature_discount_title') }}</p>
+                            <p class="text-xs text-white/70 mt-0.5">{{ __('website.auth_feature_discount_desc') }}</p>
                         </div>
                     </div>
                     <div class="web-auth-feature">
-                        <span class="web-auth-feature-icon"><i class="fa-solid fa-tags"></i></span>
+                        <span class="web-auth-feature-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
                         <div>
-                            <p class="font-semibold text-sm">{{ __('website.auth_feature_deals_title') }}</p>
-                            <p class="text-xs text-white/70 mt-0.5">{{ __('website.auth_feature_deals_desc') }}</p>
+                            <p class="font-semibold text-sm">{{ __('website.auth_feature_reorder_title') }}</p>
+                            <p class="text-xs text-white/70 mt-0.5">{{ __('website.auth_feature_reorder_desc') }}</p>
                         </div>
                     </div>
                     <div class="web-auth-feature">
-                        <span class="web-auth-feature-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                        <span class="web-auth-feature-icon"><i class="fa-solid fa-heart"></i></span>
                         <div>
-                            <p class="font-semibold text-sm">{{ __('website.auth_feature_secure_title') }}</p>
-                            <p class="text-xs text-white/70 mt-0.5">{{ __('website.auth_feature_secure_desc') }}</p>
+                            <p class="font-semibold text-sm">{{ __('website.auth_feature_wishlist_title') }}</p>
+                            <p class="text-xs text-white/70 mt-0.5">{{ __('website.auth_feature_wishlist_desc') }}</p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <h1 class="text-2xl font-extrabold text-slate-900">{{ __('website.create_account') }}</h1>
                     <p class="text-sm text-slate-500 mt-1.5">
                         {{ __('website.already_have_account') }}
-                        <a href="{{ route('web.account.login', ['lang' => current_lang()]) }}" class="text-amber-600 font-semibold hover:underline">{{ __('website.sign_in_link') }}</a>
+                        <a href="{{ route('web.account.login', ['lang' => current_lang()]) }}" class="text-brand font-semibold hover:underline">{{ __('website.sign_in_link') }}</a>
                     </p>
 
                     <form id="register-form" method="POST" action="{{ route('web.account.register.store', ['lang' => current_lang()]) }}" class="mt-7">
@@ -111,9 +111,9 @@
                             <input type="checkbox" id="register-terms" required>
                             <span>
                                 {{ __('website.agree_terms_prefix') }}
-                                <a href="{{ route('web.pages.show', ['lang' => current_lang(), 'slug' => 'terms-conditions']) }}" class="text-amber-600 hover:underline">{{ __('website.terms_conditions') }}</a>
+                                <a href="{{ route('web.pages.show', ['lang' => current_lang(), 'slug' => 'terms-conditions']) }}" class="text-brand hover:underline">{{ __('website.terms_conditions') }}</a>
                                 {{ __('website.and') }}
-                                <a href="{{ route('web.pages.show', ['lang' => current_lang(), 'slug' => 'privacy-policy']) }}" class="text-amber-600 hover:underline">{{ __('website.privacy_policy') }}</a>
+                                <a href="{{ route('web.pages.show', ['lang' => current_lang(), 'slug' => 'privacy-policy']) }}" class="text-brand hover:underline">{{ __('website.privacy_policy') }}</a>
                             </span>
                         </label>
                         <p id="register-terms-error" class="web-field-error hidden mb-3"><i class="fa-solid fa-circle-exclamation"></i> {{ __('website.terms_required') }}</p>
@@ -122,6 +122,14 @@
                             <i class="fa-solid fa-user-plus"></i> <span>{{ __('website.create_account') }}</span>
                         </button>
                     </form>
+
+                    <div class="web-auth-divider">{{ __('website.or_sign_up_with') }}</div>
+
+                    <div class="grid grid-cols-3 gap-3">
+                        <button type="button" class="flex items-center justify-center h-11 border border-slate-200 rounded-xl text-sm hover:border-brand hover:bg-brand-light transition-colors" aria-label="{{ __('website.continue_with_google') }}"><i class="fa-brands fa-google text-red-500"></i></button>
+                        <button type="button" class="flex items-center justify-center h-11 border border-slate-200 rounded-xl text-sm hover:border-brand hover:bg-brand-light transition-colors" aria-label="{{ __('website.continue_with_facebook') }}"><i class="fa-brands fa-facebook text-blue-600"></i></button>
+                        <button type="button" class="flex items-center justify-center h-11 border border-slate-200 rounded-xl text-sm hover:border-brand hover:bg-brand-light transition-colors" aria-label="{{ __('website.continue_with_apple') }}"><i class="fa-brands fa-apple"></i></button>
+                    </div>
                 </div>
             </div>
         </div>

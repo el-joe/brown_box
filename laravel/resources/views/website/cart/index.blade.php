@@ -74,7 +74,7 @@
                     <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}" class="web-btn-primary mt-5 inline-flex px-8">{{ __('website.continue_shopping') }}</a>
                 </div>
 
-                <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}" class="inline-flex items-center gap-2 text-sm font-semibold text-amber-600 mt-6 hover:underline">
+                <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}" class="inline-flex items-center gap-2 text-sm font-semibold text-brand mt-6 hover:underline">
                     <i class="fa-solid fa-arrow-{{ current_lang() === 'ar' ? 'right' : 'left' }}"></i> {{ __('website.continue_shopping') }}
                 </a>
             </div>
@@ -122,6 +122,13 @@
 
                     <div class="flex items-center justify-center gap-2 text-xs text-slate-400 mt-4">
                         <i class="fa-solid fa-shield-halved"></i> {{ __('website.secure_checkout_note') }}
+                    </div>
+
+                    <div class="flex items-center justify-center gap-3 text-2xl text-slate-300 mt-4">
+                        <i class="fa-brands fa-cc-visa"></i>
+                        <i class="fa-brands fa-cc-mastercard"></i>
+                        <i class="fa-brands fa-cc-paypal"></i>
+                        <i class="fa-brands fa-cc-amex"></i>
                     </div>
                 </div>
             </div>

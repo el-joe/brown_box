@@ -30,6 +30,29 @@
                         <p class="text-sm text-slate-400 mt-1">{{ __('website.blog_empty_subtitle') }}</p>
                     </div>
                 @else
+                    @if ($posts->currentPage() === 1 && ($featured = $posts->first()))
+                        <a href="{{ route('web.blog.show', ['lang' => current_lang(), 'slug' => $featured->slug]) }}" class="web-blog-featured">
+                            <img class="web-blog-featured-img" src="{{ $featured->image_url }}" alt="{{ $featured->title }}">
+                            <div class="web-blog-featured-body">
+                                <span class="web-blog-tag w-fit">{{ $featured->category }}</span>
+                                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-3 leading-snug">{{ $featured->title }}</h2>
+                                <p class="text-sm text-slate-500 mt-2 line-clamp-3">{{ $featured->excerpt }}</p>
+                                <div class="web-blog-card-meta">
+                                    <span>{{ $featured->author_name }}</span>&middot;<span>{{ $featured->published_at?->format('M j, Y') }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    @endif
+
+                    @if ($categories->isNotEmpty())
+                        <div class="web-blog-filter-tabs">
+                            <a href="{{ route('web.blog.index', ['lang' => current_lang()]) }}" class="web-blog-filter-tab {{ request('category') ? '' : 'active' }}">{{ __('website.blog_tab_all') }}</a>
+                            @foreach ($categories as $category)
+                                <a href="{{ route('web.blog.index', ['lang' => current_lang(), 'category' => $category['slug']]) }}" class="web-blog-filter-tab {{ request('category') === $category['slug'] ? 'active' : '' }}">{{ $category['name'] }}</a>
+                            @endforeach
+                        </div>
+                    @endif
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         @foreach ($posts as $post)
                             <article class="web-blog-card">

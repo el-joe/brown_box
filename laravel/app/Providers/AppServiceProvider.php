@@ -35,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
         FlashSale::observe(CatalogCacheObserver::class);
         Product::observe(CatalogCacheObserver::class);
 
+        View::composer('website.layouts.app', function ($view): void {
+            $view->with('headerCategories', Category::query()->active()->roots()->orderBy('sort_order')->get());
+        });
+
         View::composer('affiliate.layouts.app', function ($view): void {
             $customer = Auth::guard('affiliate')->user();
             $affiliate = $customer?->affiliate;

@@ -1,5 +1,28 @@
 // Product detail page behaviour: gallery, variant selector, quantity stepper,
-// add-to-cart / wishlist ajax, flash sale countdown and description/specs/reviews tabs.
+// add-to-cart / wishlist ajax, flash sale countdown, description/specs/reviews tabs
+// and the related-products carousel.
+import Swiper from 'swiper';
+import { Navigation } from 'swiper/modules';
+
+function initRelatedSwiper() {
+    document.querySelectorAll('.web-product-swiper').forEach((el) => {
+        new Swiper(el, {
+            modules: [Navigation],
+            spaceBetween: 16,
+            slidesPerView: 2,
+            navigation: {
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev'),
+            },
+            breakpoints: {
+                480: { slidesPerView: 2 },
+                640: { slidesPerView: 3 },
+                768: { slidesPerView: 4 },
+                1024: { slidesPerView: 5 },
+            },
+        });
+    });
+}
 
 function moneyFormat(amount) {
     return new Intl.NumberFormat(document.documentElement.lang === 'ar' ? 'ar-EG' : 'en-US', {
@@ -263,4 +286,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initActions(root, { getQty, getSelectedVariantId });
     initTabs(root);
     initFlashCountdown(root);
+    initRelatedSwiper();
 });

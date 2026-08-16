@@ -137,7 +137,7 @@
         <div class="text-center mt-14">
             <p class="text-sm text-slate-500">
                 {{ __('website.contact_faq_teaser') }}
-                <a href="{{ route('web.faqs.index', ['lang' => current_lang()]) }}" class="text-amber-600 font-semibold hover:underline">{{ __('website.contact_faq_link') }}</a>
+                <a href="{{ route('web.faqs.index', ['lang' => current_lang()]) }}" class="text-brand font-semibold hover:underline">{{ __('website.contact_faq_link') }}</a>
             </p>
         </div>
     </section>

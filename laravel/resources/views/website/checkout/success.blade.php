@@ -10,7 +10,7 @@
 
         @if ($order)
             <p class="text-sm font-semibold mt-4">
-                {{ __('website.order_number') }}: <span class="text-amber-600">#{{ $order->order_number }}</span>
+                {{ __('website.order_number') }}: <span class="text-brand">#{{ $order->order_number }}</span>
             </p>
 
             <div class="web-summary-card text-start mt-6">

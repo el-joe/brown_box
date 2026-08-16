@@ -96,14 +96,4 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleSticky();
         window.addEventListener('scroll', toggleSticky, { passive: true });
     }
-
-    // Mobile menu toggle.
-    const menuToggle = document.querySelector('[data-mobile-menu-toggle]');
-    const mobileMenu = document.querySelector('[data-mobile-menu]');
-
-    if (menuToggle && mobileMenu) {
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
 });

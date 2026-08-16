@@ -15,7 +15,7 @@
             {{-- Brand panel --}}
             <div class="web-auth-panel">
                 <div>
-                    <span class="text-2xl font-extrabold">{{ __('website.site_name') }}</span>
+                    <x-website.logo dark />
                     <h2 class="text-3xl font-extrabold leading-tight mt-10">{{ __('website.welcome_back_title') }}</h2>
                     <p class="text-sm text-white/75 mt-3 max-w-sm">{{ __('website.welcome_back_subtitle') }}</p>
                 </div>
@@ -53,7 +53,7 @@
                     <h1 class="text-2xl font-extrabold text-slate-900">{{ __('website.sign_in') }}</h1>
                     <p class="text-sm text-slate-500 mt-1.5">
                         {{ __('website.dont_have_account') }}
-                        <a href="{{ route('web.account.register', ['lang' => current_lang()]) }}" class="text-amber-600 font-semibold hover:underline">{{ __('website.create_one') }}</a>
+                        <a href="{{ route('web.account.register', ['lang' => current_lang()]) }}" class="text-brand font-semibold hover:underline">{{ __('website.create_one') }}</a>
                     </p>
 
                     <form id="login-form" method="POST" action="{{ route('web.account.login.store', ['lang' => current_lang(), 'redirect' => request('redirect')]) }}" class="mt-7">
@@ -83,6 +83,7 @@
                                 <input type="checkbox" name="remember" value="1">
                                 <span>{{ __('website.remember_me') }}</span>
                             </label>
+                            <a href="#" class="text-sm font-semibold text-brand hover:underline">{{ __('website.forgot_password') }}</a>
                         </div>
 
                         <button id="login-submit-btn" type="submit" class="web-btn-primary w-full">
@@ -90,10 +91,18 @@
                         </button>
                     </form>
 
+                    <div class="web-auth-divider">{{ __('website.or_continue_with') }}</div>
+
+                    <div class="grid grid-cols-3 gap-3">
+                        <button type="button" class="flex items-center justify-center h-11 border border-slate-200 rounded-xl text-sm hover:border-brand hover:bg-brand-light transition-colors" aria-label="{{ __('website.continue_with_google') }}"><i class="fa-brands fa-google text-red-500"></i></button>
+                        <button type="button" class="flex items-center justify-center h-11 border border-slate-200 rounded-xl text-sm hover:border-brand hover:bg-brand-light transition-colors" aria-label="{{ __('website.continue_with_facebook') }}"><i class="fa-brands fa-facebook text-blue-600"></i></button>
+                        <button type="button" class="flex items-center justify-center h-11 border border-slate-200 rounded-xl text-sm hover:border-brand hover:bg-brand-light transition-colors" aria-label="{{ __('website.continue_with_apple') }}"><i class="fa-brands fa-apple"></i></button>
+                    </div>
+
                     <p class="text-xs text-slate-400 text-center mt-8">
                         {!! __('website.auth_footer_note', [
-                            'terms' => '<a href="'.route('web.pages.show', ['lang' => current_lang(), 'slug' => 'terms-conditions']).'" class="text-slate-600 hover:text-amber-600 underline">'.__('website.terms_conditions').'</a>',
-                            'privacy' => '<a href="'.route('web.pages.show', ['lang' => current_lang(), 'slug' => 'privacy-policy']).'" class="text-slate-600 hover:text-amber-600 underline">'.__('website.privacy_policy').'</a>',
+                            'terms' => '<a href="'.route('web.pages.show', ['lang' => current_lang(), 'slug' => 'terms-conditions']).'" class="text-slate-600 hover:text-brand underline">'.__('website.terms_conditions').'</a>',
+                            'privacy' => '<a href="'.route('web.pages.show', ['lang' => current_lang(), 'slug' => 'privacy-policy']).'" class="text-slate-600 hover:text-brand underline">'.__('website.privacy_policy').'</a>',
                         ]) !!}
                     </p>
                 </div>

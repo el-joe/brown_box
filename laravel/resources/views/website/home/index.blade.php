@@ -5,20 +5,33 @@
 
         {{-- ================= HERO ================= --}}
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div class="lg:col-span-2 relative rounded-2xl overflow-hidden h-64 sm:h-80 lg:h-full bg-slate-900">
-                @if ($flashSale && $flashSale->items->isNotEmpty())
-                    @php($heroProduct = $flashSale->items->first()->product)
-                    <a href="{{ $heroProduct ? route('web.products.show', ['lang' => current_lang(), 'slug' => $heroProduct->slug]) : '#' }}" class="block relative h-full">
-                        <img src="{{ $heroProduct?->main_image?->url ?? 'https://placehold.co/900x400/1a1a1a/ffffff?text=Flash+Sale' }}"
-                            alt="{{ $heroProduct?->name }}" class="absolute inset-0 w-full h-full object-cover opacity-80">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent flex flex-col justify-end p-6">
-                            <span class="text-amber-400 text-xs font-semibold uppercase tracking-wide">{{ __('website.flash_sale') }}</span>
-                            <h2 class="text-white text-2xl font-bold mt-1">{{ $flashSale->name }}</h2>
-                        </div>
-                    </a>
-                @else
-                    <img src="https://placehold.co/900x400/1a1a1a/ffffff?text={{ __('website.site_name') }}" class="absolute inset-0 w-full h-full object-cover" alt="{{ __('website.site_name') }}">
-                @endif
+            <div class="lg:col-span-2 h-64 sm:h-80 lg:h-full">
+                <div class="swiper hero-swiper rounded-2xl overflow-hidden h-full bg-slate-900">
+                    <div class="swiper-wrapper">
+                        @forelse ($flashSale?->items->take(4) ?? [] as $item)
+                            @continue(! $item->product)
+                            <div class="swiper-slide">
+                                <a href="{{ route('web.products.show', ['lang' => current_lang(), 'slug' => $item->product->slug]) }}" class="block relative h-full">
+                                    <img src="{{ $item->product->main_image?->url ?? 'https://placehold.co/900x400/1a1a1a/ffffff?text=Flash+Sale' }}"
+                                        alt="{{ $item->product->name }}" class="absolute inset-0 w-full h-full object-cover opacity-80">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent flex flex-col justify-end p-6">
+                                        <span class="text-accent text-xs font-semibold uppercase tracking-wide">{{ __('website.flash_sale') }}</span>
+                                        <h2 class="text-white text-2xl font-bold mt-1">{{ $item->product->name }}</h2>
+                                    </div>
+                                </a>
+                            </div>
+                        @empty
+                            <div class="swiper-slide">
+                                <div class="relative h-full">
+                                    <img src="https://placehold.co/900x400/1a1a1a/ffffff?text={{ __('website.site_name') }}" class="absolute inset-0 w-full h-full object-cover" alt="{{ __('website.site_name') }}">
+                                </div>
+                            </div>
+                        @endforelse
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
             </div>
 
             <div class="grid grid-rows-2 gap-4">
@@ -39,7 +52,7 @@
 
         {{-- 30% off pill banner --}}
         <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}"
-            class="mt-4 flex items-center justify-between gap-4 rounded-full bg-gradient-to-r from-amber-600 to-amber-500 text-white px-6 sm:px-10 py-4 overflow-hidden">
+            class="mt-4 flex items-center justify-between gap-4 rounded-full bg-gradient-to-r from-brand to-brand text-white px-6 sm:px-10 py-4 overflow-hidden">
             <i class="fa-solid fa-gift text-2xl hidden sm:block"></i>
             <div class="text-center flex-1">
                 <p class="font-bold text-base sm:text-lg">{{ __('website.hero_banner_title') }}</p>
@@ -88,11 +101,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
-                    @foreach ($flashSale->items->take(12) as $item)
-                        @continue(! $item->product)
-                        <x-website.product-card :product="$item->product" />
-                    @endforeach
+                <div class="swiper web-product-swiper">
+                    <div class="swiper-wrapper">
+                        @foreach ($flashSale->items->take(12) as $item)
+                            @continue(! $item->product)
+                            <div class="swiper-slide">
+                                <x-website.product-card :product="$item->product" class="h-full" />
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
             </section>
         @endif
@@ -104,10 +123,16 @@
                 <a href="{{ route('web.products.index', ['lang' => current_lang(), 'sort' => 'newest']) }}" class="web-view-all">{{ __('website.view_all') }} <i class="fa-solid fa-chevron-{{ current_lang() === 'ar' ? 'left' : 'right' }} text-[10px]"></i></a>
             </div>
             @if ($newArrivals->isNotEmpty())
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
-                    @foreach ($newArrivals as $product)
-                        <x-website.product-card :product="$product" />
-                    @endforeach
+                <div class="swiper web-product-swiper">
+                    <div class="swiper-wrapper">
+                        @foreach ($newArrivals as $product)
+                            <div class="swiper-slide">
+                                <x-website.product-card :product="$product" class="h-full" />
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
             @else
                 <p class="text-sm text-slate-500">{{ __('website.no_products_found') }}</p>
@@ -121,15 +146,58 @@
                 <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}" class="web-view-all">{{ __('website.view_all') }} <i class="fa-solid fa-chevron-{{ current_lang() === 'ar' ? 'left' : 'right' }} text-[10px]"></i></a>
             </div>
             @if ($featuredProducts->isNotEmpty())
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
-                    @foreach ($featuredProducts as $product)
-                        <x-website.product-card :product="$product" />
-                    @endforeach
+                <div class="swiper web-product-swiper">
+                    <div class="swiper-wrapper">
+                        @foreach ($featuredProducts as $product)
+                            <div class="swiper-slide">
+                                <x-website.product-card :product="$product" class="h-full" />
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
             @else
                 <p class="text-sm text-slate-500">{{ __('website.no_products_found') }}</p>
             @endif
         </section>
+
+        {{-- ================= PER-CATEGORY SECTIONS ================= --}}
+        @php
+            $bannerGradients = ['from-red-600 to-orange-500', 'from-brand to-orange-500', 'from-blue-700 to-indigo-600'];
+        @endphp
+        @foreach ($categorySections as $index => $section)
+            <section class="mt-12">
+                <h2 class="text-xl font-semibold pl-3 border-s-4 border-brand mb-5">{{ $section['category']->name }}</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                    <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'categorySlug' => $section['category']->slug]) }}"
+                        class="web-promo-banner web-category-section-banner relative overflow-hidden lg:col-span-3 bg-gradient-to-br {{ $bannerGradients[$index % count($bannerGradients)] }} min-h-[280px] p-6 flex flex-col justify-between">
+                        @if ($section['category']->image)
+                            <img src="{{ asset_url($section['category']->image) }}" class="absolute inset-0 w-full h-full object-cover opacity-40" alt="{{ $section['category']->name }}">
+                        @endif
+                        <span class="relative text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1 rounded-full w-fit text-white">{{ $section['category']->name }}</span>
+                        <div class="relative text-white">
+                            <p class="text-3xl font-extrabold leading-none">{{ __('website.shop_by_categories') }}</p>
+                            <span class="inline-flex items-center gap-2 text-sm font-semibold mt-3">{{ __('website.shop') }} <i class="fa-solid fa-arrow-{{ current_lang() === 'ar' ? 'left' : 'right' }}"></i></span>
+                        </div>
+                    </a>
+
+                    <div class="lg:col-span-9">
+                        <div class="swiper web-product-swiper h-full">
+                            <div class="swiper-wrapper">
+                                @foreach ($section['products'] as $product)
+                                    <div class="swiper-slide">
+                                        <x-website.product-card :product="$product" class="h-full" />
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endforeach
 
         {{-- ================= TOP BRANDS ================= --}}
         @if ($brands->isNotEmpty())
@@ -137,16 +205,18 @@
                 <div class="web-section-head">
                     <h2 class="text-xl font-bold text-slate-900">{{ __('website.top_brands') }}</h2>
                 </div>
-                <div class="flex flex-wrap items-center gap-6 sm:gap-10">
-                    @foreach ($brands as $brand)
-                        <div class="grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100">
-                            @if ($brand->logo)
-                                <img src="{{ asset_url($brand->logo) }}" alt="{{ $brand->name }}" class="h-10 object-contain">
-                            @else
-                                <span class="text-sm font-semibold text-slate-500">{{ $brand->name }}</span>
-                            @endif
-                        </div>
-                    @endforeach
+                <div class="swiper brand-swiper">
+                    <div class="swiper-wrapper items-center">
+                        @foreach ($brands as $brand)
+                            <div class="swiper-slide flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100">
+                                @if ($brand->logo)
+                                    <img src="{{ asset_url($brand->logo) }}" alt="{{ $brand->name }}" class="h-10 object-contain mx-auto">
+                                @else
+                                    <span class="text-sm font-semibold text-slate-500">{{ $brand->name }}</span>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </section>
         @endif

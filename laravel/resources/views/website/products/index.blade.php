@@ -38,16 +38,19 @@
                     <form method="GET" action="{{ url()->current() }}" class="p-4 lg:p-0 border border-slate-100 lg:border-0 rounded-2xl lg:rounded-none">
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="font-bold text-base text-slate-900">{{ __('website.filter_by') }}</h2>
-                            <a href="{{ url()->current() }}" class="text-xs font-semibold text-amber-600 hover:underline">{{ __('website.clear_all') }}</a>
+                            <a href="{{ url()->current() }}" class="text-xs font-semibold text-brand hover:underline">{{ __('website.clear_all') }}</a>
                         </div>
 
                         {{-- Categories --}}
-                        <div class="web-filter-group">
-                            <p class="web-filter-title">{{ __('website.categories_filter') }}</p>
-                            <div class="flex flex-col gap-2 mt-3">
+                        <div class="web-filter-group" x-data="{ open: true }">
+                            <button type="button" @click="open = !open" class="web-filter-acc-btn">
+                                <span class="web-filter-title">{{ __('website.categories_filter') }}</span>
+                                <i class="fa-solid fa-chevron-up text-[11px] text-slate-400 transition-transform" :class="{ 'rotate-180': !open }"></i>
+                            </button>
+                            <div x-show="open" x-collapse class="flex flex-col gap-2 mt-3">
                                 @foreach ($categories as $cat)
                                     <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'categorySlug' => $cat->slug]) }}"
-                                        class="text-sm {{ $category?->id === $cat->id ? 'text-amber-600 font-semibold' : 'text-slate-600 hover:text-amber-600' }}">
+                                        class="text-sm {{ $category?->id === $cat->id ? 'text-brand font-semibold' : 'text-slate-600 hover:text-brand' }}">
                                         {{ $cat->name }}
                                     </a>
                                 @endforeach
@@ -55,9 +58,12 @@
                         </div>
 
                         {{-- Price --}}
-                        <div class="web-filter-group">
-                            <p class="web-filter-title">{{ __('website.price') }}</p>
-                            <div class="flex items-center gap-2 mt-3">
+                        <div class="web-filter-group" x-data="{ open: true }">
+                            <button type="button" @click="open = !open" class="web-filter-acc-btn">
+                                <span class="web-filter-title">{{ __('website.price') }}</span>
+                                <i class="fa-solid fa-chevron-up text-[11px] text-slate-400 transition-transform" :class="{ 'rotate-180': !open }"></i>
+                            </button>
+                            <div x-show="open" x-collapse class="flex items-center gap-2 mt-3">
                                 <input type="number" name="min_price" value="{{ request('min_price') }}" placeholder="{{ __('website.min_price') }}"
                                     class="w-1/2 rounded-lg border border-slate-200 px-3 py-1.5 text-sm">
                                 <input type="number" name="max_price" value="{{ request('max_price') }}" placeholder="{{ __('website.max_price') }}"
@@ -67,9 +73,12 @@
 
                         {{-- Brand --}}
                         @if ($brands->isNotEmpty())
-                            <div class="web-filter-group">
-                                <p class="web-filter-title">{{ __('website.brand') }}</p>
-                                <div class="flex flex-col gap-2 mt-3">
+                            <div class="web-filter-group" x-data="{ open: true }">
+                                <button type="button" @click="open = !open" class="web-filter-acc-btn">
+                                    <span class="web-filter-title">{{ __('website.brand') }}</span>
+                                    <i class="fa-solid fa-chevron-up text-[11px] text-slate-400 transition-transform" :class="{ 'rotate-180': !open }"></i>
+                                </button>
+                                <div x-show="open" x-collapse class="flex flex-col gap-2 mt-3">
                                     @foreach ($brands as $brand)
                                         <label class="web-filter-check">
                                             <input type="radio" name="brand_id" value="{{ $brand->id }}" {{ (string) request('brand_id') === (string) $brand->id ? 'checked' : '' }}>
@@ -99,7 +108,7 @@
                         @endforeach
                         <label for="sort-select" class="text-xs text-slate-500 hidden sm:inline">{{ __('website.sort_by') }}</label>
                         <select id="sort-select" name="sort" onchange="this.form.submit()"
-                            class="text-sm border border-slate-200 rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-amber-500">
+                            class="text-sm border border-slate-200 rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-brand">
                             <option value="" {{ request('sort') ? '' : 'selected' }}>{{ __('website.sort_default') }}</option>
                             <option value="price_asc" {{ request('sort') === 'price_asc' ? 'selected' : '' }}>{{ __('website.sort_price_asc') }}</option>
                             <option value="price_desc" {{ request('sort') === 'price_desc' ? 'selected' : '' }}>{{ __('website.sort_price_desc') }}</option>

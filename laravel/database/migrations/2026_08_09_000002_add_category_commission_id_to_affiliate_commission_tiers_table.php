@@ -10,14 +10,17 @@ return new class extends Migration
     {
         Schema::table('affiliate_commission_tiers', function (Blueprint $table) {
             $table->foreignId('affiliate_category_commission_id')->nullable()->after('affiliate_id')
-                ->constrained('affiliate_category_commissions')->cascadeOnDelete();
+                ->constrained('affiliate_category_commissions')
+                ->cascadeOnDelete()
+                ->name('act_category_commission_id_foreign');
         });
     }
 
     public function down(): void
     {
         Schema::table('affiliate_commission_tiers', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('affiliate_category_commission_id');
+            $table->dropForeign('act_category_commission_id_foreign');
+            $table->dropColumn('affiliate_category_commission_id');
         });
     }
 };

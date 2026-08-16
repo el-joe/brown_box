@@ -50,14 +50,23 @@
                     <div class="web-account-card">
                         <h2 class="text-lg font-bold text-slate-900 mb-4">{{ __('website.order_status') }}</h2>
                         <div class="web-order-timeline">
-                            @foreach ($order->statusHistories->sortByDesc('created_at') as $history)
-                                <div class="web-order-timeline-item">
-                                    <span class="web-order-timeline-dot"></span>
-                                    <p class="web-order-timeline-status">{{ __('website.status_'.$history->status) ?? $history->status }}</p>
-                                    <p class="web-order-timeline-date">{{ $history->created_at?->translatedFormat('F j, Y · g:i A') }}</p>
-                                    @if ($history->notes)
-                                        <p class="text-sm text-slate-500 mt-1">{{ $history->notes }}</p>
-                                    @endif
+                            @foreach ($order->statusHistories->sortBy('created_at')->values() as $index => $history)
+                                @php
+                                    $isLast = $index === $order->statusHistories->count() - 1;
+                                    $stepClass = $history->status === 'cancelled' ? 'cancelled' : ($isLast ? 'active' : 'done');
+                                @endphp
+                                <div class="web-timeline-step {{ $stepClass }}">
+                                    <span class="web-timeline-connector"></span>
+                                    <span class="web-timeline-icon">
+                                        <i class="fa-solid {{ $statusIcons[$history->status] ?? 'fa-circle' }}"></i>
+                                    </span>
+                                    <div>
+                                        <p class="web-timeline-label">{{ __('website.status_'.$history->status) ?? $history->status }}</p>
+                                        <p class="web-timeline-date">{{ $history->created_at?->translatedFormat('F j, Y · g:i A') }}</p>
+                                        @if ($history->notes)
+                                            <p class="text-sm text-slate-500 mt-1">{{ $history->notes }}</p>
+                                        @endif
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
@@ -67,17 +76,21 @@
                 {{-- Items --}}
                 <div class="web-account-card">
                     <h2 class="text-lg font-bold text-slate-900 mb-4">{{ __('website.order_items') }}</h2>
-                    <div class="divide-y divide-slate-100">
+                    <div>
                         @foreach ($order->items as $item)
-                            <div class="flex items-center gap-4 py-3">
+                            <div class="web-order-item-row">
+                                <span class="web-order-item-icon"><i class="fa-solid fa-box"></i></span>
                                 <div class="min-w-0 flex-1">
-                                    <p class="font-medium text-slate-800 truncate">{{ $item->product_name }}</p>
+                                    <p class="web-order-item-title truncate">{{ $item->product_name }}</p>
                                     @if ($item->variant_label)
-                                        <p class="text-xs text-slate-500 mt-0.5">{{ $item->variant_label }}</p>
+                                        <p class="web-order-item-meta">{{ $item->variant_label }}</p>
                                     @endif
-                                    <p class="text-xs text-slate-400 mt-0.5">{{ __('website.quantity') }}: {{ $item->qty }}</p>
+                                    <p class="web-order-item-meta">{{ __('website.quantity') }}: {{ $item->qty }}</p>
                                 </div>
-                                <span class="font-semibold text-slate-900">{{ money_format($item->total_price) }}</span>
+                                <div class="web-order-item-price">
+                                    <b>{{ money_format($item->total_price) }}</b>
+                                    <span>{{ money_format($item->unit_price) }} {{ __('website.each') }}</span>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -119,7 +132,7 @@
                 {{-- Refund request --}}
                 @if ($hasRefundRequest)
                     <div class="web-account-card">
-                        <p class="text-sm text-slate-500"><i class="fa-solid fa-circle-info text-amber-500 me-1.5"></i>{{ __('website.refund_already_requested') }}</p>
+                        <p class="text-sm text-slate-500"><i class="fa-solid fa-circle-info text-brand me-1.5"></i>{{ __('website.refund_already_requested') }}</p>
                     </div>
                 @elseif ($refundEligible)
                     <div class="web-account-card">
