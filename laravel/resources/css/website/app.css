@@ -89,23 +89,22 @@
 
 .web-home .swiper-button-next,
 .web-home .swiper-button-prev {
-    @apply w-9 h-9 rounded-full bg-white shadow-md text-slate-700 mt-0 -translate-y-1/2;
-    top: 40%;
+    @apply w-7 h-7 text-slate-700 mt-0 p-2 -translate-y-1/2;
+    top: 50%;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .web-home .swiper-button-next:after,
 .web-home .swiper-button-prev:after {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
 }
 
 .web-home .swiper-button-disabled {
     @apply opacity-0 pointer-events-none;
-}
-
-.web-home .hero-swiper .swiper-button-next,
-.web-home .hero-swiper .swiper-button-prev {
-    @apply bg-white/90;
 }
 
 .web-home .swiper-pagination-bullet {
