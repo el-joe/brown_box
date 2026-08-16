@@ -1,12 +1,16 @@
 import Alpine from 'alpinejs';
 import collapse from '@alpinejs/collapse';
 import $ from 'jquery';
-import 'select2';
+import initSelect2 from 'select2/dist/js/select2.full.js';
 import DataTable from 'datatables.net-bs5';
 import flatpickr from 'flatpickr';
 import Sortable from 'sortablejs';
 
 window.$ = window.jQuery = $;
+
+if (typeof initSelect2 === 'function' && typeof $.fn.select2 !== 'function') {
+    initSelect2(window, $);
+}
 window.DataTable = DataTable;
 window.flatpickr = flatpickr;
 window.Sortable = Sortable;

@@ -47,7 +47,7 @@ class AiController extends Controller
             'providers.*.config.site_url' => ['nullable', 'string'],
             'providers.*.config.site_name' => ['nullable', 'string'],
             'providers.*.available_models' => ['nullable', 'array'],
-            'providers.*.available_models.*' => ['string'],
+            'providers.*.available_models.*' => ['string', 'max:100'],
         ]);
 
         foreach ($data['providers'] as $code => $payload) {
