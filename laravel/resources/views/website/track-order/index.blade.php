@@ -2,7 +2,7 @@
 
 @section('title', __('website.track_order') . ' - ' . __('website.site_name'))
 
-@push('styles')
+@push('scripts')
     @vite(['resources/js/website/track-order.js'])
 @endpush
 

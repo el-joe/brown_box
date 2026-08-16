@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\RefundRequestController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SearchSuggestionController;
 use App\Http\Controllers\Admin\SeoPageController;
@@ -45,6 +46,12 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::prefix('reviews')->name('reviews.')->group(function (): void {
+            Route::get('/', [ReviewController::class, 'index'])->name('index');
+            Route::patch('{review}/approve', [ReviewController::class, 'approve'])->name('approve');
+            Route::delete('{review}', [ReviewController::class, 'destroy'])->name('destroy');
+        });
 
         Route::prefix('categories')->name('categories.')->group(function (): void {
             Route::get('/', [CategoryController::class, 'index'])->name('index');
@@ -205,6 +212,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::get('data', [SupplierController::class, 'data'])->name('data');
             Route::get('create', [SupplierController::class, 'create'])->name('create');
             Route::post('validate', [SupplierController::class, 'validateSupplier'])->name('validate');
+            Route::patch('{supplier}/toggle-active', [SupplierController::class, 'toggleActive'])->name('toggle-active');
             Route::post('/', [SupplierController::class, 'store'])->name('store');
             Route::get('{supplier}/edit', [SupplierController::class, 'edit'])->name('edit');
             Route::put('{supplier}/validate', [SupplierController::class, 'validateSupplier'])->name('update.validate');

@@ -16,15 +16,23 @@ class Supplier extends Model
         'phone',
         'email',
         'address',
+        'notes',
         'balance',
+        'is_active',
     ];
 
     protected $casts = [
         'balance' => 'decimal:2',
+        'is_active' => 'boolean',
     ];
 
     public function purchases(): HasMany
     {
         return $this->hasMany(Purchase::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 }

@@ -14,19 +14,20 @@ class ProductController extends Controller
             ->with([
                 'category',
                 'brand',
-                'images',
+                'productImages',
                 'variants' => fn ($q) => $q->active()->orderBy('sort_order'),
                 'variants.variantAttributes.attribute',
                 'variants.variantAttributes.attributeValue',
                 'variants.stocks',
                 'stocks',
                 'flashSaleItems.flashSale',
+                'reviews' => fn ($q) => $q->approved()->with('customer')->latest()->take(10),
             ])
             ->where('slug', $slug)
             ->firstOrFail();
 
         $relatedProducts = Product::query()->active()
-            ->with(['images'])
+            ->with(['productImages'])
             ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->take(8)
@@ -77,6 +78,8 @@ class ProductController extends Controller
             'activeFlashSaleItem' => $activeFlashSaleItem,
             'variantsJson' => $variantsJson,
             'attributeOptions' => $attributeOptions,
+            'averageRating' => $product->reviews->avg('rating') ?? 0,
+            'reviewCount' => $product->reviews->count(),
         ]);
     }
 }

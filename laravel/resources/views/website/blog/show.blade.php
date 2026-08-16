@@ -2,7 +2,7 @@
 
 @section('title', ($post->title ?? __('website.blog')) . ' - ' . __('website.site_name'))
 
-@push('styles')
+@push('scripts')
     @vite(['resources/js/website/blog.js'])
 @endpush
 

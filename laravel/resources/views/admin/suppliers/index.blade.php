@@ -23,6 +23,7 @@
             ['data' => 'email', 'name' => 'email', 'title' => __('Email'), 'orderable' => false, 'searchable' => false],
             ['data' => 'balance', 'name' => 'balance', 'title' => __('Balance'), 'orderable' => false, 'searchable' => false],
             ['data' => 'purchases_count', 'name' => 'purchases_count', 'title' => __('Purchases'), 'orderable' => false, 'searchable' => false],
+            ['data' => 'status', 'name' => 'status', 'title' => __('Status'), 'orderable' => false, 'searchable' => false],
             ['data' => 'actions', 'name' => 'actions', 'title' => __('Actions'), 'orderable' => false, 'searchable' => false],
         ]"
     >

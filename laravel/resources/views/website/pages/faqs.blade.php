@@ -2,7 +2,7 @@
 
 @section('title', __('website.faqs') . ' - ' . __('website.site_name'))
 
-@push('styles')
+@push('scripts')
     @vite(['resources/js/website/faq.js'])
 @endpush
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\PaymentController;
 use App\Http\Controllers\Website\ProductController;
 use App\Http\Controllers\Website\ProductListController;
+use App\Http\Controllers\Website\ReviewController;
 use App\Http\Controllers\Website\SearchController;
 use App\Http\Controllers\Website\ShippingController;
 use App\Http\Controllers\Website\StaticPageController;
@@ -24,6 +25,10 @@ Route::prefix('{lang}')->where(['lang' => 'ar|en'])->middleware(['web.locale', '
     Route::get('products', [ProductListController::class, 'index'])->name('products.index');
     Route::get('categories/{categorySlug?}', [ProductListController::class, 'index'])->name('categories.show');
     Route::get('product/{slug}', [ProductController::class, 'show'])->name('products.show');
+
+    Route::middleware('customer.auth')->group(function (): void {
+        Route::post('products/{product}/reviews', [ReviewController::class, 'store'])->name('products.reviews.store');
+    });
 
     Route::get('search', [SearchController::class, 'index'])->name('search.index');
     Route::get('search/suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');

@@ -30,6 +30,20 @@ if (! function_exists('setting')) {
     }
 }
 
+if (! function_exists('gateway')) {
+    function gateway(string $code): array
+    {
+        return app(\App\Services\GatewayService::class)->config($code);
+    }
+}
+
+if (! function_exists('gateway_active')) {
+    function gateway_active(string $code): bool
+    {
+        return app(\App\Services\GatewayService::class)->isActive($code);
+    }
+}
+
 if (! function_exists('current_lang')) {
     /**
      * Get the current application locale.

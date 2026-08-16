@@ -2,11 +2,9 @@
 
 namespace App\Observers;
 
-use App\Events\OrderCreated;
 use App\Events\OrderPlaced;
 use App\Events\OrderStatusChanged;
 use App\Jobs\GenerateInvoice;
-use App\Models\AccountingEntry;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
 
@@ -14,19 +12,7 @@ class OrderObserver
 {
     public function created(Order $order): void
     {
-        event(new OrderCreated($order));
         event(new OrderPlaced($order));
-
-        AccountingEntry::create([
-            'type' => 'credit',
-            'category' => 'sales',
-            'amount' => $order->total_amount,
-            'description' => 'Order '.$order->order_number,
-            'reference_type' => Order::class,
-            'reference_id' => $order->id,
-            'date' => now()->toDateString(),
-        ]);
-
         GenerateInvoice::dispatch($order)->delay(now()->addSeconds(5));
     }
 

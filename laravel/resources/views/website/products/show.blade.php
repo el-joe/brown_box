@@ -5,7 +5,7 @@
 @section('content')
     @php
         $mainImage = $product->main_image?->url ?? 'https://placehold.co/600x600';
-        $gallery = $product->images->isNotEmpty() ? $product->images : collect();
+        $gallery = $product->productImages->isNotEmpty() ? $product->productImages : collect();
         $hasDiscount = $product->is_on_sale;
         $discountPercent = $hasDiscount && $product->price > 0
             ? (int) round((($product->price - $product->effective_price) / $product->price) * 100)
@@ -65,7 +65,7 @@
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">{{ $product->name }}</h1>
 
                 <div class="flex items-center gap-3 mt-2.5">
-                    <x-website.rating :value="0" :count="0" />
+                    <x-website.rating :value="$averageRating" :count="$reviewCount" />
                     <span class="text-slate-300">|</span>
                     @if ($stock > 0)
                         <span class="text-xs text-emerald-600 font-medium"><i class="fa-solid fa-circle-check me-1"></i>{{ __('website.in_stock') }}</span>
@@ -210,7 +210,60 @@
             </div>
 
             <div data-tab-panel="reviews" class="py-5 hidden">
-                <p class="text-sm text-slate-500">{{ __('website.no_reviews_yet') }}</p>
+                @if ($product->reviews->isEmpty())
+                    <p class="text-sm text-slate-500">{{ __('website.no_reviews_yet') }}</p>
+                @else
+                    <div class="space-y-5 mb-8">
+                        @foreach ($product->reviews as $review)
+                            <div class="border-b border-slate-100 pb-5">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold text-slate-800">{{ $review->customer->name ?? __('website.anonymous') }}</span>
+                                    <span class="text-xs text-slate-400">{{ $review->created_at->format('Y-m-d') }}</span>
+                                </div>
+                                <x-website.rating :value="$review->rating" :count="0" class="mt-1" />
+                                @if ($review->title)
+                                    <p class="text-sm font-medium text-slate-800 mt-2">{{ $review->title }}</p>
+                                @endif
+                                @if ($review->body)
+                                    <p class="text-sm text-slate-600 mt-1">{{ $review->body }}</p>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                @auth('customer')
+                    <div class="border-t border-slate-100 pt-5">
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3">{{ __('website.write_a_review') }}</h3>
+                        <form method="POST" action="{{ route('web.products.reviews.store', ['lang' => current_lang(), 'product' => $product->id]) }}" class="space-y-3 max-w-lg">
+                            @csrf
+                            <div>
+                                <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('website.rating') }}</label>
+                                <select name="rating" required class="w-full rounded-lg border-slate-300 text-sm">
+                                    @for ($i = 5; $i >= 1; $i--)
+                                        <option value="{{ $i }}">{{ $i }} {{ __('website.stars') }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('website.review_title') }}</label>
+                                <input type="text" name="title" maxlength="255" class="w-full rounded-lg border-slate-300 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('website.review_body') }}</label>
+                                <textarea name="body" rows="4" maxlength="2000" class="w-full rounded-lg border-slate-300 text-sm"></textarea>
+                            </div>
+                            <button type="submit" class="px-4 py-2 rounded-lg bg-brand text-white text-sm font-medium">{{ __('website.submit_review') }}</button>
+                        </form>
+                    </div>
+                @else
+                    <div class="border-t border-slate-100 pt-5">
+                        <p class="text-sm text-slate-500">
+                            {{ __('website.review_login_prompt') }}
+                            <a href="{{ route('web.account.login', ['lang' => current_lang()]) }}" class="text-brand font-medium">{{ __('website.sign_in') }}</a>
+                        </p>
+                    </div>
+                @endauth
             </div>
         </div>
 

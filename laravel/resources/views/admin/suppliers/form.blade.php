@@ -47,6 +47,11 @@
                         <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Address') }}</label>
                         <textarea name="address" rows="3" class="w-full rounded-lg border-slate-300 text-sm">{{ old('address', $supplier->address) }}</textarea>
                     </div>
+
+                    <div class="admin-field">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Notes') }}</label>
+                        <textarea name="notes" rows="3" class="w-full rounded-lg border-slate-300 text-sm">{{ old('notes', $supplier->notes) }}</textarea>
+                    </div>
                 </div>
             </x-admin.card>
         </div>
@@ -57,6 +62,15 @@
                     <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Opening Balance') }}</label>
                     <input type="number" step="0.01" name="balance" value="{{ old('balance', $supplier->balance ?? 0) }}" class="w-full rounded-lg border-slate-300 text-sm">
                 </div>
+            </x-admin.card>
+
+            <x-admin.card :title="__('Status')">
+                <label class="flex items-center gap-2 text-sm text-slate-700">
+                    <input type="hidden" name="is_active" value="0">
+                    <input type="checkbox" name="is_active" value="1" class="rounded border-slate-300"
+                        @checked(old('is_active', $supplier->is_active ?? true))>
+                    {{ __('Active') }}
+                </label>
             </x-admin.card>
 
             <div class="flex items-center gap-2">

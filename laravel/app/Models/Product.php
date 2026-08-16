@@ -90,11 +90,6 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Tag::class, 'product_tags');
     }
 
-    public function images(): HasMany
-    {
-        return $this->hasMany(ProductImage::class);
-    }
-
     public function productImages(): HasMany
     {
         return $this->hasMany(ProductImage::class);
@@ -128,6 +123,21 @@ class Product extends Model implements HasMedia
     public function flashSaleItems(): HasMany
     {
         return $this->hasMany(FlashSaleItem::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
+    public function getAverageRatingAttribute(): float
+    {
+        return (float) $this->reviews()->approved()->avg('rating');
+    }
+
+    public function getReviewCountAttribute(): int
+    {
+        return $this->reviews()->approved()->count();
     }
 
     public function coupons(): BelongsToMany

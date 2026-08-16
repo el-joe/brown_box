@@ -70,4 +70,23 @@ class ProductVariant extends Model
     {
         return $query->where('is_active', true);
     }
+
+    /**
+     * Build a human-readable label from this variant's attribute values,
+     * e.g. "Color: Red / Size: L". Returns null when no attributes exist.
+     */
+    public function getVariantLabelAttribute(): ?string
+    {
+        if ($this->relationLoaded('variantAttributes')) {
+            $parts = $this->variantAttributes->map(function ($va) {
+                $attrName = $va->attribute?->name ?? '';
+                $attrValue = $va->attributeValue?->value ?? '';
+                return $attrName && $attrValue ? "{$attrName}: {$attrValue}" : null;
+            })->filter()->values();
+
+            return $parts->isNotEmpty() ? $parts->implode(' / ') : null;
+        }
+
+        return null;
+    }
 }

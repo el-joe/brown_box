@@ -6,7 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', __('website.site_name'))</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    @vite([is_rtl() ? 'resources/css/website/app.rtl.css' : 'resources/css/website/app.ltr.css', 'resources/js/website/app.js'])
+    @if(app()->environment('local') || file_exists(public_path('build/manifest.json')))
+        @vite([is_rtl() ? 'resources/css/website/app.rtl.css' : 'resources/css/website/app.ltr.css', 'resources/js/website/app.js'])
+    @endif
     @stack('styles')
 </head>
 <body class="bg-white text-slate-800 antialiased">

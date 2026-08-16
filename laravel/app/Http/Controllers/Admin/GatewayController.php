@@ -60,6 +60,8 @@ class GatewayController extends Controller
             'config' => $config,
         ]);
 
+        app(\App\Services\GatewayService::class)->flush();
+
         return redirect()->route('admin.gateways.index')->with('success', __('Gateway updated successfully.'));
     }
 }

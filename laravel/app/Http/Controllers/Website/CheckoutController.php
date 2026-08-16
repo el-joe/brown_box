@@ -18,12 +18,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\View\View;
 
 class CheckoutController extends Controller
 {
-    public function __construct(private readonly PaymentService $paymentService)
-    {
+    public function __construct(
+        private readonly PaymentService $paymentService,
+        private readonly \App\Services\AffiliateService $affiliateService,
+    ) {
     }
 
     public function index(): View
@@ -67,6 +70,11 @@ class CheckoutController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $affiliateCode = session('affiliate_ref_code');
+        $affiliate = $affiliateCode
+            ? \App\Models\Affiliate::query()->where('code', $affiliateCode)->where('is_active', true)->first()
+            : null;
+
         $data = $request->validate([
             'address_id' => ['nullable', 'integer', 'exists:customer_addresses,id'],
             'name' => ['required_without:address_id', 'nullable', 'string', 'max:255'],
@@ -75,7 +83,7 @@ class CheckoutController extends Controller
             'city_id' => ['required_without:address_id', 'nullable', 'integer', 'exists:cities,id'],
             'address_line' => ['required_without:address_id', 'nullable', 'string', 'max:500'],
             'shipping_company_id' => ['nullable', 'integer', 'exists:shipping_companies,id'],
-            'payment_gateway' => ['required', 'string'],
+            'payment_gateway' => ['required', 'string', new Enum(PaymentGateway::class)],
             'coupon_code' => ['nullable', 'string'],
             'notes' => ['nullable', 'string', 'max:1000'],
         ]);
@@ -118,13 +126,17 @@ class CheckoutController extends Controller
             $shippingAmount = $rate ? (float) $rate->price : 0;
         }
 
-        $order = DB::transaction(function () use ($cart, $data, $customer, $addressPayload, $shippingAmount) {
+        $order = DB::transaction(function () use ($cart, $data, $customer, $addressPayload, $shippingAmount, $affiliate) {
             $subtotal = 0;
             $lines = [];
 
             foreach ($cart as $line) {
                 $product = Product::query()->findOrFail($line['product_id']);
-                $variant = $line['variant_id'] ? ProductVariant::query()->find($line['variant_id']) : null;
+                $variant = $line['variant_id']
+                    ? ProductVariant::query()
+                        ->with(['variantAttributes.attribute', 'variantAttributes.attributeValue'])
+                        ->find($line['variant_id'])
+                    : null;
                 $price = $variant ? (float) $variant->price : $product->effective_price;
                 $total = $price * $line['qty'];
                 $subtotal += $total;
@@ -148,6 +160,7 @@ class CheckoutController extends Controller
                     $discount = $coupon->type === 'percentage'
                         ? $subtotal * $coupon->value / 100
                         : (float) $coupon->value;
+                    $coupon->increment('used_count');
                 }
             }
 
@@ -167,6 +180,7 @@ class CheckoutController extends Controller
                 'shipping_company_id' => $data['shipping_company_id'] ?? null,
                 'notes' => $data['notes'] ?? null,
                 'customer_address' => $addressPayload,
+                'affiliate_id' => $affiliate?->id,
             ]);
 
             foreach ($lines as $line) {
@@ -176,12 +190,25 @@ class CheckoutController extends Controller
                     'variant_id' => $line['variant']?->id,
                     'product_name' => $line['product']->name,
                     'product_sku' => $line['variant']?->sku ?? $line['product']->sku,
-                    'variant_label' => null,
+                    'variant_label' => $line['variant']?->variant_label,
                     'qty' => $line['qty'],
                     'unit_price' => $line['price'],
                     'discount_amount' => 0,
                     'total_price' => $line['total'],
                 ]);
+            }
+
+            if ($affiliate) {
+                $commissionAmount = $this->affiliateService->calculateCommission($affiliate, $order);
+
+                if ($commissionAmount > 0) {
+                    \App\Models\AffiliateCommission::query()->create([
+                        'affiliate_id' => $affiliate->id,
+                        'order_id' => $order->id,
+                        'amount' => $commissionAmount,
+                        'status' => 'pending',
+                    ]);
+                }
             }
 
             return $order;

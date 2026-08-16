@@ -47,7 +47,7 @@ class ProductListController extends Controller
             default => $query->orderBy('name'),
         };
 
-        $products = $query->with(['images', 'brand'])->paginate(24)->withQueryString();
+        $products = $query->with(['productImages', 'brand'])->paginate(24)->withQueryString();
 
         return view('website.products.index', [
             'category' => $category,

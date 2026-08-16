@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Events\PaymentVerified;
-use App\Models\Gateway;
 use App\Models\Order;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -108,7 +107,7 @@ class PaymentService
      */
     private function paymobConfig(): array
     {
-        $gatewayConfig = Gateway::query()->where('code', 'paymob')->first()?->config ?? [];
+        $gatewayConfig = gateway('paymob');
 
         $config = [
             'api_key' => $gatewayConfig['api_key'] ?? config('services.paymob.api_key'),

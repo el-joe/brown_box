@@ -38,9 +38,10 @@ class SupplierController extends Controller
             ->addColumn('phone', fn (Supplier $supplier) => e($supplier->phone ?? '—'))
             ->addColumn('email', fn (Supplier $supplier) => e($supplier->email ?? '—'))
             ->addColumn('balance', fn (Supplier $supplier) => number_format((float) $supplier->balance, 2))
+            ->addColumn('status', fn (Supplier $supplier) => view('admin.suppliers._status', ['supplier' => $supplier])->render())
             ->addColumn('purchases_count', fn (Supplier $supplier) => (string) $supplier->purchases_count)
             ->addColumn('actions', fn (Supplier $supplier) => view('admin.suppliers._actions', ['supplier' => $supplier])->render())
-            ->rawColumns(['actions'])
+            ->rawColumns(['actions', 'status'])
             ->toJson();
     }
 
@@ -51,7 +52,7 @@ class SupplierController extends Controller
 
     public function store(SupplierRequest $request): RedirectResponse
     {
-        $this->suppliers->create($request->safe()->only(['name', 'phone', 'email', 'address', 'balance']));
+        $this->suppliers->create($request->safe()->only(['name', 'phone', 'email', 'address', 'notes', 'balance', 'is_active']));
 
         return redirect()->route('admin.suppliers.index')->with('success', __('Supplier created successfully.'));
     }
@@ -67,7 +68,7 @@ class SupplierController extends Controller
 
     public function update(SupplierRequest $request, int $id): RedirectResponse
     {
-        $this->suppliers->update($id, $request->safe()->only(['name', 'phone', 'email', 'address', 'balance']));
+        $this->suppliers->update($id, $request->safe()->only(['name', 'phone', 'email', 'address', 'notes', 'balance', 'is_active']));
 
         return redirect()->route('admin.suppliers.index')->with('success', __('Supplier updated successfully.'));
     }
@@ -82,5 +83,16 @@ class SupplierController extends Controller
     public function validateSupplier(SupplierRequest $request): JsonResponse
     {
         return response()->json(['errors' => (object) []]);
+    }
+
+    public function toggleActive(int $id): JsonResponse
+    {
+        $supplier = $this->suppliers->find($id);
+
+        abort_if(! $supplier, 404);
+
+        $supplier = $this->suppliers->update($id, ['is_active' => ! $supplier->is_active]);
+
+        return response()->json(['success' => true, 'is_active' => $supplier->is_active]);
     }
 }

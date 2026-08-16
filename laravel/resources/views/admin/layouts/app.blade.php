@@ -6,7 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', __('Dashboard')) — Brown Box Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    @vite([is_rtl() ? 'resources/css/admin/app.rtl.css' : 'resources/css/admin/app.ltr.css', 'resources/js/admin/app.js'])
+    @if(app()->environment('local') || file_exists(public_path('build/manifest.json')))
+        @vite([is_rtl() ? 'resources/css/admin/app.rtl.css' : 'resources/css/admin/app.ltr.css', 'resources/js/admin/app.js'])
+    @endif
     @stack('styles')
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased">
@@ -25,7 +27,7 @@
 
                 @php
                     $sections = [
-                        'catalog' => ['icon' => 'fa-tags', 'label' => 'Catalog', 'items' => ['Categories' => 'fa-sitemap', 'Brands' => 'fa-copyright', 'Products' => 'fa-box-open', 'Attributes' => 'fa-sliders']],
+                        'catalog' => ['icon' => 'fa-tags', 'label' => 'Catalog', 'items' => ['Categories' => 'fa-sitemap', 'Brands' => 'fa-copyright', 'Products' => 'fa-box-open', 'Attributes' => 'fa-sliders', 'Reviews' => 'fa-star']],
                         'inventory' => ['icon' => 'fa-warehouse', 'label' => 'Inventory', 'items' => ['Warehouses' => 'fa-industry', 'Stock' => 'fa-boxes-stacked', 'Purchases' => 'fa-cart-shopping', 'Suppliers' => 'fa-truck-field'],],
                         'sales' => ['icon' => 'fa-receipt', 'label' => 'Sales', 'items' => ['Orders' => 'fa-cart-flatbed', 'Refunds' => 'fa-rotate-left']],
                         'customers' => ['icon' => 'fa-users', 'label' => 'Customers', 'items' => []],
@@ -60,7 +62,7 @@
                     @else
                         @php
                             $sectionRoutePatterns = [
-                                'catalog' => ['admin.categories.*', 'admin.brands.*', 'admin.products.*', 'admin.attributes.*'],
+                                'catalog' => ['admin.categories.*', 'admin.brands.*', 'admin.products.*', 'admin.attributes.*', 'admin.reviews.*'],
                                 'inventory' => ['admin.warehouses.*', 'admin.stock.*', 'admin.purchases.*', 'admin.suppliers.*'],
                                 'sales' => ['admin.orders.index', 'admin.orders.show', 'admin.refunds.*'],
                                 'marketing' => ['admin.banners.*', 'admin.coupons.*', 'admin.flash-sales.*', 'admin.search-suggestions.*', 'admin.seo.*', 'admin.blog.*', 'admin.blog-categories.*'],
@@ -85,6 +87,7 @@
                                             'Brands' => route('admin.brands.index'),
                                             'Banners' => route('admin.banners.index'),
                                             'Attributes' => route('admin.attributes.index'),
+                                            'Reviews' => route('admin.reviews.index'),
                                             'Products' => route('admin.products.index'),
                                             'Warehouses' => route('admin.warehouses.index'),
                                             'Stock' => route('admin.stock.index'),
@@ -119,6 +122,7 @@
                                             'Brands' => request()->routeIs('admin.brands.*'),
                                             'Banners' => request()->routeIs('admin.banners.*'),
                                             'Attributes' => request()->routeIs('admin.attributes.*'),
+                                            'Reviews' => request()->routeIs('admin.reviews.*'),
                                             'Products' => request()->routeIs('admin.products.*'),
                                             'Warehouses' => request()->routeIs('admin.warehouses.*'),
                                             'Stock' => request()->routeIs('admin.stock.*'),
@@ -281,7 +285,9 @@
 
     <x-admin.confirm-delete />
 
-    @vite(['resources/js/admin/form-handler.js'])
+    @if(app()->environment('local') || file_exists(public_path('build/manifest.json')))
+        @vite(['resources/js/admin/form-handler.js'])
+    @endif
     @stack('scripts')
 </body>
 </html>
