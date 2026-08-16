@@ -29,7 +29,7 @@
                         'inventory' => ['icon' => 'fa-warehouse', 'label' => 'Inventory', 'items' => ['Warehouses' => 'fa-industry', 'Stock' => 'fa-boxes-stacked', 'Purchases' => 'fa-cart-shopping'],],
                         'sales' => ['icon' => 'fa-receipt', 'label' => 'Sales', 'items' => ['Orders' => 'fa-cart-flatbed', 'Refunds' => 'fa-rotate-left']],
                         'customers' => ['icon' => 'fa-users', 'label' => 'Customers', 'items' => []],
-                        'marketing' => ['icon' => 'fa-bullhorn', 'label' => 'Marketing', 'items' => ['Coupons' => 'fa-ticket', 'Flash Sales' => 'fa-bolt', 'Search Suggestions' => 'fa-magnifying-glass', 'SEO' => 'fa-magnifying-glass-chart', 'Blog' => 'fa-newspaper', 'Blog Categories' => 'fa-sitemap']],
+                        'marketing' => ['icon' => 'fa-bullhorn', 'label' => 'Marketing', 'items' => ['Banners' => 'fa-image', 'Coupons' => 'fa-ticket', 'Flash Sales' => 'fa-bolt', 'Search Suggestions' => 'fa-magnifying-glass', 'SEO' => 'fa-magnifying-glass-chart', 'Blog' => 'fa-newspaper', 'Blog Categories' => 'fa-sitemap']],
                         'affiliates' => ['icon' => 'fa-handshake', 'label' => 'Affiliates', 'items' => ['Affiliates' => 'fa-user-tie', 'Payout Requests' => 'fa-money-check-dollar']],
                         'finance' => ['icon' => 'fa-sack-dollar', 'label' => 'Finance', 'items' => ['Expenses' => 'fa-money-bill-wave', 'Expense Categories' => 'fa-sitemap', 'Accounting' => 'fa-book', 'Opening Balances' => 'fa-scale-balanced', 'Transactions' => 'fa-right-left']],
                         'pos' => ['icon' => 'fa-cash-register', 'label' => 'POS', 'items' => []],
@@ -58,8 +58,20 @@
                             <i class="fa-solid {{ $section['icon'] }} w-5"></i> <span x-show="sidebarOpen">{{ __($section['label']) }}</span>
                         </a>
                     @else
-                        <div x-data="{ expanded: false }">
-                            <button type="button" @click="expanded = !expanded" class="admin-nav-link w-full justify-between">
+                        @php
+                            $sectionRoutePatterns = [
+                                'catalog' => ['admin.categories.*', 'admin.brands.*', 'admin.products.*', 'admin.attributes.*'],
+                                'inventory' => ['admin.warehouses.*', 'admin.stock.*', 'admin.purchases.*'],
+                                'sales' => ['admin.orders.index', 'admin.orders.show', 'admin.refunds.*'],
+                                'marketing' => ['admin.banners.*', 'admin.coupons.*', 'admin.flash-sales.*', 'admin.search-suggestions.*', 'admin.seo.*', 'admin.blog.*', 'admin.blog-categories.*'],
+                                'affiliates' => ['admin.affiliates.*'],
+                                'finance' => ['admin.expenses.*', 'admin.expense-categories.*', 'admin.accounting.*', 'admin.opening-balances.*', 'admin.transactions.*'],
+                                'settings' => ['admin.settings.*', 'admin.gateways.*', 'admin.shipping.*', 'admin.admins.*', 'admin.roles.*', 'admin.audits.*', 'admin.static-pages.*'],
+                            ];
+                            $sectionActive = request()->routeIs(...($sectionRoutePatterns[$key] ?? []));
+                        @endphp
+                        <div x-data="{ expanded: {{ $sectionActive ? 'true' : 'false' }} }">
+                            <button type="button" @click="expanded = !expanded" class="admin-nav-link w-full justify-between {{ $sectionActive ? 'active' : '' }}">
                                 <span class="flex items-center gap-3">
                                     <i class="fa-solid {{ $section['icon'] }} w-5"></i> <span x-show="sidebarOpen">{{ __($section['label']) }}</span>
                                 </span>
@@ -71,6 +83,7 @@
                                         $navUrl = match ($label) {
                                             'Categories' => route('admin.categories.index'),
                                             'Brands' => route('admin.brands.index'),
+                                            'Banners' => route('admin.banners.index'),
                                             'Attributes' => route('admin.attributes.index'),
                                             'Products' => route('admin.products.index'),
                                             'Warehouses' => route('admin.warehouses.index'),
@@ -103,6 +116,7 @@
                                         $navActive = match ($label) {
                                             'Categories' => request()->routeIs('admin.categories.*'),
                                             'Brands' => request()->routeIs('admin.brands.*'),
+                                            'Banners' => request()->routeIs('admin.banners.*'),
                                             'Attributes' => request()->routeIs('admin.attributes.*'),
                                             'Products' => request()->routeIs('admin.products.*'),
                                             'Warehouses' => request()->routeIs('admin.warehouses.*'),

@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             ProductSeeder::class,
             FlashSaleSeeder::class,
+            BannerSeeder::class,
         ]);
         $this->seedAdmin();
     }

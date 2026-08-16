@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Repositories\AccountingEntryRepository;
 use App\Repositories\AffiliateCommissionRepository;
 use App\Repositories\AffiliateRepository;
+use App\Repositories\BannerRepository;
 use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BrandRepository;
@@ -12,6 +13,7 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\Contracts\AccountingEntryRepositoryInterface;
 use App\Repositories\Contracts\AffiliateCommissionRepositoryInterface;
 use App\Repositories\Contracts\AffiliateRepositoryInterface;
+use App\Repositories\Contracts\BannerRepositoryInterface;
 use App\Repositories\Contracts\BlogCategoryRepositoryInterface;
 use App\Repositories\Contracts\BlogPostRepositoryInterface;
 use App\Repositories\Contracts\BrandRepositoryInterface;
@@ -80,6 +82,7 @@ class RepositoryServiceProvider extends ServiceProvider
         RefundRequestRepositoryInterface::class => RefundRequestRepository::class,
         PayoutRequestRepositoryInterface::class => PayoutRequestRepository::class,
         BrandRepositoryInterface::class => BrandRepository::class,
+        BannerRepositoryInterface::class => BannerRepository::class,
         TagRepositoryInterface::class => TagRepository::class,
         SearchSuggestionRepositoryInterface::class => SearchSuggestionRepository::class,
         NotificationRepositoryInterface::class => NotificationRepository::class,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\FlashSale;
@@ -32,6 +33,7 @@ class HomeController extends Controller
 
         return view('website.home.index', [
             'categories' => $categories,
+            'banners' => Banner::query()->active()->orderBy('sort_order')->get(),
             'featuredProducts' => Product::query()->active()->featured()->with(['productImages', 'category'])->latest()->take(12)->get(),
             'flashSale' => FlashSale::query()->active()->with('items.product.productImages')->first(),
             'newArrivals' => Product::query()->active()->with(['productImages', 'category'])->latest()->take(12)->get(),

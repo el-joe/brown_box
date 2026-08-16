@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AffiliateController;
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
@@ -68,6 +69,19 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::put('{brand}/validate', [BrandController::class, 'validateBrand'])->name('update.validate');
             Route::put('{brand}', [BrandController::class, 'update'])->name('update');
             Route::delete('{brand}', [BrandController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('banners')->name('banners.')->group(function (): void {
+            Route::get('/', [BannerController::class, 'index'])->name('index');
+            Route::get('data', [BannerController::class, 'data'])->name('data');
+            Route::get('create', [BannerController::class, 'create'])->name('create');
+            Route::post('validate', [BannerController::class, 'validateBanner'])->name('validate');
+            Route::patch('{banner}/toggle-active', [BannerController::class, 'toggleActive'])->name('toggle-active');
+            Route::post('/', [BannerController::class, 'store'])->name('store');
+            Route::get('{banner}/edit', [BannerController::class, 'edit'])->name('edit');
+            Route::put('{banner}/validate', [BannerController::class, 'validateBanner'])->name('update.validate');
+            Route::put('{banner}', [BannerController::class, 'update'])->name('update');
+            Route::delete('{banner}', [BannerController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('blog-categories')->name('blog-categories.')->group(function (): void {

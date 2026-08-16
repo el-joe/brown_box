@@ -8,24 +8,36 @@
             <div class="lg:col-span-2 h-64 sm:h-80 lg:h-full">
                 <div class="swiper hero-swiper rounded-2xl overflow-hidden h-full bg-slate-900">
                     <div class="swiper-wrapper">
-                        @forelse ($flashSale?->items->take(4) ?? [] as $item)
-                            @continue(! $item->product)
+                        @forelse ($banners as $banner)
                             <div class="swiper-slide">
-                                <a href="{{ route('web.products.show', ['lang' => current_lang(), 'slug' => $item->product->slug]) }}" class="block relative h-full">
-                                    <img src="{{ $item->product->main_image?->url ?? 'https://placehold.co/900x400/1a1a1a/ffffff?text=Flash+Sale' }}"
-                                        alt="{{ $item->product->name }}" class="absolute inset-0 w-full h-full object-cover opacity-80">
+                                <a href="{{ $banner->link() }}" class="block relative h-full">
+                                    <img src="{{ asset_url($banner->image) }}"
+                                        alt="{{ $banner->title }}" class="absolute inset-0 w-full h-full object-cover opacity-80">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent flex flex-col justify-end p-6">
-                                        <span class="text-accent text-xs font-semibold uppercase tracking-wide">{{ __('website.flash_sale') }}</span>
-                                        <h2 class="text-white text-2xl font-bold mt-1">{{ $item->product->name }}</h2>
+                                        <h2 class="text-white text-2xl font-bold mt-1">{{ $banner->title }}</h2>
                                     </div>
                                 </a>
                             </div>
                         @empty
-                            <div class="swiper-slide">
-                                <div class="relative h-full">
-                                    <img src="https://placehold.co/900x400/1a1a1a/ffffff?text={{ __('website.site_name') }}" class="absolute inset-0 w-full h-full object-cover" alt="{{ __('website.site_name') }}">
+                            @forelse ($flashSale?->items->take(4) ?? [] as $item)
+                                @continue(! $item->product)
+                                <div class="swiper-slide">
+                                    <a href="{{ route('web.products.show', ['lang' => current_lang(), 'slug' => $item->product->slug]) }}" class="block relative h-full">
+                                        <img src="{{ $item->product->main_image?->url ?? 'https://placehold.co/900x400/1a1a1a/ffffff?text=Flash+Sale' }}"
+                                            alt="{{ $item->product->name }}" class="absolute inset-0 w-full h-full object-cover opacity-80">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent flex flex-col justify-end p-6">
+                                            <span class="text-accent text-xs font-semibold uppercase tracking-wide">{{ __('website.flash_sale') }}</span>
+                                            <h2 class="text-white text-2xl font-bold mt-1">{{ $item->product->name }}</h2>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
+                            @empty
+                                <div class="swiper-slide">
+                                    <div class="relative h-full">
+                                        <img src="https://placehold.co/900x400/1a1a1a/ffffff?text={{ __('website.site_name') }}" class="absolute inset-0 w-full h-full object-cover" alt="{{ __('website.site_name') }}">
+                                    </div>
+                                </div>
+                            @endforelse
                         @endforelse
                     </div>
                     <div class="swiper-pagination"></div>
