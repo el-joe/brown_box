@@ -71,8 +71,14 @@ class Product extends Model implements HasMedia
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom(fn (Product $model) => $model->getTranslation('name', 'en'))
-            ->saveSlugsTo('slug');
+            ->generateSlugsFrom(function (Product $model): string {
+                $en = $model->getTranslation('name', 'en', false);
+                $ar = $model->getTranslation('name', 'ar', false);
+
+                return filled($en) ? $en : (filled($ar) ? $ar : 'product');
+            })
+            ->saveSlugsTo('slug')
+            ->slugsShouldBeNoLongerThan(200);
     }
 
     public function category(): BelongsTo

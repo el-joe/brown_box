@@ -34,20 +34,24 @@ class AccountController extends Controller
         ]);
     }
 
-    public function orderDetail(int $order): View
+    public function orderDetail(Request $request): View
     {
+        $orderId = (int) $request->route('order');
+
         $order = Order::query()
             ->where('customer_id', Auth::guard('customer')->id())
             ->with('items', 'statusHistories', 'refundRequests', 'shippingCompany')
-            ->findOrFail($order);
+            ->findOrFail($orderId);
 
         return view('website.account.order-detail', [
             'order' => $order,
         ]);
     }
 
-    public function requestRefund(Request $request, int $order): RedirectResponse
+    public function requestRefund(Request $request): RedirectResponse
     {
+        $orderId = (int) $request->route('order');
+
         $data = $request->validate([
             'reason' => ['required', 'string', 'max:255'],
             'details' => ['nullable', 'string'],
@@ -55,7 +59,7 @@ class AccountController extends Controller
 
         $order = Order::query()
             ->where('customer_id', Auth::guard('customer')->id())
-            ->findOrFail($order);
+            ->findOrFail($orderId);
 
         RefundRequest::query()->create([
             'order_id' => $order->id,
@@ -122,22 +126,26 @@ class AccountController extends Controller
         return back()->with('success', __('website.address_added'));
     }
 
-    public function updateAddress(Request $request, int $address): RedirectResponse
+    public function updateAddress(Request $request): RedirectResponse
     {
+        $addressId = (int) $request->route('address');
+
         $address = CustomerAddress::query()
             ->where('customer_id', Auth::guard('customer')->id())
-            ->findOrFail($address);
+            ->findOrFail($addressId);
 
         $address->update($this->validateAddress($request));
 
         return back()->with('success', __('website.address_updated'));
     }
 
-    public function destroyAddress(int $address): RedirectResponse
+    public function destroyAddress(Request $request): RedirectResponse
     {
+        $addressId = (int) $request->route('address');
+
         CustomerAddress::query()
             ->where('customer_id', Auth::guard('customer')->id())
-            ->findOrFail($address)
+            ->findOrFail($addressId)
             ->delete();
 
         return back()->with('success', __('website.address_deleted'));

@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function show(string $slug): View
+    public function show(Request $request): View
     {
-        $product = Product::query()->active()
+        $slug = $request->route('slug');
+
+        $product = Product::query()
             ->with([
                 'category',
                 'brand',
@@ -25,6 +28,8 @@ class ProductController extends Controller
             ])
             ->where('slug', $slug)
             ->firstOrFail();
+
+        abort_if(! $product->is_active, 404);
 
         $relatedProducts = Product::query()->active()
             ->with(['productImages'])

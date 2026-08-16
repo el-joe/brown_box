@@ -172,6 +172,7 @@
                                 <div id="pm-details-{{ $gateway->code }}" class="pm-instructions hidden">
                                     <p class="font-bold text-sm mb-3">{{ $meta['name'] }} {{ __('website.upload_payment_invoice') }}</p>
                                     @foreach ($config as $label => $value)
+                                        @php $value = is_array($value) ? implode(', ', $value) : $value; @endphp
                                         <div class="web-pm-row">
                                             <span>{{ ucwords(str_replace('_', ' ', $label)) }}</span>
                                             <b>{{ $value }}</b>

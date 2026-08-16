@@ -37,8 +37,10 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show(string $slug): View
+    public function show(Request $request): View
     {
+        $slug = $request->route('slug');
+
         $post = BlogPost::query()->published()->with(['author', 'category'])->where('slug', $slug)->first();
 
         $relatedPosts = collect();

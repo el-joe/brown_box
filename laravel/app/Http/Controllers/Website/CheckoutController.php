@@ -223,7 +223,7 @@ class CheckoutController extends Controller
             return redirect()->away($iframeUrl);
         }
 
-        return redirect()->route('web.checkout.success');
+        return redirect()->route('web.checkout.success', ['lang' => current_lang()]);
     }
 
     public function success(): View

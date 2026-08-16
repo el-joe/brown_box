@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\StaticPage;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class StaticPageController extends Controller
 {
-    public function show(string $slug): View
+    public function show(Request $request): View
     {
+        $slug = $request->route('slug');
+
         $page = StaticPage::query()->active()->where('slug', $slug)->firstOrFail();
 
         return view('website.pages.show', [

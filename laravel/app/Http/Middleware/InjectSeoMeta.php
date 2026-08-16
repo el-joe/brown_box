@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Repositories\Contracts\SeoPageRepositoryInterface;
 use Closure;
 use Illuminate\Http\Request;
@@ -17,16 +19,36 @@ class InjectSeoMeta
 
     public function handle(Request $request, Closure $next): Response
     {
-        $pageKey = $request->route()?->getName();
+        $routeName = $request->route()?->getName();
 
-        if (! $pageKey || $request->expectsJson()) {
+        if (! $routeName || $request->expectsJson()) {
             return $next($request);
         }
 
+        $cacheKey = 'seo.page.' . md5($request->path());
+
         $seoPage = Cache::remember(
-            "seo.page.{$pageKey}",
+            $cacheKey,
             now()->addHours(6),
-            fn () => $this->seoPages->findByPageKey($pageKey),
+            function () use ($request, $routeName) {
+                if ($routeName === 'web.products.show') {
+                    $product = Product::query()->where('slug', $request->route('slug'))->first();
+
+                    return $product
+                        ? $this->seoPages->findForModel(Product::class, $product->id)
+                        : null;
+                }
+
+                if ($routeName === 'web.categories.show') {
+                    $category = Category::query()->where('slug', $request->route('categorySlug'))->first();
+
+                    return $category
+                        ? $this->seoPages->findForModel(Category::class, $category->id)
+                        : null;
+                }
+
+                return $this->seoPages->findByPageKey($routeName);
+            },
         );
 
         View::share('seo', $seoPage);

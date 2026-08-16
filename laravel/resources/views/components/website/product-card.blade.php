@@ -11,7 +11,7 @@
         <i class="fa-regular fa-heart"></i>
     </button>
 
-    <a href="{{ route('web.products.show', ['lang' => current_lang(), 'slug' => $product->slug]) }}" class="block">
+    <a href="{{ $product->slug ? route('web.products.show', ['lang' => current_lang(), 'slug' => $product->slug]) : '#' }}" class="block">
         <div class="relative">
             <img src="{{ $product->main_image?->url ?? 'https://placehold.co/300x300' }}" alt="{{ $product->name }}"
                 class="w-full aspect-square object-cover">

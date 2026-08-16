@@ -92,8 +92,10 @@ class CartController extends Controller
         return back()->with('success', __('website.added_to_cart'));
     }
 
-    public function update(Request $request, string $key): RedirectResponse|\Illuminate\Http\JsonResponse
+    public function update(Request $request): RedirectResponse|\Illuminate\Http\JsonResponse
     {
+        $key = (string) $request->route('key');
+
         $data = $request->validate([
             'qty' => ['required', 'integer', 'min:1'],
         ]);
@@ -120,8 +122,10 @@ class CartController extends Controller
         return back()->with('success', __('website.cart_updated'));
     }
 
-    public function remove(Request $request, string $key): RedirectResponse|\Illuminate\Http\JsonResponse
+    public function remove(Request $request): RedirectResponse|\Illuminate\Http\JsonResponse
     {
+        $key = (string) $request->route('key');
+
         $cart = session('cart', []);
         unset($cart[$key]);
         session(['cart' => $cart]);
