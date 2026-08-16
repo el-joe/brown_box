@@ -48,8 +48,12 @@
                                 <i class="fa-solid fa-chevron-up text-[11px] text-slate-400 transition-transform" :class="{ 'rotate-180': !open }"></i>
                             </button>
                             <div x-show="open" x-collapse class="flex flex-col gap-2 mt-3">
+                                <a href="{{ route('web.categories.show', ['lang' => current_lang()] + request()->query()) }}"
+                                    class="text-sm {{ ! $category ? 'text-brand font-semibold' : 'text-slate-600 hover:text-brand' }}">
+                                    {{ __('website.all_categories') }}
+                                </a>
                                 @foreach ($categories as $cat)
-                                    <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'categorySlug' => $cat->slug]) }}"
+                                    <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'categorySlug' => $cat->slug] + request()->query()) }}"
                                         class="text-sm {{ $category?->id === $cat->id ? 'text-brand font-semibold' : 'text-slate-600 hover:text-brand' }}">
                                         {{ $cat->name }}
                                     </a>

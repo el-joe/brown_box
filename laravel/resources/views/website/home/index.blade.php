@@ -223,13 +223,22 @@
                 <div class="swiper brand-swiper">
                     <div class="swiper-wrapper items-center">
                         @foreach ($brands as $brand)
-                            <div class="swiper-slide flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100">
-                                @if ($brand->logo)
-                                    <img src="{{ asset_url($brand->logo) }}" alt="{{ $brand->name }}" class="h-10 object-contain mx-auto">
-                                @else
-                                    <span class="text-sm font-semibold text-slate-500">{{ $brand->name }}</span>
-                                @endif
-                            </div>
+                            <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'brand_id' => $brand->id]) }}" class="swiper-slide block">
+                                <div class="relative h-28 rounded-xl overflow-hidden group shadow-sm">
+                                    @if ($brand->logo)
+                                        <div class="absolute inset-0 w-full h-full blur-md transition-transform group-hover:scale-105"
+                                            style="background-image: url('{{ asset_url($brand->logo) }}'); background-size: 100% 100%; background-position: center;"></div>
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <span class="text-sm font-semibold text-white bg-black/50 backdrop-blur-sm rounded-lg px-3 py-1.5 truncate max-w-[90%]">{{ $brand->name }}</span>
+                                        </div>
+                                    @else
+                                        <div class="absolute inset-0 bg-gradient-to-br from-brand/20 to-brand/40"></div>
+                                        <div class="relative h-full flex items-center justify-center">
+                                            <span class="text-sm font-semibold text-slate-700">{{ $brand->name }}</span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </a>
                         @endforeach
                     </div>
                 </div>

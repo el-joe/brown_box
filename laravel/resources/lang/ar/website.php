@@ -73,6 +73,7 @@ return [
     'filter_by' => 'تصفية حسب',
     'clear_all' => 'مسح الكل',
     'categories_filter' => 'الأقسام',
+    'all_categories' => 'كل الأقسام',
     'price' => 'السعر',
     'brand' => 'الماركة',
     'availability' => 'التوفر',

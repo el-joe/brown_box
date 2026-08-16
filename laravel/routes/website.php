@@ -22,7 +22,7 @@ Route::prefix('{lang}')->where(['lang' => 'ar|en'])->middleware(['web.locale', '
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('products', [ProductListController::class, 'index'])->name('products.index');
-    Route::get('categories/{categorySlug}', [ProductListController::class, 'index'])->name('categories.show');
+    Route::get('categories/{categorySlug?}', [ProductListController::class, 'index'])->name('categories.show');
     Route::get('product/{slug}', [ProductController::class, 'show'])->name('products.show');
 
     Route::get('search', [SearchController::class, 'index'])->name('search.index');

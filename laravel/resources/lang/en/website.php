@@ -73,6 +73,7 @@ return [
     'filter_by' => 'Filter By',
     'clear_all' => 'Clear All',
     'categories_filter' => 'Categories',
+    'all_categories' => 'All Categories',
     'price' => 'Price',
     'brand' => 'Brand',
     'availability' => 'Availability',
