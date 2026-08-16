@@ -94,10 +94,25 @@
                     <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
                         <span>{{ __('website.flash_sale_ends_in') }}</span>
                         <div id="flash-countdown" class="flex items-center gap-1 font-mono">
-                            <span data-unit="days" class="web-countdown-box">00</span>:
-                            <span data-unit="hours" class="web-countdown-box">00</span>:
-                            <span data-unit="minutes" class="web-countdown-box">00</span>:
-                            <span data-unit="seconds" class="web-countdown-box">00</span>
+                            <div class="flex flex-col items-center">
+                                <span data-unit="days" class="web-countdown-box">00</span>
+                                <span class="mt-0.5 text-[10px] font-normal text-slate-400">{{ __('website.countdown_days') }}</span>
+                            </div>
+                            <span class="pb-3.5">:</span>
+                            <div class="flex flex-col items-center">
+                                <span data-unit="hours" class="web-countdown-box">00</span>
+                                <span class="mt-0.5 text-[10px] font-normal text-slate-400">{{ __('website.countdown_hours') }}</span>
+                            </div>
+                            <span class="pb-3.5">:</span>
+                            <div class="flex flex-col items-center">
+                                <span data-unit="minutes" class="web-countdown-box">00</span>
+                                <span class="mt-0.5 text-[10px] font-normal text-slate-400">{{ __('website.countdown_minutes') }}</span>
+                            </div>
+                            <span class="pb-3.5">:</span>
+                            <div class="flex flex-col items-center">
+                                <span data-unit="seconds" class="web-countdown-box">00</span>
+                                <span class="mt-0.5 text-[10px] font-normal text-slate-400">{{ __('website.countdown_seconds') }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
