@@ -32,6 +32,7 @@
                         'sales' => ['icon' => 'fa-receipt', 'label' => 'Sales', 'items' => ['Orders' => 'fa-cart-flatbed', 'Refunds' => 'fa-rotate-left']],
                         'customers' => ['icon' => 'fa-users', 'label' => 'Customers', 'items' => []],
                         'marketing' => ['icon' => 'fa-bullhorn', 'label' => 'Marketing', 'items' => ['Banners' => 'fa-image', 'Coupons' => 'fa-ticket', 'Flash Sales' => 'fa-bolt', 'Search Suggestions' => 'fa-magnifying-glass', 'SEO' => 'fa-magnifying-glass-chart', 'Blog' => 'fa-newspaper', 'Blog Categories' => 'fa-sitemap']],
+                        'ai' => ['icon' => 'fa-wand-magic-sparkles', 'label' => 'AI Module', 'items' => ['AI Dashboard' => 'fa-wand-magic-sparkles', 'SEO Enhancement' => 'fa-magnifying-glass-chart', 'Blog Generator' => 'fa-newspaper', 'Trending Research' => 'fa-chart-line', 'Social Posts' => 'fa-share-nodes', 'Product Descriptions' => 'fa-file-pen', 'AI Settings' => 'fa-gear']],
                         'affiliates' => ['icon' => 'fa-handshake', 'label' => 'Affiliates', 'items' => ['Affiliates' => 'fa-user-tie', 'Payout Requests' => 'fa-money-check-dollar']],
                         'finance' => ['icon' => 'fa-sack-dollar', 'label' => 'Finance', 'items' => ['Expenses' => 'fa-money-bill-wave', 'Expense Categories' => 'fa-sitemap', 'Accounting' => 'fa-book', 'Opening Balances' => 'fa-scale-balanced', 'Transactions' => 'fa-right-left']],
                         'pos' => ['icon' => 'fa-cash-register', 'label' => 'POS', 'items' => []],
@@ -69,6 +70,7 @@
                                 'affiliates' => ['admin.affiliates.*'],
                                 'finance' => ['admin.expenses.*', 'admin.expense-categories.*', 'admin.accounting.*', 'admin.opening-balances.*', 'admin.transactions.*'],
                                 'settings' => ['admin.settings.*', 'admin.gateways.*', 'admin.shipping.*', 'admin.admins.*', 'admin.roles.*', 'admin.audits.*', 'admin.static-pages.*'],
+                                'ai' => ['admin.ai.*'],
                             ];
                             $sectionActive = request()->routeIs(...($sectionRoutePatterns[$key] ?? []));
                         @endphp
@@ -115,6 +117,13 @@
                                             'Search Suggestions' => route('admin.search-suggestions.index'),
                                             'Blog' => route('admin.blog.index'),
                                             'Blog Categories' => route('admin.blog-categories.index'),
+                                            'AI Dashboard' => route('admin.ai.dashboard'),
+                                            'SEO Enhancement' => route('admin.ai.seo'),
+                                            'Blog Generator' => route('admin.ai.blog'),
+                                            'Trending Research' => route('admin.ai.trending'),
+                                            'Social Posts' => route('admin.ai.social'),
+                                            'Product Descriptions' => route('admin.ai.product-description'),
+                                            'AI Settings' => route('admin.ai.settings'),
                                             default => '#',
                                         };
                                         $navActive = match ($label) {
@@ -150,6 +159,13 @@
                                             'Search Suggestions' => request()->routeIs('admin.search-suggestions.*'),
                                             'Blog' => request()->routeIs('admin.blog.*'),
                                             'Blog Categories' => request()->routeIs('admin.blog-categories.*'),
+                                            'AI Dashboard' => request()->routeIs('admin.ai.dashboard'),
+                                            'SEO Enhancement' => request()->routeIs('admin.ai.seo'),
+                                            'Blog Generator' => request()->routeIs('admin.ai.blog'),
+                                            'Trending Research' => request()->routeIs('admin.ai.trending'),
+                                            'Social Posts' => request()->routeIs('admin.ai.social'),
+                                            'Product Descriptions' => request()->routeIs('admin.ai.product-description'),
+                                            'AI Settings' => request()->routeIs('admin.ai.settings'),
                                             default => false,
                                         };
                                     @endphp

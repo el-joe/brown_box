@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AccountingController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AiController;
 use App\Http\Controllers\Admin\AffiliateController;
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\Auth\LoginController;
@@ -416,6 +417,32 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::put('page/{pageKey}', [SeoPageController::class, 'updatePage'])->name('page.update');
             Route::get('{modelType}/{modelId}/edit', [SeoPageController::class, 'editModel'])->name('model.edit');
             Route::put('{modelType}/{modelId}', [SeoPageController::class, 'updateModel'])->name('model.update');
+        });
+
+        Route::prefix('ai')->name('ai.')->group(function (): void {
+            Route::get('/', [AiController::class, 'dashboard'])->name('dashboard');
+            Route::get('models', [AiController::class, 'models'])->name('models');
+
+            Route::get('settings', [AiController::class, 'settings'])->name('settings');
+            Route::post('settings', [AiController::class, 'updateSettings'])->name('settings.update');
+
+            Route::get('seo', [AiController::class, 'seo'])->name('seo');
+            Route::post('seo/generate', [AiController::class, 'generateSeo'])->name('seo.generate');
+            Route::post('seo/save', [AiController::class, 'saveSeo'])->name('seo.save');
+
+            Route::get('blog', [AiController::class, 'blog'])->name('blog');
+            Route::post('blog/generate', [AiController::class, 'generateBlog'])->name('blog.generate');
+            Route::post('blog/save', [AiController::class, 'saveBlog'])->name('blog.save');
+
+            Route::get('trending', [AiController::class, 'trending'])->name('trending');
+            Route::post('trending/generate', [AiController::class, 'generateTrending'])->name('trending.generate');
+
+            Route::get('social', [AiController::class, 'social'])->name('social');
+            Route::post('social/generate', [AiController::class, 'generateSocial'])->name('social.generate');
+
+            Route::get('product-description', [AiController::class, 'productDescription'])->name('product-description');
+            Route::post('product-description/generate', [AiController::class, 'generateProductDescription'])->name('product-description.generate');
+            Route::post('product-description/save', [AiController::class, 'saveProductDescription'])->name('product-description.save');
         });
 
         Route::prefix('notifications')->name('notifications.')->group(function (): void {

@@ -22,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(\App\Services\GatewayService::class);
+        $this->app->singleton(\App\Services\AiProviderService::class);
+        $this->app->singleton(\App\Services\AiService::class);
     }
 
     /**
