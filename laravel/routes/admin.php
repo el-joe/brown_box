@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ShippingCompanyController;
 use App\Http\Controllers\Admin\StaticPageController;
 use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\WarehouseController;
 use Illuminate\Support\Facades\Route;
@@ -197,6 +198,18 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::get('movements/data', [StockController::class, 'movementsData'])->name('movements.data');
             Route::get('{stock}/adjust', [StockController::class, 'adjustForm'])->name('adjust-form');
             Route::post('{stock}/adjust', [StockController::class, 'adjust'])->name('adjust');
+        });
+
+        Route::prefix('suppliers')->name('suppliers.')->group(function (): void {
+            Route::get('/', [SupplierController::class, 'index'])->name('index');
+            Route::get('data', [SupplierController::class, 'data'])->name('data');
+            Route::get('create', [SupplierController::class, 'create'])->name('create');
+            Route::post('validate', [SupplierController::class, 'validateSupplier'])->name('validate');
+            Route::post('/', [SupplierController::class, 'store'])->name('store');
+            Route::get('{supplier}/edit', [SupplierController::class, 'edit'])->name('edit');
+            Route::put('{supplier}/validate', [SupplierController::class, 'validateSupplier'])->name('update.validate');
+            Route::put('{supplier}', [SupplierController::class, 'update'])->name('update');
+            Route::delete('{supplier}', [SupplierController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('purchases')->name('purchases.')->group(function (): void {

@@ -34,6 +34,7 @@ use App\Repositories\Contracts\ShippingCompanyRepositoryInterface;
 use App\Repositories\Contracts\ShippingRateRepositoryInterface;
 use App\Repositories\Contracts\StaticPageRepositoryInterface;
 use App\Repositories\Contracts\StockRepositoryInterface;
+use App\Repositories\Contracts\SupplierRepositoryInterface;
 use App\Repositories\Contracts\TagRepositoryInterface;
 use App\Repositories\Contracts\TransactionRepositoryInterface;
 use App\Repositories\Contracts\WarehouseRepositoryInterface;
@@ -53,6 +54,7 @@ use App\Repositories\ShippingCompanyRepository;
 use App\Repositories\ShippingRateRepository;
 use App\Repositories\StaticPageRepository;
 use App\Repositories\StockRepository;
+use App\Repositories\SupplierRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\WarehouseRepository;
@@ -91,6 +93,7 @@ class RepositoryServiceProvider extends ServiceProvider
         SeoPageRepositoryInterface::class => SeoPageRepository::class,
         BlogCategoryRepositoryInterface::class => BlogCategoryRepository::class,
         BlogPostRepositoryInterface::class => BlogPostRepository::class,
+        SupplierRepositoryInterface::class => SupplierRepository::class,
     ];
 
     public function register(): void
