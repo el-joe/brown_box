@@ -26,7 +26,7 @@
                     </div>
                     <div class="admin-field">
                         <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Date') }}</label>
-                        <input type="date" name="date" value="{{ old('date', $cash->date?->format('Y-m-d') ?? now()->format('Y-m-d')) }}" class="w-full rounded-lg border-slate-300 text-sm">
+                        <input type="date" name="date" value="{{ old('date', $cash?->date?->format('Y-m-d') ?? now()->format('Y-m-d')) }}" class="w-full rounded-lg border-slate-300 text-sm">
                     </div>
                 </div>
                 <div class="admin-field">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="admin-field">
                         <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Date') }}</label>
-                        <input type="date" name="date" value="{{ old('date', $bank->date?->format('Y-m-d') ?? now()->format('Y-m-d')) }}" class="w-full rounded-lg border-slate-300 text-sm">
+                        <input type="date" name="date" value="{{ old('date', $bank?->date?->format('Y-m-d') ?? now()->format('Y-m-d')) }}" class="w-full rounded-lg border-slate-300 text-sm">
                     </div>
                 </div>
                 <div class="admin-field">
