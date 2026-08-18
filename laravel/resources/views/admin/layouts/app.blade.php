@@ -28,7 +28,7 @@
                 @php
                     $sections = [
                         'catalog' => ['icon' => 'fa-tags', 'label' => 'Catalog', 'items' => ['Categories' => 'fa-sitemap', 'Brands' => 'fa-copyright', 'Products' => 'fa-box-open', 'Attributes' => 'fa-sliders', 'Reviews' => 'fa-star']],
-                        'inventory' => ['icon' => 'fa-warehouse', 'label' => 'Inventory', 'items' => ['Warehouses' => 'fa-industry', 'Stock' => 'fa-boxes-stacked', 'Purchases' => 'fa-cart-shopping', 'Suppliers' => 'fa-truck-field'],],
+                        'inventory' => ['icon' => 'fa-warehouse', 'label' => 'Inventory', 'items' => ['Warehouses' => 'fa-industry', 'Stock' => 'fa-boxes-stacked', 'Purchases' => 'fa-cart-shopping', 'Suppliers' => 'fa-truck-field', 'Governorates & Cities' => 'fa-map-location-dot'],],
                         'sales' => ['icon' => 'fa-receipt', 'label' => 'Sales', 'items' => ['Orders' => 'fa-cart-flatbed', 'Refunds' => 'fa-rotate-left']],
                         'customers' => ['icon' => 'fa-users', 'label' => 'Customers', 'items' => []],
                         'marketing' => ['icon' => 'fa-bullhorn', 'label' => 'Marketing', 'items' => ['Banners' => 'fa-image', 'Coupons' => 'fa-ticket', 'Flash Sales' => 'fa-bolt', 'Search Suggestions' => 'fa-magnifying-glass', 'SEO' => 'fa-magnifying-glass-chart', 'Blog' => 'fa-newspaper', 'Blog Categories' => 'fa-sitemap']],
@@ -64,7 +64,7 @@
                         @php
                             $sectionRoutePatterns = [
                                 'catalog' => ['admin.categories.*', 'admin.brands.*', 'admin.products.*', 'admin.attributes.*', 'admin.reviews.*'],
-                                'inventory' => ['admin.warehouses.*', 'admin.stock.*', 'admin.purchases.*', 'admin.suppliers.*'],
+                                'inventory' => ['admin.warehouses.*', 'admin.stock.*', 'admin.purchases.*', 'admin.suppliers.*', 'admin.governorates.*'],
                                 'sales' => ['admin.orders.index', 'admin.orders.show', 'admin.refunds.*'],
                                 'marketing' => ['admin.banners.*', 'admin.coupons.*', 'admin.flash-sales.*', 'admin.search-suggestions.*', 'admin.seo.*', 'admin.blog.*', 'admin.blog-categories.*'],
                                 'affiliates' => ['admin.affiliates.*'],
@@ -95,6 +95,7 @@
                                             'Stock' => route('admin.stock.index'),
                                             'Purchases' => route('admin.purchases.index'),
                                             'Suppliers' => route('admin.suppliers.index'),
+                                            'Governorates & Cities' => route('admin.governorates.index'),
                                             'Coupons' => route('admin.coupons.index'),
                                             'Flash Sales' => route('admin.flash-sales.index'),
                                             'Orders' => route('admin.orders.index'),
@@ -137,6 +138,7 @@
                                             'Stock' => request()->routeIs('admin.stock.*'),
                                             'Purchases' => request()->routeIs('admin.purchases.*'),
                                             'Suppliers' => request()->routeIs('admin.suppliers.*'),
+                                            'Governorates & Cities' => request()->routeIs('admin.governorates.*'),
                                             'Coupons' => request()->routeIs('admin.coupons.*'),
                                             'Flash Sales' => request()->routeIs('admin.flash-sales.*'),
                                             'Orders' => request()->routeIs('admin.orders.index') || request()->routeIs('admin.orders.show'),

@@ -104,6 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
         newAddressForm?.classList.remove('hidden');
     });
 
+    // Initial tax calculation on page load.
+    (function initTax() {
+        const subtotal = parseFloat(document.querySelector('.web-checkout')?.dataset.subtotal || '0');
+        const tax = updateTax(subtotal, 0);
+        const totalEl = document.getElementById('summary-total');
+        if (totalEl && tax > 0) totalEl.textContent = (subtotal + tax).toFixed(2);
+    })();
+
     // Governorate -> city dependent dropdown.
     const govSelect = document.getElementById('governorate_id');
     const citySelect = document.getElementById('city_id');
@@ -186,8 +194,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (shippingEl) shippingEl.textContent = cost > 0 ? cost.toFixed(2) : (window.translations?.free || 'Free');
 
         const discount = parseFloat(document.getElementById('summary-discount')?.dataset.value || '0');
+        const tax = updateTax(subtotal, discount);
 
-        if (totalEl) totalEl.textContent = (subtotal - discount + cost).toFixed(2);
+        if (totalEl) totalEl.textContent = (subtotal - discount + cost + tax).toFixed(2);
+    }
+
+    // ---------- Tax ----------
+    function updateTax(subtotal, discount) {
+        const taxRate = parseFloat(document.querySelector('.web-checkout')?.dataset.taxRate || '0');
+        const taxRow = document.getElementById('summary-tax-row');
+        const taxEl = document.getElementById('summary-tax');
+        const tax = Math.round((subtotal - discount) * (taxRate / 100) * 100) / 100;
+
+        if (taxEl) taxEl.textContent = tax.toFixed(2);
+        taxRow?.classList.toggle('hidden', !(taxRate > 0 && tax > 0));
+
+        return tax;
     }
 
     // ---------- Payment method ----------

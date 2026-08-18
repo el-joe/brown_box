@@ -20,7 +20,7 @@ class SettingController extends Controller
     private const GENERAL_KEYS = [
         'default_language', 'default_currency', 'contact_email', 'contact_phone', 'contact_whatsapp',
         'social_facebook', 'social_instagram', 'social_tiktok', 'social_x', 'social_youtube',
-        'google_analytics_id', 'google_tag_manager_id', 'meta_pixel_id',
+        'google_analytics_id', 'google_tag_manager_id', 'meta_pixel_id', 'tax_rate',
     ];
 
     private const MAIL_KEYS = [
@@ -59,6 +59,7 @@ class SettingController extends Controller
             'google_analytics_id' => ['nullable', 'string', 'max:50'],
             'google_tag_manager_id' => ['nullable', 'string', 'max:50'],
             'meta_pixel_id' => ['nullable', 'string', 'max:50'],
+            'tax_rate' => ['nullable', 'numeric', 'min:0', 'max:100'],
         ]);
 
         foreach (self::TRANSLATABLE as $field) {

@@ -163,45 +163,131 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* ---------------- New address form toggle + cascading dropdowns ---------------- */
-    const showFormBtn = document.getElementById('show-address-form-btn');
-    const addBtn = document.getElementById('add-address-btn');
-    const cancelBtn = document.getElementById('cancel-address-form-btn');
-    const newAddressForm = document.getElementById('new-address-form');
-
-    function openAddressForm() {
-        newAddressForm.classList.remove('hidden');
-        newAddressForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    showFormBtn && showFormBtn.addEventListener('click', openAddressForm);
-    addBtn && addBtn.addEventListener('click', openAddressForm);
-    cancelBtn && cancelBtn.addEventListener('click', () => newAddressForm.classList.add('hidden'));
-
-    const govSelect = document.getElementById('af-governorate');
-    const citySelect = document.getElementById('af-city');
-
-    if (govSelect && citySelect && window.accountData) {
-        govSelect.addEventListener('change', function () {
-            const cities = window.accountData.citiesByGovernorate[govSelect.value] || [];
-            citySelect.innerHTML = '<option value="">—</option>' + cities.map((c) => `<option value="${c.id}">${c.name}</option>`).join('');
-        });
-    }
-
-    if (newAddressForm) {
-        newAddressForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const btn = document.getElementById('save-address-btn');
-            const original = btn.innerHTML;
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
-
-            await ajaxSubmitForm(newAddressForm, {
-                onSuccess: () => window.location.reload(),
-            });
-
-            btn.disabled = false;
-            btn.innerHTML = original;
-        });
-    }
 });
+
+/**
+ * Shared Alpine.js component powering the create/edit address modals on both
+ * the account "My Addresses" page and the checkout page.
+ *
+ * @param {{storeUrl: string, updateUrlBase?: string, governorates: Array, citiesByGovernorate: Object}} config
+ */
+function addressManager(config) {
+    return {
+        open: false,
+        mode: 'create',
+        saving: false,
+        errors: {},
+        governorates: config.governorates || [],
+        citiesByGovernorate: config.citiesByGovernorate || {},
+        storeUrl: config.storeUrl,
+        updateUrlBase: config.updateUrlBase || config.storeUrl,
+        form: {
+            id: null,
+            label: '',
+            name: '',
+            phone: '',
+            governorate_id: '',
+            city_id: '',
+            address_line: '',
+            is_default: false,
+        },
+
+        get availableCities() {
+            return this.citiesByGovernorate[this.form.governorate_id] || [];
+        },
+
+        onGovernorateChange() {
+            this.form.city_id = '';
+        },
+
+        resetForm() {
+            this.form = {
+                id: null,
+                label: '',
+                name: '',
+                phone: '',
+                governorate_id: '',
+                city_id: '',
+                address_line: '',
+                is_default: false,
+            };
+            this.errors = {};
+        },
+
+        openCreate() {
+            this.resetForm();
+            this.mode = 'create';
+            this.open = true;
+        },
+
+        openEdit(address) {
+            this.errors = {};
+            this.mode = 'edit';
+            this.form = {
+                id: address.id,
+                label: address.label || '',
+                name: address.name || '',
+                phone: address.phone || '',
+                governorate_id: address.governorate_id ?? '',
+                city_id: address.city_id ?? '',
+                address_line: address.address_line || '',
+                is_default: !!address.is_default,
+            };
+            this.open = true;
+        },
+
+        close() {
+            this.open = false;
+        },
+
+        async submit() {
+            this.saving = true;
+            this.errors = {};
+
+            const isEdit = this.mode === 'edit';
+            const url = isEdit ? `${this.updateUrlBase}/${this.form.id}` : this.storeUrl;
+            const params = new URLSearchParams();
+
+            params.append('label', this.form.label || '');
+            params.append('name', this.form.name || '');
+            params.append('phone', this.form.phone || '');
+            params.append('governorate_id', this.form.governorate_id || '');
+            params.append('city_id', this.form.city_id || '');
+            params.append('address_line', this.form.address_line || '');
+            params.append('is_default', this.form.is_default ? '1' : '0');
+            if (isEdit) params.append('_method', 'PUT');
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': csrfToken(),
+                        Accept: 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params.toString(),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    this.errors = data.errors || {};
+                    window.toastr?.error(data.message || 'Please check the form for errors.');
+                    this.saving = false;
+                    return;
+                }
+
+                window.toastr?.success(data.message || 'Address saved successfully.');
+                this.saving = false;
+                this.open = false;
+                window.location.reload();
+            } catch (err) {
+                this.saving = false;
+                window.toastr?.error('Something went wrong. Please try again.');
+            }
+        },
+    };
+}
+
+window.addressManager = addressManager;

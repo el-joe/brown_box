@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ExpenseCategoryController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\FlashSaleController;
 use App\Http\Controllers\Admin\GatewayController;
+use App\Http\Controllers\Admin\GovernorateController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OpeningBalanceController;
 use App\Http\Controllers\Admin\OrderController;
@@ -197,6 +198,20 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::put('{warehouse}/validate', [WarehouseController::class, 'validateWarehouse'])->name('update.validate');
             Route::put('{warehouse}', [WarehouseController::class, 'update'])->name('update');
             Route::delete('{warehouse}', [WarehouseController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('governorates')->name('governorates.')->group(function (): void {
+            Route::get('/', [GovernorateController::class, 'index'])->name('index');
+            Route::get('create', [GovernorateController::class, 'create'])->name('create');
+            Route::post('/', [GovernorateController::class, 'store'])->name('store');
+            Route::get('{governorate}/edit', [GovernorateController::class, 'edit'])->name('edit');
+            Route::put('{governorate}', [GovernorateController::class, 'update'])->name('update');
+            Route::delete('{governorate}', [GovernorateController::class, 'destroy'])->name('destroy');
+
+            Route::get('{governorate}/cities', [GovernorateController::class, 'cities'])->name('cities');
+            Route::post('{governorate}/cities', [GovernorateController::class, 'storeCity'])->name('cities.store');
+            Route::put('{governorate}/cities/{city}', [GovernorateController::class, 'updateCity'])->name('cities.update');
+            Route::delete('{governorate}/cities/{city}', [GovernorateController::class, 'destroyCity'])->name('cities.destroy');
         });
 
         Route::prefix('stock')->name('stock.')->group(function (): void {

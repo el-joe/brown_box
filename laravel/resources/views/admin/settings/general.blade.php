@@ -119,6 +119,13 @@
                                 <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Meta Pixel ID') }}</label>
                                 <input type="text" name="meta_pixel_id" value="{{ old('meta_pixel_id', setting('meta_pixel_id')) }}" class="w-full rounded-lg border-slate-300 text-sm">
                             </div>
+                            <div class="admin-field">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Tax Rate (%)') }}</label>
+                                <input type="number" step="0.01" min="0" max="100" name="tax_rate" value="{{ old('tax_rate', setting('tax_rate', 0)) }}" class="w-full rounded-lg border-slate-300 text-sm">
+                                @error('tax_rate')
+                                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
                     </x-admin.card>
                 </div>

@@ -164,6 +164,9 @@ class CheckoutController extends Controller
                 }
             }
 
+            $taxRate = setting('tax_rate', 0);
+            $taxAmount = round(($subtotal - $discount) * ($taxRate / 100), 2);
+
             $order = Order::query()->create([
                 'order_number' => generate_order_number(),
                 'customer_id' => $customer?->id,
@@ -175,8 +178,8 @@ class CheckoutController extends Controller
                 'subtotal' => $subtotal,
                 'shipping_amount' => $shippingAmount,
                 'discount_amount' => $discount,
-                'tax_amount' => 0,
-                'total_amount' => max(0, $subtotal - $discount + $shippingAmount),
+                'tax_amount' => $taxAmount,
+                'total_amount' => max(0, $subtotal - $discount + $shippingAmount + $taxAmount),
                 'shipping_company_id' => $data['shipping_company_id'] ?? null,
                 'notes' => $data['notes'] ?? null,
                 'customer_address' => $addressPayload,

@@ -50,7 +50,7 @@ Route::prefix('{lang}')->where(['lang' => 'ar|en'])->middleware(['web.locale', '
         Route::post('toggle', [WishlistController::class, 'toggle'])->name('toggle');
     });
 
-    Route::prefix('checkout')->name('checkout.')->group(function (): void {
+    Route::prefix('checkout')->name('checkout.')->middleware('customer.auth')->group(function (): void {
         Route::get('/', [CheckoutController::class, 'index'])->name('index');
         Route::post('/', [CheckoutController::class, 'store'])->name('store');
         Route::get('success', [CheckoutController::class, 'success'])->name('success');

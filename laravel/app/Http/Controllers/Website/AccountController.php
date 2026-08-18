@@ -7,10 +7,12 @@ use App\Models\CustomerAddress;
 use App\Models\Governorate;
 use App\Models\Order;
 use App\Models\RefundRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class AccountController extends Controller
@@ -116,17 +118,31 @@ class AccountController extends Controller
         ]);
     }
 
-    public function storeAddress(Request $request): RedirectResponse
+    public function storeAddress(Request $request): JsonResponse
     {
-        $data = $this->validateAddress($request);
+        try {
+            $data = $this->validateAddress($request);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'errors' => $e->errors(),
+            ], 422);
+        }
+
         $data['customer_id'] = Auth::guard('customer')->id();
 
-        CustomerAddress::query()->create($data);
+        $address = CustomerAddress::query()->create($data);
+        $address->load('governorate', 'city');
 
-        return back()->with('success', __('website.address_added'));
+        return response()->json([
+            'success' => true,
+            'message' => __('website.address_added'),
+            'address' => $this->formatAddress($address),
+        ]);
     }
 
-    public function updateAddress(Request $request): RedirectResponse
+    public function updateAddress(Request $request): JsonResponse
     {
         $addressId = (int) $request->route('address');
 
@@ -134,9 +150,24 @@ class AccountController extends Controller
             ->where('customer_id', Auth::guard('customer')->id())
             ->findOrFail($addressId);
 
-        $address->update($this->validateAddress($request));
+        try {
+            $data = $this->validateAddress($request);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'errors' => $e->errors(),
+            ], 422);
+        }
 
-        return back()->with('success', __('website.address_updated'));
+        $address->update($data);
+        $address->load('governorate', 'city');
+
+        return response()->json([
+            'success' => true,
+            'message' => __('website.address_updated'),
+            'address' => $this->formatAddress($address),
+        ]);
     }
 
     public function destroyAddress(Request $request): RedirectResponse
@@ -162,5 +193,29 @@ class AccountController extends Controller
             'address_line' => ['required', 'string', 'max:500'],
             'is_default' => ['nullable', 'boolean'],
         ]);
+    }
+
+    private function formatAddress(CustomerAddress $address): array
+    {
+        return [
+            'id' => $address->id,
+            'label' => $address->label,
+            'name' => $address->name,
+            'phone' => $address->phone,
+            'governorate_id' => $address->governorate_id,
+            'city_id' => $address->city_id,
+            'governorate_name' => $address->governorate?->name_en,
+            'governorate_name_ar' => $address->governorate?->name_ar,
+            'city_name' => $address->city?->name_en,
+            'city_name_ar' => $address->city?->name_ar,
+            'address_line' => $address->address_line,
+            'is_default' => (bool) $address->is_default,
+            'formatted' => trim(sprintf(
+                '%s, %s, %s',
+                $address->address_line,
+                current_lang() === 'ar' ? $address->city?->name_ar : $address->city?->name_en,
+                current_lang() === 'ar' ? $address->governorate?->name_ar : $address->governorate?->name_en,
+            ), ', '),
+        ];
     }
 }

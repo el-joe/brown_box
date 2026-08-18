@@ -4,7 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', __('website.site_name'))</title>
+
+    @php
+        $lang        = current_lang();
+        $siteName    = setting('site_name_' . $lang) ?: setting('site_name_en') ?: config('app.name', 'Brown Box');
+        $seoTitle    = isset($seo) ? ($seo->getTranslation('title', $lang, false) ?: $seo->getTranslation('title', 'en', false)) : null;
+        $seoDesc     = isset($seo) ? ($seo->getTranslation('description', $lang, false) ?: $seo->getTranslation('description', 'en', false)) : null;
+        $seoKeywords = isset($seo) ? ($seo->getTranslation('keywords', $lang, false) ?: $seo->getTranslation('keywords', 'en', false)) : null;
+        $ogTitle     = isset($seo) ? ($seo->getTranslation('og_title', $lang, false) ?: $seoTitle) : $seoTitle;
+        $ogDesc      = isset($seo) ? ($seo->getTranslation('og_description', $lang, false) ?: $seoDesc) : $seoDesc;
+        $ogImage     = isset($seo) && $seo->og_image ? asset_url($seo->og_image) : asset_url(setting('site_logo'));
+        $canonical   = isset($seo) && $seo->canonical_url ? $seo->canonical_url : url()->current();
+        $robots      = isset($seo) && $seo->robots ? $seo->robots : 'index,follow';
+        $pageTitle   = $seoTitle ? $seoTitle . ' — ' . $siteName : null;
+    @endphp
+
+    {{-- Title: SEO title > @yield('title') > site name --}}
+    <title>{{ $pageTitle ?? trim(@yield('title')) ?: $siteName }}</title>
+
+    {{-- Core meta --}}
+    @if($seoDesc)
+        <meta name="description" content="{{ $seoDesc }}">
+    @endif
+    @if($seoKeywords)
+        <meta name="keywords" content="{{ $seoKeywords }}">
+    @endif
+    <meta name="robots" content="{{ $robots }}">
+    <link rel="canonical" href="{{ $canonical }}">
+
+    {{-- Open Graph --}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ $siteName }}">
+    <meta property="og:locale" content="{{ $lang === 'ar' ? 'ar_EG' : 'en_US' }}">
+    <meta property="og:url" content="{{ $canonical }}">
+    <meta property="og:title" content="{{ $ogTitle ?? ($pageTitle ?? $siteName) }}">
+    @if($ogDesc)
+        <meta property="og:description" content="{{ $ogDesc }}">
+    @endif
+    @if($ogImage)
+        <meta property="og:image" content="{{ $ogImage }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+    @endif
+
+    {{-- Twitter / X Card --}}
+    <meta name="twitter:card" content="{{ $ogImage ? 'summary_large_image' : 'summary' }}">
+    <meta name="twitter:title" content="{{ $ogTitle ?? ($pageTitle ?? $siteName) }}">
+    @if($ogDesc)
+        <meta name="twitter:description" content="{{ $ogDesc }}">
+    @endif
+    @if($ogImage)
+        <meta name="twitter:image" content="{{ $ogImage }}">
+    @endif
+
+    {{-- Schema JSON-LD --}}
+    @if(isset($seo) && !empty($seo->schema_json))
+        <script type="application/ld+json">{!! json_encode($seo->schema_json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+    @endif
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     @if(app()->environment('local') || file_exists(public_path('build/manifest.json')))
         @vite([is_rtl() ? 'resources/css/website/app.rtl.css' : 'resources/css/website/app.ltr.css', 'resources/js/website/app.js'])

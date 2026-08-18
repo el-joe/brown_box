@@ -24,7 +24,13 @@
         });
     @endphp
 
-    <div class="web-checkout max-w-7xl mx-auto px-4 py-8" data-subtotal="{{ $subtotal }}">
+    <div class="web-checkout max-w-7xl mx-auto px-4 py-8" data-subtotal="{{ $subtotal }}" data-tax-rate="{{ setting('tax_rate', 0) }}"
+        x-data="addressManager({
+            storeUrl: @js(route('web.account.addresses.store', ['lang' => current_lang()])),
+            updateUrlBase: @js(route('web.account.addresses.store', ['lang' => current_lang()])),
+            governorates: @js($governorates->map(fn ($gov) => ['id' => $gov->id, 'name' => current_lang() === 'ar' ? $gov->name_ar : $gov->name_en])),
+            citiesByGovernorate: @js($citiesByGovernorate),
+        })">
         <x-website.breadcrumb :items="[
             ['label' => __('website.home'), 'url' => route('web.home', ['lang' => current_lang()])],
             ['label' => __('website.cart'), 'url' => route('web.cart.index', ['lang' => current_lang()])],
@@ -86,49 +92,54 @@
                                     <p class="font-bold text-sm text-slate-900">{{ $address->name }}</p>
                                     <p class="text-sm text-slate-600 mt-0.5">{{ $address->phone }}</p>
                                     <p class="text-sm text-slate-400 mt-1 leading-relaxed">{{ $address->address_line }}, {{ current_lang() === 'ar' ? $address->city?->name_ar : $address->city?->name_en }}, {{ current_lang() === 'ar' ? $address->governorate?->name_ar : $address->governorate?->name_en }}</p>
+                                    <button type="button" class="text-slate-500 hover:text-brand text-xs font-semibold mt-2"
+                                        @click.prevent="openEdit(@js([
+                                            'id' => $address->id,
+                                            'label' => $address->label,
+                                            'name' => $address->name,
+                                            'phone' => $address->phone,
+                                            'governorate_id' => $address->governorate_id,
+                                            'city_id' => $address->city_id,
+                                            'address_line' => $address->address_line,
+                                            'is_default' => (bool) $address->is_default,
+                                        ]))">
+                                        <i class="fa-solid fa-pen"></i> {{ __('website.edit') }}
+                                    </button>
                                 </label>
                             @endforeach
 
-                            <button type="button" id="add-address-btn" class="web-add-address-card">
+                            <button type="button" id="add-address-btn" class="web-add-address-card" @click="openCreate()">
                                 <i class="fa-solid fa-plus"></i>
                                 <span>{{ __('website.add_new_address') }}</span>
                             </button>
                         </div>
 
-                        {{-- Inline new-address form (hidden unless "Add new address" chosen) --}}
-                        <div id="new-address-form" class="mt-5 hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="web-checkout-field sm:col-span-2">
-                                <label for="name">{{ __('website.full_name') }}</label>
-                                <input id="name" name="name" type="text" placeholder="e.g. Ahmed Hassan">
-                            </div>
-                            <div class="web-checkout-field">
-                                <label for="phone">{{ __('website.phone_number') }}</label>
-                                <input id="phone" name="phone" type="tel" placeholder="e.g. +20 100 123 4567">
-                            </div>
-                            <div class="web-checkout-field">
-                                <label for="governorate_id">{{ __('website.governorate') }}</label>
-                                <select id="governorate_id" name="governorate_id">
-                                    <option value="">—</option>
-                                    @foreach ($governorates as $gov)
-                                        <option value="{{ $gov->id }}">{{ current_lang() === 'ar' ? $gov->name_ar : $gov->name_en }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="web-checkout-field">
-                                <label for="city_id">{{ __('website.city') }}</label>
-                                <select id="city_id" name="city_id">
-                                    <option value="">—</option>
-                                </select>
-                            </div>
-                            <div class="web-checkout-field sm:col-span-2">
-                                <label for="address_line">{{ __('website.street_address') }}</label>
-                                <input id="address_line" name="address_line" type="text" placeholder="Street name, building, apartment">
-                            </div>
-                        </div>
                         <p id="address-error" class="web-field-error hidden"><i class="fa-solid fa-circle-exclamation"></i> {{ __('website.select_address') }}</p>
 
                         <div class="flex justify-end mt-5">
                             <button type="button" class="web-btn-primary px-8" data-next-step>{{ __('website.next') }}</button>
+                        </div>
+                    </div>
+
+                    {{-- Create / Edit address modal (also used by the account addresses page) --}}
+                    <div class="web-modal-overlay" :class="{ 'is-open': open }" @click.self="close()">
+                        <div class="web-modal-box" x-show="open" x-transition>
+                            <div class="web-modal-header">
+                                <h3 class="font-bold text-lg" x-text="mode === 'edit' ? '{{ __('website.edit_address') }}' : '{{ __('website.add_new_address') }}'"></h3>
+                                <button type="button" class="web-modal-close" @click="close()"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <form @submit.prevent="submit()">
+                                <div class="web-modal-body grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    @include('website.account._address_form_fields')
+                                </div>
+                                <div class="web-modal-footer">
+                                    <button type="button" class="web-btn-outline" @click="close()">{{ __('website.cancel') }}</button>
+                                    <button type="submit" class="web-btn-primary" :disabled="saving">
+                                        <span x-show="!saving">{{ __('website.save_address_btn') }}</span>
+                                        <span x-show="saving"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
@@ -263,6 +274,9 @@
                             <span>{{ __('website.discount') }}</span><span id="summary-discount">&minus;{{ money_format(0) }}</span>
                         </div>
                         <div class="web-summary-row"><span>{{ __('website.shipping') }}</span><span id="summary-shipping">{{ __('website.free') }}</span></div>
+                        <div id="summary-tax-row" class="web-summary-row hidden">
+                            <span>{{ __('website.tax') }}</span><span id="summary-tax">{{ money_format(0) }}</span>
+                        </div>
 
                         <div class="web-summary-divider"></div>
 
@@ -290,5 +304,5 @@
             citiesByGovernorate: @json($citiesByGovernorate),
         };
     </script>
-    @vite(['resources/js/website/checkout.js'])
+    @vite(['resources/js/website/account.js', 'resources/js/website/checkout.js'])
 @endpush
