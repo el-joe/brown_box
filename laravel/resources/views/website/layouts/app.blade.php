@@ -288,7 +288,7 @@
                     {{ setting('footer_about_' . current_lang()) ?: setting('footer_about_en', __('website.footer_about')) }}
                 </p>
                 <div class="flex items-center gap-3 mt-4">
-                    @php
+                    <?php
                         $socials = [
                             'social_facebook'  => ['icon' => 'fa-brands fa-facebook',   'label' => 'Facebook'],
                             'social_instagram' => ['icon' => 'fa-brands fa-instagram',   'label' => 'Instagram'],
@@ -296,7 +296,7 @@
                             'social_tiktok'    => ['icon' => 'fa-brands fa-tiktok',      'label' => 'TikTok'],
                             'social_youtube'   => ['icon' => 'fa-brands fa-youtube',     'label' => 'YouTube'],
                         ];
-                    @endphp
+                    ?>
                     @foreach ($socials as $key => $social)
                         @if(setting($key))
                             <a href="{{ setting($key) }}" target="_blank" rel="noopener noreferrer"
