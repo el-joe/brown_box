@@ -35,20 +35,10 @@
             <div class="product-gallery-wrap">
 
                 {{-- Main slider --}}
-                <div class="swiper product-gallery-main group relative rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
+                <div class="swiper product-gallery-main relative rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
                     @if ($hasDiscount)
                         <span class="absolute top-3 start-3 z-10 web-deal-badge">-{{ $discountPercent }}%</span>
                     @endif
-
-                    <button type="button" id="gallery-zoom-btn"
-                        class="absolute inset-0 z-10 flex items-center justify-center
-                               opacity-0 group-hover:opacity-100 transition-opacity duration-200
-                               bg-black/10"
-                        aria-label="{{ __('website.zoom') }}">
-                        <span class="w-10 h-10 rounded-full bg-white/90 shadow flex items-center justify-center text-ink hover:text-brand text-base">
-                            <i class="fa-solid fa-magnifying-glass-plus"></i>
-                        </span>
-                    </button>
 
                     <div class="swiper-wrapper">
                         @forelse ($gallery as $media)
@@ -65,14 +55,14 @@
                                     <img
                                         src="{{ $media->url }}"
                                         alt="{{ $product->name }}"
-                                        class="w-full aspect-square object-cover"
+                                        class="w-full aspect-square object-cover transition-transform duration-500 ease-out hover:scale-125 cursor-zoom-in"
                                         loading="lazy">
                                 @endif
                             </div>
                         @empty
                             {{-- Fallback when no images exist --}}
                             <div class="swiper-slide">
-                                <img src="https://placehold.co/600x600" alt="{{ $product->name }}" class="w-full aspect-square object-cover">
+                                <img src="https://placehold.co/600x600" alt="{{ $product->name }}" class="w-full aspect-square object-cover transition-transform duration-500 ease-out hover:scale-125 cursor-zoom-in">
                             </div>
                         @endforelse
                     </div>

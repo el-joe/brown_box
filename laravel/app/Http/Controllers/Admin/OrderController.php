@@ -47,7 +47,7 @@ class OrderController extends Controller
 
     public function data(Request $request): JsonResponse
     {
-        $query = Order::query()->with(['customer', 'shippingCompany', 'affiliate'])->withCount('items');
+        $query = Order::query()->with(['customer', 'shippingCompany', 'affiliate', 'affiliateCommissions'])->withCount('items');
 
         if ($request->filled('order_number')) {
             $query->where('order_number', 'like', '%'.$request->string('order_number')->toString().'%');
@@ -101,8 +101,18 @@ class OrderController extends Controller
             ->addColumn('payment_status', fn (Order $order) => view('admin.orders._payment-badge', ['order' => $order])->render())
             ->addColumn('status', fn (Order $order) => view('admin.orders._status-badge', ['order' => $order])->render())
             ->addColumn('shipping_status', fn (Order $order) => e($order->shipping_status?->value ?? '—'))
+            ->addColumn('commission', function (Order $order) {
+                if (! $order->affiliate_id) {
+                    return '<span class="text-slate-300">—</span>';
+                }
+
+                $status = $order->affiliateCommissions->first()?->status ?? 'pending';
+
+                return '<span class="text-xs font-medium text-purple-700">'.money_format((float) $order->affiliate_commission).'</span>'
+                    .'<span class="block text-[10px] text-slate-400">'.e($status).'</span>';
+            })
             ->addColumn('actions', fn (Order $order) => view('admin.orders._actions', ['order' => $order])->render())
-            ->rawColumns(['payment_gateway', 'payment_status', 'status', 'actions'])
+            ->rawColumns(['payment_gateway', 'payment_status', 'status', 'commission', 'actions'])
             ->toJson();
     }
 

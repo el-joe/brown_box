@@ -24,6 +24,7 @@
             shippingCompanies: @js(route('web.shipping.companies', ['lang' => current_lang()])),
             checkoutStore: @js(route('web.checkout.store', ['lang' => current_lang()])),
             paymentUploadProof: @js(route('web.payment.upload-proof', ['lang' => current_lang(), 'order' => '__ORDER__'])),
+            affiliateCode: @js(optional(Auth::guard('customer')->user()?->affiliate)->code),
         };
     </script>
 

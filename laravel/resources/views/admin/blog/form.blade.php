@@ -59,32 +59,7 @@
                 </x-admin.lang-tabs>
             </x-admin.card>
 
-            <x-admin.card :title="__('SEO')">
-                <x-admin.lang-tabs>
-                    <x-slot:en>
-                        <div class="admin-field">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Meta Title (EN)') }}</label>
-                            <input type="text" name="meta_title[en]" value="{{ old('meta_title.en', $post->getTranslation('meta_title', 'en')) }}"
-                                class="w-full rounded-lg border-slate-300 text-sm">
-                        </div>
-                        <div class="admin-field mt-4">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Meta Description (EN)') }}</label>
-                            <textarea name="meta_description[en]" rows="2" class="w-full rounded-lg border-slate-300 text-sm">{{ old('meta_description.en', $post->getTranslation('meta_description', 'en')) }}</textarea>
-                        </div>
-                    </x-slot:en>
-                    <x-slot:ar>
-                        <div class="admin-field">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Meta Title (AR)') }}</label>
-                            <input type="text" name="meta_title[ar]" value="{{ old('meta_title.ar', $post->getTranslation('meta_title', 'ar')) }}"
-                                class="w-full rounded-lg border-slate-300 text-sm" dir="rtl">
-                        </div>
-                        <div class="admin-field mt-4">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Meta Description (AR)') }}</label>
-                            <textarea name="meta_description[ar]" rows="2" class="w-full rounded-lg border-slate-300 text-sm" dir="rtl">{{ old('meta_description.ar', $post->getTranslation('meta_description', 'ar')) }}</textarea>
-                        </div>
-                    </x-slot:ar>
-                </x-admin.lang-tabs>
-            </x-admin.card>
+            @include('admin.partials.seo-fields', ['seo' => $post->seoPage])
         </div>
 
         <div class="space-y-6">

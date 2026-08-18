@@ -15,23 +15,22 @@ class AccountingController extends Controller
      */
     private const STRUCTURE = [
         'Revenue' => [
-            'sales' => 'Sales',
-            'affiliate' => 'Affiliate Earnings from Sales',
+            'sales'    => 'Sales',
+            'shipping' => 'Shipping Income',
+            'taxes'    => 'Tax Collected',
         ],
         'Expenses' => [
-            'purchases' => 'Purchases',
-            'expenses' => 'Operating Expenses',
-            'refunds' => 'Refunds',
+            'purchases' => 'Purchases (Cost of Goods)',
+            'expenses'  => 'Operating Expenses',
+            'affiliate' => 'Affiliate Commissions',
+            'refunds'   => 'Refunds Issued',
         ],
         'Discounts' => [
-            'discounts' => 'Discounts',
-        ],
-        'Taxes' => [
-            'taxes' => 'Taxes',
+            'discounts' => 'Discounts Given',
         ],
         'Equity' => [
             'opening_balances' => 'Opening Balances',
-            'owner' => 'Owner Transactions',
+            'owner'            => 'Owner Transactions',
         ],
     ];
 

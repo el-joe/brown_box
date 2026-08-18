@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\SyncsSeoPage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BrandRequest;
 use App\Models\Brand;
@@ -14,6 +15,8 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BrandController extends Controller
 {
+    use SyncsSeoPage;
+
     public function __construct(private readonly BrandService $brands)
     {
     }
@@ -62,7 +65,8 @@ class BrandController extends Controller
 
     public function store(BrandRequest $request): RedirectResponse
     {
-        $this->brands->create($this->mapData($request));
+        $brand = $this->brands->create($this->mapData($request));
+        $this->syncSeo($brand, $request->input('seo', []));
 
         return redirect()->route('admin.brands.index')->with('success', __('Brand created successfully.'));
     }
@@ -73,6 +77,8 @@ class BrandController extends Controller
 
         abort_if(! $brand, 404);
 
+        $brand->load('seoPage');
+
         return view('admin.brands.form', [
             'brand' => $brand,
         ]);
@@ -80,7 +86,8 @@ class BrandController extends Controller
 
     public function update(BrandRequest $request, int $id): RedirectResponse
     {
-        $this->brands->update($id, $this->mapData($request));
+        $brand = $this->brands->update($id, $this->mapData($request));
+        $this->syncSeo($brand, $request->input('seo', []));
 
         return redirect()->route('admin.brands.index')->with('success', __('Brand updated successfully.'));
     }

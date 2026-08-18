@@ -53,10 +53,10 @@ class RefundService
             ]);
 
             $this->accountingService->recordExpense(
-                category: 'purchases',
+                category: 'sales',
                 amount: $amount,
-                description: __('Refund for order :number', ['number' => $order->order_number]),
-                referenceType: 'refund_request',
+                description: __('Refund — Order :number', ['number' => $order->order_number]),
+                referenceType: RefundRequest::class,
                 referenceId: $refundRequest->id,
                 adminId: $adminId,
             );

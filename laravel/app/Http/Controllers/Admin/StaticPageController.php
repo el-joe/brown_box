@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\SyncsSeoPage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StaticPageRequest;
 use App\Models\StaticPage;
@@ -13,6 +14,8 @@ use Illuminate\View\View;
 
 class StaticPageController extends Controller
 {
+    use SyncsSeoPage;
+
     public function __construct(private readonly StaticPageService $pages)
     {
     }
@@ -38,7 +41,8 @@ class StaticPageController extends Controller
 
     public function store(StaticPageRequest $request): RedirectResponse
     {
-        $this->pages->create($this->mapData($request));
+        $page = $this->pages->create($this->mapData($request));
+        $this->syncSeo($page, $request->input('seo', []));
 
         return redirect()->route('admin.static-pages.index')->with('success', __('Static page created successfully.'));
     }
@@ -49,12 +53,15 @@ class StaticPageController extends Controller
 
         abort_if(! $page, 404);
 
+        $page->load('seoPage');
+
         return view('admin.static-pages.form', ['page' => $page]);
     }
 
     public function update(StaticPageRequest $request, int $id): RedirectResponse
     {
-        $this->pages->update($id, $this->mapData($request));
+        $page = $this->pages->update($id, $this->mapData($request));
+        $this->syncSeo($page, $request->input('seo', []));
 
         return redirect()->route('admin.static-pages.index')->with('success', __('Static page updated successfully.'));
     }

@@ -82,6 +82,7 @@
             ['data' => 'payment_status', 'name' => 'payment_status', 'title' => __('Payment'), 'orderable' => false, 'searchable' => false],
             ['data' => 'status', 'name' => 'status', 'title' => __('Order Status'), 'orderable' => false, 'searchable' => false],
             ['data' => 'shipping_status', 'name' => 'shipping_status', 'title' => __('Shipping'), 'orderable' => false, 'searchable' => false],
+            ['data' => 'commission', 'name' => 'commission', 'title' => __('Commission'), 'orderable' => false, 'searchable' => false],
             ['data' => 'actions', 'name' => 'actions', 'title' => __('Actions'), 'orderable' => false, 'searchable' => false],
         ]"
     />

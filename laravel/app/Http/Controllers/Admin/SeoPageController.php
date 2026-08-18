@@ -21,6 +21,9 @@ class SeoPageController extends Controller
             'staticPages' => $this->seo->staticPageGroups(),
             'products' => $this->seo->productGroup(),
             'categories' => $this->seo->categoryGroup(),
+            'blogPosts' => $this->seo->blogPostGroup(),
+            'brands' => $this->seo->brandGroup(),
+            'staticModels' => $this->seo->staticPageGroup(),
         ]);
     }
 
@@ -53,9 +56,14 @@ class SeoPageController extends Controller
         $modelClass = $this->seo->modelClass($modelType);
         $model = $modelClass::query()->findOrFail($modelId);
 
+        $label = match ($modelType) {
+            'blog_post', 'static_page' => $model->getTranslation('title', 'en') ?: $model->getTranslation('title', 'ar'),
+            default => $model->getTranslation('name', 'en') ?: $model->getTranslation('name', 'ar'),
+        };
+
         return view('admin.seo.form', [
             'seoPage' => $this->seo->findOrNewForModel($modelType, $modelId),
-            'title' => $model->getTranslation('name', 'en') ?: $model->getTranslation('name', 'ar'),
+            'title' => $label,
             'submitUrl' => route('admin.seo.model.update', [$modelType, $modelId]),
         ]);
     }

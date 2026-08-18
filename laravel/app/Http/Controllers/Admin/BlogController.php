@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\SyncsSeoPage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BlogPostRequest;
 use App\Models\BlogCategory;
@@ -15,6 +16,8 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BlogController extends Controller
 {
+    use SyncsSeoPage;
+
     public function __construct(private readonly BlogPostService $blogPosts)
     {
     }
@@ -70,7 +73,8 @@ class BlogController extends Controller
 
     public function store(BlogPostRequest $request): RedirectResponse
     {
-        $this->blogPosts->create($this->mapData($request));
+        $post = $this->blogPosts->create($this->mapData($request));
+        $this->syncSeo($post, $request->input('seo', []));
 
         return redirect()->route('admin.blog.index')->with('success', __('Blog post created successfully.'));
     }
@@ -81,6 +85,8 @@ class BlogController extends Controller
 
         abort_if(! $post, 404);
 
+        $post->load('seoPage');
+
         return view('admin.blog.form', [
             'post' => $post,
             'categories' => BlogCategory::query()->orderBy('name')->get(),
@@ -89,7 +95,8 @@ class BlogController extends Controller
 
     public function update(BlogPostRequest $request, int $id): RedirectResponse
     {
-        $this->blogPosts->update($id, $this->mapData($request));
+        $post = $this->blogPosts->update($id, $this->mapData($request));
+        $this->syncSeo($post, $request->input('seo', []));
 
         return redirect()->route('admin.blog.index')->with('success', __('Blog post updated successfully.'));
     }
@@ -119,7 +126,7 @@ class BlogController extends Controller
 
     private function mapData(BlogPostRequest $request): array
     {
-        $data = $request->safe()->only(['title', 'content', 'excerpt', 'meta_title', 'meta_description', 'blog_category_id', 'published_at']);
+        $data = $request->safe()->only(['title', 'content', 'excerpt', 'blog_category_id', 'published_at']);
         $data['is_published'] = $request->boolean('is_published');
         $data['author_id'] = auth('admin')->id();
 

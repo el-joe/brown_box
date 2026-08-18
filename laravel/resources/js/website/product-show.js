@@ -74,18 +74,6 @@ function initGallery(root) {
     // Highlight first thumb on init
     const firstThumb = thumbEl?.querySelector('.swiper-slide');
     if (firstThumb) firstThumb.classList.add('!border-brand');
-
-    // Zoom button — open active slide media in new tab
-    const zoomBtn = root.querySelector('#gallery-zoom-btn');
-    if (zoomBtn) {
-        zoomBtn.addEventListener('click', () => {
-            const activeSlide = mainEl.querySelectorAll('.swiper-slide')[gallerySwiper.activeIndex];
-            const img = activeSlide?.querySelector('img');
-            const video = activeSlide?.querySelector('video');
-            const url = img?.src || video?.src;
-            if (url) window.open(url, '_blank', 'noopener');
-        });
-    }
 }
 
 function initQuantity(root) {
@@ -274,12 +262,22 @@ function initActions(root, { getQty, getSelectedVariantId }) {
     });
 
     shareBtn?.addEventListener('click', () => {
-        const url = window.location.href;
+        const base    = window.location.href.split('?')[0];
+        const refCode = window.routes?.affiliateCode;
+        const url     = refCode ? `${base}?ref=${encodeURIComponent(refCode)}` : window.location.href;
 
         if (navigator.share) {
             navigator.share({ url, title: document.title }).catch(() => {});
-        } else if (navigator.clipboard) {
-            navigator.clipboard.writeText(url);
+        } else {
+            navigator.clipboard.writeText(url).then(() => {
+                toastr.success(
+                    refCode
+                        ? 'Affiliate link copied to clipboard!'
+                        : 'Link copied to clipboard!'
+                );
+            }).catch(() => {
+                window.prompt('Copy this link:', url);
+            });
         }
     });
 }

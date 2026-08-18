@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -25,8 +26,6 @@ class BlogPost extends Model
         'blog_category_id',
         'is_published',
         'published_at',
-        'meta_title',
-        'meta_description',
     ];
 
     protected $casts = [
@@ -38,8 +37,6 @@ class BlogPost extends Model
         'title',
         'content',
         'excerpt',
-        'meta_title',
-        'meta_description',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -57,6 +54,11 @@ class BlogPost extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(BlogCategory::class, 'blog_category_id');
+    }
+
+    public function seoPage(): MorphOne
+    {
+        return $this->morphOne(SeoPage::class, 'model', 'model_type', 'model_id');
     }
 
     public function scopePublished(Builder $query): Builder

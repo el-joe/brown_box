@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\BlogPost;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SeoPage;
+use App\Models\StaticPage;
 use App\Repositories\Contracts\SeoPageRepositoryInterface;
 use Illuminate\Support\Str;
 
@@ -29,6 +32,9 @@ class SeoPageService
     private const MODEL_MAP = [
         'product' => Product::class,
         'category' => Category::class,
+        'blog_post' => BlogPost::class,
+        'brand' => Brand::class,
+        'static_page' => StaticPage::class,
     ];
 
     public function __construct(private readonly SeoPageRepositoryInterface $seoPages)
@@ -74,6 +80,47 @@ class SeoPageService
                 'id' => $category->id,
                 'name' => $category->getTranslation('name', 'en') ?: $category->getTranslation('name', 'ar'),
                 'filled' => $this->isFilled($category->seoPage),
+            ])->all();
+    }
+
+    public function blogPostGroup(): array
+    {
+        return BlogPost::query()
+            ->select(['id', 'title', 'slug'])
+            ->with('seoPage')
+            ->latest()
+            ->get()
+            ->map(fn (BlogPost $post) => [
+                'id' => $post->id,
+                'name' => $post->getTranslation('title', 'en') ?: $post->getTranslation('title', 'ar'),
+                'filled' => $this->isFilled($post->seoPage),
+            ])->all();
+    }
+
+    public function brandGroup(): array
+    {
+        return Brand::query()
+            ->select(['id', 'name'])
+            ->with('seoPage')
+            ->orderBy('id', 'desc')
+            ->get()
+            ->map(fn (Brand $brand) => [
+                'id' => $brand->id,
+                'name' => $brand->getTranslation('name', 'en') ?: $brand->getTranslation('name', 'ar'),
+                'filled' => $this->isFilled($brand->seoPage),
+            ])->all();
+    }
+
+    public function staticPageGroup(): array
+    {
+        return StaticPage::query()
+            ->select(['id', 'title', 'slug'])
+            ->with('seoPage')
+            ->get()
+            ->map(fn (StaticPage $page) => [
+                'id' => $page->id,
+                'name' => $page->getTranslation('title', 'en') ?: $page->getTranslation('title', 'ar'),
+                'filled' => $this->isFilled($page->seoPage),
             ])->all();
     }
 

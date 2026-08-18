@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\StaticPage;
 use App\Repositories\Contracts\SeoPageRepositoryInterface;
 use Closure;
 use Illuminate\Http\Request;
@@ -44,6 +46,22 @@ class InjectSeoMeta
 
                     return $category
                         ? $this->seoPages->findForModel(Category::class, $category->id)
+                        : null;
+                }
+
+                if ($routeName === 'web.blog.show') {
+                    $post = BlogPost::query()->where('slug', $request->route('slug'))->first();
+
+                    return $post
+                        ? $this->seoPages->findForModel(BlogPost::class, $post->id)
+                        : null;
+                }
+
+                if ($routeName === 'web.pages.show') {
+                    $page = StaticPage::query()->where('slug', $request->route('slug'))->first();
+
+                    return $page
+                        ? $this->seoPages->findForModel(StaticPage::class, $page->id)
                         : null;
                 }
 

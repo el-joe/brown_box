@@ -58,8 +58,49 @@
             </div>
         </x-admin.card>
 
-        <x-admin.card :title="__('Blog')">
-            <p class="text-sm text-slate-400 py-3">{{ __('Blog module is not available yet.') }}</p>
+        <x-admin.card :title="__('Blog Posts')">
+            <div class="divide-y divide-slate-100 max-h-96 overflow-y-auto">
+                @forelse ($blogPosts as $item)
+                    <a href="{{ route('admin.seo.model.edit', ['blog_post', $item['id']]) }}" class="flex items-center justify-between py-3 hover:bg-slate-50 px-2 -mx-2 rounded-lg">
+                        <span class="text-sm text-slate-700">{{ $item['name'] }}</span>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium {{ $item['filled'] ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500' }}">
+                            {{ $item['filled'] ? __('Filled') : __('Empty') }}
+                        </span>
+                    </a>
+                @empty
+                    <p class="text-sm text-slate-400 py-3">{{ __('No blog posts found.') }}</p>
+                @endforelse
+            </div>
+        </x-admin.card>
+
+        <x-admin.card :title="__('Brands')">
+            <div class="divide-y divide-slate-100 max-h-96 overflow-y-auto">
+                @forelse ($brands as $item)
+                    <a href="{{ route('admin.seo.model.edit', ['brand', $item['id']]) }}" class="flex items-center justify-between py-3 hover:bg-slate-50 px-2 -mx-2 rounded-lg">
+                        <span class="text-sm text-slate-700">{{ $item['name'] }}</span>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium {{ $item['filled'] ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500' }}">
+                            {{ $item['filled'] ? __('Filled') : __('Empty') }}
+                        </span>
+                    </a>
+                @empty
+                    <p class="text-sm text-slate-400 py-3">{{ __('No brands found.') }}</p>
+                @endforelse
+            </div>
+        </x-admin.card>
+
+        <x-admin.card :title="__('Static Pages (Content)')">
+            <div class="divide-y divide-slate-100 max-h-96 overflow-y-auto">
+                @forelse ($staticModels as $item)
+                    <a href="{{ route('admin.seo.model.edit', ['static_page', $item['id']]) }}" class="flex items-center justify-between py-3 hover:bg-slate-50 px-2 -mx-2 rounded-lg">
+                        <span class="text-sm text-slate-700">{{ $item['name'] }}</span>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium {{ $item['filled'] ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500' }}">
+                            {{ $item['filled'] ? __('Filled') : __('Empty') }}
+                        </span>
+                    </a>
+                @empty
+                    <p class="text-sm text-slate-400 py-3">{{ __('No static pages found.') }}</p>
+                @endforelse
+            </div>
         </x-admin.card>
     </div>
 

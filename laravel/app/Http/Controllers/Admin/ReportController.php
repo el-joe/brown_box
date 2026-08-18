@@ -115,7 +115,11 @@ class ReportController extends Controller
 
         $byAffiliate = AffiliateCommission::query()
             ->whereBetween('created_at', [$from, $to])
-            ->selectRaw('affiliate_id, SUM(amount) as total')
+            ->selectRaw('affiliate_id,
+                COUNT(DISTINCT order_id)                                    as order_count,
+                SUM(amount)                                                  as total,
+                SUM(CASE WHEN status = "pending"  THEN amount ELSE 0 END)   as pending_amount,
+                SUM(CASE WHEN status = "approved" THEN amount ELSE 0 END)   as approved_amount')
             ->groupBy('affiliate_id')
             ->with('affiliate.customer')
             ->get();

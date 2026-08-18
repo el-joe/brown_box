@@ -29,6 +29,7 @@ class AffiliateService
         private readonly AffiliateRepositoryInterface $affiliates,
         private readonly AffiliateCommissionRepositoryInterface $commissions,
         private readonly PayoutRequestRepositoryInterface $payoutRequests,
+        private readonly AccountingService $accountingService,
     ) {}
 
     public function findByCode(string $code): ?Model
@@ -110,6 +111,16 @@ class AffiliateService
             ]);
 
             $order->update(['affiliate_commission' => $amount]);
+
+            if ($amount > 0) {
+                $this->accountingService->recordExpense(
+                    category: 'affiliate',
+                    amount: $amount,
+                    description: "Affiliate commission — Order #{$order->order_number} (affiliate: {$affiliate->code})",
+                    referenceType: \App\Models\AffiliateCommission::class,
+                    referenceId: $commission->id,
+                );
+            }
 
             return $commission;
         });

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -39,6 +40,11 @@ class Brand extends Model implements HasMedia
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function seoPage(): MorphOne
+    {
+        return $this->morphOne(SeoPage::class, 'model', 'model_type', 'model_id');
     }
 
     public function scopeActive($query)

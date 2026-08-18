@@ -202,12 +202,7 @@ class CheckoutController extends Controller
                 $commissionAmount = $this->affiliateService->calculateCommission($affiliate, $order);
 
                 if ($commissionAmount > 0) {
-                    \App\Models\AffiliateCommission::query()->create([
-                        'affiliate_id' => $affiliate->id,
-                        'order_id' => $order->id,
-                        'amount' => $commissionAmount,
-                        'status' => 'pending',
-                    ]);
+                    $this->affiliateService->recordCommissionForOrder($affiliate, $order);
                 }
             }
 

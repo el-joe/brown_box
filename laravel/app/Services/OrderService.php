@@ -145,11 +145,41 @@ class OrderService
 
             $this->accountingService->recordIncome(
                 category: 'sales',
-                amount: (float) $totalAmount,
-                description: "Order #{$order->order_number}",
+                amount: (float) $subtotal,
+                description: "Sales — Order #{$order->order_number}",
                 referenceType: 'order',
                 referenceId: $order->id,
             );
+
+            if ($shippingAmount > 0) {
+                $this->accountingService->recordIncome(
+                    category: 'shipping',
+                    amount: (float) $shippingAmount,
+                    description: "Shipping — Order #{$order->order_number}",
+                    referenceType: 'order',
+                    referenceId: $order->id,
+                );
+            }
+
+            if ($discountAmount > 0) {
+                $this->accountingService->recordExpense(
+                    category: 'discounts',
+                    amount: (float) $discountAmount,
+                    description: "Discount — Order #{$order->order_number}",
+                    referenceType: 'order',
+                    referenceId: $order->id,
+                );
+            }
+
+            if ($taxAmount > 0) {
+                $this->accountingService->recordIncome(
+                    category: 'taxes',
+                    amount: (float) $taxAmount,
+                    description: "Tax — Order #{$order->order_number}",
+                    referenceType: 'order',
+                    referenceId: $order->id,
+                );
+            }
 
             event(new OrderCreated($order));
 

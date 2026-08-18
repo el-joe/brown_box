@@ -47,7 +47,7 @@ class AccountingService
     public function recordIncome(string $category, float $amount, string $description, ?string $referenceType = null, ?int $referenceId = null, ?int $adminId = null): Model
     {
         return $this->createEntry([
-            'type' => 'income',
+            'type' => 'credit',
             'category' => $category,
             'amount' => $amount,
             'description' => $description,
@@ -61,7 +61,7 @@ class AccountingService
     public function recordExpense(string $category, float $amount, string $description, ?string $referenceType = null, ?int $referenceId = null, ?int $adminId = null): Model
     {
         return $this->createEntry([
-            'type' => 'expense',
+            'type' => 'debit',
             'category' => $category,
             'amount' => $amount,
             'description' => $description,
@@ -77,19 +77,19 @@ class AccountingService
      */
     public function balance(?string $from = null, ?string $to = null): float
     {
-        $income = $this->entries->totalByTypeBetween('income', $from, $to);
-        $expense = $this->entries->totalByTypeBetween('expense', $from, $to);
+        $income = $this->entries->totalByTypeBetween('credit', $from, $to);
+        $expense = $this->entries->totalByTypeBetween('debit', $from, $to);
 
         return round($income - $expense, 2);
     }
 
     public function totalIncome(?string $from = null, ?string $to = null): float
     {
-        return $this->entries->totalByTypeBetween('income', $from, $to);
+        return $this->entries->totalByTypeBetween('credit', $from, $to);
     }
 
     public function totalExpense(?string $from = null, ?string $to = null): float
     {
-        return $this->entries->totalByTypeBetween('expense', $from, $to);
+        return $this->entries->totalByTypeBetween('debit', $from, $to);
     }
 }

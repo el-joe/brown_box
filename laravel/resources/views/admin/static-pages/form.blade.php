@@ -55,6 +55,8 @@
                             </x-slot:ar>
                         </x-admin.lang-tabs>
                     </x-admin.card>
+
+                    @include('admin.partials.seo-fields', ['seo' => $page->seoPage])
                 </div>
 
                 <div class="space-y-6">

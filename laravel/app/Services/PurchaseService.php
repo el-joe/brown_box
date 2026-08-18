@@ -104,13 +104,39 @@ class PurchaseService
             $this->accounting->createEntry([
                 'type' => 'debit',
                 'category' => 'purchases',
-                'amount' => $purchase->net_amount,
-                'description' => __('Purchase :invoice', ['invoice' => $purchase->invoice_number]),
+                'amount' => (float) $purchase->total_amount,
+                'description' => __('Purchase cost — :invoice', ['invoice' => $purchase->invoice_number]),
                 'reference_type' => Purchase::class,
                 'reference_id' => $purchase->id,
                 'date' => now()->toDateString(),
                 'admin_id' => $adminId,
             ]);
+
+            if ((float) $purchase->discount_amount > 0) {
+                $this->accounting->createEntry([
+                    'type' => 'credit',
+                    'category' => 'discounts',
+                    'amount' => (float) $purchase->discount_amount,
+                    'description' => __('Supplier discount — :invoice', ['invoice' => $purchase->invoice_number]),
+                    'reference_type' => Purchase::class,
+                    'reference_id' => $purchase->id,
+                    'date' => now()->toDateString(),
+                    'admin_id' => $adminId,
+                ]);
+            }
+
+            if ((float) $purchase->tax_amount > 0) {
+                $this->accounting->createEntry([
+                    'type' => 'debit',
+                    'category' => 'taxes',
+                    'amount' => (float) $purchase->tax_amount,
+                    'description' => __('Tax on purchase — :invoice', ['invoice' => $purchase->invoice_number]),
+                    'reference_type' => Purchase::class,
+                    'reference_id' => $purchase->id,
+                    'date' => now()->toDateString(),
+                    'admin_id' => $adminId,
+                ]);
+            }
 
             return $purchase->refresh()->load('items');
         });
