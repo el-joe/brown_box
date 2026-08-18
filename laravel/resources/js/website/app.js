@@ -26,6 +26,17 @@ function updateCartBadge(count) {
     badge.classList.toggle('hidden', !count);
 }
 
+function updateWishlistBadge(count) {
+    const badge = document.getElementById('wishlist-count-badge');
+
+    if (!badge) {
+        return;
+    }
+
+    badge.textContent = count;
+    badge.classList.toggle('hidden', !count);
+}
+
 function csrfToken() {
     return document.querySelector('meta[name="csrf-token"]')?.content ?? '';
 }
@@ -63,6 +74,15 @@ window.WebsiteApi = {
         return jsonFetch(window.routes?.wishlistToggle, {
             method: 'POST',
             body: JSON.stringify({ product_id: productId, variant_id: variantId }),
+        }).then((data) => {
+            if (data.success) {
+                updateWishlistBadge(data.wishlist_count);
+                toastr.success(data.message || (data.wishlisted ? 'Added to wishlist.' : 'Removed from wishlist.'));
+            } else {
+                toastr.error(data.message || 'Could not update wishlist.');
+            }
+
+            return data;
         });
     },
     updateCartItem(key, qty) {

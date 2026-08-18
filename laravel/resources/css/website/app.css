@@ -176,6 +176,23 @@
     @apply border-brand;
 }
 
+/* Product gallery thumbnail strip */
+.product-gallery-thumbs .swiper-slide {
+    width: 4rem !important;
+    height: 4rem !important;
+    flex-shrink: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 150ms;
+}
+
+.product-gallery-thumbs .swiper-slide.swiper-slide-thumb-active,
+.product-gallery-thumbs .swiper-slide.\!border-brand {
+    border-color: var(--color-brand, #2b6ee0);
+}
+
 .web-variant-pill {
     @apply inline-flex items-center justify-center rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:border-brand transition-colors;
 }

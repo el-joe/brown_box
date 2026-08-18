@@ -2,7 +2,7 @@
 // add-to-cart / wishlist ajax, flash sale countdown, description/specs/reviews tabs
 // and the related-products carousel.
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Thumbs, Zoom } from 'swiper/modules';
 
 function initRelatedSwiper() {
     document.querySelectorAll('.web-product-swiper').forEach((el) => {
@@ -32,22 +32,60 @@ function moneyFormat(amount) {
     }).format(amount);
 }
 
+// ── Gallery: main slider synced to thumbnail strip ──────────────────────────
+let gallerySwiper = null; // exposed so initVariants can slideTo()
+
 function initGallery(root) {
-    const mainImage = root.querySelector('#product-main-image');
-    const thumbs = root.querySelectorAll('[data-thumb]');
+    const mainEl = root.querySelector('.product-gallery-main');
+    const thumbEl = root.querySelector('.product-gallery-thumbs');
 
-    thumbs.forEach((thumb) => {
-        thumb.addEventListener('click', () => {
-            const full = thumb.dataset.full;
+    if (!mainEl) return;
 
-            if (mainImage && full) {
-                mainImage.src = full;
-            }
-
-            thumbs.forEach((t) => t.classList.remove('is-active'));
-            thumb.classList.add('is-active');
+    // Thumbs swiper (optional — only present when gallery.count() > 1)
+    let thumbsSwiper = null;
+    if (thumbEl) {
+        thumbsSwiper = new Swiper(thumbEl, {
+            modules: [Navigation],
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            watchSlidesProgress: true,
+            freeMode: true,
         });
+    }
+
+    // Main swiper
+    gallerySwiper = new Swiper(mainEl, {
+        modules: thumbsSwiper ? [Thumbs] : [],
+        spaceBetween: 0,
+        slidesPerView: 1,
+        ...(thumbsSwiper ? { thumbs: { swiper: thumbsSwiper } } : {}),
+        on: {
+            // Keep active thumb highlighted with brand border
+            slideChange(swiper) {
+                if (!thumbEl) return;
+                thumbEl.querySelectorAll('.swiper-slide').forEach((slide, i) => {
+                    slide.classList.toggle('!border-brand', i === swiper.activeIndex);
+                    slide.classList.toggle('border-transparent', i !== swiper.activeIndex);
+                });
+            },
+        },
     });
+
+    // Highlight first thumb on init
+    const firstThumb = thumbEl?.querySelector('.swiper-slide');
+    if (firstThumb) firstThumb.classList.add('!border-brand');
+
+    // Zoom button — open active slide media in new tab
+    const zoomBtn = root.querySelector('#gallery-zoom-btn');
+    if (zoomBtn) {
+        zoomBtn.addEventListener('click', () => {
+            const activeSlide = mainEl.querySelectorAll('.swiper-slide')[gallerySwiper.activeIndex];
+            const img = activeSlide?.querySelector('img');
+            const video = activeSlide?.querySelector('video');
+            const url = img?.src || video?.src;
+            if (url) window.open(url, '_blank', 'noopener');
+        });
+    }
 }
 
 function initQuantity(root) {
@@ -105,7 +143,6 @@ function initVariants(root) {
 
     const priceCurrent = root.querySelector('#product-price-current');
     const priceOriginal = root.querySelector('#product-price-original');
-    const mainImage = root.querySelector('#product-main-image');
     const addToCartBtn = root.querySelector('#add-to-cart-btn');
     const buyNowBtn = root.querySelector('#buy-now-btn');
 
@@ -135,8 +172,19 @@ function initVariants(root) {
             }
         }
 
-        if (variant.image && mainImage) {
-            mainImage.src = variant.image;
+        // When a variant has its own image, slide the gallery to the matching slide.
+        // Fall back to slide 0 if no match found.
+        if (variant.image && gallerySwiper) {
+            const slides = gallerySwiper.el.querySelectorAll('.swiper-slide img');
+            let targetIndex = 0;
+            slides.forEach((img, i) => {
+                if (img.src === variant.image || img.src.endsWith(variant.image)) {
+                    targetIndex = i;
+                }
+            });
+            gallerySwiper.slideTo(targetIndex);
+        } else if (gallerySwiper) {
+            gallerySwiper.slideTo(0);
         }
 
         const inStock = variant.stock > 0;
@@ -199,8 +247,29 @@ function initActions(root, { getQty, getSelectedVariantId }) {
     });
 
     wishlistBtn?.addEventListener('click', () => {
-        window.WebsiteApi.toggleWishlist(productId, getSelectedVariantId()).then(() => {
-            wishlistBtn.classList.toggle('text-red-500');
+        window.WebsiteApi.toggleWishlist(productId, getSelectedVariantId()).then((data) => {
+            if (!data?.success) {
+                return;
+            }
+
+            const wishlisted = data.wishlisted;
+            const icon = wishlistBtn.querySelector('i');
+            const label = wishlistBtn.querySelector('#wishlist-btn-label');
+
+            if (icon) {
+                icon.classList.toggle('fa-solid', wishlisted);
+                icon.classList.toggle('fa-regular', !wishlisted);
+                icon.classList.toggle('text-red-500', wishlisted);
+            }
+
+            if (label) {
+                label.textContent = wishlisted
+                    ? (wishlistBtn.dataset.labelAdd || 'Remove from Favorites')
+                    : (wishlistBtn.dataset.labelRemove || 'Add to Favorites');
+            }
+
+            wishlistBtn.dataset.wishlisted = wishlisted ? '1' : '0';
+            wishlistBtn.classList.toggle('is-wishlisted', wishlisted);
         });
     });
 

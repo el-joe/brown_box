@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -77,6 +79,18 @@ class ProductController extends Controller
                 ];
             })->values();
 
+        $customerId = Auth::guard('customer')->id();
+        $sessionId = session()->getId();
+
+        $isWishlisted = Wishlist::query()
+            ->forOwner($customerId, $sessionId)
+            ->where('product_id', $product->id)
+            ->exists();
+
+        $wishlistCount = Wishlist::query()
+            ->forOwner($customerId, $sessionId)
+            ->count();
+
         return view('website.products.show', [
             'product' => $product,
             'relatedProducts' => $relatedProducts,
@@ -85,6 +99,8 @@ class ProductController extends Controller
             'attributeOptions' => $attributeOptions,
             'averageRating' => $product->reviews->avg('rating') ?? 0,
             'reviewCount' => $product->reviews->count(),
+            'isWishlisted' => $isWishlisted,
+            'wishlistCount' => $wishlistCount,
         ]);
     }
 }

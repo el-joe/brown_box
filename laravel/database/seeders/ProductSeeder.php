@@ -191,6 +191,8 @@ class ProductSeeder extends Seeder
                 ['path' => $data['image'], 'type' => 'image', 'sort_order' => 0]
             );
 
+            $this->seedExtraGalleryMedia($product);
+
             if ($warehouse) {
                 Stock::firstOrCreate(
                     ['product_id' => $product->id, 'variant_id' => null, 'warehouse_id' => $warehouse->id],
@@ -291,6 +293,8 @@ class ProductSeeder extends Seeder
                 ['path' => $data['image'], 'type' => 'image', 'sort_order' => 0]
             );
 
+            $this->seedExtraGalleryMedia($product);
+
             foreach ($data['variants'] as $i => $variantData) {
                 $qty = $variantData['qty'];
                 unset($variantData['qty']);
@@ -333,5 +337,33 @@ class ProductSeeder extends Seeder
                 }
             }
         }
+    }
+
+    /**
+     * Seed a couple of extra gallery images plus a sample video, so the
+     * product page slider has more than one slide to show.
+     */
+    private function seedExtraGalleryMedia(Product $product): void
+    {
+        $extraImages = [
+            'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80',
+            'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80',
+        ];
+
+        foreach ($extraImages as $index => $url) {
+            ProductImage::firstOrCreate(
+                ['product_id' => $product->id, 'path' => $url],
+                ['type' => 'image', 'is_primary' => false, 'sort_order' => $index + 1]
+            );
+        }
+
+        ProductImage::firstOrCreate(
+            ['product_id' => $product->id, 'type' => 'video'],
+            [
+                'path' => 'https://www.w3schools.com/html/mov_bbb.mp4',
+                'is_primary' => false,
+                'sort_order' => count($extraImages) + 1,
+            ]
+        );
     }
 }

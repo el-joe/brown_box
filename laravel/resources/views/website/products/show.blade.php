@@ -32,27 +32,69 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-5">
 
             {{-- ============ GALLERY ============ --}}
-            <div>
-                <div class="relative rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
+            <div class="product-gallery-wrap">
+
+                {{-- Main slider --}}
+                <div class="swiper product-gallery-main group relative rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
                     @if ($hasDiscount)
                         <span class="absolute top-3 start-3 z-10 web-deal-badge">-{{ $discountPercent }}%</span>
                     @endif
-                    <a href="{{ $mainImage }}" target="_blank" rel="noopener"
-                        class="absolute top-3 end-3 z-10 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-sm text-ink hover:text-brand"
+
+                    <button type="button" id="gallery-zoom-btn"
+                        class="absolute inset-0 z-10 flex items-center justify-center
+                               opacity-0 group-hover:opacity-100 transition-opacity duration-200
+                               bg-black/10"
                         aria-label="{{ __('website.zoom') }}">
-                        <i class="fa-solid fa-magnifying-glass-plus"></i>
-                    </a>
-                    <img id="product-main-image" src="{{ $mainImage }}" alt="{{ $product->name }}" class="w-full aspect-square object-cover">
+                        <span class="w-10 h-10 rounded-full bg-white/90 shadow flex items-center justify-center text-ink hover:text-brand text-base">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                        </span>
+                    </button>
+
+                    <div class="swiper-wrapper">
+                        @forelse ($gallery as $media)
+                            <div class="swiper-slide">
+                                @if ($media->type === 'video')
+                                    <video
+                                        src="{{ $media->url }}"
+                                        class="w-full aspect-square object-cover"
+                                        controls
+                                        preload="metadata"
+                                        playsinline>
+                                    </video>
+                                @else
+                                    <img
+                                        src="{{ $media->url }}"
+                                        alt="{{ $product->name }}"
+                                        class="w-full aspect-square object-cover"
+                                        loading="lazy">
+                                @endif
+                            </div>
+                        @empty
+                            {{-- Fallback when no images exist --}}
+                            <div class="swiper-slide">
+                                <img src="https://placehold.co/600x600" alt="{{ $product->name }}" class="w-full aspect-square object-cover">
+                            </div>
+                        @endforelse
+                    </div>
                 </div>
 
+                {{-- Thumbnail strip — only render if there is more than one media item --}}
                 @if ($gallery->count() > 1)
-                    <div class="flex gap-3 mt-3 overflow-x-auto pb-1">
-                        @foreach ($gallery as $image)
-                            <button type="button" data-thumb data-full="{{ $image->url }}"
-                                class="web-gallery-thumb {{ $loop->first ? 'is-active' : '' }} shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 {{ $loop->first ? 'border-brand' : 'border-transparent' }}">
-                                <img src="{{ $image->url }}" alt="{{ $product->name }} thumbnail" class="w-full h-full object-cover">
-                            </button>
-                        @endforeach
+                    <div class="swiper product-gallery-thumbs mt-3">
+                        <div class="swiper-wrapper">
+                            @foreach ($gallery as $media)
+                                <div class="swiper-slide !w-16 !h-16 rounded-lg overflow-hidden border-2 border-transparent cursor-pointer shrink-0">
+                                    @if ($media->type === 'video')
+                                        {{-- Video thumb: show a play icon overlay on a dark bg --}}
+                                        <div class="relative w-full h-full bg-slate-800 flex items-center justify-center">
+                                            <i class="fa-solid fa-circle-play text-white text-2xl opacity-80"></i>
+                                        </div>
+                                    @else
+                                        <img src="{{ $media->url }}" alt="{{ $product->name }} thumbnail" class="w-full h-full object-cover">
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 @endif
             </div>
@@ -140,8 +182,15 @@
                 </div>
 
                 <div class="flex items-center gap-3 mt-5">
-                    <button type="button" id="wishlist-btn" class="web-icon-action-btn">
-                        <i class="fa-regular fa-heart"></i> {{ __('website.add_to_favorites') }}
+                    <button type="button" id="wishlist-btn"
+                        class="web-icon-action-btn {{ $isWishlisted ? 'is-wishlisted' : '' }}"
+                        data-wishlisted="{{ $isWishlisted ? '1' : '0' }}"
+                        data-label-add="{{ __('website.remove_from_favorites') }}"
+                        data-label-remove="{{ __('website.add_to_favorites') }}">
+                        <i class="{{ $isWishlisted ? 'fa-solid' : 'fa-regular' }} fa-heart {{ $isWishlisted ? 'text-red-500' : '' }}"></i>
+                        <span id="wishlist-btn-label">
+                            {{ $isWishlisted ? __('website.remove_from_favorites') : __('website.add_to_favorites') }}
+                        </span>
                     </button>
                     <button type="button" id="share-btn" class="web-icon-action-btn">
                         <i class="fa-solid fa-share-nodes"></i> {{ __('website.share') }}

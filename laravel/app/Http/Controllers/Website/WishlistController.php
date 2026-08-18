@@ -47,7 +47,14 @@ class WishlistController extends Controller
         if ($existing) {
             $existing->delete();
 
-            return response()->json(['wishlisted' => false]);
+            $count = Wishlist::query()->forOwner($customerId, $sessionId)->count();
+
+            return response()->json([
+                'success'        => true,
+                'wishlisted'     => false,
+                'wishlist_count' => $count,
+                'message'        => __('website.removed_from_wishlist'),
+            ]);
         }
 
         Wishlist::query()->create([
@@ -57,6 +64,13 @@ class WishlistController extends Controller
             'variant_id' => $data['variant_id'] ?? null,
         ]);
 
-        return response()->json(['wishlisted' => true]);
+        $count = Wishlist::query()->forOwner($customerId, $sessionId)->count();
+
+        return response()->json([
+            'success'        => true,
+            'wishlisted'     => true,
+            'wishlist_count' => $count,
+            'message'        => __('website.added_to_wishlist'),
+        ]);
     }
 }

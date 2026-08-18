@@ -74,6 +74,8 @@
 
                     <a href="{{ route('web.wishlist.index', ['lang' => current_lang()]) }}" class="web-icon-btn" title="{{ __('website.wishlist') }}">
                         <i class="fa-regular fa-heart"></i>
+                        @php($wishlistCountHeader = $wishlistCount ?? 0)
+                        <span id="wishlist-count-badge" class="web-badge-count {{ $wishlistCountHeader > 0 ? '' : 'hidden' }}">{{ $wishlistCountHeader }}</span>
                     </a>
 
                     <a href="{{ route('web.cart.index', ['lang' => current_lang()]) }}" class="web-icon-btn" title="{{ __('website.cart') }}">
