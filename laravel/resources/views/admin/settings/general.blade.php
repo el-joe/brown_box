@@ -12,6 +12,7 @@
         <button type="button" @click="activeTab = 'general'" class="px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors" :class="activeTab === 'general' ? 'border-amber-600 text-amber-700' : 'border-transparent text-slate-500 hover:text-slate-700'">{{ __('General') }}</button>
         <button type="button" @click="activeTab = 'mail'" class="px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors" :class="activeTab === 'mail' ? 'border-amber-600 text-amber-700' : 'border-transparent text-slate-500 hover:text-slate-700'">{{ __('Mail') }}</button>
         <button type="button" @click="activeTab = 'advanced'" class="px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors" :class="activeTab === 'advanced' ? 'border-amber-600 text-amber-700' : 'border-transparent text-slate-500 hover:text-slate-700'">{{ __('Advanced') }}</button>
+        <button type="button" @click="activeTab = 'notifications'" class="px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors" :class="activeTab === 'notifications' ? 'border-amber-600 text-amber-700' : 'border-transparent text-slate-500 hover:text-slate-700'">{{ __('Notifications') }}</button>
     </div>
 
     {{-- General --}}
@@ -45,6 +46,38 @@
                                 </div>
                             </x-slot:ar>
                         </x-admin.lang-tabs>
+
+                        {{-- Announcement Bar --}}
+                        <div class="admin-field mt-6 pt-6 border-t border-slate-100">
+                            <label class="block text-sm font-semibold text-slate-700 mb-3">{{ __('Announcement Bar') }}</label>
+                            <x-admin.lang-tabs>
+                                <x-slot:en>
+                                    <input type="text" name="announcement_text[en]"
+                                        value="{{ old('announcement_text.en', setting('announcement_text_en')) }}"
+                                        class="w-full rounded-lg border-slate-300 text-sm"
+                                        placeholder="Buy Now Pay Later Starting at 0% APR.">
+                                    <p class="text-xs text-slate-400 mt-1">{{ __('Leave blank to hide the announcement bar.') }}</p>
+                                </x-slot:en>
+                                <x-slot:ar>
+                                    <input type="text" name="announcement_text[ar]"
+                                        value="{{ old('announcement_text.ar', setting('announcement_text_ar')) }}"
+                                        class="w-full rounded-lg border-slate-300 text-sm" dir="rtl">
+                                </x-slot:ar>
+                            </x-admin.lang-tabs>
+                        </div>
+
+                        {{-- Footer About Text --}}
+                        <div class="admin-field mt-4">
+                            <label class="block text-sm font-semibold text-slate-700 mb-3">{{ __('Footer About Text') }}</label>
+                            <x-admin.lang-tabs>
+                                <x-slot:en>
+                                    <textarea name="footer_about[en]" rows="2" class="w-full rounded-lg border-slate-300 text-sm">{{ old('footer_about.en', setting('footer_about_en')) }}</textarea>
+                                </x-slot:en>
+                                <x-slot:ar>
+                                    <textarea name="footer_about[ar]" rows="2" class="w-full rounded-lg border-slate-300 text-sm" dir="rtl">{{ old('footer_about.ar', setting('footer_about_ar')) }}</textarea>
+                                </x-slot:ar>
+                            </x-admin.lang-tabs>
+                        </div>
                     </x-admin.card>
 
                     <x-admin.card :title="__('Contact Information')">
@@ -62,6 +95,55 @@
                                 <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('WhatsApp') }}</label>
                                 <input type="text" name="contact_whatsapp" value="{{ old('contact_whatsapp', setting('contact_whatsapp')) }}" class="w-full rounded-lg border-slate-300 text-sm">
                             </div>
+                        </div>
+
+                        {{-- Contact Address --}}
+                        <div class="admin-field mt-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Contact Address') }}</label>
+                            <x-admin.lang-tabs>
+                                <x-slot:en>
+                                    <input type="text" name="contact_address[en]"
+                                        value="{{ old('contact_address.en', setting('contact_address_en')) }}"
+                                        class="w-full rounded-lg border-slate-300 text-sm">
+                                </x-slot:en>
+                                <x-slot:ar>
+                                    <input type="text" name="contact_address[ar]"
+                                        value="{{ old('contact_address.ar', setting('contact_address_ar')) }}"
+                                        class="w-full rounded-lg border-slate-300 text-sm" dir="rtl">
+                                </x-slot:ar>
+                            </x-admin.lang-tabs>
+                        </div>
+
+                        {{-- Contact Hours --}}
+                        <div class="admin-field mt-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Contact Hours') }}</label>
+                            <x-admin.lang-tabs>
+                                <x-slot:en>
+                                    <textarea name="contact_hours[en]" rows="2" class="w-full rounded-lg border-slate-300 text-sm">{{ old('contact_hours.en', setting('contact_hours_en')) }}</textarea>
+                                </x-slot:en>
+                                <x-slot:ar>
+                                    <textarea name="contact_hours[ar]" rows="2" class="w-full rounded-lg border-slate-300 text-sm" dir="rtl">{{ old('contact_hours.ar', setting('contact_hours_ar')) }}</textarea>
+                                </x-slot:ar>
+                            </x-admin.lang-tabs>
+                        </div>
+
+                        {{-- WhatsApp Link --}}
+                        <div class="admin-field mt-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('WhatsApp Click-to-Chat URL') }}</label>
+                            <input type="url" name="contact_whatsapp_link"
+                                value="{{ old('contact_whatsapp_link', setting('contact_whatsapp_link')) }}"
+                                class="w-full rounded-lg border-slate-300 text-sm"
+                                placeholder="https://wa.me/201001234567">
+                        </div>
+
+                        {{-- Google Maps Embed --}}
+                        <div class="admin-field mt-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Google Maps Embed URL') }}</label>
+                            <input type="text" name="google_maps_embed_url"
+                                value="{{ old('google_maps_embed_url', setting('google_maps_embed_url')) }}"
+                                class="w-full rounded-lg border-slate-300 text-sm"
+                                placeholder="https://maps.google.com/maps?...&output=embed">
+                            <p class="text-xs text-slate-400 mt-1">{{ __('The src URL from a Google Maps embed iframe.') }}</p>
                         </div>
 
                         <x-admin.lang-tabs class="mt-4">
@@ -118,6 +200,16 @@
                             <div class="admin-field">
                                 <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Meta Pixel ID') }}</label>
                                 <input type="text" name="meta_pixel_id" value="{{ old('meta_pixel_id', setting('meta_pixel_id')) }}" class="w-full rounded-lg border-slate-300 text-sm">
+                            </div>
+                            <div class="admin-field">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Google Search Console Verification') }}</label>
+                                <input type="text" name="google_search_console_verification" value="{{ old('google_search_console_verification', setting('google_search_console_verification')) }}" class="w-full rounded-lg border-slate-300 text-sm" placeholder="google-site-verification=XXXXXXX">
+                                <p class="text-xs text-slate-400 mt-1">{{ __('Paste the full meta content value from Google Search Console.') }}</p>
+                            </div>
+                            <div class="admin-field">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Order Notification Email') }}</label>
+                                <input type="email" name="notification_email" value="{{ old('notification_email', setting('notification_email')) }}" class="w-full rounded-lg border-slate-300 text-sm" placeholder="orders@yourstore.com">
+                                <p class="text-xs text-slate-400 mt-1">{{ __('Receives an email for every new order. Leave blank to disable.') }}</p>
                             </div>
                             <div class="admin-field">
                                 <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Tax Rate (%)') }}</label>
@@ -270,6 +362,121 @@
                         {{ __('Save Advanced Settings') }}
                     </button>
                 </div>
+            </div>
+        </form>
+    </div>
+
+    {{-- Notifications --}}
+    <div x-show="activeTab === 'notifications'" x-cloak>
+        @php
+            $customerEvents = [
+                'order_placed'    => __('Order Placed (customer)'),
+                'order_confirmed' => __('Order Confirmed'),
+                'order_shipped'   => __('Order Shipped'),
+                'order_delivered' => __('Order Delivered'),
+                'order_cancelled' => __('Order Cancelled / Rejected'),
+                'order_status'    => __('Order Status Changed'),
+                'refund_approved' => __('Refund Approved'),
+                'refund_rejected' => __('Refund Rejected'),
+                'commission'      => __('Commission Approved'),
+                'payout'          => __('Payout Processed'),
+            ];
+            $adminEvents = [
+                'new_order'      => __('New Order Received'),
+                'new_refund'     => __('New Refund Request'),
+                'low_stock'      => __('Low Stock Alert'),
+                'payment_proof'  => __('Payment Proof Uploaded'),
+                'payout_request' => __('Payout Request Submitted'),
+            ];
+            $customerChannels = ['database' => __('In-App'), 'mail' => __('Email'), 'whatsapp' => __('WhatsApp')];
+            $adminChannels    = ['database' => __('In-App'), 'mail' => __('Email')];
+        @endphp
+
+        <form method="POST" action="{{ route('admin.settings.notifications.update') }}">
+            @csrf
+
+            <x-admin.card :title="__('Customer Notifications')" class="mb-6">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-100">
+                                <th class="py-3 text-start font-medium text-slate-600 w-64">{{ __('Event') }}</th>
+                                @foreach ($customerChannels as $ch => $label)
+                                    <th class="py-3 text-center font-medium text-slate-600 w-28">
+                                        {{ $label }}
+                                        @if ($ch === 'whatsapp')
+                                            <span class="inline-block ms-1 text-[10px] bg-amber-100 text-amber-700 rounded px-1.5 py-0.5 font-semibold">{{ __('Soon') }}</span>
+                                        @endif
+                                    </th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            @foreach ($customerEvents as $key => $label)
+                                <tr class="hover:bg-slate-50">
+                                    <td class="py-3 text-slate-700">{{ $label }}</td>
+                                    @foreach ($customerChannels as $ch => $chLabel)
+                                        <td class="py-3 text-center">
+                                            <input type="checkbox"
+                                                name="channels[customer][{{ $key }}][{{ $ch }}]"
+                                                value="1"
+                                                {{ ($channels['customer'][$key][$ch] ?? false) ? 'checked' : '' }}
+                                                {{ $ch === 'whatsapp' ? 'disabled' : '' }}
+                                                class="rounded text-amber-600 {{ $ch === 'whatsapp' ? 'opacity-40 cursor-not-allowed' : '' }}">
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </x-admin.card>
+
+            <x-admin.card :title="__('Admin Notifications')" class="mb-6">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-100">
+                                <th class="py-3 text-start font-medium text-slate-600 w-64">{{ __('Event') }}</th>
+                                @foreach ($adminChannels as $ch => $label)
+                                    <th class="py-3 text-center font-medium text-slate-600 w-28">{{ $label }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            @foreach ($adminEvents as $key => $label)
+                                <tr class="hover:bg-slate-50">
+                                    <td class="py-3 text-slate-700">{{ $label }}</td>
+                                    @foreach ($adminChannels as $ch => $chLabel)
+                                        <td class="py-3 text-center">
+                                            <input type="checkbox"
+                                                name="channels[admin][{{ $key }}][{{ $ch }}]"
+                                                value="1"
+                                                {{ ($channels['admin'][$key][$ch] ?? false) ? 'checked' : '' }}
+                                                class="rounded text-amber-600">
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </x-admin.card>
+
+            <x-admin.card :title="__('WhatsApp Configuration')" class="mb-6">
+                <div class="flex items-center gap-3 p-4 bg-amber-50 rounded-lg border border-amber-200">
+                    <i class="fa-brands fa-whatsapp text-2xl text-green-600"></i>
+                    <div>
+                        <p class="text-sm font-medium text-slate-800">{{ __('WhatsApp notifications are not yet active.') }}</p>
+                        <p class="text-xs text-slate-500 mt-0.5">{{ __('When enabled, customers will receive WhatsApp messages via your configured provider (Twilio, Meta Business API, etc.). Configuration will appear here once the WhatsApp service is connected.') }}</p>
+                    </div>
+                </div>
+            </x-admin.card>
+
+            <div class="flex justify-end">
+                <button type="submit" class="px-6 py-2.5 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-700">
+                    {{ __('Save Notification Settings') }}
+                </button>
             </div>
         </form>
     </div>

@@ -4,6 +4,28 @@
 
 @push('scripts')
     @vite(['resources/js/website/blog.js'])
+
+    @if ($post)
+        @php
+            $articleSchema = array_filter([
+                '@context' => 'https://schema.org',
+                '@type' => 'BlogPosting',
+                'headline' => $post->title,
+                'description' => $post->excerpt ?: Illuminate\Support\Str::limit(strip_tags($post->content), 160),
+                'image' => $post->image_url ?? null,
+                'datePublished' => $post->published_at?->toIso8601String(),
+                'dateModified' => $post->updated_at?->toIso8601String(),
+                'author' => ['@type' => 'Person', 'name' => $post->author_name ?? setting('site_name_en', config('app.name'))],
+                'publisher' => [
+                    '@type' => 'Organization',
+                    'name' => setting('site_name_en', config('app.name')),
+                    'logo' => ['@type' => 'ImageObject', 'url' => asset_url(setting('site_logo'))],
+                ],
+                'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => url()->current()],
+            ]);
+        @endphp
+        <script type="application/ld+json">{!! json_encode($articleSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    @endif
 @endpush
 
 @section('content')
@@ -17,7 +39,7 @@
 
     <section class="max-w-7xl mx-auto px-4 mt-4 pb-16">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <article class="lg:col-span-8">
+            <article class="lg:col-span-8" @if($post) itemscope itemtype="https://schema.org/BlogPosting" @endif>
                 @if (!$post)
                     <div class="web-blog-empty">
                         <i class="fa-solid fa-newspaper"></i>
@@ -27,7 +49,7 @@
                     </div>
                 @else
                     <span class="web-blog-tag">{{ $post->category }}</span>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 leading-snug">{{ $post->title }}</h1>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 leading-snug" itemprop="headline">{{ $post->title }}</h1>
 
                     <div class="web-blog-article-meta mt-4">
                         <img class="web-blog-article-avatar" src="{{ $post->author_avatar_url }}" alt="{{ $post->author_name }}">
@@ -43,11 +65,16 @@
                         </div>
                     </div>
 
-                    <img class="web-blog-article-hero-img mt-6" src="{{ $post->image_url }}" alt="{{ $post->title }}">
+                    <img class="web-blog-article-hero-img mt-6" src="{{ $post->image_url }}" alt="{{ $post->title }}" itemprop="image">
 
-                    <div class="web-blog-article-content mt-6">
+                    <div class="web-blog-article-content mt-6" itemprop="articleBody">
                         {!! $post->content !!}
                     </div>
+                    <meta itemprop="datePublished" content="{{ $post->published_at?->toIso8601String() }}">
+                    <meta itemprop="dateModified" content="{{ $post->updated_at?->toIso8601String() }}">
+                    <span itemprop="author" itemscope itemtype="https://schema.org/Person" class="hidden">
+                        <meta itemprop="name" content="{{ $post->author_name }}">
+                    </span>
 
                     @if ($post->category)
                         <div class="mt-8 pt-6 border-t border-slate-100">

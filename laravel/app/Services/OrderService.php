@@ -3,15 +3,10 @@
 namespace App\Services;
 
 use App\Events\OrderCreated;
-use App\Events\OrderStatusChanged;
 use App\Jobs\GenerateInvoice;
 use App\Jobs\SendCustomerNotification;
 use App\Jobs\SendOrderStatusEmail;
-use App\Notifications\OrderConfirmed;
-use App\Notifications\OrderDelivered;
 use App\Notifications\OrderRejected;
-use App\Notifications\OrderShipped;
-use App\Notifications\OrderStatusChanged as OrderStatusChangedNotification;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
@@ -191,7 +186,6 @@ class OrderService
     {
         return DB::transaction(function () use ($orderId, $status, $notes, $adminId) {
             $order = $this->orders->findOrFail($orderId);
-            $previousStatus = $order->status->value;
 
             $timestamps = match ($status) {
                 'shipped' => ['shipped_at' => now()],
@@ -203,26 +197,7 @@ class OrderService
             $order->update(array_merge(['status' => $status], $timestamps));
             $this->orders->addStatusHistory($orderId, $status, $notes, $adminId);
 
-            event(new OrderStatusChanged($order, $previousStatus, $status));
-
             $order = $order->fresh(['customer']);
-
-            $notification = match ($status) {
-                'confirmed' => new OrderConfirmed($order),
-                'shipped' => new OrderShipped($order),
-                'delivered' => new OrderDelivered($order),
-                default => new OrderStatusChangedNotification($order, $status),
-            };
-
-            if ($order->customer) {
-                SendCustomerNotification::dispatch($order->customer, $notification);
-            } else {
-                SendOrderStatusEmail::dispatch(
-                    $order,
-                    __('Order Status Updated'),
-                    __('Your order status has changed to :status.', ['status' => $status]),
-                );
-            }
 
             if ($status === 'confirmed') {
                 GenerateInvoice::dispatch($order);
@@ -286,34 +261,6 @@ class OrderService
             $this->orders->addStatusHistory($orderId, $order->status->value, 'Shipping company/tracking updated.', $adminId);
 
             return $order->fresh();
-        });
-    }
-
-    /**
-     * Update the shipping status, record history, and notify the customer.
-     */
-    public function changeShippingStatus(int $orderId, string $shippingStatus, ?int $adminId = null, ?string $notes = null): Model
-    {
-        return DB::transaction(function () use ($orderId, $shippingStatus, $adminId, $notes) {
-            $order = $this->orders->findOrFail($orderId);
-
-            $timestamps = match ($shippingStatus) {
-                'delivered' => ['delivered_at' => now()],
-                default => [],
-            };
-
-            $order->update(array_merge(['shipping_status' => $shippingStatus], $timestamps));
-            $this->orders->addStatusHistory($orderId, $order->status->value, $notes ?? "Shipping status changed to {$shippingStatus}.", $adminId);
-
-            $order = $order->fresh();
-
-            SendOrderStatusEmail::dispatch(
-                $order,
-                __('Shipping Update'),
-                __('Your order shipping status is now :status.', ['status' => $shippingStatus]),
-            );
-
-            return $order;
         });
     }
 

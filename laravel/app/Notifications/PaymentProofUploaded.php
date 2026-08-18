@@ -17,7 +17,8 @@ class PaymentProofUploaded extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['database', 'mail'];
+        return app(\App\Services\NotificationChannelService::class)
+            ->channels('admin', 'payment_proof');
     }
 
     public function toMail(object $notifiable): MailMessage

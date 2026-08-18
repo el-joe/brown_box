@@ -17,7 +17,8 @@ class OrderConfirmed extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['database', 'mail'];
+        return app(\App\Services\NotificationChannelService::class)
+            ->channels('customer', 'order_confirmed');
     }
 
     public function toMail(object $notifiable): MailMessage

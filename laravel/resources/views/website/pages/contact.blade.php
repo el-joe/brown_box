@@ -25,7 +25,7 @@
             <div class="web-quick-contact-card">
                 <div class="web-quick-contact-icon"><i class="fa-solid fa-phone"></i></div>
                 <h3 class="font-bold text-sm">{{ __('website.contact_call_us') }}</h3>
-                <p class="text-sm text-slate-500 mt-1">{{ $contactPhone ?? '+1 (321) 645-4321' }}</p>
+                <p class="text-sm text-slate-500 mt-1">{{ $contactPhone ?: __('website.contact_phone_placeholder') }}</p>
                 <p class="text-xs text-slate-400 mt-1">{{ __('website.contact_call_hours') }}</p>
             </div>
             <div class="web-quick-contact-card">
@@ -40,6 +40,17 @@
                 <p class="text-sm text-slate-500 mt-1">{{ __('website.contact_live_chat_availability') }}</p>
                 <p class="text-xs text-slate-400 mt-1">{{ __('website.contact_live_chat_note') }}</p>
             </div>
+            @if(setting('contact_whatsapp_link') || setting('contact_whatsapp'))
+                <div class="web-quick-contact-card">
+                    <div class="web-quick-contact-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                    <h3 class="font-bold text-sm">{{ __('website.contact_whatsapp') }}</h3>
+                    <a href="{{ setting('contact_whatsapp_link') ?: 'https://wa.me/' . preg_replace('/[^0-9]/', '', setting('contact_whatsapp')) }}"
+                       target="_blank" rel="noopener"
+                       class="text-sm text-brand mt-1 block hover:underline">
+                        {{ setting('contact_whatsapp') ?: __('website.contact_chat_with_us') }}
+                    </a>
+                </div>
+            @endif
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-10">
@@ -97,14 +108,14 @@
                         <div class="web-info-icon"><i class="fa-solid fa-location-dot"></i></div>
                         <div>
                             <h4>{{ __('website.contact_address_title') }}</h4>
-                            <p>{{ __('website.contact_address_value') }}</p>
+                            <p>{{ setting('contact_address_' . current_lang()) ?: setting('contact_address_en', __('website.contact_address_value')) }}</p>
                         </div>
                     </div>
                     <div class="web-info-row">
                         <div class="web-info-icon"><i class="fa-solid fa-phone"></i></div>
                         <div>
                             <h4>{{ __('website.contact_phone_title') }}</h4>
-                            <p>{{ $contactPhone ?? '+1 (321) 645-4321' }}</p>
+                            <p>{{ $contactPhone ?: __('website.contact_phone_placeholder') }}</p>
                         </div>
                     </div>
                     <div class="web-info-row">
@@ -118,22 +129,44 @@
                         <div class="web-info-icon"><i class="fa-solid fa-clock"></i></div>
                         <div>
                             <h4>{{ __('website.contact_hours_title') }}</h4>
-                            <p>{{ __('website.contact_hours_value') }}</p>
+                            <p>{!! nl2br(e(setting('contact_hours_' . current_lang()) ?: setting('contact_hours_en', __('website.contact_hours_value')))) !!}</p>
                         </div>
                     </div>
 
                     <div class="web-map-preview mt-6">
-                        <img src="https://placehold.co/700x320/eef4ff/2b6ee0?text=Map+Preview" alt="{{ __('website.contact_map_alt') }}">
-                        <span class="web-map-pin"><i class="fa-solid fa-store"></i></span>
+                        @if(setting('google_maps_embed_url'))
+                            <iframe
+                                src="{{ setting('google_maps_embed_url') }}"
+                                width="100%" height="220" style="border:0;" allowfullscreen
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                                class="rounded-xl w-full"></iframe>
+                        @else
+                            <img src="https://placehold.co/700x320/eef4ff/2b6ee0?text=Map+Preview" alt="{{ __('website.contact_map_alt') }}">
+                            <span class="web-map-pin"><i class="fa-solid fa-store"></i></span>
+                        @endif
                     </div>
 
                     <div class="mt-6">
                         <p class="text-sm font-semibold mb-3">{{ __('website.footer_follow_us') }}</p>
                         <div class="flex items-center gap-2">
-                            <a href="#" aria-label="X" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-black hover:border-black transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
-                            <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-pink-600 hover:border-pink-600 transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#" aria-label="Pinterest" class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white hover:bg-red-600 hover:border-red-600 transition-colors"><i class="fa-brands fa-pinterest-p"></i></a>
+                            @php
+                                $socials = [
+                                    'social_x'         => ['icon' => 'fa-brands fa-x-twitter',  'label' => 'X / Twitter', 'hover' => 'hover:bg-black hover:border-black'],
+                                    'social_facebook'  => ['icon' => 'fa-brands fa-facebook-f', 'label' => 'Facebook',    'hover' => 'hover:bg-blue-600 hover:border-blue-600'],
+                                    'social_instagram' => ['icon' => 'fa-brands fa-instagram',  'label' => 'Instagram',   'hover' => 'hover:bg-pink-600 hover:border-pink-600'],
+                                    'social_tiktok'    => ['icon' => 'fa-brands fa-tiktok',     'label' => 'TikTok',      'hover' => 'hover:bg-black hover:border-black'],
+                                    'social_youtube'   => ['icon' => 'fa-brands fa-youtube',    'label' => 'YouTube',     'hover' => 'hover:bg-red-600 hover:border-red-600'],
+                                ];
+                            @endphp
+                            @foreach ($socials as $key => $social)
+                                @if(setting($key))
+                                    <a href="{{ setting($key) }}" target="_blank" rel="noopener noreferrer"
+                                        aria-label="{{ $social['label'] }}"
+                                        class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-white {{ $social['hover'] }} transition-colors">
+                                        <i class="{{ $social['icon'] }}"></i>
+                                    </a>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>

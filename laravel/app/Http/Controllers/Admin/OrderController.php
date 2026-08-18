@@ -100,7 +100,6 @@ class OrderController extends Controller
             ->addColumn('payment_gateway', fn (Order $order) => view('admin.orders._gateway-badge', ['order' => $order])->render())
             ->addColumn('payment_status', fn (Order $order) => view('admin.orders._payment-badge', ['order' => $order])->render())
             ->addColumn('status', fn (Order $order) => view('admin.orders._status-badge', ['order' => $order])->render())
-            ->addColumn('shipping_status', fn (Order $order) => e($order->shipping_status?->value ?? '—'))
             ->addColumn('commission', function (Order $order) {
                 if (! $order->affiliate_id) {
                     return '<span class="text-slate-300">—</span>';
@@ -157,18 +156,6 @@ class OrderController extends Controller
         $this->orders->assignShipping($id, $data['shipping_company_id'] ?? null, $data['tracking_number'] ?? null, auth('admin')->id());
 
         return back()->with('success', __('Shipping details updated.'));
-    }
-
-    public function changeShippingStatus(Request $request, int $id): RedirectResponse
-    {
-        $data = $request->validate([
-            'shipping_status' => ['required', 'in:pending,picked_up,in_transit,delivered,returned'],
-            'notes' => ['nullable', 'string', 'max:1000'],
-        ]);
-
-        $this->orders->changeShippingStatus($id, $data['shipping_status'], auth('admin')->id(), $data['notes'] ?? null);
-
-        return back()->with('success', __('Shipping status updated.'));
     }
 
     public function changeStatus(Request $request, int $id): RedirectResponse

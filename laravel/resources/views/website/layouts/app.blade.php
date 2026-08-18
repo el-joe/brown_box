@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if(setting('favicon'))
+        <link rel="icon" type="image/x-icon" href="{{ asset_url(setting('favicon')) }}">
+        <link rel="apple-touch-icon" href="{{ asset_url(setting('favicon')) }}">
+    @endif
+    @if(setting('google_search_console_verification'))
+        <meta name="google-site-verification" content="{{ setting('google_search_console_verification') }}">
+    @endif
 
     @php
         $lang        = current_lang();
@@ -20,7 +27,10 @@
     @endphp
 
     {{-- Title: SEO title > @yield('title') > site name --}}
-    <title>{{ $pageTitle ?? trim(@yield('title')) ?: $siteName }}</title>
+    @php
+        $yieldTitle = trim($__env->yieldContent('title'));
+    @endphp
+    <title>{{ $pageTitle ?? ($yieldTitle ?: $siteName) }}</title>
 
     {{-- Core meta --}}
     @if($seoDesc)
@@ -67,8 +77,35 @@
         @vite([is_rtl() ? 'resources/css/website/app.rtl.css' : 'resources/css/website/app.ltr.css', 'resources/js/website/app.js'])
     @endif
     @stack('styles')
+
+    @if(setting('google_tag_manager_id'))
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{ setting('google_tag_manager_id') }}');</script>
+    @endif
+
+    @if(setting('google_analytics_id'))
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ setting('google_analytics_id') }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ setting('google_analytics_id') }}');
+        </script>
+    @endif
+
+    @if(setting('meta_pixel_id'))
+        <script>
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '{{ setting('meta_pixel_id') }}');
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ setting('meta_pixel_id') }}&ev=PageView&noscript=1"/></noscript>
+    @endif
 </head>
 <body class="bg-white text-slate-800 antialiased">
+    @if(setting('google_tag_manager_id'))
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ setting('google_tag_manager_id') }}"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    @endif
     <script>
         window.routes = {
             cartAdd: @js(route('web.cart.add', ['lang' => current_lang()])),
@@ -86,12 +123,17 @@
     </script>
 
     {{-- Announcement bar --}}
-    <div class="bg-slate-900 text-white text-xs">
-        <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
-            <i class="fa-solid fa-bolt text-accent"></i>
-            <span>{{ __('website.announcement_text') }} <a href="{{ route('web.faqs.index', ['lang' => current_lang()]) }}" class="underline font-semibold hover:text-accent">{{ __('website.learn_more') }}</a></span>
+    @php
+        $announcement = setting('announcement_text_' . current_lang()) ?: setting('announcement_text_en');
+    @endphp
+    @if($announcement)
+        <div class="bg-slate-900 text-white text-xs">
+            <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
+                <i class="fa-solid fa-bolt text-accent"></i>
+                <span>{{ $announcement }} <a href="{{ route('web.faqs.index', ['lang' => current_lang()]) }}" class="underline font-semibold hover:text-accent">{{ __('website.learn_more') }}</a></span>
+            </div>
         </div>
-    </div>
+    @endif
 
     {{-- Header --}}
     <header class="web-header sticky top-0 z-40 bg-white border-b border-slate-100">
@@ -242,11 +284,28 @@
                 <div class="flex items-center gap-2 mb-3">
                     <x-website.logo dark class="text-xl" />
                 </div>
-                <p class="text-sm text-slate-400">{{ __('website.footer_about') }}</p>
+                <p class="text-sm text-slate-400">
+                    {{ setting('footer_about_' . current_lang()) ?: setting('footer_about_en', __('website.footer_about')) }}
+                </p>
                 <div class="flex items-center gap-3 mt-4">
-                    <a href="#" class="web-icon-btn !text-slate-300 hover:!text-white"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" class="web-icon-btn !text-slate-300 hover:!text-white"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="web-icon-btn !text-slate-300 hover:!text-white"><i class="fa-brands fa-x-twitter"></i></a>
+                    @php
+                        $socials = [
+                            'social_facebook'  => ['icon' => 'fa-brands fa-facebook',   'label' => 'Facebook'],
+                            'social_instagram' => ['icon' => 'fa-brands fa-instagram',   'label' => 'Instagram'],
+                            'social_x'         => ['icon' => 'fa-brands fa-x-twitter',   'label' => 'X / Twitter'],
+                            'social_tiktok'    => ['icon' => 'fa-brands fa-tiktok',      'label' => 'TikTok'],
+                            'social_youtube'   => ['icon' => 'fa-brands fa-youtube',     'label' => 'YouTube'],
+                        ];
+                    @endphp
+                    @foreach ($socials as $key => $social)
+                        @if(setting($key))
+                            <a href="{{ setting($key) }}" target="_blank" rel="noopener noreferrer"
+                                aria-label="{{ $social['label'] }}"
+                                class="web-icon-btn !text-slate-300 hover:!text-white">
+                                <i class="{{ $social['icon'] }}"></i>
+                            </a>
+                        @endif
+                    @endforeach
                 </div>
             </div>
 

@@ -137,20 +137,6 @@
                         </button>
                     </div>
                 </form>
-
-                <form method="POST" action="{{ route('admin.orders.shipping-status', $order) }}" class="flex items-end gap-3">
-                    @csrf
-                    <div class="admin-field flex-1">
-                        <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('Shipping Status') }}</label>
-                        <x-admin.select name="shipping_status" :options="[
-                            'pending' => __('Pending'), 'picked_up' => __('Picked Up'), 'in_transit' => __('In Transit'),
-                            'delivered' => __('Delivered'), 'returned' => __('Returned'),
-                        ]" :selected="$order->shipping_status?->value" />
-                    </div>
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-slate-800 text-white text-sm font-medium hover:bg-slate-900">
-                        {{ __('Update') }}
-                    </button>
-                </form>
             </x-admin.card>
 
             {{-- Section 6: Order Status --}}

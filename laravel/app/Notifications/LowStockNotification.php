@@ -17,7 +17,8 @@ class LowStockNotification extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['database', 'mail'];
+        return app(\App\Services\NotificationChannelService::class)
+            ->channels('admin', 'low_stock');
     }
 
     public function toMail(object $notifiable): MailMessage

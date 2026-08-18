@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(\App\Services\GatewayService::class);
         $this->app->singleton(\App\Services\AiProviderService::class);
         $this->app->singleton(\App\Services\AiService::class);
+        $this->app->singleton(\App\Services\NotificationChannelService::class);
     }
 
     /**

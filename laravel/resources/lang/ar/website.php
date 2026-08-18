@@ -267,6 +267,7 @@ return [
     'view_details' => 'عرض التفاصيل',
     'order_total' => 'إجمالي الطلب',
     'status_pending' => 'قيد الانتظار',
+    'status_confirmed' => 'مؤكد',
     'status_processing' => 'قيد التجهيز',
     'status_shipped' => 'تم الشحن',
     'status_delivered' => 'تم التوصيل',
@@ -342,6 +343,9 @@ return [
     'contact_map_alt' => 'خريطة توضح موقعنا',
     'contact_faq_teaser' => 'لديك سؤال سريع؟ راجع الأسئلة الشائعة — قد تجد إجابتك فوراً.',
     'contact_faq_link' => 'الأسئلة الشائعة',
+    'contact_phone_placeholder' => 'تواصل معنا لمعرفة رقم الهاتف',
+    'contact_whatsapp' => 'واتساب',
+    'contact_chat_with_us' => 'تحدث معنا',
 
     // Blog
     'blog_our_blog' => 'مدونتنا',

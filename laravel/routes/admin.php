@@ -264,7 +264,6 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::post('{order}/verify-payment', [OrderController::class, 'verifyPayment'])->name('verify-payment');
             Route::post('{order}/reject-payment', [OrderController::class, 'rejectPayment'])->name('reject-payment');
             Route::post('{order}/assign-shipping', [OrderController::class, 'assignShipping'])->name('assign-shipping');
-            Route::post('{order}/shipping-status', [OrderController::class, 'changeShippingStatus'])->name('shipping-status');
             Route::post('{order}/status', [OrderController::class, 'changeStatus'])->name('status');
             Route::post('{order}/admin-notes', [OrderController::class, 'updateAdminNotes'])->name('admin-notes');
             Route::get('{order}/invoice', [OrderController::class, 'printInvoice'])->name('invoice');
@@ -369,6 +368,7 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
             Route::post('mail', [SettingController::class, 'updateMail'])->name('mail.update');
             Route::post('test-mail', [SettingController::class, 'testMail'])->name('test-mail');
             Route::post('advanced', [SettingController::class, 'updateAdvanced'])->name('advanced.update');
+            Route::post('notifications', [SettingController::class, 'updateNotifications'])->name('notifications.update');
         });
 
         Route::prefix('gateways')->name('gateways.')->group(function (): void {

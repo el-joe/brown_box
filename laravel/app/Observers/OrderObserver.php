@@ -6,7 +6,6 @@ use App\Events\OrderPlaced;
 use App\Events\OrderStatusChanged;
 use App\Jobs\GenerateInvoice;
 use App\Models\Order;
-use App\Models\OrderStatusHistory;
 
 class OrderObserver
 {
@@ -23,13 +22,6 @@ class OrderObserver
             $newStatus = $order->status->value;
 
             event(new OrderStatusChanged($order, $oldStatus, $newStatus));
-
-            OrderStatusHistory::create([
-                'order_id' => $order->id,
-                'status' => $newStatus,
-                'notes' => "Status changed from {$oldStatus} to {$newStatus}",
-                'created_at' => now(),
-            ]);
         }
     }
 }

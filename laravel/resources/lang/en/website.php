@@ -267,6 +267,7 @@ return [
     'view_details' => 'View Details',
     'order_total' => 'Order Total',
     'status_pending' => 'Pending',
+    'status_confirmed' => 'Confirmed',
     'status_processing' => 'Processing',
     'status_shipped' => 'Shipped',
     'status_delivered' => 'Delivered',
@@ -342,6 +343,9 @@ return [
     'contact_map_alt' => 'Map showing our location',
     'contact_faq_teaser' => 'Have a quick question? Check our Frequently Asked Questions — you might find your answer right away.',
     'contact_faq_link' => 'Frequently Asked Questions',
+    'contact_phone_placeholder' => 'Contact us for our phone number',
+    'contact_whatsapp' => 'WhatsApp',
+    'contact_chat_with_us' => 'Chat with us',
 
     // Blog
     'blog_our_blog' => 'Our Blog',

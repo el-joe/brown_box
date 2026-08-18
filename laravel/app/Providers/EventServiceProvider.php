@@ -12,6 +12,7 @@ use App\Listeners\DeductStockOnOrderConfirmed;
 use App\Listeners\NotifyAdminsNewOrder;
 use App\Listeners\SendLowStockAlerts;
 use App\Listeners\SendOrderPlacedNotification;
+use App\Listeners\SendOrderStatusNotification;
 use App\Listeners\UpdateAffiliateOnOrderDelivered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -24,6 +25,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderStatusChanged::class => [
             UpdateAffiliateOnOrderDelivered::class,
+            SendOrderStatusNotification::class,
         ],
         PaymentVerified::class => [
             DeductStockOnOrderConfirmed::class,

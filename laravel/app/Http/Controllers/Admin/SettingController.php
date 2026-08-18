@@ -15,12 +15,22 @@ use Throwable;
 
 class SettingController extends Controller
 {
-    private const TRANSLATABLE = ['site_name', 'site_tagline', 'address'];
+    private const TRANSLATABLE = [
+        'site_name',
+        'site_tagline',
+        'address',
+        'announcement_text',
+        'contact_address',
+        'contact_hours',
+        'footer_about',
+    ];
 
     private const GENERAL_KEYS = [
         'default_language', 'default_currency', 'contact_email', 'contact_phone', 'contact_whatsapp',
         'social_facebook', 'social_instagram', 'social_tiktok', 'social_x', 'social_youtube',
-        'google_analytics_id', 'google_tag_manager_id', 'meta_pixel_id', 'tax_rate',
+        'google_analytics_id', 'google_tag_manager_id', 'meta_pixel_id',
+        'google_search_console_verification', 'notification_email', 'tax_rate',
+        'contact_whatsapp_link', 'google_maps_embed_url',
     ];
 
     private const MAIL_KEYS = [
@@ -30,9 +40,36 @@ class SettingController extends Controller
 
     public function general(Request $request): View
     {
+        $channels = json_decode(
+            Setting::query()->where('key', 'notification_channels')->value('value') ?? '{}',
+            true
+        );
+
         return view('admin.settings.general', [
             'activeTab' => $request->query('tab', 'general'),
+            'channels' => $channels,
         ]);
+    }
+
+    public function updateNotifications(Request $request): RedirectResponse
+    {
+        $input = $request->input('channels', []);
+
+        $config = [];
+        foreach ($input as $audience => $events) {
+            foreach ($events as $event => $chans) {
+                foreach (['database', 'mail', 'whatsapp'] as $ch) {
+                    $config[$audience][$event][$ch] = isset($chans[$ch]);
+                }
+            }
+        }
+
+        $this->save('notification_channels', json_encode($config), 'notifications', 'json');
+
+        Cache::forget('settings.all');
+        \App\Services\NotificationChannelService::flush();
+
+        return redirect()->route('admin.settings.general', ['tab' => 'notifications'])->with('success', __('Notification settings saved.'));
     }
 
     public function updateGeneral(Request $request): RedirectResponse
@@ -51,6 +88,16 @@ class SettingController extends Controller
             'contact_whatsapp' => ['nullable', 'string', 'max:30'],
             'address.ar' => ['nullable', 'string', 'max:500'],
             'address.en' => ['nullable', 'string', 'max:500'],
+            'announcement_text.ar' => ['nullable', 'string', 'max:255'],
+            'announcement_text.en' => ['nullable', 'string', 'max:255'],
+            'contact_address.ar' => ['nullable', 'string', 'max:500'],
+            'contact_address.en' => ['nullable', 'string', 'max:500'],
+            'contact_hours.ar' => ['nullable', 'string', 'max:500'],
+            'contact_hours.en' => ['nullable', 'string', 'max:500'],
+            'footer_about.ar' => ['nullable', 'string', 'max:500'],
+            'footer_about.en' => ['nullable', 'string', 'max:500'],
+            'contact_whatsapp_link' => ['nullable', 'url', 'max:500'],
+            'google_maps_embed_url' => ['nullable', 'string', 'max:1000'],
             'social_facebook' => ['nullable', 'url', 'max:255'],
             'social_instagram' => ['nullable', 'url', 'max:255'],
             'social_tiktok' => ['nullable', 'url', 'max:255'],
@@ -59,6 +106,8 @@ class SettingController extends Controller
             'google_analytics_id' => ['nullable', 'string', 'max:50'],
             'google_tag_manager_id' => ['nullable', 'string', 'max:50'],
             'meta_pixel_id' => ['nullable', 'string', 'max:50'],
+            'google_search_console_verification' => ['nullable', 'string', 'max:150'],
+            'notification_email' => ['nullable', 'email', 'max:150'],
             'tax_rate' => ['nullable', 'numeric', 'min:0', 'max:100'],
         ]);
 
