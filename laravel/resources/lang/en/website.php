@@ -326,6 +326,7 @@ return [
     'contact_message_required' => 'Please enter a message of at least 10 characters.',
     'contact_send' => 'Send Message',
     'contact_success' => "Thanks for reaching out! We'll get back to you within 24 hours.",
+    'contact_generic_error' => 'Something went wrong. Please try again.',
     'contact_info_title' => 'Contact Information',
     'contact_address_title' => 'Our Address',
     'contact_address_value' => '403 Market Street, San Francisco, CA 89104, US',

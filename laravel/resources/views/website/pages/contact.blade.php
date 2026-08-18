@@ -48,7 +48,7 @@
                     <h2 class="font-extrabold text-lg mb-1">{{ __('website.contact_form_title') }}</h2>
                     <p class="text-sm text-slate-500 mb-6">{{ __('website.contact_form_subtitle') }}</p>
 
-                    <form id="contact-form" action="{{ route('web.contact.submit', ['lang' => current_lang()]) }}" method="POST" novalidate>
+                    <form id="contact-form" action="{{ route('web.contact.submit', ['lang' => current_lang()]) }}" method="POST" novalidate data-error-message="{{ __('website.contact_generic_error') }}">
                         @csrf
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-5">
                             <div class="web-contact-field">
@@ -85,10 +85,6 @@
                         <button id="contact-submit-btn" type="submit" class="web-btn-primary mt-2">
                             <i class="fa-solid fa-paper-plane"></i> <span>{{ __('website.contact_send') }}</span>
                         </button>
-
-                        <div id="contact-success" class="web-field-success hidden">
-                            <i class="fa-solid fa-circle-check"></i> {{ __('website.contact_success') }}
-                        </div>
                     </form>
                 </div>
             </div>

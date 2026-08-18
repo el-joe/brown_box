@@ -72,10 +72,6 @@
                         <a href="{{ url('ar'.($restOfPath ? '/'.$restOfPath : '')) }}" class="px-2 py-1 rounded {{ current_lang() === 'ar' ? 'bg-brand-light text-brand-dark font-medium' : 'text-slate-500' }}">AR</a>
                     </div>
 
-                    <button type="button" @click="searchOpen = true" class="lg:hidden web-icon-btn" aria-label="{{ __('website.search') }}">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-
                     <a href="{{ route('web.wishlist.index', ['lang' => current_lang()]) }}" class="web-icon-btn" title="{{ __('website.wishlist') }}">
                         <i class="fa-regular fa-heart"></i>
                     </a>
@@ -83,9 +79,7 @@
                     <a href="{{ route('web.cart.index', ['lang' => current_lang()]) }}" class="web-icon-btn" title="{{ __('website.cart') }}">
                         <i class="fa-solid fa-cart-shopping"></i>
                         @php($cartCount = collect(session('cart', []))->sum('qty'))
-                        @if($cartCount > 0)
-                            <span class="web-badge-count">{{ $cartCount }}</span>
-                        @endif
+                        <span id="cart-count-badge" class="web-badge-count {{ $cartCount > 0 ? '' : 'hidden' }}">{{ $cartCount }}</span>
                     </a>
 
                     @auth('customer')

@@ -1,9 +1,30 @@
 import Alpine from 'alpinejs';
 import collapse from '@alpinejs/collapse';
+import toastr from 'toastr';
+import 'toastr/build/toastr.css';
 
 Alpine.plugin(collapse);
 window.Alpine = Alpine;
 Alpine.start();
+
+toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    positionClass: 'toast-top-right',
+    timeOut: 3000,
+};
+window.toastr = toastr;
+
+function updateCartBadge(count) {
+    const badge = document.getElementById('cart-count-badge');
+
+    if (!badge) {
+        return;
+    }
+
+    badge.textContent = count;
+    badge.classList.toggle('hidden', !count);
+}
 
 function csrfToken() {
     return document.querySelector('meta[name="csrf-token"]')?.content ?? '';
@@ -27,6 +48,15 @@ window.WebsiteApi = {
         return jsonFetch(window.routes?.cartAdd, {
             method: 'POST',
             body: JSON.stringify({ product_id: productId, variant_id: variantId, qty }),
+        }).then((data) => {
+            if (data.success) {
+                updateCartBadge(data.cart_count);
+                toastr.success(data.message || 'Added to cart successfully.');
+            } else {
+                toastr.error(data.message || 'Could not add product to cart.');
+            }
+
+            return data;
         });
     },
     toggleWishlist(productId, variantId = null) {

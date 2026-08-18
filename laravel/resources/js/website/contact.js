@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!form) return;
 
     const submitBtn = document.getElementById('contact-submit-btn');
-    const successEl = document.getElementById('contact-success');
 
     function clearErrors() {
         form.querySelectorAll('.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
@@ -58,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        successEl?.classList.add('hidden');
 
         if (!validateClientSide()) return;
 
@@ -88,11 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (response.ok) {
+                const data = await response.json();
                 form.reset();
-                successEl?.classList.remove('hidden');
+                window.toastr?.success(data.message);
+            } else {
+                window.toastr?.error(form.dataset.errorMessage);
             }
         } catch (err) {
-            // Network error — leave the form filled in so the user can retry.
+            window.toastr?.error(form.dataset.errorMessage);
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalHtml;

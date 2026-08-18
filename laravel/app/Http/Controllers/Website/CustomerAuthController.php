@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class CustomerAuthController extends Controller
@@ -25,7 +26,9 @@ class CustomerAuthController extends Controller
         ]);
 
         if (! Auth::guard('customer')->attempt($data, $request->boolean('remember'))) {
-            return back()->withErrors(['email' => __('website.invalid_credentials')])->onlyInput('email');
+            throw ValidationException::withMessages([
+                'email' => [__('website.invalid_credentials')],
+            ]);
         }
 
         $request->session()->regenerate();

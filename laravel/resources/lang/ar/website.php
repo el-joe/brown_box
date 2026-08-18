@@ -326,6 +326,7 @@ return [
     'contact_message_required' => 'الرجاء إدخال رسالة لا تقل عن 10 أحرف.',
     'contact_send' => 'إرسال الرسالة',
     'contact_success' => 'شكراً لتواصلك معنا! سنرد عليك خلال 24 ساعة.',
+    'contact_generic_error' => 'حدث خطأ ما، الرجاء المحاولة مرة أخرى.',
     'contact_info_title' => 'معلومات التواصل',
     'contact_address_title' => 'عنواننا',
     'contact_address_value' => '403 شارع ماركت، سان فرانسيسكو، كاليفورنيا 89104، الولايات المتحدة',
