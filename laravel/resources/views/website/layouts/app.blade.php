@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- Preconnect to external origins to reduce connection overhead --}}
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://fonts.bunny.net">
+    @if(setting('google_analytics_id') || setting('google_tag_manager_id'))
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+        <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    @endif
+    @if(setting('meta_pixel_id'))
+        <link rel="dns-prefetch" href="https://connect.facebook.net">
+    @endif
+
     @if(setting('favicon'))
         <link rel="icon" type="image/x-icon" href="{{ asset_url(setting('favicon')) }}">
         <link rel="apple-touch-icon" href="{{ asset_url(setting('favicon')) }}">
@@ -12,118 +26,30 @@
         <meta name="google-site-verification" content="{{ setting('google_search_console_verification') }}">
     @endif
 
-    @php
-        $lang        = current_lang();
-        $siteName    = setting('site_name_' . $lang) ?: setting('site_name_en') ?: config('app.name', 'Brown Box');
-        $seoTitle    = isset($seo) ? ($seo->getTranslation('title', $lang, false) ?: $seo->getTranslation('title', 'en', false)) : null;
-        $seoDesc     = isset($seo) ? ($seo->getTranslation('description', $lang, false) ?: $seo->getTranslation('description', 'en', false)) : null;
-        $seoKeywords = isset($seo) ? ($seo->getTranslation('keywords', $lang, false) ?: $seo->getTranslation('keywords', 'en', false)) : null;
-        $ogTitle     = isset($seo) ? ($seo->getTranslation('og_title', $lang, false) ?: $seoTitle) : $seoTitle;
-        $ogDesc      = isset($seo) ? ($seo->getTranslation('og_description', $lang, false) ?: $seoDesc) : $seoDesc;
-        $ogImage     = isset($seo) && $seo->og_image ? asset_url($seo->og_image) : asset_url(setting('site_logo'));
-        $canonical   = isset($seo) && $seo->canonical_url ? $seo->canonical_url : url()->current();
-        $robots      = $pageRobots ?? (isset($seo) && $seo->robots ? $seo->robots : 'index,follow');
-        $pageTitle   = $seoTitle ? $seoTitle . ' — ' . $siteName : null;
+    <x-seo-meta
+        :seo="$seo ?? null"
+        :robots="$pageRobots ?? null"
+        :breadcrumbs="$breadcrumbs ?? []"
+        :schemas="$schemas ?? []"
+    />
 
-        $currentPath = request()->path();
-        $hreflangEn  = url(preg_replace('#^(ar|en)(/|$)#', 'en$2', $currentPath));
-        $hreflangAr  = url(preg_replace('#^(ar|en)(/|$)#', 'ar$2', $currentPath));
-    @endphp
-
-    {{-- Title: SEO title > @yield('title') > site name --}}
-    @php
-        $yieldTitle = trim($__env->yieldContent('title'));
-    @endphp
-    <title>{{ $pageTitle ?? ($yieldTitle ?: $siteName) }}</title>
-
-    {{-- Core meta --}}
-    @if($seoDesc)
-        <meta name="description" content="{{ $seoDesc }}">
-    @endif
-    @if($seoKeywords)
-        <meta name="keywords" content="{{ $seoKeywords }}">
-    @endif
-    <meta name="robots" content="{{ $robots }}">
-    <link rel="canonical" href="{{ $canonical }}">
-    <link rel="alternate" hreflang="ar" href="{{ $hreflangAr }}">
-    <link rel="alternate" hreflang="en" href="{{ $hreflangEn }}">
-    <link rel="alternate" hreflang="x-default" href="{{ $hreflangAr }}">
-
-    {{-- Open Graph --}}
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="{{ $siteName }}">
-    <meta property="og:locale" content="{{ $lang === 'ar' ? 'ar_EG' : 'en_US' }}">
-    <meta property="og:url" content="{{ $canonical }}">
-    <meta property="og:title" content="{{ $ogTitle ?? ($pageTitle ?? $siteName) }}">
-    @if($ogDesc)
-        <meta property="og:description" content="{{ $ogDesc }}">
-    @endif
-    @if($ogImage)
-        <meta property="og:image" content="{{ $ogImage }}">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-    @endif
-
-    {{-- Twitter / X Card --}}
-    <meta name="twitter:card" content="{{ $ogImage ? 'summary_large_image' : 'summary' }}">
-    <meta name="twitter:title" content="{{ $ogTitle ?? ($pageTitle ?? $siteName) }}">
-    @if($ogDesc)
-        <meta name="twitter:description" content="{{ $ogDesc }}">
-    @endif
-    @if($ogImage)
-        <meta name="twitter:image" content="{{ $ogImage }}">
-    @endif
-
-    {{-- Schema JSON-LD --}}
-    @if(isset($seo) && !empty($seo->schema_json))
-        <script type="application/ld+json">{!! json_encode($seo->schema_json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
-    @endif
-
-    @if(request()->routeIs('web.home'))
-        @php
-            $orgSchema = [
-                '@context' => 'https://schema.org',
-                '@graph' => array_map(fn ($item) => array_filter($item), [
-                    array_filter([
-                        '@type' => 'WebSite',
-                        '@id' => url('/') . '#website',
-                        'url' => url('/'),
-                        'name' => $siteName,
-                        'potentialAction' => [
-                            '@type' => 'SearchAction',
-                            'target' => [
-                                '@type' => 'EntryPoint',
-                                'urlTemplate' => route('web.search.index', ['lang' => $lang]) . '?search={search_term_string}',
-                            ],
-                            'query-input' => 'required name=search_term_string',
-                        ],
-                    ]),
-                    array_filter([
-                        '@type' => 'Organization',
-                        '@id' => url('/') . '#organization',
-                        'url' => url('/'),
-                        'name' => $siteName,
-                        'logo' => setting('site_logo') ? asset_url(setting('site_logo')) : null,
-                        'sameAs' => array_values(array_filter([
-                            setting('social_facebook'),
-                            setting('social_instagram'),
-                            setting('social_x'),
-                        ])),
-                    ]),
-                ]),
-            ];
-        @endphp
-        <script type="application/ld+json">{!! json_encode($orgSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
-    @endif
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    {{-- Font Awesome: load async to eliminate render-blocking --}}
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    </noscript>
     @if(app()->environment('local') || file_exists(public_path('build/manifest.json')))
         @vite([is_rtl() ? 'resources/css/website/app.rtl.css' : 'resources/css/website/app.ltr.css', 'resources/js/website/app.js'])
     @endif
     @stack('styles')
 
     @if(setting('google_tag_manager_id'))
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{ setting('google_tag_manager_id') }}');</script>
+        <script>
+            window.addEventListener('load', function() {
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{ setting('google_tag_manager_id') }}');
+            });
+        </script>
     @endif
 
     @if(setting('google_analytics_id'))
@@ -168,13 +94,14 @@
 
     {{-- Announcement bar --}}
     @php
+        $announcementEnabled = setting('announcement_enabled', '1') === '1';
         $announcement = setting('announcement_text_' . current_lang()) ?: setting('announcement_text_en');
     @endphp
-    @if($announcement)
+    @if($announcementEnabled && $announcement)
         <div class="bg-slate-900 text-white text-xs">
-            <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center text-center gap-2">
+            <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center text-center gap-2 [&_p]:m-0">
                 <i class="fa-solid fa-bolt text-accent"></i>
-                <span>{{ $announcement }} <a href="{{ route('web.faqs.index', ['lang' => current_lang()]) }}" class="underline font-semibold hover:text-accent">{{ __('website.learn_more') }}</a></span>
+                <span>{!! $announcement !!} <a href="{{ route('web.faqs.index', ['lang' => current_lang()]) }}" class="underline font-semibold hover:text-accent">{{ __('website.learn_more') }}</a></span>
             </div>
         </div>
     @endif
@@ -374,11 +301,13 @@
 
             <div>
                 <h4 class="text-white font-semibold mb-3">{{ __('website.newsletter_title') }}</h4>
-                <form class="flex gap-2">
-                    <input type="email" placeholder="{{ __('website.newsletter_placeholder') }}"
+                <form id="newsletter-form" class="flex gap-2" onsubmit="return submitNewsletterForm(event)">
+                    @csrf
+                    <input type="email" name="email" required placeholder="{{ __('website.newsletter_placeholder') }}"
                         class="w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand">
                     <button type="submit" class="web-btn-primary shrink-0">{{ __('website.newsletter_subscribe') }}</button>
                 </form>
+                <p id="newsletter-message" class="text-xs mt-2"></p>
                 <p class="text-xs text-slate-500 mt-4">{{ __('website.payment_methods') }}</p>
                 <div class="flex items-center gap-2 mt-2 text-xl text-slate-500">
                     <i class="fa-brands fa-cc-visa"></i>
@@ -392,6 +321,43 @@
             &copy; {{ now()->year }} {{ __('website.site_name') }}. {{ __('website.all_rights_reserved') }}
         </div>
     </footer>
+
+    <script>
+        function submitNewsletterForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const button = form.querySelector('button[type="submit"]');
+            const message = document.getElementById('newsletter-message');
+
+            button.disabled = true;
+            message.textContent = '';
+
+            fetch(@js(route('web.newsletter.subscribe', ['lang' => current_lang()])), {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': form.querySelector('input[name=_token]').value,
+                    'Accept': 'application/json',
+                },
+                body: new FormData(form),
+            })
+                .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
+                .then(({ ok, data }) => {
+                    message.classList.toggle('text-red-400', !ok);
+                    message.classList.toggle('text-emerald-400', ok);
+                    message.textContent = data.message || (data.errors ? Object.values(data.errors).flat().join(' ') : '');
+                    if (ok) form.reset();
+                })
+                .catch(() => {
+                    message.classList.add('text-red-400');
+                    message.textContent = @js(__('website.newsletter_error'));
+                })
+                .finally(() => {
+                    button.disabled = false;
+                });
+
+            return false;
+        }
+    </script>
 
     @stack('scripts')
 </body>

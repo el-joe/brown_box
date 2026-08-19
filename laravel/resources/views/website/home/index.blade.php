@@ -3,6 +3,8 @@
 @section('content')
     <div class="max-w-7xl mx-auto px-4 py-8 web-home">
 
+        <h1 class="sr-only">{{ __('website.site_name') }}</h1>
+
         {{-- ================= HERO ================= --}}
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div class="lg:col-span-2 h-64 sm:h-80 lg:h-full">
@@ -11,8 +13,16 @@
                         @forelse ($banners as $banner)
                             <div class="swiper-slide">
                                 <a href="{{ $banner->link() }}" class="block relative h-full">
-                                    <img src="{{ asset_url($banner->image) }}"
-                                        alt="{{ $banner->title }}" class="absolute inset-0 w-full h-full object-cover opacity-80">
+                                    <picture>
+                                        <?php $bannerWebp = webp_url($banner->image) ?> 
+                                        @if ($bannerWebp)
+                                            <source srcset="{{ $bannerWebp }}" type="image/webp">
+                                        @endif
+                                        <img src="{{ asset_url($banner->image) }}"
+                                            alt="{{ $banner->title }}" class="absolute inset-0 w-full h-full object-cover opacity-80"
+                                            width="1200" height="400"
+                                            {{ $loop->first ? 'fetchpriority="high" loading="eager"' : 'loading="lazy" decoding="async"' }}>
+                                    </picture>
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent flex flex-col justify-end p-6">
                                         <h2 class="text-white text-2xl font-bold mt-1">{{ $banner->title }}</h2>
                                     </div>
@@ -63,19 +73,21 @@
         </section>
 
         {{-- 30% off pill banner --}}
-        <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}"
-            class="mt-4 flex items-center justify-between gap-4 rounded-full bg-gradient-to-r from-brand to-brand text-white px-6 sm:px-10 py-4 overflow-hidden">
-            <i class="fa-solid fa-gift text-2xl hidden sm:block"></i>
-            <div class="text-center flex-1">
-                <p class="font-bold text-base sm:text-lg">
-                    {{ setting('hero_banner_title_' . current_lang()) ?: setting('hero_banner_title_en', __('website.hero_banner_title')) }}
-                </p>
-                <p class="text-xs text-white/80">
-                    {{ setting('hero_banner_subtitle_' . current_lang()) ?: setting('hero_banner_subtitle_en', __('website.hero_banner_subtitle')) }}
-                </p>
-            </div>
-            <i class="fa-solid fa-arrow-{{ current_lang() === 'ar' ? 'left' : 'right' }}"></i>
-        </a>
+        @if (setting('hero_banner_enabled', '1') === '1')
+            <a href="{{ route('web.products.index', ['lang' => current_lang()]) }}"
+                class="mt-4 flex items-center justify-between gap-4 rounded-full bg-gradient-to-r from-brand to-brand text-white px-6 sm:px-10 py-4 overflow-hidden">
+                <i class="fa-solid fa-gift text-2xl hidden sm:block"></i>
+                <div class="text-center flex-1">
+                    <p class="font-bold text-base sm:text-lg">
+                        {{ setting('hero_banner_title_' . current_lang()) ?: setting('hero_banner_title_en', __('website.hero_banner_title')) }}
+                    </p>
+                    <p class="text-xs text-white/80">
+                        {{ setting('hero_banner_subtitle_' . current_lang()) ?: setting('hero_banner_subtitle_en', __('website.hero_banner_subtitle')) }}
+                    </p>
+                </div>
+                <i class="fa-solid fa-arrow-{{ current_lang() === 'ar' ? 'left' : 'right' }}"></i>
+            </a>
+        @endif
 
         {{-- ================= SHOP BY CATEGORIES ================= --}}
         <section id="categories" class="mt-12">
@@ -242,8 +254,8 @@
                             <a href="{{ route('web.categories.show', ['lang' => current_lang(), 'brand_id' => $brand->id]) }}" class="swiper-slide block">
                                 <div class="relative h-28 rounded-xl overflow-hidden group shadow-sm">
                                     @if ($brand->logo)
-                                        <div class="absolute inset-0 w-full h-full transition-transform group-hover:scale-105"
-                                            style="background-image: url('{{ asset_url($brand->logo) }}'); background-size: 100% 100%; background-position: center;"></div>
+                                        <img src="{{ asset_url($brand->logo) }}" alt="{{ $brand->name }}" loading="lazy"
+                                            class="absolute inset-0 w-full h-full object-cover transition-transform group-hover:scale-105">
                                         <div class="absolute inset-0 flex items-center justify-center">
                                             <span class="text-sm font-semibold text-white bg-black/50 backdrop-blur-sm rounded-lg px-3 py-1.5 truncate max-w-[90%]">{{ $brand->name }}</span>
                                         </div>

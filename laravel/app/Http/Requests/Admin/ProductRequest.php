@@ -32,6 +32,7 @@ class ProductRequest extends FormRequest
             'barcode' => ['nullable', 'string', 'max:100'],
             'is_active' => ['boolean'],
             'is_featured' => ['boolean'],
+            'is_hero' => ['boolean'],
             'is_digital' => ['boolean'],
 
             // Tab 2 - Pricing

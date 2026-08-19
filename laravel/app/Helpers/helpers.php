@@ -72,6 +72,26 @@ if (! function_exists('asset_url')) {
     }
 }
 
+if (! function_exists('webp_url')) {
+    /**
+     * Return the URL of a stored asset's .webp variant, if one exists on disk.
+     */
+    function webp_url(?string $path): ?string
+    {
+        if (! $path || Str::startsWith($path, ['http://', 'https://'])) {
+            return null;
+        }
+
+        $webpPath = preg_replace('/\.[^.]+$/', '.webp', $path);
+
+        if (! \Illuminate\Support\Facades\Storage::disk('public')->exists($webpPath)) {
+            return null;
+        }
+
+        return asset_url($webpPath);
+    }
+}
+
 if (! function_exists('generate_invoice_number')) {
     /**
      * Generate a unique invoice number, e.g. INV-20260808-00042.

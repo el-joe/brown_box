@@ -35,6 +35,7 @@ class Product extends Model implements HasMedia
         'has_variants',
         'is_active',
         'is_featured',
+        'is_hero',
         'is_digital',
         'weight',
         'width',
@@ -52,6 +53,7 @@ class Product extends Model implements HasMedia
         'has_variants' => 'boolean',
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
+        'is_hero' => 'boolean',
         'is_digital' => 'boolean',
         'weight' => 'decimal:2',
         'width' => 'decimal:2',
@@ -164,6 +166,11 @@ class Product extends Model implements HasMedia
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', true);
+    }
+
+    public function scopeHero($query)
+    {
+        return $query->where('is_hero', true);
     }
 
     public function scopeOnFlashSale($query)

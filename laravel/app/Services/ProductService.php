@@ -106,7 +106,7 @@ class ProductService
         return array_intersect_key($data, array_flip([
             'category_id', 'brand_id', 'name', 'description', 'short_description',
             'sku', 'barcode', 'price', 'compare_price', 'cost_price',
-            'has_variants', 'is_active', 'is_featured', 'is_digital',
+            'has_variants', 'is_active', 'is_featured', 'is_hero', 'is_digital',
             'weight', 'width', 'height', 'length',
             'meta_title', 'meta_description', 'meta_keywords',
         ]));

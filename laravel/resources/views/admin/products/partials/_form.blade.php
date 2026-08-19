@@ -149,6 +149,7 @@
                 <div class="space-y-3">
                     <x-admin.checkbox name="is_active" :checked="old('is_active', $product->is_active ?? true)" :label="__('Active')" />
                     <x-admin.checkbox name="is_featured" :checked="old('is_featured', $product->is_featured ?? false)" :label="__('Featured')" />
+                    <x-admin.checkbox name="is_hero" :checked="old('is_hero', $product->is_hero ?? false)" :label="__('Hero Product')" />
                     <x-admin.checkbox name="is_digital" :checked="old('is_digital', $product->is_digital ?? false)" :label="__('Digital Product')" />
                 </div>
             </x-admin.card>

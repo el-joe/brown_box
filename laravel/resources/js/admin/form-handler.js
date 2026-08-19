@@ -7,6 +7,10 @@ function clearErrors(form) {
     form.querySelectorAll('.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
 }
 
+function hasErrors(errors) {
+    return !! errors && Object.keys(errors).length > 0;
+}
+
 function renderErrors(form, errors) {
     clearErrors(form);
 
@@ -56,16 +60,22 @@ const AdminForm = {
         clearErrors(form);
         const formData = new FormData(form);
 
+        form.querySelectorAll('input[type="file"]').forEach((input) => {
+            if (! input.files || input.files.length === 0) {
+                formData.delete(input.name);
+            }
+        });
+
         const validation = await post(validateUrl, formData);
 
-        if (! validation.ok || validation.data.errors) {
+        if (! validation.ok || hasErrors(validation.data.errors)) {
             renderErrors(form, validation.data.errors);
             return;
         }
 
         const result = await post(submitUrl, formData);
 
-        if (! result.ok || result.data.errors) {
+        if (! result.ok || hasErrors(result.data.errors)) {
             renderErrors(form, result.data.errors);
             return;
         }

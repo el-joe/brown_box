@@ -42,6 +42,9 @@ return [
     'newsletter_title' => 'اشترك في نشرتنا الإخبارية',
     'newsletter_placeholder' => 'أدخل بريدك الإلكتروني',
     'newsletter_subscribe' => 'اشتراك',
+    'newsletter_success' => 'شكراً لاشتراكك!',
+    'newsletter_already_subscribed' => 'أنت مشترك بالفعل.',
+    'newsletter_error' => 'حدث خطأ ما. حاول مرة أخرى.',
     'all_rights_reserved' => 'جميع الحقوق محفوظة.',
     'payment_methods' => 'طرق الدفع',
 
@@ -93,6 +96,7 @@ return [
     'max_price' => 'الأعلى',
 
     // Product show page
+    'image' => 'صورة',
     'in_stock' => 'متوفر',
     'out_of_stock' => 'غير متوفر',
     'free_shipping_note' => 'السعر شامل الضريبة. شحن مجاني للطلبات أكثر من :amount.',

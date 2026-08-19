@@ -8,6 +8,7 @@ use App\Http\Controllers\Website\ContactController;
 use App\Http\Controllers\Website\CouponController;
 use App\Http\Controllers\Website\CustomerAuthController;
 use App\Http\Controllers\Website\HomeController;
+use App\Http\Controllers\Website\NewsletterController;
 use App\Http\Controllers\Website\PaymentController;
 use App\Http\Controllers\Website\ProductController;
 use App\Http\Controllers\Website\ProductListController;
@@ -42,6 +43,8 @@ Route::prefix('{lang}')->where(['lang' => 'ar|en'])->middleware(['web.locale', '
     });
 
     Route::post('coupon/apply', [CouponController::class, 'apply'])->name('coupon.apply');
+
+    Route::post('newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
     Route::get('shipping/companies', [ShippingController::class, 'companies'])->name('shipping.companies');
 

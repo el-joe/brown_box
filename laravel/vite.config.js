@@ -37,6 +37,18 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    build: {
+        chunkSizeWarningLimit: 600,
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes('node_modules/swiper')) return 'vendor-swiper';
+                    if (id.includes('node_modules/alpinejs') || id.includes('node_modules/@alpinejs')) return 'vendor-alpine';
+                    if (id.includes('node_modules/toastr')) return 'vendor-toastr';
+                },
+            },
+        },
+    },
     server: {
         watch: {
             ignored: ['**/storage/framework/views/**'],

@@ -17,7 +17,7 @@
 
     {{-- General --}}
     <div x-show="activeTab === 'general'" x-cloak>
-        <form method="POST" action="{{ route('admin.settings.general.update') }}" enctype="multipart/form-data">
+        <form id="general-settings-form" method="POST" action="{{ route('admin.settings.general.update') }}" enctype="multipart/form-data">
             @csrf
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2 space-y-6">
@@ -50,18 +50,22 @@
                         {{-- Announcement Bar --}}
                         <div class="admin-field mt-6 pt-6 border-t border-slate-100">
                             <label class="block text-sm font-semibold text-slate-700 mb-3">{{ __('Announcement Bar') }}</label>
+
+                            <div class="mb-3">
+                                <x-admin.checkbox name="announcement_enabled" :checked="old('announcement_enabled', setting('announcement_enabled', '1') === '1')" :label="__('Show Announcement Bar')" />
+                                <p class="text-xs text-slate-400 mt-1">{{ __('Uncheck to hide the announcement bar without clearing its content.') }}</p>
+                            </div>
+
                             <x-admin.lang-tabs>
                                 <x-slot:en>
-                                    <input type="text" name="announcement_text[en]"
-                                        value="{{ old('announcement_text.en', setting('announcement_text_en')) }}"
-                                        class="w-full rounded-lg border-slate-300 text-sm"
-                                        placeholder="Buy Now Pay Later Starting at 0% APR.">
-                                    <p class="text-xs text-slate-400 mt-1">{{ __('Leave blank to hide the announcement bar.') }}</p>
+                                    <div id="announcement_text-en-editor" class="bg-white rounded-lg border border-slate-300" style="min-height: 100px">{!! old('announcement_text.en', setting('announcement_text_en')) !!}</div>
+                                    <textarea name="announcement_text[en]" class="hidden" data-editor-source="announcement_text-en-editor">{{ old('announcement_text.en', setting('announcement_text_en')) }}</textarea>
+                                    @error('announcement_text.en')<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
                                 </x-slot:en>
                                 <x-slot:ar>
-                                    <input type="text" name="announcement_text[ar]"
-                                        value="{{ old('announcement_text.ar', setting('announcement_text_ar')) }}"
-                                        class="w-full rounded-lg border-slate-300 text-sm" dir="rtl">
+                                    <div id="announcement_text-ar-editor" class="bg-white rounded-lg border border-slate-300" style="min-height: 100px" dir="rtl">{!! old('announcement_text.ar', setting('announcement_text_ar')) !!}</div>
+                                    <textarea name="announcement_text[ar]" class="hidden" data-editor-source="announcement_text-ar-editor" dir="rtl">{{ old('announcement_text.ar', setting('announcement_text_ar')) }}</textarea>
+                                    @error('announcement_text.ar')<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
                                 </x-slot:ar>
                             </x-admin.lang-tabs>
                         </div>
@@ -69,6 +73,10 @@
                         {{-- Hero Banner Text --}}
                         <div class="admin-field mt-4">
                             <label class="block text-sm font-semibold text-slate-700 mb-3">{{ __('Hero Banner Text') }}</label>
+                            <div class="mb-3">
+                                <x-admin.checkbox name="hero_banner_enabled" :checked="old('hero_banner_enabled', setting('hero_banner_enabled', '1') === '1')" :label="__('Show Hero Banner')" />
+                                <p class="text-xs text-slate-400 mt-1">{{ __('Uncheck to hide the promo banner without clearing its content.') }}</p>
+                            </div>
                             <x-admin.lang-tabs>
                                 <x-slot:en>
                                     <div class="admin-field">
@@ -518,7 +526,32 @@
 </div>
 @endsection
 
+@push('styles')
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+@endpush
+
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            ['en', 'ar'].forEach((locale) => {
+                const el = document.getElementById(`announcement_text-${locale}-editor`);
+                if (!el || !window.Quill) return;
+                el.__quill = new Quill(el, { theme: 'snow' });
+            });
+
+            const form = document.getElementById('general-settings-form');
+            form?.addEventListener('submit', () => {
+                ['en', 'ar'].forEach((locale) => {
+                    const el = document.getElementById(`announcement_text-${locale}-editor`);
+                    const target = document.querySelector(`[data-editor-source="announcement_text-${locale}-editor"]`);
+                    if (el && el.__quill && target) {
+                        target.value = el.__quill.root.innerHTML;
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         function mailSettings() {
             return {

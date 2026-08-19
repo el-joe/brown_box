@@ -42,6 +42,9 @@ return [
     'newsletter_title' => 'Subscribe to our newsletter',
     'newsletter_placeholder' => 'Enter your email',
     'newsletter_subscribe' => 'Subscribe',
+    'newsletter_success' => 'Thanks for subscribing!',
+    'newsletter_already_subscribed' => 'You are already subscribed.',
+    'newsletter_error' => 'Something went wrong. Please try again.',
     'all_rights_reserved' => 'All rights reserved.',
     'payment_methods' => 'Payment Methods',
 
@@ -93,6 +96,7 @@ return [
     'max_price' => 'Max',
 
     // Product show page
+    'image' => 'Image',
     'in_stock' => 'In Stock',
     'out_of_stock' => 'Out of Stock',
     'free_shipping_note' => 'Price includes VAT. Free shipping on orders over :amount.',

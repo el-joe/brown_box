@@ -90,8 +90,10 @@ class SettingController extends Controller
             'contact_whatsapp' => ['nullable', 'string', 'max:30'],
             'address.ar' => ['nullable', 'string', 'max:500'],
             'address.en' => ['nullable', 'string', 'max:500'],
-            'announcement_text.ar' => ['nullable', 'string', 'max:255'],
-            'announcement_text.en' => ['nullable', 'string', 'max:255'],
+            'announcement_enabled' => ['boolean'],
+            'hero_banner_enabled' => ['boolean'],
+            'announcement_text.ar' => ['nullable', 'string', 'max:2000'],
+            'announcement_text.en' => ['nullable', 'string', 'max:2000'],
             'contact_address.ar' => ['nullable', 'string', 'max:500'],
             'contact_address.en' => ['nullable', 'string', 'max:500'],
             'contact_hours.ar' => ['nullable', 'string', 'max:500'],
@@ -126,6 +128,9 @@ class SettingController extends Controller
         foreach (self::GENERAL_KEYS as $key) {
             $this->save($key, $data[$key] ?? null, 'general');
         }
+
+        $this->save('announcement_enabled', $request->boolean('announcement_enabled') ? '1' : '0', 'general', 'boolean');
+        $this->save('hero_banner_enabled', $request->boolean('hero_banner_enabled') ? '1' : '0', 'general', 'boolean');
 
         if ($request->hasFile('site_logo')) {
             $this->save('site_logo', $request->file('site_logo')->store('settings', 'public'), 'general', 'file');

@@ -118,6 +118,7 @@
                                             'Search Suggestions' => route('admin.search-suggestions.index'),
                                             'Blog' => route('admin.blog.index'),
                                             'Blog Categories' => route('admin.blog-categories.index'),
+                                            'Subscribers' => route('admin.subscribers.index'),
                                             'AI Dashboard' => route('admin.ai.dashboard'),
                                             'SEO Enhancement' => route('admin.ai.seo'),
                                             'Blog Generator' => route('admin.ai.blog'),

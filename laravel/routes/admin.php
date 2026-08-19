@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ShippingCompanyController;
 use App\Http\Controllers\Admin\StaticPageController;
 use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\WarehouseController;
@@ -127,6 +128,7 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminNoI
             Route::post('validate', [ProductController::class, 'validateProduct'])->name('validate');
             Route::patch('{product}/toggle-active', [ProductController::class, 'toggleActive'])->name('toggle-active');
             Route::patch('{product}/toggle-featured', [ProductController::class, 'toggleFeatured'])->name('toggle-featured');
+            Route::patch('{product}/toggle-hero', [ProductController::class, 'toggleHero'])->name('toggle-hero');
             Route::post('/', [ProductController::class, 'store'])->name('store');
             Route::get('{product}/edit', [ProductController::class, 'edit'])->name('edit');
             Route::put('{product}/validate', [ProductController::class, 'validateProduct'])->name('update.validate');
@@ -458,6 +460,14 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminNoI
             Route::get('product-description', [AiController::class, 'productDescription'])->name('product-description');
             Route::post('product-description/generate', [AiController::class, 'generateProductDescription'])->name('product-description.generate');
             Route::post('product-description/save', [AiController::class, 'saveProductDescription'])->name('product-description.save');
+        });
+
+        Route::prefix('subscribers')->name('subscribers.')->group(function (): void {
+            Route::get('/', [SubscriberController::class, 'index'])->name('index');
+            Route::get('data', [SubscriberController::class, 'data'])->name('data');
+            Route::get('compose', [SubscriberController::class, 'compose'])->name('compose');
+            Route::post('send', [SubscriberController::class, 'send'])->name('send');
+            Route::delete('{subscriber}', [SubscriberController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('notifications')->name('notifications.')->group(function (): void {

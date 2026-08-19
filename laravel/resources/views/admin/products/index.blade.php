@@ -52,6 +52,10 @@
                 <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('Featured') }}</label>
                 <x-admin.select name="is_featured" :options="[1 => __('Yes'), 0 => __('No')]" :selected="$filters['is_featured'] ?? null" :placeholder="__('All')" />
             </div>
+            <div class="admin-field">
+                <label class="block text-xs font-medium text-slate-500 mb-1">{{ __('Hero') }}</label>
+                <x-admin.select name="is_hero" :options="[1 => __('Yes'), 0 => __('No')]" :selected="$filters['is_hero'] ?? null" :placeholder="__('All')" />
+            </div>
             <div class="flex items-end">
                 <button type="submit" class="w-full px-4 py-2 rounded-lg bg-slate-800 text-white text-sm font-medium hover:bg-slate-900">
                     {{ __('Filter') }}
@@ -73,6 +77,7 @@
             ['data' => 'stock', 'name' => 'stock', 'title' => __('Stock'), 'orderable' => false, 'searchable' => false],
             ['data' => 'status', 'name' => 'status', 'title' => __('Status'), 'orderable' => false, 'searchable' => false],
             ['data' => 'featured', 'name' => 'featured', 'title' => __('Featured'), 'orderable' => false, 'searchable' => false],
+            ['data' => 'hero', 'name' => 'hero', 'title' => __('Hero'), 'orderable' => false, 'searchable' => false],
             ['data' => 'actions', 'name' => 'actions', 'title' => __('Actions'), 'orderable' => false, 'searchable' => false],
         ]"
     />

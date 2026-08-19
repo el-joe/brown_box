@@ -2,19 +2,59 @@
 
 @section('title', $product->name . ' | ' . (setting('site_name_' . current_lang()) ?: setting('site_name_en', config('app.name'))))
 
-@section('content')
-    @php
-        $mainImage = $product->main_image?->url ?? 'https://placehold.co/600x600';
-        $gallery = $product->productImages->isNotEmpty() ? $product->productImages : collect();
-        $hasDiscount = $product->is_on_sale;
-        $discountPercent = $hasDiscount && $product->price > 0
-            ? (int) round((($product->price - $product->effective_price) / $product->price) * 100)
-            : 0;
-        $stock = $product->has_variants ? $product->variants->sum(fn ($v) => $v->stocks->sum('qty')) : $product->total_stock;
-    @endphp
+@php
+    $mainImage = $product->main_image?->url ?? 'https://placehold.co/600x600';
+    $gallery = $product->productImages->isNotEmpty() ? $product->productImages : collect();
+    $hasDiscount = $product->is_on_sale;
+    $discountPercent = $hasDiscount && $product->price > 0
+        ? (int) round((($product->price - $product->effective_price) / $product->price) * 100)
+        : 0;
+    $stock = $product->has_variants ? $product->variants->sum(fn ($v) => $v->stocks->sum('qty')) : $product->total_stock;
 
+    // Flash sale end date extends the offer's valid window; otherwise assume a year of validity
+    $priceValidUntil = $activeFlashSaleItem
+        ? $activeFlashSaleItem->flashSale->ends_at->format('Y-m-d')
+        : now()->addYear()->format('Y-m-d');
+
+    $schemas = [array_filter([
+        '@context' => 'https://schema.org',
+        '@type' => 'Product',
+        'name' => $product->name,
+        'sku' => $product->sku,
+        'description' => $product->short_description ?: $product->name,
+        'image' => $gallery->isNotEmpty() ? $gallery->map(fn ($i) => $i->url)->values()->all() : [$mainImage],
+        'brand' => $product->brand ? ['@type' => 'Brand', 'name' => $product->brand->name] : null,
+        'offers' => [
+            '@type' => 'Offer',
+            'url' => url()->current(),
+            'priceCurrency' => 'EGP',
+            'price' => (string) $product->effective_price,
+            'priceValidUntil' => $priceValidUntil,
+            'itemCondition' => 'https://schema.org/NewCondition',
+            'availability' => $stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+            'seller' => ['@type' => 'Organization', 'name' => setting('site_name_en', config('app.name'))],
+        ],
+        'aggregateRating' => $reviewCount > 0 ? [
+            '@type' => 'AggregateRating',
+            'ratingValue' => round($averageRating, 1),
+            'reviewCount' => $reviewCount,
+        ] : null,
+    ])];
+
+    $breadcrumbs = array_values(array_filter([
+        ['@type' => 'ListItem', 'position' => 1, 'name' => __('website.home'), 'item' => route('web.home', ['lang' => current_lang()])],
+        $product->category ? [
+            '@type' => 'ListItem',
+            'position' => 2,
+            'name' => $product->category->name,
+            'item' => route('web.categories.show', ['lang' => current_lang(), 'categorySlug' => $product->category->slug]),
+        ] : null,
+        ['@type' => 'ListItem', 'position' => $product->category ? 3 : 2, 'name' => $product->name],
+    ]));
+@endphp
+
+@section('content')
     <div class="max-w-7xl mx-auto px-4 py-8 web-product"
-        itemscope itemtype="https://schema.org/Product"
         data-product-id="{{ $product->id }}"
         data-base-price="{{ $product->price }}"
         data-effective-price="{{ $product->effective_price }}"
@@ -53,18 +93,25 @@
                                         playsinline>
                                     </video>
                                 @else
-                                    <img
-                                        src="{{ $media->url }}"
-                                        alt="{{ $product->name }}"
-                                        class="w-full aspect-square object-cover transition-transform duration-500 ease-out hover:scale-125 cursor-zoom-in"
-                                        loading="lazy"
-                                        itemprop="image">
+                                    <picture>
+                                        @php($mediaWebp = webp_url($media->path))
+                                        @if ($mediaWebp)
+                                            <source srcset="{{ $mediaWebp }}" type="image/webp">
+                                        @endif
+                                        <img
+                                            src="{{ $media->url }}"
+                                            alt="{{ $product->name }} - {{ __('website.image') }} {{ $loop->iteration }}"
+                                            class="w-full aspect-square object-cover transition-transform duration-500 ease-out hover:scale-125 cursor-zoom-in"
+                                            width="600" height="600"
+                                            {{ $loop->first ? 'fetchpriority="high" loading="eager"' : 'loading="lazy" decoding="async"' }}>
+                                    </picture>
                                 @endif
                             </div>
                         @empty
                             {{-- Fallback when no images exist --}}
                             <div class="swiper-slide">
-                                <img src="https://placehold.co/600x600" alt="{{ $product->name }}" class="w-full aspect-square object-cover transition-transform duration-500 ease-out hover:scale-125 cursor-zoom-in">
+                                <img src="https://placehold.co/600x600" alt="{{ $product->name }}" class="w-full aspect-square object-cover transition-transform duration-500 ease-out hover:scale-125 cursor-zoom-in"
+                                    width="600" height="600" loading="eager" fetchpriority="high">
                             </div>
                         @endforelse
                     </div>
@@ -82,7 +129,8 @@
                                             <i class="fa-solid fa-circle-play text-white text-2xl opacity-80"></i>
                                         </div>
                                     @else
-                                        <img src="{{ $media->url }}" alt="{{ $product->name }} thumbnail" class="w-full h-full object-cover">
+                                        <img src="{{ $media->url }}" alt="{{ $product->name }} - {{ __('website.image') }} {{ $loop->iteration }}"
+                                            class="w-full h-full object-cover" loading="lazy" decoding="async" width="64" height="64">
                                     @endif
                                 </div>
                             @endforeach
@@ -96,7 +144,7 @@
                 @if ($product->brand)
                     <p class="text-xs font-semibold text-brand uppercase tracking-wide">{{ $product->brand->name }}</p>
                 @endif
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1" itemprop="name">{{ $product->name }}</h1>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">{{ $product->name }}</h1>
 
                 <div class="flex items-center gap-3 mt-2.5">
                     <x-website.rating :value="$averageRating" :count="$reviewCount" />
@@ -108,11 +156,8 @@
                     @endif
                 </div>
 
-                <div class="flex items-end gap-3 mt-4" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                    <meta itemprop="priceCurrency" content="EGP">
-                    <meta itemprop="availability" content="{{ $stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' }}">
-                    <meta itemprop="url" content="{{ url()->current() }}">
-                    <span id="product-price-current" class="text-3xl font-extrabold {{ $hasDiscount ? 'text-red-600' : 'text-brand' }}" itemprop="price" content="{{ $product->effective_price }}">
+                <div class="flex items-end gap-3 mt-4">
+                    <span id="product-price-current" class="text-3xl font-extrabold {{ $hasDiscount ? 'text-red-600' : 'text-brand' }}">
                         {{ money_format($product->effective_price) }}
                     </span>
                     @if ($hasDiscount)
@@ -123,7 +168,7 @@
                 <p class="text-xs text-slate-500 mt-1">{{ __('website.free_shipping_note', ['amount' => money_format(50)]) }}</p>
 
                 @if ($product->short_description)
-                    <p class="text-sm text-slate-600 leading-relaxed mt-4" itemprop="description">{{ $product->short_description }}</p>
+                    <p class="text-sm text-slate-600 leading-relaxed mt-4">{{ $product->short_description }}</p>
                 @endif
 
                 @if ($activeFlashSaleItem)
@@ -223,10 +268,7 @@
                 @else
                     <p class="text-sm text-slate-500">{{ __('website.no_description') }}</p>
                 @endif
-                <p class="text-xs text-slate-400 mt-4">{{ __('website.sku') }}: <span itemprop="sku">{{ $product->sku }}</span></p>
-                @if ($product->brand)
-                    <meta itemprop="brand" content="{{ $product->brand->name }}">
-                @endif
+                <p class="text-xs text-slate-400 mt-4">{{ __('website.sku') }}: <span>{{ $product->sku }}</span></p>
             </div>
 
             <div data-tab-panel="specifications" class="py-5 hidden">
@@ -343,48 +385,4 @@
 
 @push('scripts')
     @vite(['resources/js/website/product-show.js'])
-
-    @php
-        $productSchema = array_filter([
-            '@context' => 'https://schema.org',
-            '@type' => 'Product',
-            'name' => $product->name,
-            'sku' => $product->sku,
-            'description' => $product->short_description ?: $product->name,
-            'image' => $gallery->isNotEmpty() ? $gallery->map(fn ($i) => $i->url)->values()->all() : [$mainImage],
-            'brand' => $product->brand ? ['@type' => 'Brand', 'name' => $product->brand->name] : null,
-            'offers' => [
-                '@type' => 'Offer',
-                'url' => url()->current(),
-                'priceCurrency' => 'EGP',
-                'price' => (string) $product->effective_price,
-                'availability' => $stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-                'seller' => ['@type' => 'Organization', 'name' => setting('site_name_en', config('app.name'))],
-            ],
-            'aggregateRating' => $reviewCount > 0 ? [
-                '@type' => 'AggregateRating',
-                'ratingValue' => round($averageRating, 1),
-                'reviewCount' => $reviewCount,
-            ] : null,
-        ]);
-
-        $breadcrumbItems = array_values(array_filter([
-            ['@type' => 'ListItem', 'position' => 1, 'name' => __('website.home'), 'item' => route('web.home', ['lang' => current_lang()])],
-            $product->category ? [
-                '@type' => 'ListItem',
-                'position' => 2,
-                'name' => $product->category->name,
-                'item' => route('web.categories.show', ['lang' => current_lang(), 'categorySlug' => $product->category->slug]),
-            ] : null,
-            ['@type' => 'ListItem', 'position' => $product->category ? 3 : 2, 'name' => $product->name],
-        ]));
-
-        $breadcrumbSchema = [
-            '@context' => 'https://schema.org',
-            '@type' => 'BreadcrumbList',
-            'itemListElement' => $breadcrumbItems,
-        ];
-    @endphp
-    <script type="application/ld+json">{!! json_encode($productSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
-    <script type="application/ld+json">{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
 @endpush

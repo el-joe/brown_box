@@ -6,6 +6,29 @@
 @endphp
 @section('title', ($category?->name ?? __('website.shop')) . $pageStr . ' | ' . (setting('site_name_' . current_lang()) ?: setting('site_name_en', config('app.name'))))
 
+@php
+    $breadcrumbs = array_values(array_filter([
+        ['@type' => 'ListItem', 'position' => 1, 'name' => __('website.home'), 'item' => route('web.home', ['lang' => current_lang()])],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => $category?->name ?? __('website.shop')],
+    ]));
+
+    $schemas = [array_filter([
+        '@context' => 'https://schema.org',
+        '@type' => 'CollectionPage',
+        'name' => $category?->name ?? __('website.shop'),
+        'url' => url()->current(),
+        'mainEntity' => [
+            '@type' => 'ItemList',
+            'itemListElement' => $products->values()->map(fn ($product, $index) => [
+                '@type' => 'ListItem',
+                'position' => ($products->firstItem() ?? 1) + $index,
+                'url' => route('web.products.show', ['lang' => current_lang(), 'slug' => $product->slug]),
+                'name' => $product->name,
+            ])->all(),
+        ],
+    ])];
+@endphp
+
 @section('content')
     <div class="max-w-7xl mx-auto px-4 py-8 web-category" x-data="{ filtersOpen: false }">
         <x-website.breadcrumb :items="[
@@ -191,7 +214,7 @@
                 @if ($products->isNotEmpty())
                     <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
                         @foreach ($products as $product)
-                            <x-website.product-card :product="$product" />
+                            <x-website.product-card :product="$product" :priority="$loop->index < 4" />
                         @endforeach
                     </div>
 

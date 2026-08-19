@@ -30,7 +30,7 @@ class ProductController extends Controller
         return view('admin.products.index', [
             'filters' => $request->only([
                 'search', 'category_id', 'brand_id', 'min_price', 'max_price',
-                'stock_status', 'has_variants', 'is_active', 'is_featured',
+                'stock_status', 'has_variants', 'is_active', 'is_featured', 'is_hero',
             ]),
             'categories' => $this->categoryOptions(),
             'brands' => Brand::query()->active()->get()->pluck('name', 'id'),
@@ -80,6 +80,10 @@ class ProductController extends Controller
             $query->where('is_featured', $request->boolean('is_featured'));
         }
 
+        if ($request->filled('is_hero')) {
+            $query->where('is_hero', $request->boolean('is_hero'));
+        }
+
         if ($request->filled('stock_status')) {
             $query->when($request->string('stock_status')->toString() === 'in', fn ($q) => $q->whereHas('stocks', fn ($s) => $s->havingRaw('SUM(qty) > 0')->groupBy('product_id')))
                 ->when($request->string('stock_status')->toString() === 'out', fn ($q) => $q->whereDoesntHave('stocks', fn ($s) => $s->havingRaw('SUM(qty) > 0')->groupBy('product_id')));
@@ -97,8 +101,9 @@ class ProductController extends Controller
             ->addColumn('stock', fn (Product $product) => (int) $product->stocks->sum('qty'))
             ->addColumn('status', fn (Product $product) => view('admin.products._status', ['product' => $product])->render())
             ->addColumn('featured', fn (Product $product) => view('admin.products._featured', ['product' => $product])->render())
+            ->addColumn('hero', fn (Product $product) => view('admin.products._hero', ['product' => $product])->render())
             ->addColumn('actions', fn (Product $product) => view('admin.products._actions', ['product' => $product])->render())
-            ->rawColumns(['image', 'status', 'featured', 'actions'])
+            ->rawColumns(['image', 'status', 'featured', 'hero', 'actions'])
             ->toJson();
     }
 
@@ -166,6 +171,17 @@ class ProductController extends Controller
         return response()->json(['success' => true, 'is_featured' => $product->is_featured]);
     }
 
+    public function toggleHero(int $id): JsonResponse
+    {
+        $product = $this->productRepository->find($id);
+
+        abort_if(! $product, 404);
+
+        $product = $this->products->update($id, ['is_hero' => ! $product->is_hero]);
+
+        return response()->json(['success' => true, 'is_hero' => $product->is_hero]);
+    }
+
     public function generateSku(): JsonResponse
     {
         return response()->json(['sku' => 'PRD-'.strtoupper(Str::random(8))]);
@@ -188,6 +204,7 @@ class ProductController extends Controller
 
         $data['is_active'] = $request->boolean('is_active');
         $data['is_featured'] = $request->boolean('is_featured');
+        $data['is_hero'] = $request->boolean('is_hero');
         $data['is_digital'] = $request->boolean('is_digital');
         $data['has_variants'] = $request->boolean('has_variants');
 
