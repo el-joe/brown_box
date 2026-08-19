@@ -1,6 +1,10 @@
 @extends('website.layouts.app')
 
-@section('title', $category?->name ?? __('website.shop'))
+@php
+    $pageNum = request()->integer('page');
+    $pageStr = $pageNum > 1 ? ' — ' . __('website.page') . ' ' . $pageNum : '';
+@endphp
+@section('title', ($category?->name ?? __('website.shop')) . $pageStr . ' | ' . (setting('site_name_' . current_lang()) ?: setting('site_name_en', config('app.name'))))
 
 @section('content')
     <div class="max-w-7xl mx-auto px-4 py-8 web-category" x-data="{ filtersOpen: false }">

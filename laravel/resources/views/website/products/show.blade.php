@@ -1,6 +1,6 @@
 @extends('website.layouts.app')
 
-@section('title', $product->name)
+@section('title', $product->name . ' | ' . (setting('site_name_' . current_lang()) ?: setting('site_name_en', config('app.name'))))
 
 @section('content')
     @php

@@ -4,6 +4,7 @@ return [
     'site_name' => 'ellamart+',
     'home' => 'الرئيسية',
     'shop' => 'المتجر',
+    'page' => 'صفحة',
     'categories' => 'الأقسام',
     'blog' => 'المدونة',
     'track_order' => 'تتبع الطلب',

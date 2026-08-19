@@ -14,4 +14,4 @@ Schedule::command('stock:alert')->dailyAt('08:00');
 Schedule::command('affiliates:approve-commissions')->dailyAt('02:00');
 Schedule::job(new CleanExpiredCoupons())->daily();
 Schedule::job(new CleanOldFlashSales())->hourly();
-Schedule::command('seo:sitemap')->weekly();
+Schedule::command('seo:sitemap')->daily();

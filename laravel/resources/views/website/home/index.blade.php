@@ -67,8 +67,12 @@
             class="mt-4 flex items-center justify-between gap-4 rounded-full bg-gradient-to-r from-brand to-brand text-white px-6 sm:px-10 py-4 overflow-hidden">
             <i class="fa-solid fa-gift text-2xl hidden sm:block"></i>
             <div class="text-center flex-1">
-                <p class="font-bold text-base sm:text-lg">{{ __('website.hero_banner_title') }}</p>
-                <p class="text-xs text-white/80">{{ __('website.hero_banner_subtitle') }}</p>
+                <p class="font-bold text-base sm:text-lg">
+                    {{ setting('hero_banner_title_' . current_lang()) ?: setting('hero_banner_title_en', __('website.hero_banner_title')) }}
+                </p>
+                <p class="text-xs text-white/80">
+                    {{ setting('hero_banner_subtitle_' . current_lang()) ?: setting('hero_banner_subtitle_en', __('website.hero_banner_subtitle')) }}
+                </p>
             </div>
             <i class="fa-solid fa-arrow-{{ current_lang() === 'ar' ? 'left' : 'right' }}"></i>
         </a>

@@ -23,6 +23,8 @@ class SettingController extends Controller
         'contact_address',
         'contact_hours',
         'footer_about',
+        'hero_banner_title',
+        'hero_banner_subtitle',
     ];
 
     private const GENERAL_KEYS = [
@@ -96,6 +98,10 @@ class SettingController extends Controller
             'contact_hours.en' => ['nullable', 'string', 'max:500'],
             'footer_about.ar' => ['nullable', 'string', 'max:500'],
             'footer_about.en' => ['nullable', 'string', 'max:500'],
+            'hero_banner_title.ar' => ['nullable', 'string', 'max:255'],
+            'hero_banner_title.en' => ['nullable', 'string', 'max:255'],
+            'hero_banner_subtitle.ar' => ['nullable', 'string', 'max:255'],
+            'hero_banner_subtitle.en' => ['nullable', 'string', 'max:255'],
             'contact_whatsapp_link' => ['nullable', 'url', 'max:500'],
             'google_maps_embed_url' => ['nullable', 'string', 'max:1000'],
             'social_facebook' => ['nullable', 'url', 'max:255'],

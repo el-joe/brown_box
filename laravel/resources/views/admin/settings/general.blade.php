@@ -66,6 +66,41 @@
                             </x-admin.lang-tabs>
                         </div>
 
+                        {{-- Hero Banner Text --}}
+                        <div class="admin-field mt-4">
+                            <label class="block text-sm font-semibold text-slate-700 mb-3">{{ __('Hero Banner Text') }}</label>
+                            <x-admin.lang-tabs>
+                                <x-slot:en>
+                                    <div class="admin-field">
+                                        <label class="block text-xs text-slate-500 mb-1">{{ __('Title') }}</label>
+                                        <input type="text" name="hero_banner_title[en]"
+                                            value="{{ old('hero_banner_title.en', setting('hero_banner_title_en')) }}"
+                                            class="w-full rounded-lg border-slate-300 text-sm">
+                                    </div>
+                                    <div class="admin-field mt-2">
+                                        <label class="block text-xs text-slate-500 mb-1">{{ __('Subtitle') }}</label>
+                                        <input type="text" name="hero_banner_subtitle[en]"
+                                            value="{{ old('hero_banner_subtitle.en', setting('hero_banner_subtitle_en')) }}"
+                                            class="w-full rounded-lg border-slate-300 text-sm">
+                                    </div>
+                                </x-slot:en>
+                                <x-slot:ar>
+                                    <div class="admin-field">
+                                        <label class="block text-xs text-slate-500 mb-1">{{ __('Title') }}</label>
+                                        <input type="text" name="hero_banner_title[ar]"
+                                            value="{{ old('hero_banner_title.ar', setting('hero_banner_title_ar')) }}"
+                                            class="w-full rounded-lg border-slate-300 text-sm" dir="rtl">
+                                    </div>
+                                    <div class="admin-field mt-2">
+                                        <label class="block text-xs text-slate-500 mb-1">{{ __('Subtitle') }}</label>
+                                        <input type="text" name="hero_banner_subtitle[ar]"
+                                            value="{{ old('hero_banner_subtitle.ar', setting('hero_banner_subtitle_ar')) }}"
+                                            class="w-full rounded-lg border-slate-300 text-sm" dir="rtl">
+                                    </div>
+                                </x-slot:ar>
+                            </x-admin.lang-tabs>
+                        </div>
+
                         {{-- Footer About Text --}}
                         <div class="admin-field mt-4">
                             <label class="block text-sm font-semibold text-slate-700 mb-3">{{ __('Footer About Text') }}</label>

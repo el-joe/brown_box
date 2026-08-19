@@ -22,8 +22,12 @@
         $ogDesc      = isset($seo) ? ($seo->getTranslation('og_description', $lang, false) ?: $seoDesc) : $seoDesc;
         $ogImage     = isset($seo) && $seo->og_image ? asset_url($seo->og_image) : asset_url(setting('site_logo'));
         $canonical   = isset($seo) && $seo->canonical_url ? $seo->canonical_url : url()->current();
-        $robots      = isset($seo) && $seo->robots ? $seo->robots : 'index,follow';
+        $robots      = $pageRobots ?? (isset($seo) && $seo->robots ? $seo->robots : 'index,follow');
         $pageTitle   = $seoTitle ? $seoTitle . ' — ' . $siteName : null;
+
+        $currentPath = request()->path();
+        $hreflangEn  = url(preg_replace('#^(ar|en)(/|$)#', 'en$2', $currentPath));
+        $hreflangAr  = url(preg_replace('#^(ar|en)(/|$)#', 'ar$2', $currentPath));
     @endphp
 
     {{-- Title: SEO title > @yield('title') > site name --}}
@@ -41,6 +45,9 @@
     @endif
     <meta name="robots" content="{{ $robots }}">
     <link rel="canonical" href="{{ $canonical }}">
+    <link rel="alternate" hreflang="ar" href="{{ $hreflangAr }}">
+    <link rel="alternate" hreflang="en" href="{{ $hreflangEn }}">
+    <link rel="alternate" hreflang="x-default" href="{{ $hreflangAr }}">
 
     {{-- Open Graph --}}
     <meta property="og:type" content="website">
@@ -70,6 +77,43 @@
     {{-- Schema JSON-LD --}}
     @if(isset($seo) && !empty($seo->schema_json))
         <script type="application/ld+json">{!! json_encode($seo->schema_json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+    @endif
+
+    @if(request()->routeIs('web.home'))
+        @php
+            $orgSchema = [
+                '@context' => 'https://schema.org',
+                '@graph' => array_map(fn ($item) => array_filter($item), [
+                    array_filter([
+                        '@type' => 'WebSite',
+                        '@id' => url('/') . '#website',
+                        'url' => url('/'),
+                        'name' => $siteName,
+                        'potentialAction' => [
+                            '@type' => 'SearchAction',
+                            'target' => [
+                                '@type' => 'EntryPoint',
+                                'urlTemplate' => route('web.search.index', ['lang' => $lang]) . '?search={search_term_string}',
+                            ],
+                            'query-input' => 'required name=search_term_string',
+                        ],
+                    ]),
+                    array_filter([
+                        '@type' => 'Organization',
+                        '@id' => url('/') . '#organization',
+                        'url' => url('/'),
+                        'name' => $siteName,
+                        'logo' => setting('site_logo') ? asset_url(setting('site_logo')) : null,
+                        'sameAs' => array_values(array_filter([
+                            setting('social_facebook'),
+                            setting('social_instagram'),
+                            setting('social_x'),
+                        ])),
+                    ]),
+                ]),
+            ];
+        @endphp
+        <script type="application/ld+json">{!! json_encode($orgSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
     @endif
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">

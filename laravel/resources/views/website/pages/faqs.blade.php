@@ -63,3 +63,17 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    @php
+        $faqEntities = collect($groups)->flatMap(fn ($group) => collect($group['items'])->map(fn ($item) => [
+            '@type' => 'Question',
+            'name' => strip_tags($item['q']),
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => strip_tags($item['a'])],
+        ]))->all();
+        $faqSchema = ['@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $faqEntities];
+    @endphp
+    @if(!empty($faqEntities))
+        <script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    @endif
+@endpush

@@ -15,6 +15,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 class InjectSeoMeta
 {
+    private const NOINDEX_ROUTES = [
+        'web.cart.index',
+        'web.checkout.index',
+        'web.checkout.success',
+        'web.wishlist.index',
+        'web.track-order.index',
+        'web.search.index',
+        'web.search.suggestions',
+        'web.account.index',
+        'web.account.orders',
+        'web.account.orders.show',
+        'web.account.profile',
+        'web.account.addresses.index',
+        'web.account.wishlist',
+        'web.account.login',
+        'web.account.register',
+    ];
+
     public function __construct(private readonly SeoPageRepositoryInterface $seoPages)
     {
     }
@@ -70,6 +88,11 @@ class InjectSeoMeta
         );
 
         View::share('seo', $seoPage);
+
+        $isNoIndex = in_array($routeName, self::NOINDEX_ROUTES, true)
+            || ($request->filled('page') && $request->integer('page') > 1);
+
+        View::share('pageRobots', $isNoIndex ? 'noindex,follow' : null);
 
         return $next($request);
     }

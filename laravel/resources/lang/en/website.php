@@ -4,6 +4,7 @@ return [
     'site_name' => 'ellamart+',
     'home' => 'Home',
     'shop' => 'Shop',
+    'page' => 'Page',
     'categories' => 'Categories',
     'blog' => 'Blog',
     'track_order' => 'Track Order',
