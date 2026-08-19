@@ -14,7 +14,7 @@
                             <div class="swiper-slide">
                                 <a href="{{ $banner->link() }}" class="block relative h-full">
                                     <picture>
-                                        <?php $bannerWebp = webp_url($banner->image) ?> 
+                                        <?php $bannerWebp = webp_url($banner->image) ?>
                                         @if ($bannerWebp)
                                             <source srcset="{{ $bannerWebp }}" type="image/webp">
                                         @endif

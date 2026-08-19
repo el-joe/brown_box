@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\StaticPage;
 use App\Repositories\Contracts\SeoPageRepositoryInterface;
+use App\Services\SeoDefaultsService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -33,8 +34,18 @@ class InjectSeoMeta
         'web.account.register',
     ];
 
-    public function __construct(private readonly SeoPageRepositoryInterface $seoPages)
-    {
+    private const ROUTE_PAGE_KEYS = [
+        'web.home' => 'home',
+        'web.blog.index' => 'blog',
+        'web.cart.index' => 'cart',
+        'web.checkout.index' => 'checkout',
+        'web.contact.index' => 'contact-us',
+    ];
+
+    public function __construct(
+        private readonly SeoPageRepositoryInterface $seoPages,
+        private readonly SeoDefaultsService $seoDefaults,
+    ) {
     }
 
     public function handle(Request $request, Closure $next): Response
@@ -55,15 +66,21 @@ class InjectSeoMeta
                     $product = Product::query()->where('slug', $request->route('slug'))->first();
 
                     return $product
-                        ? $this->seoPages->findForModel(Product::class, $product->id)
+                        ? ($this->seoPages->findForModel(Product::class, $product->id) ?? $this->seoDefaults->forModel($product))
                         : null;
                 }
 
                 if ($routeName === 'web.categories.show') {
-                    $category = Category::query()->where('slug', $request->route('categorySlug'))->first();
+                    $slug = $request->route('categorySlug');
+
+                    if (! $slug) {
+                        return $this->seoPages->findByPageKey('category-list') ?? $this->seoDefaults->forPageKey('category-list');
+                    }
+
+                    $category = Category::query()->where('slug', $slug)->first();
 
                     return $category
-                        ? $this->seoPages->findForModel(Category::class, $category->id)
+                        ? ($this->seoPages->findForModel(Category::class, $category->id) ?? $this->seoDefaults->forModel($category))
                         : null;
                 }
 
@@ -71,7 +88,7 @@ class InjectSeoMeta
                     $post = BlogPost::query()->where('slug', $request->route('slug'))->first();
 
                     return $post
-                        ? $this->seoPages->findForModel(BlogPost::class, $post->id)
+                        ? ($this->seoPages->findForModel(BlogPost::class, $post->id) ?? $this->seoDefaults->forModel($post))
                         : null;
                 }
 
@@ -79,11 +96,13 @@ class InjectSeoMeta
                     $page = StaticPage::query()->where('slug', $request->route('slug'))->first();
 
                     return $page
-                        ? $this->seoPages->findForModel(StaticPage::class, $page->id)
+                        ? ($this->seoPages->findForModel(StaticPage::class, $page->id) ?? $this->seoDefaults->forModel($page))
                         : null;
                 }
 
-                return $this->seoPages->findByPageKey($routeName);
+                $pageKey = self::ROUTE_PAGE_KEYS[$routeName] ?? $routeName;
+
+                return $this->seoPages->findByPageKey($pageKey) ?? $this->seoDefaults->forPageKey($pageKey);
             },
         );
 
