@@ -263,7 +263,7 @@
                     <div class="relative" x-data="{ open: false }">
                         <button type="button" @click="open = !open" @click.outside="open = false" class="flex items-center gap-2">
                             <img src="{{ asset_url(auth('admin')->user()?->avatar) ?? 'https://ui-avatars.com/api/?name='.urlencode(auth('admin')->user()->name ?? 'Admin') }}"
-                                class="w-9 h-9 rounded-full object-cover border border-slate-200" alt="avatar">
+                                class="w-9 h-9 rounded-full object-cover border border-slate-200" alt="{{ __('admin.avatar') }}">
                             <span class="text-sm font-medium text-slate-700">{{ auth('admin')->user()->name ?? '' }}</span>
                             <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
                         </button>

@@ -179,6 +179,7 @@ return [
     'click_to_upload' => 'Click to upload or drag and drop',
     'additional_notes' => 'Additional Notes',
     'optional' => 'optional',
+    'payment_note_placeholder' => 'Any additional information about your payment...',
     'place_order' => 'Place Order',
     'order_details_secure' => 'Your order details are kept private & secure',
     'full_name' => 'Full Name',

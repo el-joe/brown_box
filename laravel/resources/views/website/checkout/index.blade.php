@@ -220,7 +220,7 @@
                             {{-- Notes --}}
                             <div class="mt-5">
                                 <label for="notes" class="text-sm font-semibold">{{ __('website.additional_notes') }} <span class="text-slate-400 font-normal">({{ __('website.optional') }})</span></label>
-                                <textarea id="notes" name="notes" rows="3" placeholder="Any additional information about your payment..." class="web-checkout-textarea mt-2"></textarea>
+                                <textarea id="notes" name="notes" rows="3" placeholder="{{ __('website.payment_note_placeholder') }}" class="web-checkout-textarea mt-2"></textarea>
                             </div>
                         </div>
 

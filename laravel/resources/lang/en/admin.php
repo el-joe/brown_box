@@ -64,4 +64,5 @@ return [
     'no_recent_orders' => 'No recent orders yet.',
     'items' => 'Items',
     'date' => 'Date',
+    'avatar' => 'Avatar',
 ];

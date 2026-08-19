@@ -179,6 +179,7 @@ return [
     'click_to_upload' => 'اضغط للرفع أو اسحب الملف هنا',
     'additional_notes' => 'ملاحظات إضافية',
     'optional' => 'اختياري',
+    'payment_note_placeholder' => 'أي معلومات إضافية بخصوص عملية الدفع...',
     'place_order' => 'تأكيد الطلب',
     'order_details_secure' => 'تفاصيل طلبك محفوظة وآمنة',
     'full_name' => 'الاسم الكامل',
