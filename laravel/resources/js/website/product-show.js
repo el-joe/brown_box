@@ -252,8 +252,8 @@ function initActions(root, { getQty, getSelectedVariantId }) {
 
             if (label) {
                 label.textContent = wishlisted
-                    ? (wishlistBtn.dataset.labelAdd || 'Remove from Favorites')
-                    : (wishlistBtn.dataset.labelRemove || 'Add to Favorites');
+                    ? (wishlistBtn.dataset.labelAdd || window.translations?.remove_from_favorites || 'Remove from Favorites')
+                    : (wishlistBtn.dataset.labelRemove || window.translations?.add_to_favorites || 'Add to Favorites');
             }
 
             wishlistBtn.dataset.wishlisted = wishlisted ? '1' : '0';
@@ -272,11 +272,11 @@ function initActions(root, { getQty, getSelectedVariantId }) {
             navigator.clipboard.writeText(url).then(() => {
                 toastr.success(
                     refCode
-                        ? 'Affiliate link copied to clipboard!'
-                        : 'Link copied to clipboard!'
+                        ? (window.translations?.affiliate_link_copied || 'Affiliate link copied to clipboard!')
+                        : (window.translations?.link_copied || 'Link copied to clipboard!')
                 );
             }).catch(() => {
-                window.prompt('Copy this link:', url);
+                window.prompt(window.translations?.copy_this_link || 'Copy this link:', url);
             });
         }
     });

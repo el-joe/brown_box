@@ -90,7 +90,7 @@ class CheckoutController extends Controller
 
         $cart = session('cart', []);
 
-        abort_if(empty($cart), 422, 'Cart is empty.');
+        abort_if(empty($cart), 422, __('Cart is empty.'));
 
         /** @var ?Customer $customer */
         $customer = Auth::guard('customer')->user();

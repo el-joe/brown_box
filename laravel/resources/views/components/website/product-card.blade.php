@@ -8,7 +8,7 @@
 
 <div {{ $attributes->merge(['class' => 'group relative rounded-lg border border-slate-100 hover:shadow-lg transition-shadow overflow-hidden']) }}>
     @if ($product->is_on_sale)
-        <x-website.badge text="Sale" color="red" class="absolute top-3 start-3 z-10" />
+        <x-website.badge text="{{ __('Sale') }}" color="red" class="absolute top-3 start-3 z-10" />
     @endif
 
     <button type="button"

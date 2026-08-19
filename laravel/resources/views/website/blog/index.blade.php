@@ -99,7 +99,7 @@
 
                 @if ($posts->isNotEmpty())
                     <div class="web-blog-sidebar-card">
-                        <h3>Recent Posts</h3>
+                        <h3>{{ __('website.js_recent_posts') }}</h3>
                         @foreach ($posts->take(4) as $recentPost)
                             <a href="{{ route('web.blog.show', ['lang' => current_lang(), 'slug' => $recentPost->slug]) }}" class="flex items-center gap-3 py-3 border-b border-slate-100 last:border-0">
                                 <img class="w-14 h-14 rounded-lg object-cover shrink-0" src="{{ $recentPost->image_url }}" alt="{{ $recentPost->title }}">
@@ -114,7 +114,7 @@
 
                 @if ($categories->isNotEmpty())
                     <div class="web-blog-sidebar-card">
-                        <h3>Popular Tags</h3>
+                        <h3>{{ __('website.js_popular_tags') }}</h3>
                         <div class="flex flex-wrap gap-2">
                             @foreach ($categories as $category)
                                 <a href="{{ route('web.blog.index', ['lang' => current_lang(), 'category' => $category['slug']]) }}" class="text-xs font-medium text-slate-600 bg-slate-100 hover:bg-brand hover:text-white transition-colors rounded-full px-3 py-1.5">{{ $category['name'] }}</a>

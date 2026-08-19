@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 appliedDiscount = 0;
                 summaryDiscountRow?.classList.add('hidden');
                 message.classList.add('is-error');
-                message.textContent = res.message || 'Invalid coupon code.';
+                message.textContent = res.message || window.translations?.invalid_coupon_code || 'Invalid coupon code.';
                 recomputeTotals();
             }
         });

@@ -29,7 +29,9 @@
     <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 print:shadow-none print:border-0">
         <div class="flex items-start justify-between mb-6 pb-6 border-b border-slate-100">
             <div>
-                <h2 class="text-xl font-bold text-slate-800">Brown Box</h2>
+                <h2 class="text-xl font-bold text-slate-800">
+                    {{ setting('site_name_' . current_lang()) ?: setting('site_name_en', 'Brown Box') }}
+                </h2>
                 <p class="text-xs text-slate-500 mt-1">{{ __('Purchase Invoice') }}</p>
             </div>
             <div class="text-end">

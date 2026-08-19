@@ -177,11 +177,11 @@ class AffiliateService
             $minPayout = (float) setting('affiliate.min_payout_amount', 0);
 
             if ($amount <= 0 || $amount > (float) $affiliate->balance) {
-                throw new InvalidArgumentException('Requested amount exceeds available balance.');
+                throw new InvalidArgumentException(__('Requested amount exceeds available balance.'));
             }
 
             if ($minPayout > 0 && $amount < $minPayout) {
-                throw new InvalidArgumentException("Minimum payout amount is {$minPayout}.");
+                throw new InvalidArgumentException(__('Minimum payout amount is :amount.', ['amount' => $minPayout]));
             }
 
             $payout = $this->payoutRequests->create([
@@ -232,7 +232,7 @@ class AffiliateService
             $payout = $this->payoutRequests->findOrFail($payoutRequestId);
 
             if ($payout->status !== 'pending') {
-                throw new RuntimeException('Only pending payout requests can be approved.');
+                throw new RuntimeException(__('Only pending payout requests can be approved.'));
             }
 
             $payout->update([
@@ -256,7 +256,7 @@ class AffiliateService
             $payout = $this->payoutRequests->findOrFail($payoutRequestId);
 
             if (! in_array($payout->status, ['pending', 'approved'], true)) {
-                throw new RuntimeException('Only pending or approved payout requests can be marked as paid.');
+                throw new RuntimeException(__('Only pending or approved payout requests can be marked as paid.'));
             }
 
             $payout->update([
@@ -283,7 +283,7 @@ class AffiliateService
         $payout = $this->payoutRequests->findOrFail($payoutRequestId);
 
         if ($payout->status !== 'pending') {
-            throw new RuntimeException('Only pending payout requests can be rejected.');
+            throw new RuntimeException(__('Only pending payout requests can be rejected.'));
         }
 
         return DB::transaction(function () use ($payout, $notes) {

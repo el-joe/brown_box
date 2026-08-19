@@ -12,10 +12,10 @@ enum Robots: string
     public function label(): string
     {
         return match ($this) {
-            self::IndexFollow => 'Index, Follow',
-            self::NoIndexFollow => 'No Index, Follow',
-            self::IndexNoFollow => 'Index, No Follow',
-            self::NoIndexNoFollow => 'No Index, No Follow',
+            self::IndexFollow => __('Index, Follow'),
+            self::NoIndexFollow => __('No Index, Follow'),
+            self::IndexNoFollow => __('Index, No Follow'),
+            self::NoIndexNoFollow => __('No Index, No Follow'),
         };
     }
 }

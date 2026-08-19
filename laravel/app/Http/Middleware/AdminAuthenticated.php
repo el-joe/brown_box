@@ -23,7 +23,7 @@ class AdminAuthenticated
             $request->session()->invalidate();
 
             return redirect()->route('admin.login')->withErrors([
-                'email' => 'Your account has been deactivated.',
+                'email' => __('Your account has been deactivated.'),
             ]);
         }
 

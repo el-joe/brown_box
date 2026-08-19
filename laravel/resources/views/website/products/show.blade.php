@@ -207,9 +207,9 @@
                 {{-- Quantity + Add to cart --}}
                 <div class="flex flex-wrap items-center gap-3 mt-7">
                     <div class="web-qty-stepper">
-                        <button type="button" id="qty-minus" aria-label="Decrease quantity"><i class="fa-solid fa-minus"></i></button>
+                        <button type="button" id="qty-minus" aria-label="{{ __('website.decrease_quantity') }}"><i class="fa-solid fa-minus"></i></button>
                         <input id="qty-input" type="text" inputmode="numeric" value="1" aria-label="{{ __('website.quantity') }}">
-                        <button type="button" id="qty-plus" aria-label="Increase quantity"><i class="fa-solid fa-plus"></i></button>
+                        <button type="button" id="qty-plus" aria-label="{{ __('website.increase_quantity') }}"><i class="fa-solid fa-plus"></i></button>
                     </div>
                     <div class="flex-1 min-w-[220px] flex gap-2">
                         <button type="button" id="add-to-cart-btn" class="web-btn-primary flex-1" {{ $stock > 0 ? '' : 'disabled' }}>

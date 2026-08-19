@@ -119,7 +119,7 @@
                     </div>
                     <div class="admin-field mt-4">
                         <label class="block text-sm font-medium text-slate-700 mb-1">{{ __('Description Template (EN)') }}</label>
-                        <textarea name="description[en]" rows="3" class="w-full rounded-lg border-slate-300 text-sm">Buy {name} at the best price.</textarea>
+                        <textarea name="description[en]" rows="3" class="w-full rounded-lg border-slate-300 text-sm">{{ __('Buy {name} at the best price.') }}</textarea>
                     </div>
                 </x-slot:en>
                 <x-slot:ar>

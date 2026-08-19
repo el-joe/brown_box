@@ -57,7 +57,7 @@ class OrderService
             $items = $data['items'] ?? [];
 
             if (empty($items)) {
-                throw new RuntimeException('An order must have at least one item.');
+                throw new RuntimeException(__('An order must have at least one item.'));
             }
 
             $subtotal = 0;
@@ -292,7 +292,7 @@ class OrderService
             $order = $this->orders->findOrFail($orderId);
 
             if (! in_array($order->status->value, self::CANCELLABLE_STATUSES, true)) {
-                throw new RuntimeException("Order in status '{$order->status->value}' cannot be cancelled.");
+                throw new RuntimeException(__("Order in status ':status' cannot be cancelled.", ['status' => $order->status->value]));
             }
 
             if ($warehouseId) {

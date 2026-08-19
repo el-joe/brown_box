@@ -50,7 +50,7 @@ async function ajaxSubmit(form, onFieldErrors) {
         return true;
     }
 
-    showToast('Something went wrong. Please try again.', true);
+    showToast(window.translations?.something_went_wrong || 'Something went wrong. Please try again.', true);
     return false;
 }
 
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const btn = document.getElementById('login-submit-btn');
             const originalHtml = btn.innerHTML;
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>' + (window.i18n?.signingIn || 'Signing in...') + '</span>';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>' + (window.translations?.signing_in || 'Signing in...') + '</span>';
 
             try {
                 const ok = await ajaxSubmit(loginForm, function (errors) {
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (err) {
                 btn.disabled = false;
                 btn.innerHTML = originalHtml;
-                showToast('Something went wrong. Please try again.', true);
+                showToast(window.translations?.something_went_wrong || 'Something went wrong. Please try again.', true);
             }
         });
     }
@@ -140,10 +140,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const pwLabel = document.getElementById('pw-strength-label');
         const pwLevels = [
             { label: '', color: '#e2e8f0', width: '0%' },
-            { label: 'Weak', color: '#dc2626', width: '25%' },
-            { label: 'Fair', color: '#f59e0b', width: '50%' },
-            { label: 'Good', color: '#2563eb', width: '75%' },
-            { label: 'Strong', color: '#10b981', width: '100%' },
+            { label: window.translations?.password_weak || 'Weak', color: '#dc2626', width: '25%' },
+            { label: window.translations?.password_fair || 'Fair', color: '#f59e0b', width: '50%' },
+            { label: window.translations?.password_good || 'Good', color: '#2563eb', width: '75%' },
+            { label: window.translations?.password_strong || 'Strong', color: '#10b981', width: '100%' },
         ];
 
         function scorePassword(value) {
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const btn = document.getElementById('register-submit-btn');
             const originalHtml = btn.innerHTML;
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Creating account...</span>';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>' + (window.translations?.creating_account || 'Creating account...') + '</span>';
 
             try {
                 const ok = await ajaxSubmit(registerForm, function (errors) {
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (err) {
                 btn.disabled = false;
                 btn.innerHTML = originalHtml;
-                showToast('Something went wrong. Please try again.', true);
+                showToast(window.translations?.something_went_wrong || 'Something went wrong. Please try again.', true);
             }
         });
     }

@@ -63,7 +63,7 @@
                 >
                     <div class="flex items-center justify-between p-4 border-b border-slate-100 lg:hidden">
                         <span class="font-bold text-lg">{{ __('website.filter_by') }}</span>
-                        <button type="button" @click="filtersOpen = false" class="text-xl" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                        <button type="button" @click="filtersOpen = false" class="text-xl" aria-label="{{ __('website.close') }}"><i class="fa-solid fa-xmark"></i></button>
                     </div>
 
                     <form method="GET" action="{{ url()->current() }}" class="p-4 lg:p-0 border border-slate-100 lg:border-0 rounded-2xl lg:rounded-none">

@@ -13,11 +13,11 @@ enum ShippingStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Pending => 'Pending',
-            self::PickedUp => 'Picked Up',
-            self::InTransit => 'In Transit',
-            self::Delivered => 'Delivered',
-            self::Returned => 'Returned',
+            self::Pending => __('Pending'),
+            self::PickedUp => __('Picked Up'),
+            self::InTransit => __('In Transit'),
+            self::Delivered => __('Delivered'),
+            self::Returned => __('Returned'),
         };
     }
 }

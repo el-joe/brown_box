@@ -90,6 +90,38 @@
             paymentUploadProof: @js(route('web.payment.upload-proof', ['lang' => current_lang(), 'order' => '__ORDER__'])),
             affiliateCode: @js(optional(Auth::guard('customer')->user()?->affiliate)->code),
         };
+        window.translations = @js([
+            'added_to_cart' => __('website.js_added_to_cart'),
+            'could_not_add_cart' => __('website.js_could_not_add_cart'),
+            'added_to_wishlist' => __('website.js_added_to_wishlist'),
+            'removed_from_wishlist' => __('website.js_removed_from_wishlist'),
+            'could_not_update_wishlist' => __('website.js_could_not_update_wishlist'),
+            'affiliate_link_copied' => __('website.js_affiliate_link_copied'),
+            'link_copied' => __('website.js_link_copied'),
+            'confirm_remove_address' => __('website.js_confirm_remove_address'),
+            'selectAddress' => __('website.js_select_address_first'),
+            'free_shipping_area' => __('website.js_free_shipping_area'),
+            'free' => __('website.free'),
+            'couponApplied' => __('website.coupon_applied'),
+            'please_check_form' => __('website.js_please_check_form'),
+            'something_went_wrong' => __('website.js_something_went_wrong'),
+            'profile_updated' => __('website.js_profile_updated'),
+            'passwords_do_not_match' => __('website.js_passwords_do_not_match'),
+            'password_updated' => __('website.js_password_updated'),
+            'address_saved' => __('website.js_address_saved'),
+            'signing_in' => __('website.js_signing_in'),
+            'password_weak' => __('website.js_password_weak'),
+            'password_fair' => __('website.js_password_fair'),
+            'password_good' => __('website.js_password_good'),
+            'password_strong' => __('website.js_password_strong'),
+            'creating_account' => __('website.js_creating_account'),
+            'invalid_coupon_code' => __('website.js_invalid_coupon_code'),
+            'days_suffix' => __('website.js_days_suffix'),
+            'add_to_favorites' => __('website.add_to_favorites'),
+            'remove_from_favorites' => __('website.remove_from_favorites'),
+            'copy_this_link' => __('website.js_copy_this_link'),
+            'thanks_subscribing' => __('website.js_thanks_subscribing'),
+        ]);
     </script>
 
     {{-- Announcement bar --}}

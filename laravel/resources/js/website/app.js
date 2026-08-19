@@ -62,9 +62,9 @@ window.WebsiteApi = {
         }).then((data) => {
             if (data.success) {
                 updateCartBadge(data.cart_count);
-                toastr.success(data.message || 'Added to cart successfully.');
+                toastr.success(data.message || window.translations?.added_to_cart || 'Product added to cart.');
             } else {
-                toastr.error(data.message || 'Could not add product to cart.');
+                toastr.error(data.message || window.translations?.could_not_add_cart || 'Could not add product to cart.');
             }
 
             return data;
@@ -77,9 +77,11 @@ window.WebsiteApi = {
         }).then((data) => {
             if (data.success) {
                 updateWishlistBadge(data.wishlist_count);
-                toastr.success(data.message || (data.wishlisted ? 'Added to wishlist.' : 'Removed from wishlist.'));
+                toastr.success(data.message || (data.wishlisted
+                    ? (window.translations?.added_to_wishlist || 'Added to wishlist.')
+                    : (window.translations?.removed_from_wishlist || 'Removed from wishlist.')));
             } else {
-                toastr.error(data.message || 'Could not update wishlist.');
+                toastr.error(data.message || window.translations?.could_not_update_wishlist || 'Could not update wishlist.');
             }
 
             return data;

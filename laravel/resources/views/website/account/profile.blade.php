@@ -171,9 +171,9 @@
                     var levels = [
                         { width: '0%', color: '', label: '' },
                         { width: '25%', color: 'bg-red-500', label: '{{ __('website.password_min_chars') }}' },
-                        { width: '50%', color: 'bg-orange-500', label: 'Weak' },
-                        { width: '75%', color: 'bg-yellow-500', label: 'Medium' },
-                        { width: '100%', color: 'bg-green-500', label: 'Strong' },
+                        { width: '50%', color: 'bg-orange-500', label: '{{ __('website.js_password_weak') }}' },
+                        { width: '75%', color: 'bg-yellow-500', label: '{{ __('website.js_password_medium') }}' },
+                        { width: '100%', color: 'bg-green-500', label: '{{ __('website.js_password_strong') }}' },
                     ];
 
                     var level = value.length === 0 ? levels[0] : levels[score] || levels[1];

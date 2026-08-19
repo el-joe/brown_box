@@ -12,10 +12,10 @@ enum StockMovementType: string
     public function label(): string
     {
         return match ($this) {
-            self::Purchase => 'Purchase',
-            self::Sale => 'Sale',
-            self::Adjustment => 'Adjustment',
-            self::Return => 'Return',
+            self::Purchase => __('Purchase'),
+            self::Sale => __('Sale'),
+            self::Adjustment => __('Adjustment'),
+            self::Return => __('Return'),
         };
     }
 }

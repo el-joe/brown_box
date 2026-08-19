@@ -11,9 +11,9 @@ enum UserType: string
     public function label(): string
     {
         return match ($this) {
-            self::Admin => 'Admin',
-            self::Affiliate => 'Affiliate',
-            self::Customer => 'Customer',
+            self::Admin => __('Admin'),
+            self::Affiliate => __('Affiliate'),
+            self::Customer => __('Customer'),
         };
     }
 }

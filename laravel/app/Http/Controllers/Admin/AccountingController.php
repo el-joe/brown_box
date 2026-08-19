@@ -48,14 +48,14 @@ class AccountingController extends Controller
 
                 $sectionNodes[] = [
                     'key' => $key,
-                    'label' => $label,
+                    'label' => __($label),
                     'debit' => $totals['debit'],
                     'credit' => $totals['credit'],
                     'balance' => $totals['credit'] - $totals['debit'],
                 ];
             }
 
-            $tree[$section] = $sectionNodes;
+            $tree[__($section)] = $sectionNodes;
         }
 
         return view('admin.accounting.index', [
@@ -79,7 +79,7 @@ class AccountingController extends Controller
 
         return view('admin.accounting.show', [
             'node' => $node,
-            'label' => $labels->get($node),
+            'label' => __($labels->get($node)),
             'entries' => $entries,
             'filters' => $filters,
             'isOpeningBalance' => $node === 'opening_balances',

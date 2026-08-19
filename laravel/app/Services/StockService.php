@@ -95,7 +95,7 @@ class StockService
             $stock = $this->stocks->firstOrCreateFor($productId, $warehouseId, $variantId);
 
             if ($stock->qty < $qty) {
-                throw new RuntimeException("Insufficient stock for product {$productId} in warehouse {$warehouseId}.");
+                throw new RuntimeException(__('Insufficient stock for product :productId in warehouse :warehouseId.', ['productId' => $productId, 'warehouseId' => $warehouseId]));
             }
 
             $before = $stock->qty;
@@ -129,7 +129,7 @@ class StockService
             $stock = $this->stocks->firstOrCreateFor($productId, $warehouseId, $variantId);
 
             if ($direction === 'deduct' && $stock->qty < $qty) {
-                throw new RuntimeException("Insufficient stock for product {$productId} in warehouse {$warehouseId}.");
+                throw new RuntimeException(__('Insufficient stock for product :productId in warehouse :warehouseId.', ['productId' => $productId, 'warehouseId' => $warehouseId]));
             }
 
             $before = $stock->qty;

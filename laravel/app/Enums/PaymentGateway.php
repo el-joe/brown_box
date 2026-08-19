@@ -12,10 +12,10 @@ enum PaymentGateway: string
     public function label(): string
     {
         return match ($this) {
-            self::BankTransfer => 'Bank Transfer',
-            self::VodafoneCash => 'Vodafone Cash',
-            self::Instapay => 'Instapay',
-            self::Paymob => 'Paymob',
+            self::BankTransfer => __('Bank Transfer'),
+            self::VodafoneCash => __('Vodafone Cash'),
+            self::Instapay => __('Instapay'),
+            self::Paymob => __('Paymob'),
         };
     }
 }

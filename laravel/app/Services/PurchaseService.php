@@ -52,7 +52,7 @@ class PurchaseService
         $purchase = $this->purchases->findOrFail($id);
 
         if ($purchase->status === 'confirmed') {
-            throw new RuntimeException('Confirmed purchases cannot be edited.');
+            throw new RuntimeException(__('Confirmed purchases cannot be edited.'));
         }
 
         $totals = $this->calculateTotals($items, (float) ($data['discount_amount'] ?? 0), (float) ($data['tax_amount'] ?? 0));
@@ -147,7 +147,7 @@ class PurchaseService
         $purchase = $this->purchases->findOrFail($id);
 
         if ($purchase->status === 'confirmed') {
-            throw new RuntimeException('Confirmed purchases cannot be deleted.');
+            throw new RuntimeException(__('Confirmed purchases cannot be deleted.'));
         }
 
         return $this->purchases->delete($id);

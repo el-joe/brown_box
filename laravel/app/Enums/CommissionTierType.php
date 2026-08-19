@@ -10,8 +10,8 @@ enum CommissionTierType: string
     public function label(): string
     {
         return match ($this) {
-            self::FixedPercentage => 'Fixed Percentage',
-            self::Tiered => 'Tiered',
+            self::FixedPercentage => __('Fixed Percentage'),
+            self::Tiered => __('Tiered'),
         };
     }
 }

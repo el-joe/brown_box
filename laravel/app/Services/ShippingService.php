@@ -20,7 +20,7 @@ class ShippingService
         $rate = $this->shippingRates->findForLocation($shippingCompanyId, $governorateId, $cityId);
 
         if (! $rate) {
-            throw new InvalidArgumentException('No shipping rate configured for the given location.');
+            throw new InvalidArgumentException(__('No shipping rate configured for the given location.'));
         }
 
         return (float) $rate->price;

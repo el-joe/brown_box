@@ -16,7 +16,9 @@
         {{-- Sidebar --}}
         <aside class="w-64 shrink-0 bg-slate-900 text-slate-200 flex flex-col" :class="sidebarOpen ? '' : 'w-16'">
             <div class="h-16 flex items-center px-4 border-b border-slate-800">
-                <span class="font-bold text-lg text-white" x-show="sidebarOpen">Brown Box</span>
+                <span class="font-bold text-lg text-white" x-show="sidebarOpen">
+                    {{ setting('site_name_' . current_lang()) ?: setting('site_name_en', 'Brown Box') }}
+                </span>
                 <i class="fa-solid fa-box text-amber-500 text-xl" x-show="!sidebarOpen"></i>
             </div>
 
@@ -303,6 +305,12 @@
     </div>
 
     <x-admin.confirm-delete />
+
+    <script>
+        window.translations = @js([
+            //
+        ]);
+    </script>
 
     @if(app()->environment('local') || file_exists(public_path('build/manifest.json')))
         @vite(['resources/js/admin/form-handler.js'])

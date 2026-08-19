@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rates = res.rates || [];
 
             if (rates.length === 0) {
-                container.innerHTML = '<p class="text-sm text-slate-400">Free shipping to your area.</p>';
+                container.innerHTML = `<p class="text-sm text-slate-400">${window.translations?.free_shipping_area || 'Free shipping to your area.'}</p>`;
                 document.getElementById('shipping-company-id-input').value = '';
                 updateShippingCost(0);
                 return;
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="radio" name="shipping_company_display" value="${rate.shipping_company_id}" ${idx === 0 ? 'checked' : ''}>
                     <span class="web-select-check"><i class="fa-solid fa-check"></i></span>
                     <p class="font-bold text-sm text-slate-900">${rate.name}</p>
-                    <p class="text-xs text-slate-400 mt-1">${rate.estimated_days ? rate.estimated_days + ' days' : ''}</p>
+                    <p class="text-xs text-slate-400 mt-1">${rate.estimated_days ? rate.estimated_days + (window.translations?.days_suffix || ' days') : ''}</p>
                     <p class="text-sm font-semibold text-amber-600 mt-2">${rate.price.toFixed(2)}</p>
                 </label>`
                 )
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 discountRow?.classList.add('hidden');
                 if (discountEl) discountEl.dataset.value = 0;
                 message.classList.add('is-error');
-                message.textContent = res.message || 'Invalid coupon code.';
+                message.textContent = res.message || window.translations?.invalid_coupon_code || 'Invalid coupon code.';
             }
         });
     });

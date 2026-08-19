@@ -53,9 +53,9 @@
                             </div>
                             <div class="web-cart-item-qty">
                                 <div class="web-qty-stepper">
-                                    <button type="button" class="qty-minus" data-key="{{ $item['key'] }}" aria-label="Decrease quantity"><i class="fa-solid fa-minus"></i></button>
-                                    <input class="qty-input" type="text" inputmode="numeric" value="{{ $item['qty'] }}" data-key="{{ $item['key'] }}" aria-label="Quantity">
-                                    <button type="button" class="qty-plus" data-key="{{ $item['key'] }}" aria-label="Increase quantity"><i class="fa-solid fa-plus"></i></button>
+                                    <button type="button" class="qty-minus" data-key="{{ $item['key'] }}" aria-label="{{ __('website.decrease_quantity') }}"><i class="fa-solid fa-minus"></i></button>
+                                    <input class="qty-input" type="text" inputmode="numeric" value="{{ $item['qty'] }}" data-key="{{ $item['key'] }}" aria-label="{{ __('website.quantity') }}">
+                                    <button type="button" class="qty-plus" data-key="{{ $item['key'] }}" aria-label="{{ __('website.increase_quantity') }}"><i class="fa-solid fa-plus"></i></button>
                                 </div>
                             </div>
                             <div class="web-cart-item-price">

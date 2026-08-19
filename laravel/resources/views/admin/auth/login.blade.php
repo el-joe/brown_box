@@ -10,7 +10,9 @@
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex items-center justify-center">
     <div class="w-full max-w-md">
         <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold text-slate-900">Brown Box</h1>
+            <h1 class="text-2xl font-bold text-slate-900">
+                {{ setting('site_name_' . current_lang()) ?: setting('site_name_en', 'Brown Box') }}
+            </h1>
             <p class="text-sm text-slate-500 mt-1">{{ __('Admin Panel') }}</p>
         </div>
 

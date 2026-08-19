@@ -52,7 +52,7 @@ async function ajaxSubmitForm(form, { method = null, onSuccessReload = true, onS
         const data = await response.json();
         clearFieldErrors(form);
         applyFieldErrors(form, data.errors || {});
-        showToast(data.message || 'Please check the form for errors.', true);
+        showToast(data.message || window.translations?.please_check_form || 'Please check the form for errors.', true);
         return false;
     }
 
@@ -65,7 +65,7 @@ async function ajaxSubmitForm(form, { method = null, onSuccessReload = true, onS
         return true;
     }
 
-    showToast('Something went wrong. Please try again.', true);
+    showToast(window.translations?.something_went_wrong || 'Something went wrong. Please try again.', true);
     return false;
 }
 
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             await ajaxSubmitForm(profileForm, {
                 method: 'PUT',
-                onSuccess: () => showToast('Profile updated successfully.'),
+                onSuccess: () => showToast(window.translations?.profile_updated || 'Profile updated successfully.'),
             });
 
             btn.disabled = false;
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const confirmPassword = document.getElementById('confirm-password');
 
             if (newPassword.value && newPassword.value !== confirmPassword.value) {
-                showToast('Passwords do not match.', true);
+                showToast(window.translations?.passwords_do_not_match || 'Passwords do not match.', true);
                 return;
             }
 
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
             await ajaxSubmitForm(passwordForm, {
                 method: 'PUT',
                 onSuccess: () => {
-                    showToast('Password updated successfully.');
+                    showToast(window.translations?.password_updated || 'Password updated successfully.');
                     passwordForm.reset();
                 },
             });
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.address-delete-form').forEach(function (form) {
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
-            if (!confirm('Remove this address?')) return;
+            if (!confirm(window.translations?.confirm_remove_address || 'Remove this address?')) return;
 
             await ajaxSubmitForm(form, { method: 'DELETE' });
         });
@@ -273,18 +273,18 @@ function addressManager(config) {
 
                 if (!response.ok || !data.success) {
                     this.errors = data.errors || {};
-                    window.toastr?.error(data.message || 'Please check the form for errors.');
+                    window.toastr?.error(data.message || window.translations?.please_check_form || 'Please check the form for errors.');
                     this.saving = false;
                     return;
                 }
 
-                window.toastr?.success(data.message || 'Address saved successfully.');
+                window.toastr?.success(data.message || window.translations?.address_saved || 'Address saved successfully.');
                 this.saving = false;
                 this.open = false;
                 window.location.reload();
             } catch (err) {
                 this.saving = false;
-                window.toastr?.error('Something went wrong. Please try again.');
+                window.toastr?.error(window.translations?.something_went_wrong || 'Something went wrong. Please try again.');
             }
         },
     };

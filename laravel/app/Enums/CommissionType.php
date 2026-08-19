@@ -10,8 +10,8 @@ enum CommissionType: string
     public function label(): string
     {
         return match ($this) {
-            self::FixedAllOrders => 'Fixed for All Orders',
-            self::PerCategory => 'Per Category',
+            self::FixedAllOrders => __('Fixed for All Orders'),
+            self::PerCategory => __('Per Category'),
         };
     }
 }

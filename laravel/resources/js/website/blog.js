@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const input = form.querySelector('input');
             if (input) {
                 input.value = '';
-                input.placeholder = 'Thanks for subscribing!';
+                input.placeholder = window.translations?.thanks_subscribing || 'Thanks for subscribing!';
             }
         });
     });

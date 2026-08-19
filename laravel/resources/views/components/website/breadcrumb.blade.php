@@ -1,7 +1,7 @@
 @props(['items' => []])
 
 <nav {{ $attributes->merge(['class' => 'text-sm text-slate-500 flex items-center flex-wrap gap-2']) }}
-    aria-label="Breadcrumb"
+    aria-label="{{ __('Breadcrumb') }}"
     itemscope itemtype="https://schema.org/BreadcrumbList">
     @foreach ($items as $index => $item)
         @if ($index > 0)

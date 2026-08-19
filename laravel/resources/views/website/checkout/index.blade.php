@@ -213,7 +213,7 @@
                                         <p id="file-preview-name" class="text-sm font-medium truncate"></p>
                                         <p id="file-preview-size" class="text-xs text-slate-400"></p>
                                     </div>
-                                    <button type="button" id="file-remove-btn" class="ms-auto text-slate-400 hover:text-red-600" aria-label="Remove file"><i class="fa-solid fa-xmark"></i></button>
+                                    <button type="button" id="file-remove-btn" class="ms-auto text-slate-400 hover:text-red-600" aria-label="{{ __('website.remove_file') }}"><i class="fa-solid fa-xmark"></i></button>
                                 </div>
                             </div>
 

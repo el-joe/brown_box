@@ -80,31 +80,31 @@ class CouponService
         $coupon = $this->coupons->findByCode($code);
 
         if (! $coupon) {
-            throw new InvalidArgumentException('Coupon not found.');
+            throw new InvalidArgumentException(__('Coupon not found.'));
         }
 
         if (! $coupon->is_active) {
-            throw new InvalidArgumentException('Coupon is not active.');
+            throw new InvalidArgumentException(__('Coupon is not active.'));
         }
 
         if ($coupon->starts_at && $coupon->starts_at->isFuture()) {
-            throw new InvalidArgumentException('Coupon is not yet valid.');
+            throw new InvalidArgumentException(__('Coupon is not yet valid.'));
         }
 
         if ($coupon->expires_at && $coupon->expires_at->isPast()) {
-            throw new InvalidArgumentException('Coupon has expired.');
+            throw new InvalidArgumentException(__('Coupon has expired.'));
         }
 
         if ($coupon->max_uses !== null && $coupon->used_count >= $coupon->max_uses) {
-            throw new InvalidArgumentException('Coupon usage limit reached.');
+            throw new InvalidArgumentException(__('Coupon usage limit reached.'));
         }
 
         if ($coupon->min_order_amount !== null && $subtotal < (float) $coupon->min_order_amount) {
-            throw new InvalidArgumentException('Order does not meet the coupon minimum amount.');
+            throw new InvalidArgumentException(__('Order does not meet the coupon minimum amount.'));
         }
 
         if ($cartItems && ! $this->matchesRestrictions($coupon, $cartItems)) {
-            throw new InvalidArgumentException('Coupon does not apply to the items in your cart.');
+            throw new InvalidArgumentException(__('Coupon does not apply to the items in your cart.'));
         }
 
         return $coupon;
